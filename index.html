@@ -261,11 +261,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-第一周作业" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/05/31/hello-world/" class="article-date">
-      <time datetime="2018-05-31T09:11:18.408Z" itemprop="datePublished">2018-05-31</time>
+      <a href="/2018/06/04/第一周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:46.649Z" itemprop="datePublished">2018-06-04</time>
 </a>
 
 
@@ -276,29 +276,1539 @@
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/31/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
+    <div class="article-entry" itemprop="articleBody">
       
+          
+        <p>#一、计算机的组成及其功能</p>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><p>###冯·洛伊曼体系</p>
+<ol>
+<li>控制器(Control)：是整个计算机的中枢神经，其功能是对程序规定的控制信息进行解释，根据其要求进行控制，调度程序、数据、地址，协调计算机各部分工作及内存与外设的访问等。</li>
+<li>运算器(Datapath)：运算器的功能是对数据进行各种算术运算和逻辑运算，即对数据进行加工处理。</li>
+<li>存储器(Memory)：存储器的功能是存储程序、数据和各种信号、命令等信息，并在需要时提供这些信息。</li>
+<li>输入(Input system)：输入设备是计算机的重要组成部分，输入设备与输出设备合称为外部设备，简称外设，输入设备的作用是将程序、原始数据、文字、字符、控制命令或现场采集的数据等信息输入到计算机。常见的输入设备有键盘、鼠标器、光电输入机、磁带机、磁盘机、光盘机等。</li>
+<li>输出(Output system)：输出设备与输入设备同样是计算机的重要组成部分，它把外算机的中间结果或最后结果、机内的各种数据符号及文字或各种控制信号等信息输出出来。微机常用的输出设备有显示终端CRT、打印机、激光印字机、绘图仪及磁带、光盘机等。</li>
+</ol>
+<p>##软件</p>
+<p>###低级语言：</p>
+<p>汇编语言，汇编器；写驱动</p>
+<p>###高级语言：</p>
+<p>系统级：C，C++，对性能要求较高的服务类程序<br>应用级：Java,Python,Ruby</p>
+<p>#二、Linux 发行版有数百种之多，主要分三个主流分支</p>
+<p>##RedHat Enterprise Linux<br>Redhat系列，包括RHEL(Redhat Enterprise Linux，也就是所谓的Redhat Advance Server，收费版本)、Fedora Core(由原来的Redhat桌面版本发展而来，免费版本)、CentOS(RHEL的社区 克隆版本，免费)。Redhat是在国内使用人群最多的Linux版本，甚至有人将Redhat等同于Linux。所以这个版本的特点就是使用人群数量大，资料非常多，言下之意就是如果你有什么不明白的地方，很容易找到人来问，而且网上的一般Linux教程都是以Redhat为例来讲解的。Redhat系列的包管理方式采用的是基于RPM包的YUM包管理方式，包分发方式是编译好的二进制文件。稳定性方面RHEL和CentOS的稳定性非常好，适合于服务器使用，但是Fedora Core的稳定性较差，最好只用于桌面应用。 </p>
+<p>CentOS 是一个基于Red Hat Linux 提供的可自由使用源代码的企业级Linux发行版本。每个版本的 CentOS都会获得十年的支持（通过安全更新方式）。新版本的 CentOS 大约每两年发行一次，而每个版本的 CentOS 会定期（大概每六个月）更新一次，以便支持新的硬件。这样，建立一个安全、低维护、稳定、高预测性、高重复性的 Linux 环境。CentOS是Community Enterprise Operating System的缩写。CentOS 是RHEL（Red Hat Enterprise Linux）源代码再编译的产物，而且在RHEL的基础上修正了不少已知的 Bug ，相对于其他 Linux 发行版，其稳定性值得信赖。</p>
+<p>##Debian：只有社区的发行版</p>
+<p>Debian系列，包括Debian和Ubuntu等。Debian是社区类Linux的典范，是迄今为止最遵循GNU规范的Linux系统。Debian最早由Ian Murdock于1993年创建，分为三个版本分支（branch）： stable, testing 和unstable。其中，unstable为最新的测试版本，其中包括最新的软件包，但是也有相对较多的bug，适合桌面用户。testing的版本都经过unstable中的测试，相对较为稳定，也支持了不少新技术（比如SMP等）。而stable一般只用于服务器，上面的软件包大部分都比较过时，但是稳定和安全性都非常的高。Debian最具特色的是apt-get / dpkg包管理方式，其实Redhat的YUM也是在模仿Debian的APT方式，但在二进制文件发行方式中，APT应该是最好的了。Debian的资料也很丰富，有很多支持的社区，有问题求教也有地方可去。Debian是包括Ubuntu在内许多发行版的上游，而Ubuntu又是Linux Mint及其他发行版的上游。Debian在服务器和桌面电脑领域都有着广泛的应用。Debian是一个纯开源计划并着重在一个关键点上，稳定性。它同时也提供了最大的和完整的软件仓库给用户。 </p>
+<p>Ubuntu是基于Debian的unstable版本加强而来，可以这么说，Ubuntu就是一个拥有Debian所有的优点，以及自己所加强的优点的近乎完美的 Linux桌面系统。根据选择的桌面系统不同，有三个版本可供选择，基于Gnome的Ubuntu，基于KDE的Kubuntu以及基于Xfc的Xubuntu。特点是界面非常友好，容易上手，对硬件的支持非常全面，是最适合做桌面系统的Linux发行版本。</p>
+<p>##Slackware Linux<br>Slackware Linux是由Patrick Volkerding开发的GNU/Linux发行版。与很多其他的发行版不同，它坚持KISS(Keep It Simple Stupid)的原则。一开始，配置系统会有一些困难，但是更有经验的用户会喜欢这种方式的透明性和灵活性。 Slackware 很多特性体现出了KISS原则，最为有名的一些例子就是不依赖图形界面的文本化系统配置、传统的服务管理方式和不解决依赖的包管理方式。它的最大特点就是安装灵活，目录结构严谨，版本力求稳定而非追新。Slackware的软件包都是通常的tgz(tar/gzip) 或者txz(xz) 格式文件再加上安装脚本。Tgz/Txz 对于有经验的用户来说，比RPM更为灵活，并避免了APT 之类管理器可能带来的的依赖地狱。</p>
+<p>作为开源软件，Slackware与商业版本的关系并不大，但与几家提供付费支持的厂商一直保持的合作关系。作为最早的可用版本之一，Slackware Linux是由Patrick Volkerding开发的GNU/Linux发行版。与很多其他的发行版不同，它坚持KISS(Keep It Simple Stupid)的原则，就是说尽量不依赖配置系统的图形界面工具。其安装程序也是一些Dialog界面的shell脚本写成，你可以在安装的任何时候跳到任何安装步骤，而且这些脚本在安装之后也可以很方便的使用</p>
+<p>Slackware与其他的发行版本（Red Hat、Debian、Gentoo、SuSE、 Mandriva、Ubuntu等）不同的道路，它力图成为“UNIX风格”的Linux发行版本。只吸收稳定版本的应用程序，并且缺少其他linux版本中那些为发行版本定制的配置工具。在当今systemd大势所趋的情况下，Slackware仍然坚持BSD启动风格。</p>
+<p>Slackware主要为x86 PC开发，从2005年起开始出现针对System/390架构的官方移植。同时ARM、DEC Alpha、SPARC和PowerPC也存在一些非官方的移植。Slackware官方维护着一个开发版本（Slackware Current），不断有新的软件被加入到这个源，用户可以实现类似Archlinux的滚动升级，等到一个开发版本足够稳定，便会发布一个稳定版。Slackware是支持x86、amd64（即x86_64）、ARM、Alpha、SPARC、PowerPC的一套GNU/Linux操作系统，其正式发布由PatrickVolkerding 负责。</p>
+<p>##Linux发行版汇总</p>
+<p><img src="http://i.imgur.com/JMpVlhj.png" alt=""></p>
+<p>##Linux各发行版的联系与区别：</p>
+<p>###联系：</p>
+<ol>
+<li>各发行版本均采用Linux的内核（kernel）；</li>
+<li>各发行版本均遵守GPL版权协定；</li>
+<li>各发行版本均遵循 Linux Standard Base (LSB)等标准来开发；</li>
+<li>各发行版本均遵循FHS（File system Hierarchy Standard）标准规范；</li>
+</ol>
+<p>###区别：</p>
+<ol>
+<li>不同的发行版采用的软件包管理方式不同；最有名的是 debain 的 deb 包，redhat 的 rpm 包，slackware 等的 tgz 包。</li>
+<li>发行初衷不同，导致特点也不同，见下图：</li>
+</ol>
+<p><img src="http://i.imgur.com/xE0k8AB.png" alt=""></p>
+<p>#三、Linux的哲学思想 </p>
+<ol>
+<li>一切皆文件</li>
+<li>由众多的单一的程序完成一件比较复杂的工作，一个程序只做一件事，并且做好他。</li>
+<li>尽量避免与用户交互</li>
+<li>使用文本文件保存配置信息</li>
+<li>提供机制（可选的策略、是一种框架），而非策略，提供做大的灵活性。</li>
+</ol>
+<p>#四、Linux系统上常用命令的使用格式</p>
+<p>##命令的语法通用格式：<br>COMMAND OPTIONS ARGUMENTS</p>
+<p>###COMMAND说明<br>发起命令时将请求内核将某个二进制程序运行为一个进程，命令本身是一个可执行的程序文件，二进制格式的文件有可能会调用共享库文件。[遵循ELF格式规范]</p>
+<p>多数系统命令程序文件都存放在：/bin,/sbin,/usr/bin,/usr/sbin,/usr/local/bin,/usr/local/sbin，它们又分为普通命令和管理命令。 </p>
+<p>普通命令：存放在/bin,/usr/bin,/usr/local/bin </p>
+<p>管理命令：存放在/sbin,/usr/sbin,/usr/local/sbin </p>
+<p>用到的库文件都存放在：/lib,/lib64,/usr/lib,/usr/lib64,/usr/local/lib,/usr/local/lib64，它们分为32位和64位的库文件，32位使用于32位的操作系统，64位使用于64位的操作系统，64位兼容32位，而32不兼容64 </p>
+<p>32位库：存放在/lib,/usr/lib,/usr/local/lib </p>
+<p>64位库：存放在/lib64,/usr/lib64,/usr/local/lib64 </p>
+<p>###命令分为两类： </p>
+<p>由shell自带的命令，叫作内嵌命令(builtin) </p>
+<p>独立的可执行程序文件，文件名即命令名，叫作外部命令 </p>
+<p>查看命令的内容的类型： </p>
+<p>file命令：</p>
+<p>例：~]# file /bin/ls </p>
+<p>查看命令的类型： </p>
+<p>type命令： </p>
+<p>例：~]# type COMMAND </p>
+<p>注意：并非所有的命令都有一个在某目录与之对应的可执行程序文件</p>
+<p>###OPTIONS说明： </p>
+<p>指定命令的运行特性，有两种表现形式： </p>
+<p>短选项：-C，例如 ls -l ,-d 注：有的命令选项没有 – ，同一命令同时使用多个短选项可合并：ls -ld </p>
+<p>长选项：–word，例如 ls –help，有时候选项也带参数，例：du -h –max-depth=1 注：长选项不能合并 </p>
+<p>###ARGUMENTS说明：<br>参数：命令的作用对象，命令对什么生效，例：ls /etc ,作用在/etc 。注：有些命令可以可同时带多个参数，以空白分隔</p>
+<p>##常用命令示例：</p>
+<p>###ifconfig</p>
+<p>作用：显示和配置网络信息</p>
+<p>语法：ifconfig [网络设备] [参数]</p>
+<p>示例：ifconfig -a</p>
+<p>###echo</p>
+<p>作用：显示文本</p>
+<p>语法：echo [-ne][字符串]或 echo [–help][–version]</p>
+<p>示例：echo ‘Hello World’</p>
+<p>###tty</p>
+<p>作用：显示终端机连接标准输入设备的文件名称</p>
+<p>语法：tty [-s][–help][–version]</p>
+<p>示例：tty</p>
+<p>###startx<br>作用：进入图形操作界面</p>
+<p>示例：startx &amp;</p>
+<p>###export<br>作用：设置或显示环境变量</p>
+<p>语法：export [-fnp][变量名称]=[变量设置值]</p>
+<p>示例：</p>
+<pre><code>export JAVA_HOME = /home/myuser/jdk1.7.0_03
+export PATH = $JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+</code></pre><p>###pwd<br>作用：显示当前工作目录</p>
+<p>语法：pwd[–help][–version]</p>
+<p>示例：pwd</p>
+<p>###history<br>作用：列出bash保存的所有历史命令</p>
+<p>语法：history  [选项]</p>
+<p>示例1：history</p>
+<p>示例2:使用HISTTIMEFORMAT环境变量在历史中显示TIMESTAMP</p>
+<pre><code>命令：
+export HISTTIMEFORMAT=&apos;%F %T &apos;
+
+$history
+
+输出如下：
+642  2016-10-25 17:05:46 ll
+643  2016-10-25 17:05:46 rm 333 
+644  2016-10-25 17:05:46 ll /etc/fstab 
+645  2016-10-25 17:05:51 history --help
+646  2016-10-25 17:05:59 history -h
+647  2016-10-25 17:06:14 man history
+648  2016-10-25 17:07:53 history 
+649  2016-10-25 17:07:57 export HISTTIMEFORMAT=&apos;%F %T &apos;
+650  2016-10-25 17:07:59 history 
+</code></pre><p>###shutdown<br>作用：系统关机命令</p>
+<p>语法：shutdown [-cfFhknr][-t 秒数][时间][警告信息]</p>
+<p>示例：shuntdown -r +5</p>
+<p>###poweroff<br>作用：关机</p>
+<p>语法：这个命令还说啥语法啊，生产环境上不要随便执行这个命令，否则会被捆绑、滴蜡、爆菊啊<del>~</del></p>
+<p>示例：poweroff</p>
+<p>###reboot<br>作用：重启</p>
+<p>语法：运维常用作死命令之一，最好在头脑清醒的前提下执行。</p>
+<p>示例：reboot</p>
+<p>###hwclock<br>作用：用来查询和设置硬件时钟</p>
+<p>语法：  </p>
+<pre><code>-r, --show        读取并打印硬件时钟（read hardware clock and print result ）
+-s, --hctosys     将硬件时钟同步到系统时钟（set the system time from the hardware clock ）
+-w, --systohc     将系统时钟同步到硬件时钟（set the hardware clock to the current system time ）
+</code></pre><p>示例：</p>
+<pre><code>[root@centos ~]# hwclock -r
+2016年10月25日 星期二 17时32分28秒  -0.671802 seconds
+</code></pre><p>###date<br>作用：取一个特定时间的linux时间戳</p>
+<p>语法：date [参数]… [+格式]</p>
+<p>示例：</p>
+<pre><code>[root@centos ~]# date
+2016年 10月 25日 星期二 17:33:17 CST
+</code></pre><p>#五、如何在Linux系统上获取命令的帮助信息，请详细列出，并描述man文档的章节时如何划分的</p>
+<p>##获取命令的使用帮助：</p>
+<pre><code>内部命令：
+    help COMMAND
+外部命令：
+    (1) 命令自带简要格式的使用帮助
+        # COMMAND –help
+    (2) 使用手册：manual
+        位置：/usr/share/man
+        # man COMMAND
+</code></pre><p>先执行type COMMNAD 识别是内部命令还是外部命令</p>
+<pre><code>(3) info COMMAND
+    获取命令的在线文档；
+
+(4) 很多应用程序会自带帮助文档：/usr/share/doc/APP-VERSION
+    README：程序的相关的信息；
+    INSTALL: 安装帮助；
+    CHANGES：版本迭代时的改动信息；
+
+(5) 主流发行版官方文档
+    http://www.redhat.com/doc
+
+(6) 程序官方的文档：
+    官方站点上的“Document”
+
+(7) 搜索引擎
+    google、baidu 
+
+    keyword filetype:pdf   （输入文章类型更有针对性）
+    keyword site:domain.tld
+</code></pre><p>##man 文档章节如何划分</p>
+<p>使用手册：压缩格式的文件，有章节之分；<br>                    /usr/share/man<br>                        man1, man2, …</p>
+<pre><code>1：用户命令；  （普通用户和管理员）
+2：系统调用；
+3：C库调用；
+4：设备文件及特殊文件；
+5：文件格式；（配置文件格式）
+6：游戏使用帮助；
+7：杂项；
+8：管理工具及守护进行；
+</code></pre><p>#请罗列Linux发行版的基础目录名称命名法则及其功用规定</p>
+<p>##FHS：</p>
+<pre><code>FHS：全称Filesystem Hierarchy Standard，其定义了两层规范，
+</code></pre><p>##/ 下面的各个目录应该要放什么数据：</p>
+<pre><code>/bin：所有用户可用的基本命令程序文件；
+
+/sbin：供系统管理使用的工具程序；
+
+/boot：引导加载器必须用到的各静态文件：kernel，initramfs（initrd），grub等；
+
+/dev：存储特殊文件或设备文件；设备有两种类型：字符设备（线性设备）例如：键盘、显示器；块设备（随机设备）例如：硬盘、内存；
+
+/etc：系统程序的配置文件，只能为静态
+
+/home：普通用户的家目录的集中位置；一般每个普通用户的家目录默认为此目录下与用户名同名的子目录，/home/USERNAME；
+
+/root：管理员的家目录；可选
+
+/lib：为系统启动或根文件系统上的应用程序（/bin，/sbin等）提供共享库，以及为内核提供的内核参数模块； libc.so.：动态链接的C库； ld：运行时链接器/加载器； modules：用于存储内核模块的目录；
+
+/lib64：64位系统特有的存放64位共享库的路径；
+
+/media：便携式设备挂载点，cdrom，floppy等；
+
+/mnt：其它文件系统的临时挂载点；
+
+/opt：附加应用程序的安装位置；可选路径；
+
+/srv：当前主机为服务提供的数据；
+
+/tmp：为那些会产生临时文件的程序提供的用于存储临时文件的目录；可供所有用户执行写入操作；有特殊权限；
+
+/usr：usr Hierarchy，全局共享的只读数据路径；
+
+/var：/var Hierarchy，存储经常发生变化的数据的目录；
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-第五周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第五周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:46.613Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
     
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>1、显示当前系统上root、fedora或user1用户的默认shell；</p>
+<pre><code>grep -E &quot;^(root|hadoop|user1)\&gt;&quot; /etc/passwd |cut -d&quot;:&quot; -f1,7 
+</code></pre><p>2、找出/etc/rc.d/init.d/functions文件中某单词后面跟一组小括号的行，形如：hello()；</p>
+<pre><code>[root@centos7 /]# grep  -E -o &quot;[_[:alnum:]]+\(\)&quot;  /etc/rc.d/init.d/functions
+checkpid()
+__pids_var_run()
+__pids_pidof()
+daemon()
+killproc()
+pidfileofproc()
+pidofproc()
+status()
+echo_success()
+echo_failure()
+echo_passed()
+echo_warning()
+update_boot_stage()
+success()
+failure()
+passed()
+warning()
+action()
+strstr()
+is_ignored_file()
+is_true()
+is_false()
+apply_sysctl()
+</code></pre><p>3、使用echo命令输出一个绝对路径，使用grep取出其基名；扩展：取出其路径名</p>
+<pre><code>[root@centos7 /]#  echo &quot;/etc/rc.d/init.d/functions&quot; |grep -E -o &quot;[^/]+$&quot;
+functions
+
+[root@centos7 /]#  echo &quot;/etc/rc.d/init.d/functions&quot; |grep -E -o  &quot;^/.*/&quot;
+/etc/rc.d/init.d/
+</code></pre><p>4、找出ifconfig命令结果中的1-255之间数字；</p>
+<pre><code>ifconfig | grep  -E  -o  &quot;\&lt;([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\&gt;&quot;
+</code></pre><p>5、挑战题：写一个模式，能匹配合理的IP地址；</p>
+<pre><code>grep -E -o &quot;\&lt;([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\&gt;.\&lt;([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\&gt;.\&lt;([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\&gt;.\&lt;([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\&gt;&quot;
+</code></pre><p>6、挑战题：写一个模式，能匹配出所有的邮件地址；</p>
+<pre><code>grep -E -o “\&lt;[a-z0-9A-Z._%+-]+@[a-z0-9A-Z.-]+\.[a-zA-Z]{2,6}\&gt;”
+</code></pre><p>7、查找/var目录下属主为root，且属组为mail的所有文件或目录；</p>
+<pre><code>[root@centos7 /]# find /var/ -user root -a -group mail
+/var/spool/mail
+/var/spool/mail/root
+</code></pre><p>8、查找当前系统上没有属主或属组的文件；进一步：查找当前系统上没有属主或属组，且最近3天内曾被访问过的文件或目录；</p>
+<pre><code>find / -nouser -o -nogroup -atime 3
+</code></pre><p>9、查找/etc目录下所有用户都有写权限的文件；</p>
+<pre><code>find /etc/ -perm -020
+</code></pre><p>10、查找/etc目录下大于1M，且类型为普通文件的所有文件；</p>
+<pre><code>find /etc/ -size +1M -type f
+</code></pre><p>11、查找/etc/init.d/目录下，所有用户都有执行权限，且其它用户有写权限的文件；</p>
+<pre><code>find /etc/init.d/ -perm -111 -perm -002
+</code></pre><p>12、查找/usr目录下不属于root、bin或hadoop的文件；</p>
+<pre><code>[root@centos7 /]# find /usr ! \( -user root -o -user bin -o -user hadoop \)
+/usr/share/polkit-1/rules.d
+/usr/libexec/abrt-action-install-debuginfo-to-abrt-cache
+</code></pre><p>13、查找/etc/目录下至少有一类用户没有写权限的文件；</p>
+<pre><code>[root@centos7 /]# find /usr ! \( -user root -o -user bin -o -user hadoop \)
+/usr/share/polkit-1/rules.d
+/usr/libexec/abrt-action-install-debuginfo-to-abrt-cache
+[root@centos7 /]# find /usr -not \( -user root -o -user bin -o -user hadoop \)
+/usr/share/polkit-1/rules.d
+/usr/libexec/abrt-action-install-debuginfo-to-abrt-cache
+[root@centos7 /]# find /usr ! \( -user root -o -user bin -o -user hadoop \)
+/usr/share/polkit-1/rules.d
+/usr/libexec/abrt-action-install-debuginfo-to-abrt-cache
+[root@centos7 /]# find /etc/ -not -perm /222
+/etc/pki/ca-trust/extracted/java/cacerts
+/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt
+/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+/etc/pki/ca-trust/extracted/pem/email-ca-bundle.pem
+/etc/pki/ca-trust/extracted/pem/objsign-ca-bundle.pem
+/etc/gshadow
+/etc/openldap/certs/password
+/etc/shadow
+/etc/ld.so.conf.d/kernel-3.10.0-327.el7.x86_64.conf
+/etc/ld.so.conf.d/kernel-3.10.0-327.36.3.el7.x86_64.conf
+/etc/udev/hwdb.bin
+/etc/gshadow-
+/etc/dbus-1/system.d/cups.conf
+/etc/shadow-
+/etc/lvm/profile/cache-mq.profile
+/etc/lvm/profile/cache-smq.profile
+/etc/lvm/profile/command_profile_template.profile
+/etc/lvm/profile/metadata_profile_template.profile
+/etc/lvm/profile/thin-generic.profile
+/etc/lvm/profile/thin-performance.profile
+/etc/pam.d/cups
+/etc/machine-id
+/etc/sudoers
+</code></pre><p>14、查找/etc目录下最近一周内其内容被修改过，且不属于root或hadoop的文件；</p>
+<pre><code>find /etc -mtime -7 ! \( -user root -o -user hadoop \)
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-第四周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第四周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:46.481Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>###1、复制/etc/skel目录为/home/tuser1，要求/home/tuser1及其内部文件的属组和其它用户均没有任何访问权限。<br>    [root@www /]# cp -r /etc/skel /home/tuser1 &amp;&amp; chmod 700 -R /home/tuser1<br>    [root@www /]# echo $?<br>    0<br>    [root@www home]# ll -al /home/tuser1/<br>    总用量 12<br>    drwx——. 3 root root  74 11月 30 13:14 .<br>    drwxr-xr-x. 4 root root  30 11月 30 13:14 ..<br>    -rwx——. 1 root root  18 11月 30 13:14 .bash_logout<br>    -rwx——. 1 root root 193 11月 30 13:14 .bash_profile<br>    -rwx——. 1 root root 231 11月 30 13:14 .bashrc<br>    drwx——. 4 root root  37 11月 30 13:14 .mozilla</p>
+<p>###2、编辑/etc/group文件，添加组hadoop。</p>
+<pre><code>[root@www /]#echo &quot;hadoop:x:1001&quot; &gt;&gt;/etc/group
+[root@www /]# cat /etc/group |grep hadoop
+hadoop:x:1001
+[root@www /]#
+</code></pre><p>###3、手动编辑/etc/passwd文件新增一行，添加用户hadoop，其基本组ID为hadoop组的id号；其家目录为/home/hadoop。</p>
+<pre><code>[root@www home]# echo &quot;hadoop:x:1001:1001:hadoop:/home/hadoop:/bin/bash&quot; &gt;&gt; /etc/passwd &amp;&amp; tail -n 2 /etc/passwd
+user:x:1000:1000:user:/home/user:/bin/bash
+hadoop:x:1001:1001:hadoop:/home/hadoop:/bin/bash
+</code></pre><p>###4、复制/etc/skel目录为/home/hadoop，要求修改hadoop目录的属组和其它用户没有任何访问权限。</p>
+<pre><code>[root@www /]# cp -r /etc/skel /home/hadoop &amp;&amp; chmod 700 -R /home/hadoop &amp;&amp; ll -al /home/hadoop/
+总用量 12
+drwx------. 3 root root  74 11月 30 13:54 .
+drwxr-xr-x. 5 root root  43 11月 30 13:54 ..
+-rwx------. 1 root root  18 11月 30 13:54 .bash_logout
+-rwx------. 1 root root 193 11月 30 13:54 .bash_profile
+-rwx------. 1 root root 231 11月 30 13:54 .bashrc
+drwx------. 4 root root  37 11月 30 13:54 .mozilla
+[root@www /]# 
+</code></pre><p>###5、修改/home/hadoop目录及其内部所有文件的属主为hadoop，属组为hadoop。</p>
+<pre><code>[root@www /]# chown -R hadoop:hadoop /home/hadoop/ &amp;&amp; ll -al /home/hadoop/
+总用量 12
+drwx------. 3 hadoop hadoop  74 11月 30 13:54 .
+drwxr-xr-x. 5 root   root    43 11月 30 13:54 ..
+-rwx------. 1 hadoop hadoop  18 11月 30 13:54 .bash_logout
+-rwx------. 1 hadoop hadoop 193 11月 30 13:54 .bash_profile
+-rwx------. 1 hadoop hadoop 231 11月 30 13:54 .bashrc
+drwx------. 4 hadoop hadoop  37 11月 30 13:54 .mozilla
+[root@www /]# 
+</code></pre><p>###6、显示/proc/meminfo文件中以大写或小写S开头的行；用两种方式；</p>
+<pre><code>[root@www /]# grep -i &quot;^s&quot; /proc/meminfo
+SwapCached:            0 kB
+SwapTotal:       1023996 kB
+SwapFree:        1023996 kB
+Shmem:              9636 kB
+Slab:             171236 kB
+SReclaimable:      99660 kB
+SUnreclaim:        71576 kB
+[root@www /]# grep -i &quot;^[sS]&quot; /proc/meminfo
+SwapCached:            0 kB
+SwapTotal:       1023996 kB
+SwapFree:        1023996 kB
+Shmem:              9636 kB
+Slab:             171236 kB
+SReclaimable:      99660 kB
+SUnreclaim:        71576 kB
+[root@www /]# 
+</code></pre><p>###7、显示/etc/passwd文件中其默认shell为非/sbin/nologin的用户；</p>
+<pre><code>[root@www /]# grep -v &quot;/sbin/nologin&quot; /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+amandabackup:x:33:6:Amanda user:/var/lib/amanda:/bin/bash
+user:x:1000:1000:user:/home/user:/bin/bash
+hadoop:x:1001:1001:hadoop:/home/hadoop:/bin/bash
+[root@www /]# 
+
+cut一下，美观
+[root@www /]# grep -v &quot;/sbin/nologin&quot; /etc/passwd | cut -d&quot;:&quot; -f1
+root
+sync
+shutdown
+halt
+amandabackup
+user
+hadoop
+[root@www /]# 
+</code></pre><p>###8、显示/etc/passwd文件中其默认shell为/bin/bash的用户；</p>
+<pre><code>[root@www /]# grep  &quot;/bin/bash&quot; /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+amandabackup:x:33:6:Amanda user:/var/lib/amanda:/bin/bash
+user:x:1000:1000:user:/home/user:/bin/bash
+hadoop:x:1001:1001:hadoop:/home/hadoop:/bin/bash
+
+cut一下，美观
+[root@www /]# grep  &quot;/bin/bash&quot; /etc/passwd |cut -d&quot;:&quot; -f1
+root
+amandabackup
+user
+hadoop
+[root@www /]# 
+</code></pre><p>###9、找出/etc/passwd文件中的一位数或两位数；<br>    grep “\&lt;[0-9]{1,2}>“ /etc/passwd<br><img src="http://i.imgur.com/PZkXS4z.png" alt=""></p>
+<p>###10、显示/boot/grub/grub.conf中以至少一个空白字符开头的行；</p>
+<pre><code>[root@centos6 ~]# grep &quot;^[[:space:]]\+&quot; /boot/grub/grub.conf
+    root (hd0,0)
+    kernel /vmlinuz-2.6.32-642.3.1.el6.x86_64 ro root=/dev/mapper/vg_centos-lv_root rd_NO_LUKS rd_LVM_LV=vg_centos/lv_swap rd_NO_MD LANG=zh_CN.UTF-8 rd_LVM_LV=vg_centos/lv_root  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_DM rhgb quiet crashkernel=auto
+    initrd /initramfs-2.6.32-642.3.1.el6.x86_64.img
+    root (hd0,0)
+    kernel /vmlinuz-2.6.32-642.el6.x86_64 ro root=/dev/mapper/vg_centos-lv_root rd_NO_LUKS rd_LVM_LV=vg_centos/lv_swap rd_NO_MD LANG=zh_CN.UTF-8 rd_LVM_LV=vg_centos/lv_root  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_DM rhgb quiet
+    initrd /initramfs-2.6.32-642.el6.x86_64.img
+</code></pre><p>###11、显示/etc/rc.d/rc.sysinit文件中以#开头，后面跟至少一个空白字符，而后又有至少一个非空白字符的行；</p>
+<pre><code>grep &quot;^#[[:space:]]\+[^[:space:]]\+&quot; /etc/rc.d/rc.sysinit
+</code></pre><p>###12、找出”netstat -tan”命令的结果中以’LISTEN’后跟0、1或多个空白字符结尾的行；</p>
+<pre><code>[root@www /]# netstat -tan | grep  &quot;LISTEN[[:space:]]*$&quot;
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.1:6010          0.0.0.0:*               LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+tcp6       0      0 ::1:631                 :::*                    LISTEN     
+tcp6       0      0 ::1:25                  :::*                    LISTEN     
+tcp6       0      0 ::1:6010                :::*                    LISTEN     
+[root@www /]# 
+</code></pre><p>###13、添加用户bash, testbash, basher, nologin (此一个用户的shell为/sbin/nologin)，而后找出当前系统上其用户名和默认shell相同的用户的信息；</p>
+<pre><code>useradd -d /home/bash -s /bin/bash -m bash
+useradd -d /home/testbash -s /bin/bash -m testbash
+useradd -d /home/basher -s /bin/bash -m basher
+useradd -d /home/nologin -s /sbin/nologin -m nologin
+
+
+[root@www /]# cat  /etc/passwd | grep &quot;^\&lt;bash\&gt;&quot;
+bash:x:1002:1002::/home/bash:/bin/bash
+[root@www /]# 
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-第十周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第十周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:46.461Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>##1、请详细描述CentOS系统的启动流程（详细到每个过程系统做了哪些事情）</p>
+<p><strong>从dawning大湿兄那里借来的图，如下：</strong></p>
+<p><img src="http://i.imgur.com/fCgoqDA.jpg" alt=""></p>
+<p>启动过程 （PC架构）<br>   POST –&gt; Boot Sequence(BIOS) –&gt; Boot Loader (MBR)–&gt;GRUB—&gt; Kernel(ramdisk) –&gt; rootfs –&gt; switchroot –&gt; /sbin/init–&gt;(/etc/inittab, /etc/init/*.conf) –&gt; 设定默认运行级别&gt; 系统初始化脚本 –&gt; 关闭或启动对应级别下的服务 –&gt; 启动终端</p>
+<p><strong>第一步：加电自检（POST）</strong></p>
+<p>   系统加电之后，首先进行的硬件自检，一但通电后主板会自动读取ROM（只读）中的程序，进行加载，计算机会首先加载BIOS信息，BIOS信息是如此的重要，以至于计算机必须在最开始就找到它。检查各种硬件设备是否完整存在，如内存，硬盘，显示,IO设备等。如果有硬件故障的话将按两种情况理：对于严重故障(致命性故障)则停机，此时由于各种初始化操作还没完成，不能给出任何提示或信号；对于非严重故障则给出提示或声音报警信号，等待用户处理），如果没有故障，POST完成自己<br>的接力任务，将尾部工作交接给BIOS处理。</p>
+<p><strong>第二步：系统引导过程Boot Sequence（BIOS）</strong></p>
+<p>  POST 过程结束后，系统的控制权从 BISO 转交到 boot loader。Boot loader 一般存储在系统的硬盘上（传统的 BIOS/MBR 系统），这个时候机器不能获取外部的存储或者网络信息，一些重要的值（日期、时间、其他外部值）都是从CMOS里读取.</p>
+<p>  POST（POST-power on self test)—&gt;ROM-&gt;CMOS(互补金属氧化物)-&gt;BIOS (Basic Input Output System，基础输入输出系统） </p>
+<p>  BIOS（Basic Input/Output System）启动初始化硬件的工作，包括屏幕和键盘，内存检测，这个过程也被成为 POST（Power On Self Test），通过ROM加载自检程序，然后按照 CMOS RAM 中设置的启动设备查找顺序，来寻找可启动设备 。注：BIOS 程序嵌在主板的 ROM 芯片上的。</p>
+<p><strong>第三步：启动加载器阶段Master Boot Loader(MBR)</strong></p>
+<p> 硬盘上第0磁道第一个扇区被称为MBR，也就是Master Boot Record，即主引导记录，决定启动介质按照BIOS所设定的系统启动流程，根据引导次序(Boot Sequence)自上而下的寻找对应存储设备上操作系统的MBR。它的大小仅有512字节，但里面却存放了预启动信息、分区表信息。可分为两部分：</p>
+<p>第一部分为引导（PRE-BOOT）区，占了 446个字节；</p>
+<p>第二部分为分区表（PARTITION TABLE），共有64个字节，每个主分区占用16字节，记录硬盘的分区信息。（这就是为什么一块硬盘只能有4个主分区）分区表有效性标记会占用2字节。 </p>
+<p>  预引导区的作用之一是找到标记为活动（ACTIVE）的分区，并将活动分区的引导区读入内存。剩余两个字节为结束标记。寻找 grub，读取配置文件/etc/grub.conf，决定默认启动项根据MBR所指引的活动分区上寻找系统分区中的 bootloader.在bootloader当中配置了所要引导操作系统的内核所在的位置，因此BIOS被载入内存以后，当它实现将控制权限转交给bootloader以后，bootloader接收整个系统的控制权限，而后根据用户的选择去读取相应操作系统中的内核，并将内核装载入内存的某个空间位置，解压缩，这时kernel就可以在内存中活动，并根据kernel本身功能在内存当中探索硬件并加载硬件驱动程序并完成内核初始化，bootloader会将控制权限转交给内核。 </p>
+<p><strong>第四步：引导加载器阶段（GRUB加载器）</strong> </p>
+<p>   对于GRUB来说，一个比较好的方面就是它包含了linux文件系统的支持。GRUB能够从ext2或者ext3文件系统中加载linux内核。一旦Bootloader的第一阶段已完成MBR（启动加载器阶段），并能找到实际的引导加载程序位置，第1阶段启动加载器加载引导程序到内存中开始第二阶段。GRUB引导加载器阶段它是通过将本来两阶段的boot loader转换成三个阶段的boot loader。</p>
+<p>stage1个阶段 ：BIOS加载MBR里面的GRUB（属于第1阶段的文件），由于只有GRUB只占用446字节所以不能实现太多的功能，所以就有此阶段里面的文件来加载第1.5阶段的文件（/boot/grub下的文件）</p>
+<p>stage1.5个阶段：这个阶段里面的就是加载识别文件系统的程序，来识别文件系统，不加载就无法识别文件系统，进而就找不到boot目录，由于GRUB是无法识别LVM，所以你不能把/boot分区设置为LVM，所以必须要把/boot单独分区    </p>
+<p>stage2个阶段：这里面才是正在的开始寻找内核的过程，然后是启动内核</p>
+<p>（当stage1.5的boot loader被加载并运行时，stage2 的boot loader才能被加载。）</p>
+<p>   当stage2被加载时，GRUB能根据请求的情况显示一个可选内核的清单（在 /etc/grub.conf 中进行定义，同时还有几个软符号链接 /etc/grub/menu.lst 和 /etc/grub.conf)。你可以选择一个内核，修改其附加的内核参数。同时，你可以选择使用命令行的shell来对启动过程进行更深层次的手工控制。</p>
+<p>GRUB的配置文件中的配置哪些信息</p>
+<p> 在第二阶段boot loader加载到内存中后，就可以对文件系统进行查询了，同时，默认的内核镜像以及初始化内存盘镜像也被加载到内存中。</p>
+<p>   根据grub设定的内核映像所在路径，系统读取内存映像，并进行解压缩操作。此时，屏幕一般会输出“Uncompressing Linux(解压内核中)”的提示。当解压缩内核完成后，屏幕输出“OK, booting the kernel(正在启动内核)”。</p>
+<p><strong>第五步：加载kernel </strong></p>
+<p>   GRUB把内核加载到内存后展开并运行，此时GRUB的任务已经完成，接下来内核将会接管并完成：</p>
+<p>探测硬件—&gt;加载驱动—&gt;挂载根文件系统—&gt;切换至根文件系统（rootfs）—&gt;运行/sbin/init完成系统初始化</p>
+<p>  内核一般都是压缩的，所以它的首要任务是解压缩，然后检查和分析系统的硬件并初始化内核里的硬件驱动程序。内核刚加载到内存的时候，文件系统还不能使用，它使用的是 Boot Loader 加载进内存的 initramfs。系统将解压后的内核放置在内存之中，并调用start_kernel()函数来启动一系列的初始化函数并初始化各种设备，完成Linux核心环境的建立。至此，Linux内核已经建立起来了，基于Linux的程序应该可以正常运行了。</p>
+<p><strong>第六步：初始化initrd /etc/inittab</strong></p>
+<p>  在核心加载完毕,进行完硬件侦测与驱动程序加载后,内核会启动第一个进程/sbin/init, init进程将会读取/etc/inittab，init进程是系统所有进程的起点，你可以把它比拟成系统所有进程的老祖宗，没有这个进程，系统中任何进程都不会启动。</p>
+<p>  /etc/inittab最主要的功能就是准备软件运行的环境，包括系统的主机名称、网络配置、语系处理、文件系统格式及其他服务的启动等,而所有的动作都根据在/etc/inittab中的配置.将会执行/etc/inittab来设定系统运行的默认级别，</p>
+<p>  init进程首先会读取/etc/inittab文件，根据inittab文件中的内容依次执行<br>  设定系统运行的默认级别（id:3:initdefault:）<br>  执行系统初始化脚本文件（si::sysinit:/etc/rc.d/rc.sysinit）<br>  执行在该运行级别下所启动或关闭对应的服务（l3:3:wait:/etc/rc.d/rc 3）<br>  启动6个虚拟终端</p>
+<p>  0-6：7个级别的定义</p>
+<p>  0：关机, shutdown</p>
+<p>1：单用户模式(singleuser)，root用户，无须认证；维护模式；</p>
+<p>2：多用户模式(multiuser)，会启动网络功能，但不会启动NFS；维护模式；</p>
+<p>3：多用户模式(mutliuser)，完全功能模式；文本界面；</p>
+<p>4：预留级别：目前无特别使用目的，但习惯以同3级别功能使用；</p>
+<p>5：多用户模式(multi user)，完全功能模式，图形界面；</p>
+<p>6：重启，reboot</p>
+<p>许多程序需要开机启动。它们在Windows叫做”服务”（service），在Linux就叫做”守护进程”（daemon）。init进程的一大任务，就是去运行这些开机启动的程序。但是，不同的场合需要启动不同的程序，比如用作服务器时，需要启动Apache，用作桌面就不需要。</p>
+<p>Linux允许为不同的场合，分配不同的开机启动程序，这就叫做”运行级别”（runlevel）。也就是说，启动时根据”运行级别”，确定要运行哪些程序。</p>
+<p>  要访问根文件系统必须要加载根文件系统所在的设备，而这时根文件系统又没有挂载，要挂载根文件系统有需要根文件系统的驱动程序，这是一个典型的先有鸡先有蛋的问题！为解决这个问题，GRUB在加载内核同时，也把initrd加载到内存中并运行.那么initrd又起到了什么作用哪？</p>
+<p>initrd展开后的文件    </p>
+<p>linux中/下的文件<br>       我们可以看到，其实initrd文件其实是一个虚拟的根文件系统，里面有bin、lib、lib64、sys、var、etc、sysroot、dev、proc、tmp等根目录，它的功能就是讲内核与真正的根建立联系，内核通过它加载根文件系统的驱动程序，然后以读写方式挂载根文件系统，至此，内核加载完成。</p>
+<p><strong>第七步：运行/sbin/init，进行系统初始化</strong></p>
+<p>   /sbin/init 最主要的功能就是准备软件运行的环境，包括系统的主机名称、网络配置、语系处理、文件系统格式及其他服务的启动等,而所有的动作都根据在/etc/inittab中的配置.init首先运行/etc/init/rcS.conf脚本，如下图</p>
+<p><strong>第八步：启动系统服务/etc/rc.d/rc.sysinit</strong></p>
+<p>可以看到，init进程通过执行/etc/rc.d/rcS.conf首先调用了/etc/rc.d/rc.sysinit，对系统做初始化设置，设置好整个系统环境。我们来看看这个脚本都是做了些什么哪？</p>
+<p>   事实上init执行/etc/rc.d/rc.sysinit的初始化将会做很多设置：</p>
+<pre><code>1、获得网络环境 
+
+2、挂载设备 
+
+3、开机启动画面Plymouth（取替了过往的 RHGB） 
+
+4、判断是否启用SELinux 
+
+5、显示于开机过程中的欢迎画面 
+
+6、初始化硬件 
+
+7、用户自定义模块的加载 
+
+8、配置内核的参数 
+
+9、设置主机名 
+
+10、同步存储器 
+
+11、设备映射器及相关的初始化 
+
+12、初始化软件磁盘阵列（RAID） 
+
+13、初始化 LVM 的文件系统功能 
+
+14、检验磁盘文件系统（fsck） 
+
+15、设置磁盘配额(quota) 
+
+16、重新以可读写模式挂载系统磁盘 
+
+17、更新quota（非必要） 
+
+18、启动系统虚拟随机数生成器 
+
+19、配置机器（非必要） 
+
+20、清除开机过程当中的临时文件 
+
+21、创建ICE目录 
+
+22、启动交换分区（swap） 
+
+23、将开机信息写入/var/log/dmesg文件中
+</code></pre><p><strong>第九步：启动配置文件/etc/rc.d/rc.n</strong></p>
+<p>设定玩系统默认运行级别以后，接着调用/etc/rc.d/rc脚本，/etc/rc.d, 里面存放了rc.local, rc.sysinit, init.d, rcX.d (X包括0-6对应相对runlevel).这个脚本接收默认运行级别参数后，依脚本设置启用或停止/etc/rc.d/rc[0-6].d/中相应的程序。</p>
+<p>/etc/rc.d/rc3].d/下的脚本文件在系统初始化阶段，脚本名字以K开头的,表示STOP动作（关闭）,名字以S开头,表示Start动作（启动）,文件名K/S 后面的的数字代表优先级，名称中的数字表示执行次序（优先级）,数字越小表示越先执行，优先级越高</p>
+<p><strong>第十步：用户自定义开机启动程序 (/etc/rc.d/rc.local)</strong></p>
+<p>  系统根据runlevel启动完rcX.d中的脚本之后,会调用rc.local脚本,如果你有一个脚本命令不论在3和5都想开机启动,那么就添加于此,免去rc3.d和rc5.d分别增加启动脚本工作量.最后，将执行/etc/rc.d/rc.local脚本，可以根据自己的需求将一些执行命令或者脚本写到其中，当开机时就可以加载。</p>
+<p><strong>第十一步：打印登录提示符</strong></p>
+<p>   系统初始化完成后，init给出用户登录提示符（login）或者图形化登录界面，用户输入用户和密码登陆后，系统会为用户分配一个用户ID（uid）和组ID（gid），这两个ID是用户的身份标识，用于检测用户运行程序时的身份验证。登录成功后，整个系统启动流程运行完毕！</p>
+<p>##2、为运行于虚拟机上的CentOS 6添加一块新硬件，提供两个主分区；<br>  (1) 为硬盘新建两个主分区；并为其安装grub；<br>  (2) 为硬盘的第一个主分区提供内核和ramdisk文件； 为第二个分区提供rootfs；<br>  (3) 为rootfs提供bash、ls、cat程序及所依赖的库文件；<br>  (4) 为grub提供配置文件；<br>  (5) 将新的硬盘设置为第一启动项并能够正常启动目标主机；</p>
+<p><strong>为硬盘新建两个主分区</strong></p>
+<pre><code>[root@centos ~]# fdisk -l  #先来看看磁盘情况啊，你不看，一上来直接搞，小心搞出事情！！
+
+Disk /dev/sda: 171.8 GB, 171798691840 bytes
+255 heads, 63 sectors/track, 20886 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00098b32
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          64      512000   83  Linux
+Partition 1 does not end on cylinder boundary.
+/dev/sda2              64       20887   167259136   8e  Linux LVM
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+
+Disk /dev/mapper/vg_centos-lv_root: 170.2 GB, 170196467712 bytes
+255 heads, 63 sectors/track, 20691 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+
+Disk /dev/mapper/vg_centos-lv_swap: 1073 MB, 1073741824 bytes
+255 heads, 63 sectors/track, 130 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+</code></pre><p>不错不错，看到sdb了， 分的40G</p>
+<p><strong>开始分区</strong></p>
+<pre><code>[root@centos ~]# fdisk /dev/sdb
+
+Command (m for help): p
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x86662f67
+
+   Device Boot      Start         End      Blocks   Id  System
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-5221, default 1): 
+Using default value 1
+Last cylinder, +cylinders or +size{K,M,G} (1-5221, default 5221): +20G
+
+Command (m for help): p
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x86662f67
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1        2612    20980858+  83  Linux
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 2
+First cylinder (2613-5221, default 2613): 
+Using default value 2613
+Last cylinder, +cylinders or +size{K,M,G} (2613-5221, default 5221): 
+Using default value 5221
+
+Command (m for help): p
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x86662f67
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1        2612    20980858+  83  Linux
+/dev/sdb2            2613        5221    20956792+  83  Linux
+
+Command (m for help): w
+The partition table has been altered!
+</code></pre><p><strong>分区完了就开始格式化了啊</strong></p>
+<pre><code>[root@centos ~]# mkfs.ext4 /dev/sdb1
+mke2fs 1.41.12 (17-May-2010)
+文件系统标签=
+操作系统:Linux
+块大小=4096 (log=2)
+分块大小=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+1313760 inodes, 5245214 blocks
+262260 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=4294967296
+161 block groups
+32768 blocks per group, 32768 fragments per group
+8160 inodes per group
+Superblock backups stored on blocks: 
+    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+    4096000
+
+正在写入inode表: 完成                            
+Creating journal (32768 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 21 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+[root@centos ~]# mkfs.ext4 /dev/sdb2
+mke2fs 1.41.12 (17-May-2010)
+文件系统标签=
+操作系统:Linux
+块大小=4096 (log=2)
+分块大小=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+1310720 inodes, 5239198 blocks
+261959 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=4294967296
+160 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks: 
+    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+    4096000
+
+正在写入inode表: 完成                            
+Creating journal (32768 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 26 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+</code></pre><p><strong>挂载分区sdb1到/mnt/boot下</strong></p>
+<pre><code>[root@centos mnt]#mkdir boot
+[root@centos mnt]#mount /dev/sdb1 /mnt/boot  
+</code></pre><p><strong>安装grub</strong></p>
+<pre><code>[root@centos mnt]# grub-install --root-de
+[root@centos mnt]# grub-install --root-directory=/mnt  /dev/sdb
+Probing devices to guess BIOS drives. This may take a long time.
+/dev/mapper/vg_centos-lv_root does not have any corresponding BIOS drive.
+[root@centos mnt]# ll
+总用量 8
+drwxr-xr-x 3 root root 4096 2月  20 10:09 boot
+drwxr-xr-x 2 root root 4096 10月 18 10:41 hgfs
+[root@centos mnt]# 
+</code></pre><p><strong>复制内核及ramdisk文件到sdb1上</strong></p>
+<pre><code>[root@centos mnt]# cp /boot/vmlinuz-2.6.32-642.13.1.el6.x86_64 /mnt/boot/vmlinuz
+[root@centos mnt]# cp /boot/initramfs-2.6.32-642.13.1.el6.x86_64.img /mnt/boot/initramfs.img
+</code></pre><p><strong>在/mnt/boot/grub目录下编辑新建grub.conf文件</strong></p>
+<p>   内容如下：</p>
+<pre><code>default=0
+timeout=5
+title CentOS6(test)
+root (hd0,0)
+kernel /vmlinuz ro root=/dev/sda2 selinux=0 init=/bin/bash
+initrd /initramfs.img
+</code></pre><p><strong>挂载分区/dev/sdb2到/mnt/sysroot下</strong></p>
+<pre><code>mkdir /mnt/sysroot
+mount /dev/sdb2 /mnt/sysroot/
+</code></pre><p><strong>建立FHS</strong></p>
+<pre><code>[root@centos sysroot]#  mkdir -pv /mnt/sysroot/{bin,dev,etc/{rc.d/init.d,sysconfig/network-scripts},lib/modules,lib64,proc,sbin,sys,tmp,usr/local/{bin,sbin},var/{lock,log,run}}
+mkdir: 已创建目录 &quot;/mnt/sysroot/bin&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/dev&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc/rc.d&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc/rc.d/init.d&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc/sysconfig&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc/sysconfig/network-scripts&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/lib&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/lib/modules&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/lib64&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/proc&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/sbin&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/sys&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/tmp&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/usr&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/usr/local&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/usr/local/bin&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/usr/local/sbin&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/var&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/var/lock&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/var/log&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/var/run&quot;
+[root@centos sysroot]# 
+</code></pre><p><strong>拷贝bash、ls、cat程序及其依赖库</strong></p>
+<pre><code>[root@centos sysroot]# cp /bin/{bash,ls,cat} /mnt/sysroot/bin
+
+[root@centos bin]# cp `ldd /bin/{bash,ls,cat}  |grep -oe &quot;/lib.*[[:space:]]&quot;|sort -u` /mnt/sysroot/lib64/
+
+[root@centos bin]# chroot /mnt/sysroot
+</code></pre><p><strong>chroot先测试一下</strong></p>
+<pre><code>[root@centos bin]# chroot /mnt/sysroot
+bash-4.1# ls
+bin  dev  etc  lib  lib64  proc  sbin  sys  tmp  usr  var
+bash-4.1# exit
+exit
+[root@centos bin]# 
+</code></pre><p>OK，接下来挂载到另外一台虚拟机上测试一下，亲测成功。</p>
+<p>##3、制作一个kickstart文件以及一个引导镜像。描述其过程。</p>
+<p>思路</p>
+<ol>
+<li>找到一个已安装好的centos的ks文件，一般位于/root/anaconda-ks.cfg，修修改改，生成一个自定义的ks.cfg文件。</li>
+<li>放到解压的原版IOS到某目录，添加ks文件。</li>
+<li>修改光盘的isolinux.cfg文件，在 append 指令后附加 ks 设置。</li>
+<li>再生成自定义的ISO文件。</li>
+<li>最后用此ISO去安装启动一台裸虚拟机测试是否能自动安装。</li>
+</ol>
+<p><strong>找到一个已安装好的centos的ks文件，一般位于/root/anaconda-ks.cfg，修修改改，生成一个自定义的ks.cfg文件</strong></p>
+<pre><code>#platform=x86, AMD64, 或 Intel EM64T
+#version=DEVEL
+# Firewall configuration
+firewall --disabled
+# Install OS instead of upgrade
+install
+# Use CDROM installation media
+cdrom
+# Root password
+rootpw --iscrypted $1$Qo3PJbQH$GyTUtGgr1U.th4KTIrvfT1
+# System authorization information
+auth  --useshadow  --passalgo=sha512
+# Use graphical install
+graphical
+firstboot --disable
+# System keyboard
+keyboard us
+# System language
+lang zh_CN
+# SELinux configuration
+selinux --disabled
+# Installation logging level
+logging --level=info
+
+# System timezone
+timezone  Asia/Shanghai
+# Network information
+network  --bootproto=dhcp --device=eth1 --onboot=on
+# System bootloader configuration
+bootloader --location=mbr
+# Partition clearing information
+clearpart --all --initlabel 
+# Disk partitioning information
+part /boot --fstype=&quot;ext4&quot; --size=500
+part swap --fstype=&quot;swap&quot; --size=2000
+part / --fstype=&quot;ext4&quot; --grow --size=1
+
+%packages
+@base
+@compat-libraries
+@graphical-admin-tools
+@legacy-unix
+@network-tools
+@xfce-desktop
+NetworkManager-openswan
+arptables_jf
+arpwatch
+audit-viewer
+authd
+cups-lpd
+dbench
+dropwatch
+dump
+ebtables
+ettercap
+finger
+finger-server
+firstaidkit-gui
+ipset
+iptraf
+iptstate
+krb5-appl-servers
+ksh
+lksctp-tools
+lshw-gui
+mipv6-daemon
+mksh
+mrtg
+ncompress
+netlabel_tools
+nmap
+openvpn
+policycoreutils-gui
+qstat
+rsh
+rsh-server
+rusers
+rusers-server
+rwho
+sabayon
+setroubleshoot
+stunnel
+system-config-kickstart
+system-config-lvm
+talk
+talk-server
+tcp_wrappers
+telnet
+telnet-server
+tftp
+vtun
+wireshark
+wireshark-gnome
+yumex
+-cpuspeed
+-irqbalance
+-mdadm
+
+%end
+</code></pre><p><strong>放到解压的原版IOS到某目录，添加ks文件</strong></p>
+<p>我这里是用软碟通直接提取修改，所以就神略了</p>
+<p>还有一个坑就是ks配置文件里面用cdrom参数制定本地光盘安装会报错，建议用url方式。这个坑踩得我受伤了，就不写了。</p>
+<p>##4、写一个脚本</p>
+<p>  (1) 能接受四个参数：start, stop, restart, status<br>   start: 输出“starting 脚本名 finished.”<br>   …</p>
+<p>  (2) 其它任意参数，均报错退出；</p>
+<pre><code>#!/bin/bash
+#
+
+
+case $1  in
+    start)
+        echo &quot;starting $0 finished&quot;
+          ;;
+
+    stop)
+        echo &quot;stopping $0 finished&quot;
+          ;;
+
+    restart)
+        echo &quot;restarting $0 finished&quot;
+          ;;
+
+    status)
+        echo &quot; $0 status&quot;                               
+          ;;
+
+        *)
+           echo &quot;Usage: $prog {start|stop|restart|status}&quot;
+           exit 1
+          ;;
+esac
+</code></pre><p>##5、写一个脚本，判断给定的用户是否登录了当前系统；</p>
+<p>  (1) 如果登录了，则显示用户登录，脚本终止；</p>
+<p>  (2) 每3秒钟，查看一次用户是否登录；</p>
+<pre><code>#!/bin/bash
+#
+until who | grep &quot;^logstash\&gt;&quot; &amp;&gt; /dev/null; do
+    sleep 3
+done
+</code></pre><p>6、写一个脚本，显示用户选定要查看的信息；</p>
+<p>   cpu) display cpu info</p>
+<p>   mem) display memory info</p>
+<p>   disk) display disk info</p>
+<p>   quit) quit</p>
+<p>   非此四项选择，则提示错误，并要求用户重新选择，只到其给出正确的选择为止；</p>
+<pre><code>#!/bin/bash
+#
+cat &lt;&lt; EOF
+Display information as following shown selection
+cpu) display cpu info
+mem) display memory info
+disk) display disk info
+quit) quit
+************************************************
+EOF
+
+while true; do
+    read -p &quot;Please input your selection: &quot; selection
+
+    case $selection in
+    cpu) 
+        lscpu
+        ;;
+    mem)
+        free -m
+        ;;
+    disk) 
+        fdisk -l /dev/vd[a-z]
+        ;;
+    quit)
+        echo &quot;Bye Bye&quot;
+        exit 0
+        ;;
+    *)
+        echo &quot;Please input valid selection&quot;
+        ;;
+    esac
+done
+</code></pre><p>7、写一个脚本</p>
+<p>  (1) 用函数实现返回一个用户的UID和SHELL；用户名通过参数传递而来；</p>
+<p>  (2) 提示用户输入一个用户名或输入“quit”退出；</p>
+<p>  当输入的是用户名，则调用函数显示用户信息；</p>
+<p>  当用户输入quit，则退出脚本；进一步地：显示键入的用户相关信息后，再次提醒输出用户名或quit: </p>
+<pre><code>#!/bin/bash
+#
+
+
+userInfo() {
+        local userLine=$(grep $1 /etc/passwd)
+        local userSHELL=${userLine##*:}
+        local userID=$(echo $userLine | cut -f3 -d:)
+        echo &quot;$userSHELL and $userID&quot;
+
+}
+
+quit() {
+    if [ &quot;$1&quot; == &quot;quit&quot; ]; then
+        echo &quot;Bye Bye&quot;
+        exit 2
+    fi
+}
+
+while true; do
+    read -p &quot;Please input your username or input &apos;quit&apos;: &quot; choice
+
+    if [ &quot;$choice&quot; == &quot;quit&quot; ]; then
+        quit $choice
+        break
+    fi
+
+    if id $choice &gt;&amp; /dev/null; then
+        userInfo $choice
+    fi
+done
+</code></pre><p>8、写一个脚本，完成如下功能（使用函数）</p>
+<p>   (1) 提示用户输入一个可执行命令的名字；获取此命令依赖的所有库文件；</p>
+<p>   (2) 复制命令文件至/mnt/sysroot目录下的对应的rootfs的路径上，例如，如果复制的文件原路径是/usr/bin/useradd，则复制到/mnt/sysroot/usr/bin/目录中；</p>
+<p>   (3) 复制此命令依赖的各库文件至/mnt/sysroot目录下的对应的rootfs的路径上；规则同上面命令相关的要求；</p>
+<pre><code>#!/bin/bash
+read -p &quot;Please input a command: &quot; cmd
+
+cmdPath=$(which $cmd | grep bin)
+
+cpCmd() {
+
+cp $cmdPath /mnt/sysroot$cmdpath
+echo &quot;Copy $cmdPath to path /mnt/sysroot/&quot;
+
+}
+
+cpFile() {
+
+libFile=$(ldd $cmdPath | grep -o &quot;/[^[:space:]]\{1,\}&quot;)
+for i in $libFile; do
+
+    cp $lib /mnt/sysroot$cmdPath
+    echo &quot;Copy $libFile to path/mnt/sysroot/$cmdPath&quot;
+done
+}
+
+cpCmd
+
+cpFile
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-第十一周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第十一周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:46.333Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>##1、详细描述一次加密通讯的过程，结合图示最佳。</p>
+<p><img src="http://i.imgur.com/OTwBgQW.jpg" alt=""></p>
+<p><strong>第一阶段：ClientHello：</strong><br>支持的协议版本，比如tls 1.2；<br>客户端生成一个随机数，稍后用户生成“会话密钥”<br>支持的加密算法，比如AES、3DES、RSA；<br>支持的压缩算法；</p>
+<p><strong>第二阶段：ServerHello</strong><br>确认使用的加密通信协议版本，比如tls 1.2；<br>服务器端生成一个随机数，稍后用于生成“会话密钥”<br>确认使用的加密方法；<br>服务器证书；</p>
+<p><strong>第三阶段：</strong><br>验正服务器证书，在确认无误后取出其公钥；（发证机构、证书完整性、证书持有者、证书有效期、吊销列表）<br>发送以下信息给服务器端：<br>一个随机数；<br>编码变更通知，表示随后的信息都将用双方商定的加密方法和密钥发送；<br>客户端握手结束通知；</p>
+<p><strong>第四阶段：</strong><br>收到客户端发来的第三个随机数pre-master-key后，计算生成本次会话所有到的“会话密钥”；<br>向客户端发送如下信息：<br>编码变更通知，表示随后的信息都将用双方商定的加密方法和密钥发送；<br>服务端握手结束通知；</p>
+<p><strong>下图来个通俗版的(密匙版本，可能不是完全吻合)：</strong></p>
+<p><img src="http://i.imgur.com/X16Cqj1.jpg" alt=""></p>
+<p>##2、描述创建私有CA的过程，以及为客户端发来的证书请求进行颁发证书。</p>
+<p>###创建私有CA的过程</p>
+<p><strong>第一步：生成私钥</strong></p>
+<pre><code>[root@centos private]# (umask 077; openssl genrsa -out /etc/pki/CA/private/jerry_cakey.pam 8192)
+Generating RSA private key, 8192 bit long modulus
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................++
+..........++
+e is 65537 (0x10001)
+[root@centos private]# 
+
+
+[root@centos private]# ll
+总用量 8
+-rw------- 1 root root 6363 2月  24 15:39 jerry_cakey.pam
+[root@centos private]# 
+</code></pre><p><strong>第二步：生成自签证书</strong></p>
+<pre><code>[root@centos private]# openssl req -new -x509 -key /etc/pki/CA/private/cakey.pem -out /etc/pki/CA/cacert.pem -days 3655
+
+-new：生成新证书签署请求；
+
+-x509：生成自签格式证书，专用于创建私有CA时；
+
+-key：生成请求时用到的私有文件路径；
+
+-out：生成的请求文件路径；如果自签操作将直接生成签署过的证书；
+
+-days：证书的有效时长，单位是day；
+</code></pre><p><strong>第三步：为CA提供所需的目录及文件；</strong></p>
+<pre><code>[root@centos private]# mkdir  -pv  /etc/pki/CA/{certs,crl,newcerts}
+[root@centos private]# touch  /etc/pki/CA/{serial,index.txt}
+[root@centos private]# echo  01 &gt; /etc/pki/CA/serial
+</code></pre><p>###为客户端发来的证书请求进行颁发证书</p>
+<p><strong>第一步:用到证书的主机生成私钥:</strong></p>
+<pre><code>[root@centos ~]# cd /etc/httpd/ssl
+[root@centos ssl]# (umask  077; openssl  genrsa -out  /etc/httpd/ssl/httpd.key  8192)
+Generating RSA private key, 8192 bit long modulus
+......................................................................................................................................................................................................................................................................++
+......................................................................................................................................................................................++
+e is 65537 (0x10001)
+[root@centos ssl]# 
+</code></pre><p><strong>第二步:生成证书签署请求</strong></p>
+<pre><code>[root@centos ssl]#  openssl  req  -new  -key  /etc/httpd/ssl/httpd.key  -out /etc/httpd/ssl/httpd.csr  -days  365
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter &apos;.&apos;, the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:CN
+State or Province Name (full name) []:Hubei
+Locality Name (eg, city) [Default City]:Wuhan
+Organization Name (eg, company) [Default Company Ltd]:wanghuakeji
+Organizational Unit Name (eg, section) []:Ops
+Common Name (eg, your name or your server&apos;s hostname) []:whmall.com
+Email Address []:caadmin@whmall.com
+
+Please enter the following &apos;extra&apos; attributes
+to be sent with your certificate request
+A challenge password []:qweasdzxc
+An optional company name []:            
+[root@centos ssl]# 
+</code></pre><p><strong>第三步:将请求通过可靠方式发送给CA主机</strong></p>
+<p>两台主机就用scp，我这里是都在一台虚拟机上就用cp命令，过于简单，就不贴过程了</p>
+<p><strong>第四步：在CA主机上签署证书</strong></p>
+<pre><code>[root@centos ssl]# openssl ca  -in  /etc/httpd/ssl/httpd.csr  -out  /etc/pki/CA/certs/httpd.crt  -days  365
+Using configuration from /etc/pki/tls/openssl.cnf
+Check that the request matches the signature
+Signature ok
+Certificate Details:
+        Serial Number: 1 (0x1)
+        Validity
+            Not Before: Feb 24 09:08:16 2017 GMT
+            Not After : Feb 24 09:08:16 2018 GMT
+        Subject:
+            countryName               = CN
+            stateOrProvinceName       = Hubei
+            organizationName          = FBI
+            organizationalUnitName    = Ops
+            commonName                = xxx.com
+            emailAddress              = caadmin@xxx.com
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                OpenSSL Generated Certificate
+            X509v3 Subject Key Identifier: 
+                D9:4A:37:A2:3E:C4:0D:B8:DF:BF:97:D2:DF:6F:21:6D:B5:56:E1:47
+            X509v3 Authority Key Identifier: 
+                keyid:07:17:C7:46:2F:05:5C:12:D3:10:65:DE:58:83:36:A3:A9:0D:02:17
+
+Certificate is to be certified until Feb 24 09:08:16 2018 GMT (365 days)
+Sign the certificate? [y/n]:y
+
+
+1 out of 1 certificate requests certified, commit? [y/n]y
+Write out database with 1 new entries
+Data Base Updated
+[root@centos ssl]# 
+</code></pre><p>##3、描述DNS查询过程以及DNS服务器类别。</p>
+<p><strong>DNS查询过程</strong></p>
+<p><img src="http://i.imgur.com/0jr6eA2.jpg" alt=""></p>
+<p>1、在浏览器中输入<a href="http://www.qq.com域名，操作系统会先检查自己本地的hosts文件是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。" target="_blank" rel="noopener">www.qq.com域名，操作系统会先检查自己本地的hosts文件是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。</a> </p>
+<p>2、如果hosts里没有这个域名的映射，则查找本地DNS解析器缓存，是否有这个网址映射关系，如果有，直接返回，完成域名解析。 </p>
+<p>3、如果hosts与本地DNS解析器缓存都没有相应的网址映射关系，首先会找TCP/ip参数中设置的首选DNS服务器，在此我们叫它本地DNS服务器，此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。 </p>
+<p>4、如果要查询的域名，不由本地DNS服务器区域解析，但该服务器已缓存了此网址映射关系，则调用这个IP地址映射，完成域名解析，此解析不具有权威性。 </p>
+<p>5、如果本地DNS服务器本地区域文件与缓存解析都失效，则根据本地DNS服务器的设置（是否设置转发器）进行查询，如果未用转发模式，本地DNS就把请求发至13台根DNS，根DNS服务器收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个IP。本地DNS服务器收到IP信息后，将会联系负责.com域的这台服务器。这台负责.com域的服务器收到请求后，如果自己无法解析，它就会找一个管理.com域的下一级DNS服务器地址(qq.com)给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找qq.com域服务器，重复上面的动作，进行查询，直至找到<a href="http://www.qq.com主机。" target="_blank" rel="noopener">www.qq.com主机。</a> </p>
+<p>6、如果用的是转发模式，此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。不管是本地DNS服务器用是是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</p>
+<p>从客户端到本地DNS服务器是属于递归查询，而DNS服务器之间就是的交互查询就是迭代查询。</p>
+<p><strong>DNS服务器类别</strong></p>
+<p><strong>主域名服务器</strong></p>
+<p>负责维护这个区域的所有域名信息，是特定的所有信息的权威信息源</p>
+<p><strong>辅助域名服务器</strong></p>
+<p>当主域名服务器出现故障、关闭或负载过重时，辅助域名服务器作为备份服务提供域名解析服务。辅助域名服务器中的区域文件内的数据是从另外一台域名服务器复制过来的，并不是直接输入的，也就是说这个区域文件只是一份副本，这里的数据是无法修改的。</p>
+<p><strong>缓存服务器</strong></p>
+<p>可运行域名服务器软件但没有域名数据库。它从某个远程服务器取得每次域名服务器查询的回答，一旦获取一个答案，就将它放在高速缓存中，以后查询相同的信息时就用它予以回答。缓存域名服务器不是权威性服务器，因为提供的所有信息都是间接信息。</p>
+<p><strong>转发服务器</strong></p>
+<p>负责所有非本地域名的本地查询。转发域名服务器接到查询请求时，在其缓存中查找，如找不到就把请求依次转发到指定的域名服务器，直到查询到结果为止，否则返回无法映射的结果。</p>
+<p>##4、搭建一套DNS服务器，负责解析magedu.com域名（自行设定主机名及IP）</p>
+<p>  (1)、能够对一些主机名进行正向解析和逆向解析；</p>
+<p>  (2)、对子域cdn.magedu.com进行子域授权，子域负责解析对应子域中的主机名；</p>
+<p>  (3)、为了保证DNS服务系统的高可用性，请设计一套方案，并写出详细的实施过程</p>
+<p>先来个架构图：</p>
+<p><img src="http://i.imgur.com/OoFnAxj.jpg" alt=""></p>
+<p><strong>先来安装bind</strong></p>
+<pre><code>[root@DNS2 ~]# yum install bind
+
+[root@DNS2 ~]# rpm -qa |grep bind  #查看安装的包和版本
+bind-9.8.2-0.47.rc1.el6_8.4.x86_64
+bind-libs-9.8.2-0.47.rc1.el6_8.4.x86_64
+PackageKit-device-rebind-0.5.8-26.el6.x86_64
+bind-utils-9.8.2-0.47.rc1.el6_8.4.x86_64
+[root@DNS2 ~]# 
+</code></pre><p>我是两台DNS测试机一起安装的，这里只列出其中同一台的安装操作命令。</p>
+<p><strong>主配置文件之一：/etc/named.conf</strong></p>
+<p><img src="http://i.imgur.com/wteqhjS.png" alt=""></p>
+<p><strong>主配置文件之二：/etc/named.rfc1912.zones</strong></p>
+<p>在文件尾部加上一下内容，这里就实现了能够对magedu.com域名进行正向解析和逆向解析</p>
+<pre><code>zone &quot;magedu.com&quot; IN {
+    type master;
+    file &quot;magedu.com.zone&quot;;
+    allow-transter { 192.168.0.244; }; #这里这行IP是从DNS服务器的IP
+};
+
+zone &quot;0.168.192.in-addr.arpa&quot; IN {
+    type master
+    file &quot;0.168.192.zone&quot;;
+    allow-transter { 192.168.0.244; }; #这里这行IP是从DNS服务器的IP
+};
+</code></pre><p>测试</p>
+<pre><code>[root@centos named]# dig -x 192.168.0.116
+
+; &lt;&lt;&gt;&gt; DiG 9.8.2rc1-RedHat-9.8.2-0.47.rc1.el6_8.4 &lt;&lt;&gt;&gt; -x 192.168.0.116
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 31489
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: 1
+
+;; QUESTION SECTION:
+;116.0.168.192.in-addr.arpa.    IN    PTR
+
+;; ANSWER SECTION:
+116.0.168.192.in-addr.arpa. 3600 IN    PTR    www.magedu.com.
+116.0.168.192.in-addr.arpa. 3600 IN    PTR    ns1.magedu.com.
+
+;; AUTHORITY SECTION:
+0.168.192.in-addr.arpa.    3600    IN    NS    ns1.magedu.com.
+
+;; ADDITIONAL SECTION:
+ns1.magedu.com.        3600    IN    A    192.168.0.116
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Tue Feb 28 13:50:38 2017
+;; MSG SIZE  rcvd: 120
+
+[root@centos named]# dig -t A www.magedu.com
+
+; &lt;&lt;&gt;&gt; DiG 9.8.2rc1-RedHat-9.8.2-0.47.rc1.el6_8.4 &lt;&lt;&gt;&gt; -t A www.magedu.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 31217
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1
+
+;; QUESTION SECTION:
+;www.magedu.com.            IN    A
+
+;; ANSWER SECTION:
+www.magedu.com.        3600    IN    A    192.168.0.116
+
+;; AUTHORITY SECTION:
+magedu.com.        3600    IN    NS    ns1.magedu.com.
+
+;; ADDITIONAL SECTION:
+ns1.magedu.com.        3600    IN    A    192.168.0.116
+
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Tue Feb 28 13:51:04 2017
+;; MSG SIZE  rcvd: 82
+
+[root@centos named]# 
+</code></pre><p><strong>接下来配置对子域cdn.magedu.com进行子域授权，子域负责解析对应子域中的主机名</strong>、</p>
+<p>另外启动一台，安装bind</p>
+<p>vim /etc/named.conf </p>
+<p>vim /etc/named.rfc1912.zones  加入以下内容</p>
+<pre><code>zone &quot;cdn.magedu.com&quot; IN {
+    type master;
+    file &quot;cdn.magedu.com.zone&quot;;
+};
+
+
+ vim /var/named/cdn.magedu.com.zone
+$TTL 3600
+$ORIGIN cdn.magedu.com.
+@   IN  SOA ns1.cdn.magedu.com. admin.magedu.com. (
+        122701
+        2H
+        10M
+        1W
+        1D )
+    IN  NS  ns1
+ns1 IN  A   192.168.20.51
+www IN  A   192.168.20.199
+# chown :named /var/named/cdn.magedu.com.zone
+# chmod 640 /var/named/cdn.magedu.com.zone
+检查named配置文件及区域配置文件：
+# named-checkconf
+# named-checkzone cdn.magedu.com /var/named/cdn.magedu.com.zone
+# systemctl start named.service
+在主域S1上的配置：
+# vim /var/named/magedu.com.zone
+cdn IN  NS  ns1.cdn
+ns1.cdn IN  A   192.168.20.51
+# rndc reload
+测试解析：
+# dig -t A www.cdn.magedu.com
+</code></pre><p>###DNS服务器主从</p>
+<p>其实不难，就是很多细节要注意，我先贴配置文件吧</p>
+<p>主机  192.168.0.116</p>
+<p> /etc/named.conf</p>
+<pre><code>options {
+        listen-on port 53 { 192.168.0.116; };
+//      listen-on-v6 port 53 { ::1; };
+        directory       &quot;/var/named&quot;;
+        dump-file       &quot;/var/named/data/cache_dump.db&quot;;
+        statistics-file &quot;/var/named/data/named_stats.txt&quot;;
+        memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;
+        allow-query     { any; };
+        recursion yes;
+
+        dnssec-enable no;
+        dnssec-validation no;
+        dnssec-lookaside no;
+        /* Path to ISC DLV key */
+//      bindkeys-file &quot;/etc/named.iscdlv.key&quot;;
+
+//      managed-keys-directory &quot;/var/named/dynamic&quot;;
+};
+
+logging {
+        channel default_debug {
+                file &quot;data/named.run&quot;;
+                severity dynamic;
+        };
+};
+
+zone &quot;.&quot; IN {
+        type hint;
+        file &quot;named.ca&quot;;
+};
+
+include &quot;/etc/named.rfc1912.zones&quot;;
+include &quot;/etc/named.root.key&quot;;
+</code></pre><p>从机 192.168.0.117</p>
+<p> /etc/named.conf</p>
+<pre><code>options {
+        listen-on port 53 { 192.168.0.117; };
+//      listen-on-v6 port 53 { ::1; };
+        directory       &quot;/var/named&quot;;
+        dump-file       &quot;/var/named/data/cache_dump.db&quot;;
+        statistics-file &quot;/var/named/data/named_stats.txt&quot;;
+        memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;
+        allow-query     { any; };
+        recursion yes;
+
+        dnssec-enable no;
+        dnssec-validation no;
+        dnssec-lookaside no;
+        /* Path to ISC DLV key */
+//      bindkeys-file &quot;/etc/named.iscdlv.key&quot;;
+
+//      managed-keys-directory &quot;/var/named/dynamic&quot;;
+};
+
+logging {
+        channel default_debug {
+                file &quot;data/named.run&quot;;
+                severity dynamic;
+        };
+};
+
+zone &quot;.&quot; IN {
+        type hint;
+        file &quot;named.ca&quot;;
+};
+
+include &quot;/etc/named.rfc1912.zones&quot;;
+include &quot;/etc/named.root.key&quot;;
+</code></pre><p>打开辅助DNS服务器的/etc/named.rfc1912.zones文件，添加两个区域记录，这两个记录是主DNS服务器配置文件里已经存在的记录，一个是正向解析记录，一个是反向解析记录</p>
+<p>type: slave，表示此时DNS服务器为辅助DNS服务器，于是下面一行就要定义主DNS服务器的IP地址，辅助DNS服务器才知道去哪里同步数据。辅助DNS服务器的资源类型数据文件通常保存在slaves目录，只需定义一个名称，文件内容通常是自动生成。</p>
+<pre><code>zone &quot;magedu.com&quot; IN {
+    type slave;
+    file &quot;slaves/magedu.com.zone&quot;;
+    masters { 192.168.0.116; };
+};
+
+zone &quot;0.168.192.in-addr.arpa&quot; IN {
+    type slave;
+    file &quot;slaves/192.168.0.116.zone&quot;;
+    masters { 192.168.0.116; };
+};
+</code></pre><p>修改主DNS服务器的数据文件，添加一条辅助DNS服务器记录，给辅助DNS服务器授权。</p>
+<p>正向解析文件<br>vim /var/named/magedu.com.zone</p>
+<pre><code>$TTL 3600
+$ORIGIN magedu.com.
+@   IN  SOA ns1.magedu.com. admin.magedu.com. (
+        2016122703
+        2H
+        10M
+        1W
+        1D )
+    IN  NS  ns1
+ns1 IN  A   192.168.0.116
+www IN  A   192.168.0.116
+cdn IN  NS  ns1.cdn
+ns1.cdn IN  A   192.168.0.117
+    IN  NS  ns2
+ns2 IN  A   192.168.0.117
+</code></pre><p>添加了一条NS记录，值为，ns2.magedu.com.，对应的A记录也要增加一条，把IP地址指向对应的辅助DNS服务器的IP地址。修改完成后，记得要把序列号的值加1，用于通知辅助DNS服务器自动更新数据文件。</p>
+<p>修改反向解析文件/var/named/0.168.192.zone</p>
+<pre><code>$TTL 3600
+$ORIGIN 0.168.192.in-addr.arpa.
+@       IN      SOA     ns1.magedu.com.  nsadmin.magedu.com. (
+        16122702
+        1H
+        10M
+        3D
+        12H )
+         IN      NS      ns1.magedu.com.
+116      IN      PTR     ns1.magedu.com.
+116      IN      PTR     www.magedu.com.
+         IN      NS      ns2.magedu.com.
+117      IN      PTR     ns2.magedu.com.
+</code></pre><p>同样的也增加了两条记录，一条辅助DNS服务器的NS记录和对应的PTR记录。修改完成后记得所序列号的值加1，用于通知辅助DNS服务器自动更新数据文件。</p>
+<p>最后两边都把named服务重启一下，再rndc reload 就好</p>
 
       
     </div>
@@ -325,6 +1835,2323 @@
 
 
   
+    <article id="post-第十五周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第十五周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:46.289Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>##总结sed和awk的详细用法；</p>
+<p>###sed用法</p>
+<p>sed(Stream EDitor)是一款流编辑器，用来对文本进行过滤与替换操作。其原理是：通过文件或管道读取文件内容，但是sed默认并不直接修改源文件，而是一次仅读取文件的一行至模式空间(pattern space)根据sed指令进行编辑并输出结果后清除模式空间，即所有的操作都是在模式空间中进行的。</p>
+<p><img src="http://i.imgur.com/Htcg1Zv.png" alt=""></p>
+<p><strong>语法格式</strong></p>
+<p>sed [option]… ‘script’ inputfile…</p>
+<p><strong>OPTIONS选项</strong></p>
+<p>-n，–quite，–silent：静默输出，即不输出模式中的内容至输出</p>
+<p>-e script：使用多个脚本指令执行编辑</p>
+<p>-f /PATH/TO/SCRIPT_FILE：从指定的文件中读取编辑脚本</p>
+<p>-r：支持在脚本中使用正则表达式</p>
+<p>-i，–in-place：直接在文件原处执行编辑，即修改源文件</p>
+<p><strong>SCRIPT，地址定界+编辑指令</strong></p>
+<p><strong>地址定界</strong></p>
+<p>(1) 不给地址：对全文进行处理；</p>
+<p>(2) 单地址</p>
+<pre><code>#：指定的行
+
+$：文件的最后一行
+
+/PATTERN/：被模式匹配到的每一行
+</code></pre><p>(3) 地址范围</p>
+<pre><code>m,n：指定m行到n行
+
+#,+n：指定#行到#+n行
+
+/pat1/,/pat2/：匹配到的pat1到pat2之间的行
+
+#,/pat/：第#行到匹配到pat
+</code></pre><p>(4) 步进：~</p>
+<pre><code>1~2：所有奇数行，从一开始，步进2
+
+2~2：所有偶数行，从二开始，步进2
+</code></pre><p>注意：如果//中正则表达式为空，则匹配最近一次正则表达式的匹配地址！</p>
+<p><strong>编辑命令</strong></p>
+<p>d：删除</p>
+<p>p：显示模式空间的内容</p>
+<p>a \text：在行后面追加内容，支持使用\n(换行符)实现多行追加</p>
+<p>i \text：在行前面插入内容，支持使用\n(换行符)实现多行追加</p>
+<p>c \text：替换行为单行或多行文本，支持使用\n(换行符)</p>
+<p>w /PATH/TO/SOMEFILE：保存模式空间匹配到的行至指定文件中</p>
+<p>r /PATH/FROM/SOMEFILE：读取指定文件的文本流至模式空间中匹配到的行的行后</p>
+<p>=：为模式空间中的行打印行号</p>
+<p>!：取反条件</p>
+<p>s/pattern/replacement/flags：替换，支持使用其他分隔符，如：s@@@, s###</p>
+<pre><code>替换标记(flags)：
+    #：替换行内匹配到的第#次的内容
+    g：行内全局替换
+    p：显示替换成功的行
+    w /PATH/TO/SOMEFILE：将替换后的结果保存至指定文件
+replacement：
+    &amp;：用pattern匹配到的内容进行替换
+    \n：在pattern中使用\(\)指定时，匹配第n个子串
+</code></pre><p><strong>【难点】高级编辑命令：</strong></p>
+<pre><code>h：把模式空间中的内容覆盖至保持空间中；
+H：把模式空间中的内容追加至保持空间中；
+g：把保持空间中的内容覆盖至模式空间中；
+G：把保持空间中的内容追加至模式空间中；
+x：把模式空间中的内容与保持空间中的内容互换；
+n：显示并清空模式空间，然后读取匹配到的行的下一行覆盖至模式空间；
+N：追加读取匹配到的行的下一行至模式空间中；
+d：删除模式空间中的行；
+D：删除多行模式空间中的所有行；
+
+示例：
+    sed  -n  &apos;n;p&apos;  FILE：显示偶数行；
+    sed  &apos;1!G;h;$!d&apos;  FILE：逆序显示文件的内容；
+    sed  ’$!d&apos;  FILE：取出最后一行；
+    sed  &apos;$!N;$!D&apos; FILE：取出文件后两行；
+    sed &apos;/^$/d;G&apos; FILE：删除原有的所有空白行，而后为所有的非空白行后添加一个空白行；
+    sed  &apos;n;d&apos;  FILE：显示奇数行；
+    sed &apos;G&apos; FILE：在原有的每行后方添加一个空白行；
+</code></pre><p>##awk用法</p>
+<p>其用法博大精深，且听我细细道来</p>
+<p>首先，grep，sed，awk三者区别，回顾一下：</p>
+<p>###<strong>grep, egrep, fgrep</strong></p>
+<p>文本过滤工具，只读不写，加上各种正则及关键字，那叫一个爽快。</p>
+<p>###<strong>sed</strong></p>
+<p>行编辑器，有模式空间及保持空间，实现文本行的编辑及输出。</p>
+<p>###<strong>awk</strong><br>报告生成器，格式化文本输出；功能及其强大，不光可用正则，还可以使用条件判断语句，函数、数组，不愧为上古神器。</p>
+<p>有一点很重要，也很激励人心，就是“结合awk与其他工具诸如grep和sed，将会使shell编程更加容易，也更有逼格。”</p>
+<p>###<strong>awk命令的使用格式：</strong></p>
+<p>awk [options] ‘program’ file1,file2,…</p>
+<p>awk [options] ‘PATTERN { action }’ file1,file2,… </p>
+<p>###<strong>program与PATTERN { action }的关系</strong></p>
+<p>很多同学在刚开始学习awk的时候，这里常常犯迷糊，me too！所以我觉得这个关系先理清楚，对awk往后的学习是有帮助的。</p>
+<p><strong>program包括PATTERN和ACTION，PATTERN和ACTION最少得有一个，语句之间用分号分隔</strong></p>
+<p><strong>【理解关键点】模式( pattern ) 用于匹配输入中的每行文本。对于匹配上的每行文本，awk 都执行对应的 动作( action )。模式和动作之间使用花括号隔开。awk 顺序扫描每一行文本，并使用 记录分隔符（一般是换行符）将读到的每一行作为 记录，使用 域分隔符( 一般是空格符或制表符 ) 将一行文本分割为多个 域， 每个域分别可以使用 $1, $2, … $n 表示。$1 表示第一个域，$2 表示第二个域，$n 表示第 n 个域。 $0 表示整个记录。模式或动作都可以不指定，缺省模式的情况下，将匹配所有行。缺省动作的情况下，将执行动作 {print}，即打印整个记录。</strong></p>
+<p>###<strong>先来说说ACTION</strong></p>
+<p>其中最常用的ACTION参数之一就是print和printf了，前者实现打印输出，后者实现格式化输出</p>
+<p><strong>print</strong></p>
+<p>语法：</p>
+<p>print item1, item2, …</p>
+<p>要点</p>
+<p>(1) 逗号分隔符；</p>
+<p>(2) 输出的各item可以字符串，也可以是数值；当前记录的字段、变量或awk的表达式；</p>
+<p>(3) 如省略item，相当于print $0,打印整行字符</p>
+<p><strong>printf命令，这个就很有内涵了</strong></p>
+<p>要点：</p>
+<p>(1) FORMAT必须给出;</p>
+<p>(2) 不会自动换行，需要显式给出换行控制符，\n</p>
+<p>(3) FORMAT中需要分别为后面的每个item指定一个格式化符号；</p>
+<p>语法：</p>
+<p>printf 格式符/修饰符, item1, item2, …</p>
+<pre><code>格式符：
+        %c: 显示字符的ASCII码；
+        %d, %i: 显示十进制整数；
+        %e, %E: 科学计数法数值显示；
+        %f：显示为浮点数；
+        %g, %G：以科学计数法或浮点形式显示数值；
+        %s：显示字符串；
+        %u：无符号整数；
+        %%: 显示%自身；
+
+修饰符：
+        #[.#]：第一个数字控制显示的宽度；第二个#表示小数点后的精度；
+        %3.1f
+        -: 左对齐
+        +：显示数值的符号
+</code></pre><p>记住哦，格式符和修饰符可以灵活组合使用</p>
+<p>###ACTION还支持以下干货，        </p>
+<p><strong>(1) Expressions表达式</strong></p>
+<p><strong>(2) Control statements：if, while等；</strong></p>
+<p><strong>(3) Compound statements：组合语句；</strong></p>
+<p><strong>(4) input statements</strong></p>
+<p><strong>(5) output statements（print printf）</strong></p>
+<p><strong>我们来看看控制语句：</strong></p>
+<p>(1)if(condition) {statments} ：单分支if语句</p>
+<p>(2)if(condition) {statments} else {statements} ：双分支if语句</p>
+<p>(3)while(conditon) {statments}</p>
+<p>(4)do {statements} while(condition) ：循环体</p>
+<p>(5)for(expr1;expr2;expr3) {statements}</p>
+<p>(6)break</p>
+<p>(7)continue</p>
+<p>(8)delete array[index]</p>
+<p>(9)delete array</p>
+<p>(10)exit</p>
+<p>支持这么多，已经看傻,下面一个个来看看：</p>
+<p><strong>if-else</strong></p>
+<pre><code>语法：if(condition) statement [else statement]
+
+~]# awk -F: &apos;{if($3&gt;=1000) {printf &quot;Common user: %s\n&quot;,$1} else {printf &quot;root or Sysuser: %s\n&quot;,$1}}&apos; /etc/passwd
+
+~]# awk -F: &apos;{if($NF==&quot;/bin/bash&quot;) print $1}&apos; /etc/passwd
+
+~]# awk &apos;{if(NF&gt;5) print $0}&apos; /etc/fstab
+
+~]# df -h | awk -F[%] &apos;/^\/dev/{print $1}&apos; | awk &apos;{if($NF&gt;=20) print $1}&apos;
+
+使用场景：对awk取得的整行或某个字段做条件判断；
+</code></pre><p><strong>while循环</strong></p>
+<pre><code>语法：while(condition) statement
+条件“真”，进入循环；条件“假”，退出循环；
+
+~]# awk &apos;/^[[:space:]]*linux16/{i=1;while(i&lt;=NF) {print $i,length($i); i++}}&apos; /etc/grub2.cfg
+
+~]# awk &apos;/^[[:space:]]*linux16/{i=1;while(i&lt;=NF) {if(length($i)&gt;=7) {print $i,length($i)}; i++}}&apos; /etc/grub2.cfg
+
+使用场景：对一行内的多个字段逐一类似处理时使用；对数组中的各元素逐一处理时使用；
+</code></pre><p><strong>do-while循环</strong></p>
+<pre><code>语法：do statement while(condition)
+意义：至少执行一次循环体
+</code></pre><p><strong>for循环</strong></p>
+<pre><code>语法：for(expr1;expr2;expr3) statement
+
+for(variable assignment;condition;iteration process) {for-body}
+
+~]# awk &apos;/^[[:space:]]*linux16/{for(i=1;i&lt;=NF;i++) {print $i,length($i)}}&apos; /etc/grub2.cfg
+
+特殊用法：
+    能够遍历数组中的元素；
+    语法：for(var in array) {for-body}
+</code></pre><p><strong>switch语句</strong></p>
+<pre><code>语法：switch(expression) {case VALUE1 or /REGEXP/: statement; case VALUE2 or /REGEXP2/: statement; ...; default: statement}
+</code></pre><p><strong>next</strong></p>
+<pre><code>提前结束对本行的处理而直接进入下一行；
+
+~]# awk -F: &apos;{if($3%2!=0) next; print $1,$3}&apos; /etc/passwd
+</code></pre><p><strong>数组array</strong></p>
+<pre><code>关联数组：array[index-expression]
+
+index-expression:
+    (1) 可使用任意字符串；字符串要使用双引号；
+    (2) 如果某数组元素事先不存在，在引用时，awk会自动创建此元素，并将其值初始化为“空串”；
+
+    若要判断数组中是否存在某元素，要使用&quot;index in array&quot;格式进行；
+        weekdays[mon]=&quot;Monday&quot;
+
+    若要遍历数组中的每个元素，要使用for循环；
+        for(var in array) {for-body}
+</code></pre><p><strong>函数</strong></p>
+<pre><code>内置函数
+    数值处理：
+        rand()：返回0和1之间一个随机数；
+
+    字符串处理：
+        length([s])：返回指定字符串的长度；
+        sub(r,s,[t])：以r表示的模式来查找t所表示的字符中的匹配的内容，并将其第一次出现替换为s所表示的内容；
+        gsub(r,s,[t])：以r表示的模式来查找t所表示的字符中的匹配的内容，并将其所有出现均替换为s所表示的内容；
+        split(s,a[,r])：以r为分隔符切割字符s，并将切割后的结果保存至a所表示的数组中；
+</code></pre><p>好，上边ACTION啰嗦完了，哈哈哈哈哈，下面就要高潮咧O(∩_∩)O哈哈~</p>
+<p>###PATTERN</p>
+<p>PATTERN有什么，有很多，超乎你的想象，它支持</p>
+<pre><code>(1) empty：空模式，匹配每一行；
+
+(2) /regular expression/：仅处理能够被此处的模式匹配到的行；
+
+(3) relational expression: 关系表达式；【结果有“真”有“假”；结果为“真”才会被处理】；
+
+    【真：结果为非0值，非空字符串】这个跟bash的命令返回值不一样；
+
+(4) line ranges：行范围，
+    startline,endline：/pat1/,/pat2/
+
+    例子：[root@CentOS7 ~]# awk -F: &apos;/^h/,/^u/{print $1}&apos; /etc/passwd
+
+    注意： 不支持直接给出数字的格式
+
+    可以使用如下方式：
+    ~]# awk -F: &apos;(NR&gt;=2&amp;&amp;NR&lt;=10){print $1}&apos; /etc/passwd
+
+(5) BEGIN/END模式
+    BEGIN{}: 仅在开始处理文件中的文本之前执行一次；
+    END{}：仅在文本处理完成之后执行一次    ；
+</code></pre><p>###选项[options]</p>
+<p>-F：指明输入时用到的字段分隔符；</p>
+<p>-v var=value: 自定义变量；</p>
+<p>awk的options主要用来定义各种变量和使用各种內建变量。</p>
+<p><strong>内建变量</strong></p>
+<pre><code>FS：input field seperator，默认为空白字符；
+OFS：output field seperator，默认为空白字符；
+RS：input record seperator，输入时的换行符；
+ORS：output record seperator，输出时的换行符；
+
+NF：number of field，字段数量
+    {print NF}, {print $NF} 它们之间是有区别的，NF是有多少个字段数量，而$NF表示最后一个字段的内容
+NR：number of record, 行数；
+FNR：各文件分别计数；行数；
+
+$0：代表一行，读一行进行切片
+
+FILENAME：当前文件名；
+
+ARGC：命令行参数的个数；
+ARGV：数组，保存的是命令行所给定的各参数；
+
+PS：在awk中要做变量替换，是不能用引号引起来的
+</code></pre><p><strong>自定义变量</strong></p>
+<pre><code>(1) -v var=value  #变量名区分字符大小写哦；
+
+(2) 在program中直接定义
+</code></pre><p>好了，awk就介绍到这里，下面来写例子</p>
+<p><strong>例子1：显示/etc/passwd的账户</strong></p>
+<pre><code>#cat /etc/passwd |awk  -F &apos;:&apos;  &apos;{print $1}&apos;  
+root
+daemon
+bin
+sys
+</code></pre><p>上边这种是awk+action的示例，每行都会执行action{print $1}。</p>
+<p>-F指定域分隔符为’:’。</p>
+<p><strong>例子2：搜索/etc/passwd有root关键字的所有行</strong></p>
+<pre><code>#awk -F: &apos;/root/&apos; /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+</code></pre><p>上边这种是pattern的使用示例，匹配了pattern(这里是root)的行才会执行action(没有指定action，默认输出每行的内容)。</p>
+<p>搜索支持正则，例如找root开头的: awk -F: ‘/^root/‘ /etc/passwd</p>
+<p><strong>例子3：搜索/etc/passwd有root关键字的所有行，并显示对应的shell</strong></p>
+<pre><code># awk -F: &apos;/root/{print $7}&apos; /etc/passwd             
+/bin/bash
+</code></pre><p> 上边这里指定了匹配了pattern(这里是root)的行才会执行action{print $7}</p>
+<p><strong>例子4：删除/boot/grub/grub.conf文件中所有行的行首的空白字符</strong></p>
+<p>sed ‘s/^[[:space:]]+//‘ /boot/grub/grub.conf</p>
+<p>这里的sed使用了查找替换，思路就是先查找文件中所有行的行首的空白字符，用正则的行首锚定空字符，之后查找替换为空，即删除。</p>
+<p><strong>例子5：删除/etc/fstab文件中所有以#开头，后跟至少一个空白字符的行的行首的#和空白字符</strong></p>
+<p>sed  ‘s/^#[[:space:]]*//‘  /etc/fstab</p>
+<p>同样是查找替换的套路，参照例子4</p>
+<p><strong>例子6：把/etc/fstab文件的奇数行另存为/tmp/fstab.3</strong></p>
+<p>sed  ‘1~2!d’ /etc/fstab &gt; /tmp/fstab.3</p>
+<p>sed ‘1~2w /tmp/fstab.3’ /etc/fstab</p>
+<p>这里用到了sed地址定界中的步进+编辑命令，两种不同的编辑命令实现，真是飞刀又见飞刀，套路又见套路，套路就是熟悉其语法，命令，灵活组合使用。</p>
+<p><strong>例子7：echo一个文件路径给sed命令，取出其基名；进一步地，取出其路径名</strong></p>
+<p><strong>路径名</strong></p>
+<p>echo “/tmp/test/fstab” | sed ‘s#[^/]+\?$##’</p>
+<p>上边sed的#为分隔符，[^/]指匹配指定范围外的任意单个字符，</p>
+<p>+：匹配其前面的字符1次或多次：即其前面的字符要出现至少1次；</p>
+<p>\?：匹配其前面的字符0次或1次；即其前面的字符是可有可无的；</p>
+<p>$：行尾锚定；用于模式的最右侧</p>
+<p><strong>基名</strong></p>
+<p>echo “/tmp/test/fstab” | sed ‘s#(\/.*\/)##’</p>
+<pre><code>上边的sed分隔符为#，用到了sed的查找替换、正则表达式及其分组，形式为\(正则表达式\)
+
+正则为\/.*\/，其中\为转移符，正则抽取出来就是/.*/  意思就是匹配到/开头的以/结尾期间的任意单个字符任意次。
+
+各位应该明白了吧。
+</code></pre><p><strong>例子8：统计指定文件中所有行中每个单词出现的次数</strong></p>
+<p>awk ‘{for(i=1;i&lt;=NF;i++){count[$i]++}}END{for(i in count) {print i,count[i]}}’ /etc/fstab</p>
+<pre><code>[root@CentOS7 ~]# awk &apos;{for(i=1;i&lt;=NF;i++){count[$i]++}}END{for(i in count) {print i,count[i]}}&apos; /etc/fstab
+swap 2
+fstab(5), 1
+filesystems, 1
+on 1
+/etc/fstab 1
+/boot 1
+more 1
+mount(8) 1
+pages 1
+&apos;/dev/disk&apos; 1
+/dev/mapper/cl_centos7-swap 1
+blkid(8) 1
+See 1
+/dev/mapper/cl_centos7-root 1
+for 1
+and/or 1
+anaconda 1
+/ 1
+findfs(8), 1
+under 1
+17:33:09 1
+Created 1
+UUID=fe2021fb-ac21-474d-8256-f72b87fc915a 1
+0 6
+info 1
+Accessible 1
+22 1
+# 7
+defaults 3
+xfs 2
+man 1
+are 1
+reference, 1
+Mar 1
+by 2
+maintained 1
+2017 1
+Wed 1
+[root@CentOS7 ~]# 
+</code></pre><p>7、统计当前系统上所有tcp连接的各种状态的个数；</p>
+<p>netstat -n | awk ‘/^tcp/ {++state[$NF]} END {for(key in state) print key,”t”,state[key]}’</p>
+<p>例子</p>
+<pre><code>root@xxx:~# netstat -n | awk &apos;/^tcp/ {++state[$NF]} END {for(key in state) print key,&quot;t&quot;,state[key]}&apos;
+FIN_WAIT2 t 71
+CLOSE_WAIT t 1
+TIME_WAIT t 2049
+ESTABLISHED t 1392
+LAST_ACK t 3
+FIN_WAIT1 t 4
+</code></pre><p>8、统计指定的web访问日志中各ip的资源访问次数：</p>
+<p>awk ‘{ip[$1]++}END{for(i in ip) print i,ip[i]}’ /opt/nginx/logs/access.log</p>
+<p>9、写一个脚本：定义一个数组，数组元素为/var/log目录下所有以.log结尾的文件的名字；显示每个文件的行数；</p>
+<pre><code>[root@CentOS7 ~]#  cat week15_title9.sh 
+#!/bin/bash
+
+files=/var/log/*.log
+
+for i in $files
+do
+    wc -l $i
+done
+</code></pre><p>输出如下：</p>
+<pre><code>[root@CentOS7 ~]# ./week15_title9.sh 
+248 /var/log/boot.log
+9 /var/log/openlmi-install.log
+177 /var/log/vmware-install.log
+326 /var/log/vmware-vmsvc.log
+85 /var/log/vmware-vmusr.log
+10 /var/log/wpa_supplicant.log
+436 /var/log/Xorg.0.log
+320 /var/log/Xorg.9.log
+328 /var/log/yum.log
+[root@CentOS7 ~]# 
+</code></pre><p>10、写一个脚本，能从所有同学中随机挑选一个同学回答问题；进一步地：可接受一个参数，做为要挑选的同学的个数；</p>
+<pre><code>[root@CentOS7 ~]# cat week15_title10.sh
+#!/bin/bash
+
+if [ $1 ];then  #判断有无脚本参数传入，如有则执行，没有就执行else的语句
+    for((i=1;i&lt;=$1;i++));do
+        a=$[$RANDOM%11] #定义一个0~10的随机数
+        echo $a
+    done
+else
+    a=$[$RANDOM%11]
+    echo $a
+fi
+</code></pre><p>11、授权centos用户可以运行fdisk命令完成磁盘管理，以及使用mkfs或mke2fs实现文件系统管理；</p>
+<pre><code>visudo
+centos  ALL=(root)      NOPASSWD:/sbin/fdisk,/sbin/mke2fs,/sbin/mkfs
+</code></pre><p>12、授权gentoo用户可以运行逻辑卷管理的相关命令；</p>
+<pre><code>visudo
+gentoo  ALL=(root)      lvm
+</code></pre><p>13、基于pam_time.so模块，限制用户通过sshd服务远程登录只能在工作时间进行；</p>
+<pre><code>vim /etc/ssh/sshd_config 
+UsePAM yes  #开启Pam模块认证
+
+
+/lib64/security/pam_time.so #确保pam_time.so存在 
+
+vim /etc/pam.d/sshd
+增加  account    required     pam_time.so
+
+vim /etc/security/time.conf
+添加 *;*;*;MoTuWeThFr0900-1800
+</code></pre><p>14、基于pam_listfile.so模块，定义仅某些用户，或某些组内的用户可登录系统；</p>
+<pre><code>[root@localhost ~]# vim /etc/sshd_userlist
+root
+centos
+gentoo
+
+chmod 600 /etc/sshd_userlist
+chown root /etc/sshd_userlist
+vim /etc/pam.d/sshd 
+#auth       required     pam_listfile.so item=user sense=allow file=/etc/sshd_userlist onerr=succeed
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-第十四周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第十四周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:46.161Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>基本语法：iptables [-t 表] [操作命令] [链][规则匹配器][-j 目标动作]</p>
+<p><img src="http://i.imgur.com/Qvy6WLS.png" alt=""></p>
+<p>系统的INPUT和OUTPUT默认策略为DROP；</p>
+<pre><code># iptables -P INPUT DROP
+# iptables -P OUTPUT DROP
+</code></pre><p>1、限制本地主机的web服务器在周一不允许访问；新请求的速率不能超过100个每秒；web服务器包含了admin字符串的页面不允许访问；web服务器仅允许响应报文离开本机；</p>
+<p>本地主机的web服务器在周一不允许访问</p>
+<pre><code>#iptables -A INPUT -p tcp --dport 80 -m time ! --weekdays Mon -j ACCEPT
+</code></pre><p>新请求速率不能超过100个每秒</p>
+<pre><code># iptables -A INPUT -p tcp --dport 80 -m limit --limit 100/s
+</code></pre><p>web包含admin字符串的页面不允许访问</p>
+<pre><code># iptables -A INPUT -p tcp --dport 80 -m string --algo bm --string &apos;admin&apos; -j REJECT
+</code></pre><p>web服务器仅允许响应报文离开主机</p>
+<pre><code># iptables -A OUTPUT -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+</code></pre><p>2、在工作时间，即周一到周五的8:30-18:00，开放本机的ftp服务给172.16.0.0网络中的主机访问；数据下载请求的次数每分钟不得超过5个；</p>
+<pre><code>#iptables -A INPUT -p tcp --dport 21 -s 172.16.0.0 -m time ! --weekdays 6,7  -m time --timestart 8:30 --timestop 18:00 -m limit --limit 5/m
+</code></pre><p>3、开放本机的ssh服务给172.16.x.1-172.16.x.100中的主机，x为你的座位号，新请求建立的速率一分钟不得超过2个；仅允许响应报文通过其服务端口离开本机；</p>
+<pre><code># iptables -A INPUT -p tcp --dport 22 -m iprange --src-range 172.16.0.1-172.16.0.100 -m limit --limit 2/m
+
+# iptables -A OUTPUT -p tcp --sport 22 -m iprange --dst-range 172.16.0.1-172.16.0.100 -m state --state ESTABLISHED -j ACCEPT
+</code></pre><p>4、拒绝TCP标志位全部为1及全部为0的报文访问本机；</p>
+<pre><code># iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+</code></pre><p>5、允许本机ping别的主机；但不开放别的主机ping本机；</p>
+<pre><code># iptables -A INPUT  -p icmp --icmp-type 0 -j ACCEPT
+
+# iptables -A OUTPUT  -p icmp --icmp-type 8 -j ACCEPT
+</code></pre><p>6、判断下述规则的意义：</p>
+<h1 id="iptables-N-clean-in"><a href="#iptables-N-clean-in" class="headerlink" title="iptables -N clean_in"></a>iptables -N clean_in</h1><p>创建一条自定义链clean_in</p>
+<h1 id="iptables-A-clean-in-d-255-255-255-255-p-icmp-j-DROP"><a href="#iptables-A-clean-in-d-255-255-255-255-p-icmp-j-DROP" class="headerlink" title="iptables -A clean_in -d 255.255.255.255 -p icmp -j DROP"></a>iptables -A clean_in -d 255.255.255.255 -p icmp -j DROP</h1><p>丢弃同网络的的icmp协议包</p>
+<h1 id="iptables-A-clean-in-d-172-16-255-255-p-icmp-j-DROP"><a href="#iptables-A-clean-in-d-172-16-255-255-p-icmp-j-DROP" class="headerlink" title="iptables -A clean_in -d 172.16.255.255 -p icmp -j DROP"></a>iptables -A clean_in -d 172.16.255.255 -p icmp -j DROP</h1><p>丢弃来源172.16网络的icmp协议包</p>
+<h1 id="iptables-A-clean-in-p-tcp-–syn-m-state-–state-NEW-j-DROP"><a href="#iptables-A-clean-in-p-tcp-–syn-m-state-–state-NEW-j-DROP" class="headerlink" title="iptables -A clean_in -p tcp ! –syn -m state –state NEW -j DROP"></a>iptables -A clean_in -p tcp ! –syn -m state –state NEW -j DROP</h1><p>丢弃syn状态不为1且为NEW 的连接</p>
+<h1 id="iptables-A-clean-in-p-tcp-–tcp-flags-ALL-ALL-j-DROP"><a href="#iptables-A-clean-in-p-tcp-–tcp-flags-ALL-ALL-j-DROP" class="headerlink" title="iptables -A clean_in -p tcp –tcp-flags ALL ALL -j DROP"></a>iptables -A clean_in -p tcp –tcp-flags ALL ALL -j DROP</h1><p>丢弃所有tcp标志位为1的数据包</p>
+<h1 id="iptables-A-clean-in-p-tcp-–tcp-flags-ALL-NONE-j-DROP"><a href="#iptables-A-clean-in-p-tcp-–tcp-flags-ALL-NONE-j-DROP" class="headerlink" title="iptables -A clean_in -p tcp –tcp-flags ALL NONE -j DROP"></a>iptables -A clean_in -p tcp –tcp-flags ALL NONE -j DROP</h1><p> 在clean_in链中添加一条规则，丢弃tcp报文中tcp标志位都为0的</p>
+<h1 id="iptables-A-clean-in-d-172-16-100-7-j-RETURN"><a href="#iptables-A-clean-in-d-172-16-100-7-j-RETURN" class="headerlink" title="iptables -A clean_in -d 172.16.100.7 -j RETURN"></a>iptables -A clean_in -d 172.16.100.7 -j RETURN</h1><p>在clean_in链中添加一条规则，遇到目的端为172.16.100.7的主机，返回调用位置</p>
+<h1 id="iptables-A-INPUT-d-172-16-100-7-j-clean-in"><a href="#iptables-A-INPUT-d-172-16-100-7-j-clean-in" class="headerlink" title="iptables -A INPUT -d 172.16.100.7 -j clean_in"></a>iptables -A INPUT -d 172.16.100.7 -j clean_in</h1><p> 在clean_in链中添加一条规则，遇到目的端为172.16.100.7的主机，调用clean_in</p>
+<h1 id="iptables-A-INPUT-i-lo-j-ACCEPT"><a href="#iptables-A-INPUT-i-lo-j-ACCEPT" class="headerlink" title="iptables -A INPUT  -i lo -j ACCEPT"></a>iptables -A INPUT  -i lo -j ACCEPT</h1><p>允许回环接口进</p>
+<h1 id="iptables-A-OUTPUT-o-lo-j-ACCEPT"><a href="#iptables-A-OUTPUT-o-lo-j-ACCEPT" class="headerlink" title="iptables -A OUTPUT -o lo -j ACCEPT"></a>iptables -A OUTPUT -o lo -j ACCEPT</h1><p>允许回环接口出</p>
+<h1 id="iptables-A-INPUT-i-eth0-m-multiport-p-tcp-–dports-53-113-135-137-139-445-j-DROP"><a href="#iptables-A-INPUT-i-eth0-m-multiport-p-tcp-–dports-53-113-135-137-139-445-j-DROP" class="headerlink" title="iptables -A INPUT  -i eth0 -m multiport -p tcp –dports 53,113,135,137,139,445 -j DROP"></a>iptables -A INPUT  -i eth0 -m multiport -p tcp –dports 53,113,135,137,139,445 -j DROP</h1><p>丢弃通过eth0网卡访问53,113,135,137,139,445端口的tcp报文</p>
+<h1 id="iptables-A-INPUT-i-eth0-m-multiport-p-udp-–dports-53-113-135-137-139-445-j-DROP"><a href="#iptables-A-INPUT-i-eth0-m-multiport-p-udp-–dports-53-113-135-137-139-445-j-DROP" class="headerlink" title="iptables -A INPUT  -i eth0 -m multiport -p udp –dports 53,113,135,137,139,445 -j DROP"></a>iptables -A INPUT  -i eth0 -m multiport -p udp –dports 53,113,135,137,139,445 -j DROP</h1><p>丢弃通过eth0网卡访问53,113,135,137,139,445端口的udp报文</p>
+<h1 id="iptables-A-INPUT-i-eth0-p-udp-–dport-1026-j-DROP"><a href="#iptables-A-INPUT-i-eth0-p-udp-–dport-1026-j-DROP" class="headerlink" title="iptables -A INPUT  -i eth0 -p udp –dport 1026 -j DROP"></a>iptables -A INPUT  -i eth0 -p udp –dport 1026 -j DROP</h1><p>丢弃通过eth0网卡访问1026端口的udp报文</p>
+<h1 id="iptables-A-INPUT-i-eth0-m-multiport-p-tcp-–dports-1433-4899-j-DROP"><a href="#iptables-A-INPUT-i-eth0-m-multiport-p-tcp-–dports-1433-4899-j-DROP" class="headerlink" title="iptables -A INPUT  -i eth0 -m multiport -p tcp –dports 1433,4899 -j DROP"></a>iptables -A INPUT  -i eth0 -m multiport -p tcp –dports 1433,4899 -j DROP</h1><p>丢弃通过eth0网卡访问1433,4899端口的tcp报文</p>
+<h1 id="iptables-A-INPUT-p-icmp-m-limit-–limit-10-second-j-ACCEPT"><a href="#iptables-A-INPUT-p-icmp-m-limit-–limit-10-second-j-ACCEPT" class="headerlink" title="iptables -A INPUT  -p icmp -m limit –limit 10/second -j ACCEPT"></a>iptables -A INPUT  -p icmp -m limit –limit 10/second -j ACCEPT</h1><p>接收icmp报文限速每秒10次</p>
+<p>7、通过tcp_wrapper控制vsftpd仅允许172.16.0.0/255.255.0.0网络中的主机访问，但172.16.100.3除外；对所被被拒绝的访问尝试都记录在/var/log/tcp_wrapper.log日志文件中；</p>
+<pre><code>vim /etc/host.allow
+     vsftpd:172.16. EXCEPT 172.16.100.3
+
+vim /etc/host.deny
+     vsftdp:ALL :spawn /bin/echo $(date) login attemp from %c to %s,%d &gt;&gt; /bar/log/tcp_wrapper.log
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-第十三周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第十三周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:46.141Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#1、建立samba共享，共享目录为/data，要求：（描述完整的过程）</p>
+<p>mkdir /data     #建立共享目录</p>
+<p><strong>1）共享名为shared，工作组为magedu</strong></p>
+<p>vim /etc/samba/smb.conf</p>
+<pre><code>修改
+workgroup = MYGROUP
+为
+workgroup = magedu
+
+修改
+passdb backend = tdbsam
+为
+    passdb backend = smbpasswd
+    smb passwd file = /etc/samba/smbpasswd
+</code></pre><p><strong>2)添加组develop，添加用户gentoo,centos和ubuntu，其中gentoo和centos以develop为附加组，ubuntu不属于develop组；密码均为用户名；</strong></p>
+<pre><code>[root@CentOS7 samba]# groupadd develop
+[root@CentOS7 samba]# useradd -G develop gentoo
+[root@CentOS7 samba]# useradd -G develop centos
+[root@CentOS7 samba]# useradd ubuntu
+
+
+
+[root@CentOS7 samba]#  echo &quot;gentoo&quot;|  passwd --stdin gentoo
+更改用户 gentoo 的密码 。
+passwd：所有的身份验证令牌已经成功更新。
+[root@CentOS7 samba]# echo &quot;centos&quot;|  passwd --stdin centos
+更改用户 centos 的密码 。
+passwd：所有的身份验证令牌已经成功更新。
+[root@CentOS7 samba]# echo &quot;ubuntu&quot;|  passwd --stdin ubuntu
+</code></pre><p><strong>3)添加samba用户gentoo,centos和ubuntu，密码均为“mageedu”；</strong></p>
+<pre><code>[root@CentOS7 samba]#  smbpasswd -a gentoo
+New SMB password:
+Retype new SMB password:
+startsmbfilepwent_internal: file /etc/samba/smbpasswd did not exist. File successfully created.
+Added user gentoo.
+[root@CentOS7 samba]#  smbpasswd -a centos
+New SMB password:
+Retype new SMB password:
+Added user centos.
+[root@CentOS7 samba]#  smbpasswd -a ubuntu
+New SMB password:
+Retype new SMB password:
+Added user ubuntu.
+[root@CentOS7 samba]# 
+</code></pre><p><strong>4)此samba共享shared仅允许develop组具有写权限，其他用户只能以只读方式访问；</strong></p>
+<p>vim smb.conf</p>
+<pre><code>末尾添加
+[shared]
+comment = Magedu.com
+path = /data
+guest = yes 
+writable = no
+write list = +develop
+</code></pre><p><strong>5)此samba共享服务仅允许来自于172.16.0.0/16网络的主机访问； </strong></p>
+<p>vim smb.conf</p>
+<pre><code>添加 
+hosts allow = 172.16.0.0/16
+
+
+
+
+[root@CentOS7 samba]# systemctl start smb.service
+[root@CentOS7 samba]# systemctl status smb.service
+● smb.service - Samba SMB Daemon
+   Loaded: loaded (/usr/lib/systemd/system/smb.service; disabled; vendor preset: disabled)
+   Active: active (running) since 四 2017-03-23 14:39:18 CST; 5s ago
+ Main PID: 101560 (smbd)
+   Status: &quot;smbd: ready to serve connections...&quot;
+   CGroup: /system.slice/smb.service
+           ├─101560 /usr/sbin/smbd
+           ├─101561 /usr/sbin/smbd
+           ├─101562 /usr/sbin/smbd
+           └─101563 /usr/sbin/smbd
+
+3月 23 14:39:18 CentOS7 systemd[1]: Starting Samba SMB Daemon...
+3月 23 14:39:18 CentOS7 smbd[101557]: [2017/03/23 14:39:18.773050,  0] .....)
+3月 23 14:39:18 CentOS7 smbd[101557]:   Unknown parameter encountered: &quot;g...&quot;
+3月 23 14:39:18 CentOS7 smbd[101557]: [2017/03/23 14:39:18.773117,  0] .....)
+3月 23 14:39:18 CentOS7 smbd[101557]:   Ignoring unknown parameter &quot;guest&quot;
+3月 23 14:39:18 CentOS7 systemd[1]: smb.service: Supervising process 101...s.
+3月 23 14:39:18 CentOS7 smbd[101560]: [2017/03/23 14:39:18.787425,  0] .....)
+3月 23 14:39:18 CentOS7 smbd[101560]:   STATUS=daemon &apos;smbd&apos; finished sta...s
+3月 23 14:39:18 CentOS7 systemd[1]: Started Samba SMB Daemon.
+Hint: Some lines were ellipsized, use -l to show in full.
+</code></pre><p><strong>PS： CentOS7必须关闭防火墙，还有SELinux</strong></p>
+<pre><code>[root@CentOS7 ~]# systemctl list-unit-files |grep fire
+firewalld.service                             enabled 
+[root@CentOS7 ~]# systemctl stop firewalld.service 
+[root@CentOS7 ~]# systemctl disable firewalld.service 
+Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.
+Removed symlink /etc/systemd/system/basic.target.wants/firewalld.service.
+</code></pre><p><strong>亲测OK，有图有真相</strong></p>
+<p>PS:这里我把hosts allow = 172.16.0.0/16  改为了hosts allow = 192.168.0.0/24</p>
+<p>workgroup 改为WORKGROUP</p>
+<p>这样就看到了，欧耶~</p>
+<p><img src="http://i.imgur.com/F4LHTsz.png" alt=""></p>
+<p>#2、搭建一套文件vsftp文件共享服务，共享目录为/ftproot,</p>
+<p>##要求：（描述完整的过程）</p>
+<p>###1)基于虚拟用户的访问形式；</p>
+<p>###2)匿名用户只允许下载，不允许上传；</p>
+<p>###3)禁锢所有的用户于其家目录当中；</p>
+<p>###4)限制最大并发连接数为200</p>
+<p>###5)匿名用户的最大传输速率512KB/s</p>
+<p>###6)虚拟用户的账号存储在mysql数据库当中</p>
+<p>###7)数据库通过NFS进行共享</p>
+<p>##<strong>先科(zhuang)普(bi)</strong></p>
+<p>我们登录FTP有三种方式，匿名登录、本地用户登录和虚拟用户登录。</p>
+<p>匿名登录：在登录FTP时使用默认的用户名，一般是ftp或anonymous。</p>
+<p>本地用户登录：使用系统用户登录，在/etc/passwd中。</p>
+<p>虚拟用户登录：这是FTP专有用户，有两种方式实现虚拟用户，本地数据文件和数据库服务器。</p>
+<p>FTP虚拟用户是FTP服务器的专有用户，使用虚拟用户登录FTP，只能访问FTP服务器提供的资源，大大增强了系统的安全。</p>
+<p><img src="http://i.imgur.com/pNs4Zu2.jpg" alt=""></p>
+<p><strong>测试环境</strong></p>
+<p>NFS&amp;MySQL服务器          192.168.0.248</p>
+<p>vsftp 服务器 192.168.0.235</p>
+<p><strong>一、通过NFS服务器共享数据库</strong></p>
+<p>1、在192.168.0.248服务器上启动nfs服务，设置共享目录为/nfs_data</p>
+<p>[root@CentOS6 ~]# mkdir -pv  /nfs_data<br>mkdir: created directory `/nfs_data’</p>
+<p>2、安装组件</p>
+<p>yum install rpcbind nfs-server  nfs-lock nfs-idmap</p>
+<p>3、启动nfs服务</p>
+<pre><code>[root@CentOS7 ~]# systemctl start nfs-server.service
+[root@CentOS7 ~]# systemctl status nfs-server.service 
+● nfs-server.service - NFS server and services
+   Loaded: loaded (/usr/lib/systemd/system/nfs-server.service; enabled; vendor preset: disabled)
+   Active: active (exited) since 五 2017-03-24 16:38:33 CST; 1 day 7h ago
+ Main PID: 37384 (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/nfs-server.service
+
+3月 24 16:38:33 CentOS7 systemd[1]: Starting NFS server and services...
+3月 24 16:38:33 CentOS7 systemd[1]: Started NFS server and services.
+[root@CentOS7 ~]# 
+</code></pre><p>4、编辑 vim  /etc/exports</p>
+<p> 添加一下内容</p>
+<pre><code>/nfs_data 192.168.0.0/24(rw,no_root_squash,sync)
+</code></pre><p> exportfs -r 一下使其生效</p>
+<p>注：配置文件说明：</p>
+<pre><code>/nfs_data为共享目录
+
+192.168.0.0/24  可以为一个网段，一个IP，也可以是域名，域名支持通配符 如: *.qq.com
+
+rw：read-write，可读写；
+
+ro：read-only，只读；
+
+sync：文件同时写入硬盘和内存；
+
+async：文件暂存于内存，而不是直接写入内存；
+
+no_root_squash：NFS客户端连接服务端时如果使用的是:root的话，那么对服务端分享的目录来说，也拥有root权限。显然开启这项是不安全的。
+
+root_squash：NFS客户端连接服务端时如果使用的是root的话，那么对服务端分享的目录来说，拥有匿名用户权限，通常他将使用nobody或nfsnobody身份；
+
+all_squash：不论NFS客户端连接服务端时使用什么用户，对服务端分享的目录来说都是拥有匿名用户权限；
+</code></pre><p><strong>二、vsftp mysql 服务器挂载nfs</strong></p>
+<pre><code>[root@CentOS6 ~]# showmount -e 192.168.0.235
+Export list for 192.168.0.235:
+/nfs_data 192.168.0.0/24
+
+[root@CentOS6 ~]# mount -t nfs 192.168.0.235:/nfs_data /nfs_data
+
+[root@CentOS6 ~]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/mapper/vg_centos6-lv_root
+                       18G  3.3G   13G  21% /
+tmpfs                 3.9G     0  3.9G   0% /dev/shm
+/dev/sda1             477M   69M  383M  16% /boot
+192.168.0.235:/nfs_data
+                       17G  6.9G   11G  41% /nfs_data
+</code></pre><p>客户端在挂载的时候遇到的一个问题如下，可能是网络不太稳定，NFS默认是用UDP协议，换成TCP协议即可</p>
+<p>mount -t nfs 192.168.0.235:/nfs_data /nfs_data -o proto=tcp -o nolock</p>
+<p>在客户端写入一个有内容的文件测试，嘿嘿，服务端马上看到了，欧耶<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**vsftp mysql 服务器 192.168.0.235安装MySQL/MariaDB**</span><br><span class="line"></span><br><span class="line">这里我就直接yum安装MariaDB了</span><br><span class="line"></span><br><span class="line">yum install mariadb-server.x86_64 mariadb-devel.x86_64 openssl-devel.x86_64</span><br><span class="line">systemctl start mariadb.service </span><br><span class="line">systemctl enable mariadb.service </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**安装PAM-MySQL，要跟vsftp安装在同一台机器上**</span><br><span class="line"></span><br><span class="line">下载源码包，加压</span><br><span class="line"></span><br><span class="line">安装前再次确认依赖包</span><br><span class="line"></span><br><span class="line">yum install pam-devel openssl-devel mariadb-devel</span><br><span class="line"></span><br><span class="line">**CentOS7**</span><br><span class="line">./configure --with-mysql=/usr --with-openssl --with-pam=/usr --with-pam-mods-dir=/usr/lib64/security</span><br><span class="line"></span><br><span class="line">**CentOS6**</span><br><span class="line">./configure --with-mysql=/usr --with-openssl --with-pam=/usr --with-pam-mods-dir=/lib64/security/</span><br><span class="line"></span><br><span class="line">make -j 4 &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**配置数据库，创建vsftpd的库和表**</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    [root@CentOS7 pam_mysql-0.7RC1]# mysql</span><br><span class="line">    Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">    Your MariaDB connection id is 3</span><br><span class="line">    Server version: 5.5.52-MariaDB MariaDB Server</span><br><span class="line">    </span><br><span class="line">    Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line">    </span><br><span class="line">    Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</span><br><span class="line">    </span><br><span class="line">    MariaDB [(none)]&gt; create database vsftpd;</span><br><span class="line">    Query OK, 1 row affected (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    MariaDB [(none)]&gt; show databases;</span><br><span class="line">    +--------------------+</span><br><span class="line">    | Database           |</span><br><span class="line">    +--------------------+</span><br><span class="line">    | information_schema |</span><br><span class="line">    | mysql              |</span><br><span class="line">    | performance_schema |</span><br><span class="line">    | test               |</span><br><span class="line">    | vsftpd             |</span><br><span class="line">    +--------------------+</span><br><span class="line">    5 rows in set (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    MariaDB [(none)]&gt; use vsftpd;</span><br><span class="line">    Database changed</span><br><span class="line">    MariaDB [vsftpd]&gt; create table users (</span><br><span class="line">        -&gt; id int auto_increment not null primary key,</span><br><span class="line">        -&gt; name char(30) not null,</span><br><span class="line">        -&gt; password char(48) binary not null );</span><br><span class="line">    Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    MariaDB [vsftpd]&gt; desc users;</span><br><span class="line">    +----------+----------+------+-----+---------+----------------+</span><br><span class="line">    | Field    | Type     | Null | Key | Default | Extra          |</span><br><span class="line">    +----------+----------+------+-----+---------+----------------+</span><br><span class="line">    | id       | int(11)  | NO   | PRI | NULL    | auto_increment |</span><br><span class="line">    | name     | char(30) | NO   |     | NULL    |                |</span><br><span class="line">    | password | char(48) | NO   |     | NULL    |                |</span><br><span class="line">    +----------+----------+------+-----+---------+----------------+</span><br><span class="line">    3 rows in set (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    MariaDB [vsftpd]&gt; insert into users(name,password) values (&apos;jerry&apos;,password(&apos;mageedu&apos;));</span><br><span class="line">    Query OK, 1 row affected (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    MariaDB [vsftpd]&gt; insert into users(name,password) values (&apos;tom&apos;,password(&apos;mageedu111&apos;));</span><br><span class="line">    Query OK, 1 row affected (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    MariaDB [vsftpd]&gt; select * from users;</span><br><span class="line">    +----+-------+-------------------------------------------+</span><br><span class="line">    | id | name  | password                                  |</span><br><span class="line">    +----+-------+-------------------------------------------+</span><br><span class="line">    |  1 | jerry | *9A94EE7D14C10908118B62D2DA88E6932E11E438 |</span><br><span class="line">    |  2 | tom   | *67CF267D9D554496768C605C2D66754EAE874C12 |</span><br><span class="line">    +----+-------+-------------------------------------------+</span><br><span class="line">    2 rows in set (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    MariaDB [vsftpd]&gt; </span><br><span class="line">    </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    #我这边vsftpd跟mysql不是同一台机器，所以开启远程授权    </span><br><span class="line">    MariaDB [mysql]&gt; grant select on vsftpd.* to vsftpd@&apos;192.168.0.248&apos; identified by &apos;mageedu&apos;;</span><br><span class="line">    Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    MariaDB [mysql]&gt; flush privileges;</span><br><span class="line">    Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    [root@CentOS7 pam_mysql-0.7RC1]# mysql -uvsftpd -pmageedu</span><br><span class="line">    Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">    Your MariaDB connection id is 14</span><br><span class="line">    Server version: 5.5.52-MariaDB MariaDB Server</span><br><span class="line">    </span><br><span class="line">    Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line">    </span><br><span class="line">    Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</span><br><span class="line">    </span><br><span class="line">    MariaDB [(none)]&gt; show databases;</span><br><span class="line">    +--------------------+</span><br><span class="line">    | Database           |</span><br><span class="line">    +--------------------+</span><br><span class="line">    | information_schema |</span><br><span class="line">    | test               |</span><br><span class="line">    | vsftpd             |</span><br><span class="line">    +--------------------+</span><br><span class="line">    3 rows in set (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    MariaDB [(none)]&gt; use vsftpd;</span><br><span class="line">    Reading table information for completion of table and column names</span><br><span class="line">    You can turn off this feature to get a quicker startup with -A</span><br><span class="line">    </span><br><span class="line">    Database changed</span><br><span class="line">    MariaDB [vsftpd]&gt; select * from users;</span><br><span class="line">    +----+-------+-------------------------------------------+</span><br><span class="line">    | id | name  | password                                  |</span><br><span class="line">    +----+-------+-------------------------------------------+</span><br><span class="line">    |  1 | jerry | *9A94EE7D14C10908118B62D2DA88E6932E11E438 |</span><br><span class="line">    |  2 | tom   | *67CF267D9D554496768C605C2D66754EAE874C12 |</span><br><span class="line">    +----+-------+-------------------------------------------+</span><br><span class="line">    2 rows in set (0.00 sec)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    MariaDB [vsftpd]&gt; exit</span><br><span class="line">    Bye</span><br><span class="line">    [root@CentOS7 pam_mysql-0.7RC1]# </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**迁移MariaDB的数据库默认数据存放目录，放到/nfs_data/目录中，形成NFS共享**</span><br><span class="line"></span><br><span class="line">    [root@CentOS7 /]# systemctl stop mariadb.service </span><br><span class="line">    </span><br><span class="line">    [root@CentOS7 /]# cp -r /var/lib/mysql/ /nfs_data/</span><br><span class="line">    </span><br><span class="line">    [root@CentOS7 /]#vim /etc/my.cnf</span><br><span class="line">    </span><br><span class="line">    修改成：datadir=/nfs_data/mysql</span><br><span class="line">    </span><br><span class="line">    [root@CentOS7 /]#cd /nfs_data/</span><br><span class="line">    </span><br><span class="line">    [root@CentOS7 /]# chown -R mysql:mysql mysql/</span><br><span class="line">    </span><br><span class="line">    [root@CentOS7 /]#systemctl start mariadb.service </span><br><span class="line">    </span><br><span class="line">    [root@CentOS7 /]#systemctl status mariadb.service</span><br><span class="line">    </span><br><span class="line">    ● mariadb.service - MariaDB database server</span><br><span class="line">       Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled)</span><br><span class="line">       Active: active (running) since 日 2017-03-26 15:16:34 CST; 18min ago</span><br><span class="line">      Process: 94278 ExecStartPost=/usr/libexec/mariadb-wait-ready $MAINPID (code=exited, status=0/SUCCESS)</span><br><span class="line">      Process: 94247 ExecStartPre=/usr/libexec/mariadb-prepare-db-dir %n (code=exited, status=0/SUCCESS)</span><br><span class="line">     Main PID: 94277 (mysqld_safe)</span><br><span class="line">       CGroup: /system.slice/mariadb.service</span><br><span class="line">               ├─94277 /bin/sh /usr/bin/mysqld_safe --basedir=/usr</span><br><span class="line">               └─94435 /usr/libexec/mysqld --basedir=/usr --datadir=/nfs_data...</span><br><span class="line">    </span><br><span class="line">    3月 26 15:16:32 CentOS7 systemd[1]: Starting MariaDB database server...</span><br><span class="line">    3月 26 15:16:32 CentOS7 mysqld_safe[94277]: 170326 15:16:32 mysqld_safe....</span><br><span class="line">    3月 26 15:16:32 CentOS7 mysqld_safe[94277]: 170326 15:16:32 mysqld_safe...l</span><br><span class="line">    3月 26 15:16:34 CentOS7 systemd[1]: Started MariaDB database server.</span><br><span class="line">    Hint: Some lines were ellipsized, use -l to show in full.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">这时候，两边机器的NFS目录都看看，OK啦</span><br></pre></td></tr></table></figure></p>
+<p><strong>安装vsftpd</strong></p>
+<pre><code>[root@CentOS6 mysql]# yum install vsftpd
+Loaded plugins: fastestmirror
+Setting up Install Process
+Loading mirror speeds from cached hostfile
+ * base: mirrors.aliyun.com
+ * epel: mirrors.tuna.tsinghua.edu.cn
+ * extras: mirrors.aliyun.com
+ * updates: mirrors.aliyun.com
+Resolving Dependencies
+--&gt; Running transaction check
+---&gt; Package vsftpd.x86_64 0:2.2.2-21.el6 will be installed
+--&gt; Finished Dependency Resolution
+
+Dependencies Resolved
+
+============================================================================
+ Package         Arch            Version                Repository     Size
+============================================================================
+Installing:
+ vsftpd          x86_64          2.2.2-21.el6           base          155 k
+
+Transaction Summary
+============================================================================
+Install       1 Package(s)
+
+Total download size: 155 k
+Installed size: 340 k
+Is this ok [y/N]: y
+Downloading Packages:
+vsftpd-2.2.2-21.el6.x86_64.rpm                       | 155 kB     00:00     
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Installing : vsftpd-2.2.2-21.el6.x86_64                               1/1 
+  Verifying  : vsftpd-2.2.2-21.el6.x86_64                               1/1 
+
+Installed:
+  vsftpd.x86_64 0:2.2.2-21.el6                                              
+
+Complete!
+</code></pre><p><strong>配置vsftpd的pam文件</strong></p>
+<p>[root@CentOS6 ~]# vim /etc/pam.d/vsftpd.mysql</p>
+<p>输入以下内容：</p>
+<pre><code>auth required pam_mysql.so user=vsftpd passwd=mageedu host=192.168.0.235 db=vsftpd table=users usercolumn=name passwdcolumn=password crypt=2
+
+account required pam_mysql.so user=vsftpd passwd=mageedu host=192.168.0.235 db=vsftpd table=users usercolumn=name passwdcolumn=password crypt=2
+</code></pre><p><strong>创建系统用户</strong></p>
+<p>因为虚拟用户最终要映射为系统用户，所以得创建用于vsftpd映射使用滴用户啦。。。。。</p>
+<pre><code>[root@CentOS6 ~]# mkdir -pv /ftproot
+mkdir: created directory `/ftproot&apos;
+
+[root@CentOS6 /]# useradd -s /sbin/nologin -d /ftproot vuser
+</code></pre><p><strong>确保vuser的家目录其他用户能读能执行</strong></p>
+<pre><code>[root@CentOS6 /]# ll |grep ftproot/
+[root@CentOS6 /]# ll |grep ftpr
+drwx------    3 vuser vuser  4096 Mar 27 13:59 ftproot
+[root@CentOS6 /]# chmod +rx -R /ftproot/
+[root@CentOS6 /]# ll |grep ftpr
+drwxr-xr-x    3 vuser vuser  4096 Mar 27 13:59 ftproot
+[root@CentOS6 /]# 
+</code></pre><p><strong>配置/etc/vsftpd/vsftpd.conf</strong></p>
+<p>[root@CentOS6 /]# vim /etc/vsftpd/vsftpd.conf </p>
+<p>修改 pam_service_name=vsftpd.mysql</p>
+<p><strong>匿名用户只允许下载，不允许上传</strong></p>
+<p>[root@CentOS6 /]# vim /etc/vsftpd/vsftpd.conf </p>
+<p>anonymous_enable=YES  #允许匿名账户登录</p>
+<p>anon_upload_enable=NO #不允许匿名用户上传文件</p>
+<p><strong>禁锢所有的用户于其家目录当中</strong></p>
+<p>chroot_local_user=YES #禁锢本地账户的家目录</p>
+<p><strong>限制最大并发连接数为200</strong></p>
+<p>max_clients=200 #最大允许的客户端连接数</p>
+<p><strong>匿名用户的最大传输速率512KB/s</strong></p>
+<p>local_max_rate=512000</p>
+<p>写入配置文件后，重启vsftp服务即可。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-第十六周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第十六周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:45.977Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#源码编译安装LNMP架构环境</p>
+<p>###<strong>先下载nmp三件套</strong></p>
+<p>wget <a href="http://nginx.org/download/nginx-1.12.0.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.12.0.tar.gz</a></p>
+<p>wget <a href="https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.18.tar.gz" target="_blank" rel="noopener">https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.18.tar.gz</a></p>
+<p>wget <a href="http://tw1.php.net/get/php-5.6.30.tar.gz/from/this/mirror" target="_blank" rel="noopener">http://tw1.php.net/get/php-5.6.30.tar.gz/from/this/mirror</a> -O php-5.6.30.tar.gz </p>
+<p>###<strong>编译安装Nginx</strong></p>
+<p>1、建立Nginx的程序目录</p>
+<pre><code>[root@CentOS7 ~]# mkdir -pv /opt/nginx
+mkdir: 已创建目录 &quot;/opt/nginx&quot;
+[root@CentOS7 ~]# 
+</code></pre><p>2、 安装依赖包 </p>
+<pre><code>[root@CentOS7 opt]# yum -y install openssl-devel pcre-devel zlib-devel
+</code></pre><p>3、创建nginx用户和组 </p>
+<pre><code>[root@CentOS7 opt]# useradd -U nginx -s /sbin/nologin 
+</code></pre><p>前戏做足，接下来开始编译了，啊啊啊～～～～～</p>
+<p>4、进入到nginx源码目录</p>
+<pre><code>[root@CentOS7 opt]# cd nginx-1.12.0/
+[root@CentOS7 nginx-1.12.0]# 
+</code></pre><p>输入以下编译命令：</p>
+<pre><code>./configure --prefix=/opt/nginx \
+--with-select_module \
+--with-threads \
+--with-file-aio \
+--with-http_ssl_module \
+--with-http_v2_module \
+--with-http_realip_module \
+--with-http_sub_module \
+--with-http_dav_module \
+--with-http_flv_module \
+--with-http_gunzip_module \
+--with-http_gzip_static_module \
+--with-http_secure_link_module \
+--with-http_degradation_module \
+--with-http_slice_module \
+--with-http_stub_status_module \
+--without-mail_pop3_module \
+--without-mail_imap_module \
+--without-mail_smtp_module \
+--with-stream \
+--with-stream_ssl_module \
+</code></pre><p>敲两下回车</p>
+<p>如下输出：</p>
+<pre><code>checking for OS
+ + Linux 3.10.0-514.16.1.el7.x86_64 x86_64
+checking for C compiler ... found
+ + using GNU C compiler
+ + gcc version: 4.8.5 20150623 (Red Hat 4.8.5-11) (GCC) 
+checking for gcc -pipe switch ... found
+checking for -Wl,-E switch ... found
+checking for gcc builtin atomic operations ... found
+checking for C99 variadic macros ... found
+checking for gcc variadic macros ... found
+checking for gcc builtin 64 bit byteswap ... found
+checking for unistd.h ... found
+checking for inttypes.h ... found
+checking for limits.h ... found
+checking for sys/filio.h ... not found
+checking for sys/param.h ... found
+checking for sys/mount.h ... found
+checking for sys/statvfs.h ... found
+checking for crypt.h ... found
+checking for Linux specific features
+checking for epoll ... found
+checking for EPOLLRDHUP ... found
+checking for EPOLLEXCLUSIVE ... not found
+checking for O_PATH ... found
+checking for sendfile() ... found
+checking for sendfile64() ... found
+checking for sys/prctl.h ... found
+checking for prctl(PR_SET_DUMPABLE) ... found
+checking for sched_setaffinity() ... found
+checking for crypt_r() ... found
+checking for sys/vfs.h ... found
+checking for nobody group ... found
+checking for poll() ... found
+checking for /dev/poll ... not found
+checking for kqueue ... not found
+checking for crypt() ... not found
+checking for crypt() in libcrypt ... found
+checking for F_READAHEAD ... not found
+checking for posix_fadvise() ... found
+checking for O_DIRECT ... found
+checking for F_NOCACHE ... not found
+checking for directio() ... not found
+checking for statfs() ... found
+checking for statvfs() ... found
+checking for dlopen() ... not found
+checking for dlopen() in libdl ... found
+checking for sched_yield() ... found
+checking for SO_SETFIB ... not found
+checking for SO_REUSEPORT ... found
+checking for SO_ACCEPTFILTER ... not found
+checking for SO_BINDANY ... not found
+checking for IP_BIND_ADDRESS_NO_PORT ... not found
+checking for IP_TRANSPARENT ... found
+checking for IP_BINDANY ... not found
+checking for IP_RECVDSTADDR ... not found
+checking for IP_PKTINFO ... found
+checking for IPV6_RECVPKTINFO ... found
+checking for TCP_DEFER_ACCEPT ... found
+checking for TCP_KEEPIDLE ... found
+checking for TCP_FASTOPEN ... found
+checking for TCP_INFO ... found
+checking for accept4() ... found
+checking for kqueue AIO support ... not found
+checking for Linux AIO support ... found
+checking for int size ... 4 bytes
+checking for long size ... 8 bytes
+checking for long long size ... 8 bytes
+checking for void * size ... 8 bytes
+checking for uint32_t ... found
+checking for uint64_t ... found
+checking for sig_atomic_t ... found
+checking for sig_atomic_t size ... 4 bytes
+checking for socklen_t ... found
+checking for in_addr_t ... found
+checking for in_port_t ... found
+checking for rlim_t ... found
+checking for uintptr_t ... uintptr_t found
+checking for system byte ordering ... little endian
+checking for size_t size ... 8 bytes
+checking for off_t size ... 8 bytes
+checking for time_t size ... 8 bytes
+checking for AF_INET6 ... found
+checking for setproctitle() ... not found
+checking for pread() ... found
+checking for pwrite() ... found
+checking for pwritev() ... found
+checking for sys_nerr ... found
+checking for localtime_r() ... found
+checking for posix_memalign() ... found
+checking for memalign() ... found
+checking for mmap(MAP_ANON|MAP_SHARED) ... found
+checking for mmap(&quot;/dev/zero&quot;, MAP_SHARED) ... found
+checking for System V shared memory ... found
+checking for POSIX semaphores ... not found
+checking for POSIX semaphores in libpthread ... found
+checking for struct msghdr.msg_control ... found
+checking for ioctl(FIONBIO) ... found
+checking for struct tm.tm_gmtoff ... found
+checking for struct dirent.d_namlen ... not found
+checking for struct dirent.d_type ... found
+checking for sysconf(_SC_NPROCESSORS_ONLN) ... found
+checking for openat(), fstatat() ... found
+checking for getaddrinfo() ... found
+checking for PCRE library ... found
+checking for PCRE JIT support ... found
+checking for OpenSSL library ... found
+checking for zlib library ... found
+creating objs/Makefile
+
+Configuration summary
+  + using threads
+  + using system PCRE library
+  + using system OpenSSL library
+  + using system zlib library
+
+  nginx path prefix: &quot;/opt/nginx&quot;
+  nginx binary file: &quot;/opt/nginx/sbin/nginx&quot;
+  nginx modules path: &quot;/opt/nginx/modules&quot;
+  nginx configuration prefix: &quot;/opt/nginx/conf&quot;
+  nginx configuration file: &quot;/opt/nginx/conf/nginx.conf&quot;
+  nginx pid file: &quot;/opt/nginx/logs/nginx.pid&quot;
+  nginx error log file: &quot;/opt/nginx/logs/error.log&quot;
+  nginx http access log file: &quot;/opt/nginx/logs/access.log&quot;
+  nginx http client request body temporary files: &quot;client_body_temp&quot;
+  nginx http proxy temporary files: &quot;proxy_temp&quot;
+  nginx http fastcgi temporary files: &quot;fastcgi_temp&quot;
+  nginx http uwsgi temporary files: &quot;uwsgi_temp&quot;
+  nginx http scgi temporary files: &quot;scgi_temp&quot;
+
+[root@CentOS7 nginx-1.12.0]# make -j4 &amp;&amp; make install
+</code></pre><p>好，接下来/opt/nginx 目录下已经有文件集目录生成了，运行./sbin/nginx -V看看输出啥，如下：</p>
+<pre><code>[root@CentOS7 sbin]# ./nginx -V
+nginx version: nginx/1.12.0
+built by gcc 4.8.5 20150623 (Red Hat 4.8.5-11) (GCC) 
+built with OpenSSL 1.0.1e-fips 11 Feb 2013
+TLS SNI support enabled
+configure arguments: --prefix=/opt/nginx --with-select_module --with-threads --with-file-aio --with-http_ssl_module --with-http_v2_module --with-http_realip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --with-stream --with-stream_ssl_module
+[root@CentOS7 sbin]# 
+</code></pre><p>嗦嘎，编译成功！</p>
+<p>运行试试，记得配置防火墙规则，如果你要关掉防火墙也可以 </p>
+<p>[root@CentOS7 html]# systemctl stop firewalld.service<br>[root@CentOS7 html]# systemctl disable firewalld.service </p>
+<p>上边两条命令拿去不谢。</p>
+<p>开机ngixn还要启动啊，init脚本得做好咧，如下：</p>
+<pre><code>#!/bin/bash
+# nginx This shell script takes care of starting and stopping
+# nginx
+#
+# chkconfig: - 13 68
+# description: nginx is a web server
+### BEGIN INIT INFO
+# Provides: $named
+# Short-Description: start|stop|status|restart|configtest 
+### END INIT INFO
+#variables
+NGINX_BIN=&quot;/opt/nginx/sbin/nginx&quot;
+NGINX_CONF=&quot;/opt/nginx/conf/nginx.conf&quot;
+NGINX_PID=&quot;/opt/nginx/logs/nginx.pid&quot;
+NETSTAT=&quot;/bin/netstat&quot;
+alter=$1
+prog=nginx
+#load system function
+. /etc/rc.d/init.d/functions
+#function:echo ok or error
+function if_no {
+if [ $2 == 0 ]; then
+echo -n $&quot;$1 ${prog}:&quot; &amp;&amp; success &amp;&amp; echo
+else
+echo -n $&quot;$1 ${prog}:&quot; &amp;&amp; failure &amp;&amp; echo
+fi
+}
+#start nginx
+function start {
+if [ -s ${NGINX_PID} ]; then
+echo &quot;nginx already running&quot; 
+else
+if [ `${NETSTAT} -tnpl | grep nginx | wc -l` -eq 0 ]; then
+rm -f ${NGINX_PID} 2&gt;/dev/null
+${NGINX_BIN} -c ${NGINX_CONF} 
+if_no start $?
+    else
+${NETSTAT} -tnpl | grep nginx | awk &apos;{ print $7}&apos; | cut -d &apos;/&apos; -f 1 &gt; ${NGINX_PID}
+if_no start $?
+fi
+fi
+}
+#stop nginx
+function stop {
+if [ -s ${NGINX_PID} ]; then
+cat ${NGINX_PID} | xargs kill -QUIT
+if_no stop $?
+else
+    if [ `${NETSTAT} -tnpl | grep nginx | wc -l` -eq 0 ]; then
+rm -f ${NGINX_PID} 2&gt;/dev/null
+if_no stop 0
+else
+rm -f ${NGINX_PID} 2&gt;/dev/null
+kill `${NETSTAT} -tnpl | grep nginx | awk &apos;{ print $7}&apos; | cut -d &apos;/&apos; -f 1`
+if_no stop $?
+fi
+fi
+}
+function restart {
+if [ -s ${NGINX_PID} ]; then
+cat ${NGINX_PID} | xargs kill -HUP
+if_no restart $?
+else
+stop
+sleep 1
+start
+fi
+}
+function status {
+${NETSTAT} -tnpl | grep nginx | grep LISTEN
+[ $? == 0 ] &amp;&amp; echo &quot;nginx is running&quot; || echo &quot;nginx is not running&quot;
+}
+function configtest {
+${NGINX_BIN} -t
+}
+case $alter in
+start)
+start
+;;
+stop)
+stop
+;;
+restart)
+restart
+;;
+status)
+status
+;;
+configtest)
+configtest
+;;
+*)
+echo &quot;use:${NGINX} {start|stop|restart|status|configtest}&quot;
+;;
+esac
+</code></pre><p>脚本根据自己的Nginx安装路径设置好，加上可执行权限，放到/etc/init.d/目录下，之后使用下面两行命令开机启动：</p>
+<pre><code>[root@CentOS7 init.d]# chkconfig --add nginx 
+[root@CentOS7 init.d]# chkconfig nginx on 
+</code></pre><p>Nginx的安装配置就到这里啦</p>
+<p>###<strong>源码编译安装MySQL</strong></p>
+<p><strong>参考资料</strong></p>
+<p>Installing MySQL from Source</p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/source-installation.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/source-installation.html</a></p>
+<p>How to Get MySQL</p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/getting-mysql.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/getting-mysql.html</a></p>
+<p>Building MySQL Server with CMake</p>
+<p><a href="https://dev.mysql.com/doc/internals/en/cmake.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/internals/en/cmake.html</a></p>
+<p>港真，看官方文档很重要，会给你指点迷津，少走弯路～～～～～</p>
+<p>开始啦，之前已经下载好源码包mysql-boost-5.7.18.tar.gz ，开始脱（jie）衣（ya）服（suo），开搞！啊啊啊～～～</p>
+<p>不过要注意哦，官网文档有这么一段“温馨提示”：</p>
+<pre><code>Source Installation System Requirements
+
+Installation of MySQL from source requires several development tools. Some of these tools are needed no matter whether you use a standard source distribution or a development source tree. Other tool requirements depend on which installation method you use.
+
+To install MySQL from source, the following system requirements must be satisfied, regardless of installation method:
+
+    CMake, which is used as the build framework on all platforms. CMake can be downloaded from http://www.cmake.org.
+
+    A good make program. Although some platforms come with their own make implementations, it is highly recommended that you use GNU make 3.75 or higher. It may already be available on your system as gmake. GNU make is available from http://www.gnu.org/software/make/.
+
+    A working ANSI C++ compiler. See the description of the FORCE_UNSUPPORTED_COMPILER. option for some guidelines.
+
+    The Boost C++ libraries are required to build MySQL (but not to use it). Boost 1.59.0 must be installed. To obtain Boost and its installation instructions, visit the official site. After Boost is installed, tell the build system where the Boost files are located by defining the WITH_BOOST option when you invoke CMake. For example:
+
+    shell&gt; cmake . -DWITH_BOOST=/usr/local/boost_1_59_0
+
+Adjust the path as necessary to match your installation.
+
+Sufficient free memory. If you encounter problems such as “internal compiler error” when compiling large source files, it may be that you have too little memory. If compiling on a virtual machine, try increasing the memory allocation.
+
+Perl is needed if you intend to run test scripts. Most Unix-like systems include Perl. On Windows, you can use a version such as ActiveState Perl. 
+</code></pre><p><strong>为了照顾英文不好的同学，我简单说几句</strong></p>
+<p><img src="/mnt/sdb1/暴漫表情图片/装逼大会.png" alt=""> </p>
+<p><strong>1、必须安装cmake，新版的MySQL采用cmak来编译。</strong></p>
+<p><strong>2、linux系统中的make版本最少在3.75及以上</strong></p>
+<p><strong>3、linux必须有C++编译器</strong></p>
+<p><strong>4、必须安装Boost 1.59.0，指定的1.59.0版本，其他的高版本、低版本都不行，就这一个版本</strong></p>
+<p><strong>下载boost1.59</strong></p>
+<p>[root@CentOS7 opt]# yum remove boost-1.53.0-26.el7.x86_64  #删除系统自带的低版本boost<br>[root@CentOS7 opt]# wget <a href="https://dl.bintray.com/boostorg/release/1.59.0/source/boost_1_59_0.tar.gz" target="_blank" rel="noopener">https://dl.bintray.com/boostorg/release/1.59.0/source/boost_1_59_0.tar.gz</a>   #下载新版本的boost</p>
+<p><strong>创建mysql用户、用户组及目录</strong></p>
+<p>[root@CentOS7 /]# mkdir -pv /opt/mysql5.7/{conf,data}<br>mkdir: created directory <code>/opt/mysql5.7&#39;
+mkdir: created directory</code>/opt/mysql5.7/conf’<br>mkdir: created directory `/opt/mysql5.7/data’</p>
+<p>[root@CentOS7 /]# groupadd -r mysql &amp;&amp; useradd -r -g mysql -s /bin/false -M mysql #增加mysql用户及用户组</p>
+<p><strong>安装依赖包保平安</strong></p>
+<p>yum install zlib-devel ncurses ncurses-devel bison</p>
+<p><strong>进入源码目录编译安装</strong></p>
+<p>[root@CentOS7 opt]# cd mysql-5.7.18/<br>[root@CentOS7 mysql-5.7.18]# </p>
+<p>输入以下编译参数：</p>
+<p>cmake . -DCMAKE_INSTALL_PREFIX=/opt/mysql5.7 -DMYSQL_DATADIR=/opt/mysql5.7/data -DSYSCONFDIR=/opt/mysql5.7/conf -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DMYSQL_UNIX_ADDR=/opt/mysql5.7/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DENABLED_LOCAL_INFILE=1 -DWITH_BOOST=/opt/tools -DENABLE_DOWNLOADS=1 -DDOWNLOAD_BOOST=1 -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNODB_MEMCACHED=on </p>
+<p>敲回车</p>
+<p>等一会儿，看到最后一句 – Build files have been written to: /opt/mysql-5.7.18 ，哈哈，OK。</p>
+<p>PS：这里有个坑，官方文档说的不是很清楚，boost1.59的压缩包下载下来后，-DWITH_BOOST的设置为压缩包所在的目录就行，也不用解压，例如我的boost1.59的压缩包放在/opt路径下，我这里就设置为-DWITH_BOOST=/opt</p>
+<p>下一步就make -j 8 &amp;&amp; make install</p>
+<p>嘿嘿，我用的是Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz</p>
+<p><strong>无惊无险，编译完成，接下来就是要做初始化啦</strong></p>
+<p>官方MySQL5.7文档里面有这么一段话：</p>
+<p>After installing MySQL, you must initialize the data directory, including the tables in the mysql system database.<br>在安装MySQL,您必须初始化数据目录,包括MySQL系统数据库中的表。</p>
+<p>As of MySQL 5.7.6, use the server to initialize the data directory:<br>自MySQL 5.7.6起，使用MySQL服务器初始化数据目录:</p>
+<p>命令例子<br>shell&gt; bin/mysqld –initialize –user=mysql</p>
+<p>Before MySQL 5.7.6, use mysql_install_db:<br>在MySQL 5.7.6之前,使用mysql_install_db:</p>
+<p>命令例子<br>shell&gt; bin/mysql_install_db –user=mysql</p>
+<p>OK，我这里采用的是mysqld –initialize来做初始化，哈哈哈哈哈哈哈～～～～～～～</p>
+<p>进入MySQL应用目录<br>[root@CentOS7 ~]# cd /opt/mysql5.7/<br>[root@CentOS7 mysql5.7]#</p>
+<p>初始化MySQL</p>
+<pre><code>[root@CentOS7 mysql5.7]# ./bin/mysqld --initialize --user=mysql --basedir=/opt/mysql5.7 --datadir=/opt/mysql5.7/data
+2017-06-12T05:41:26.221750Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+2017-06-12T05:41:26.350566Z 0 [Warning] InnoDB: New log files created, LSN=45790
+2017-06-12T05:41:26.375260Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.
+2017-06-12T05:41:26.429865Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: c6bc1e39-4f31-11e7-ac7a-000c29bf2761.
+2017-06-12T05:41:26.430714Z 0 [Warning] Gtid table is not ready to be used. Table &apos;mysql.gtid_executed&apos; cannot be opened.
+2017-06-12T05:41:26.431659Z 1 [Note] A temporary password is generated for root@localhost: kTsP_fwzx9zY
+[root@CentOS7 mysql5.7]# date
+2017年 06月 12日 星期一 13:41:36 CST
+[root@CentOS7 mysql5.7]# 
+</code></pre><p>会自动完成初始化，并生成一个临时的密码，如上。</p>
+<p>上边有个报警 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use –explicit_defaults_for_timestamp server option (see documentation for more details).</p>
+<p>我是乖乖仔，照做，删除掉data目录下初始化生成的文件，再来一波:</p>
+<pre><code>[root@CentOS7 mysql5.7]# rm -rf data/*
+[root@CentOS7 mysql5.7]# ll data/
+总用量 0
+[root@CentOS7 mysql5.7]#  ./bin/mysqld --initialize --user=mysql --basedir=/opt/mysql5.7 --datadir=/opt/mysql5.7/data --explicit_defaults_for_timestamp
+2017-06-12T07:04:15.856329Z 0 [Warning] InnoDB: New log files created, LSN=45790
+2017-06-12T07:04:15.877492Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.
+2017-06-12T07:04:15.931186Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: 58c9d7b2-4f3d-11e7-a336-000c29bf2761.
+2017-06-12T07:04:15.931749Z 0 [Warning] Gtid table is not ready to be used. Table &apos;mysql.gtid_executed&apos; cannot be opened.
+2017-06-12T07:04:15.932352Z 1 [Note] A temporary password is generated for root@localhost: l&gt;58J50te/vw
+[root@CentOS7 mysql5.7]# 
+</code></pre><p>报警没有了，嘿嘿。</p>
+<p><strong>编辑配置文件，添加以下内容</strong></p>
+<pre><code>[client]
+port=3306
+socket=/tmp/mysql.sock
+default-character-set=utf8
+
+[mysqld]
+basedir =/usr/local/mysql
+datadir =/mydata/data
+port =3306
+server_id =1
+socket =/tmp/mysql.sock
+pid-file=/mydata/data/mysql.pid
+
+bind-address=localhost
+#skip-grant-tables
+</code></pre><p>拷贝配置文件<br>cp support-files/my-default.cnf /opt/mysql5.7/conf/my.cnf</p>
+<p>拷贝启动脚本<br>cp support-files/mysql.server /etc/init.d/mysqld</p>
+<p>chmod +x /etc/init.d/mysqld</p>
+<p>编辑启动脚本<br>主要编辑basedir和datadir这两项</p>
+<p>chkconfig  –add mysqld<br>chkconfig  mysqld on</p>
+<p>[root@CentOS7 opt]# service mysqld start<br>Starting MySQL.                                            [  确定  ]</p>
+<p>[root@CentOS7 opt]# service mysqld status<br>MySQL running (104746)                                     [  确定  ]</p>
+<pre><code>[root@CentOS7 opt]# netstat -ntlp
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      1/systemd           
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN      14334/dnsmasq       
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      14074/sshd          
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      14071/cupsd         
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN      14300/master        
+tcp        0      0 127.0.0.1:6010          0.0.0.0:*               LISTEN      98390/sshd: root@pt 
+tcp        0      0 127.0.0.1:6011          0.0.0.0:*               LISTEN      103809/sshd: root@p 
+tcp6       0      0 :::3306                 :::*                    LISTEN      104746/mysqld       
+tcp6       0      0 :::111                  :::*                    LISTEN      1/systemd           
+tcp6       0      0 :::22                   :::*                    LISTEN      14074/sshd          
+tcp6       0      0 ::1:631                 :::*                    LISTEN      14071/cupsd         
+tcp6       0      0 ::1:25                  :::*                    LISTEN      14300/master        
+tcp6       0      0 ::1:6010                :::*                    LISTEN      98390/sshd: root@pt 
+tcp6       0      0 ::1:6011                :::*                    LISTEN      103809/sshd: root@p 
+</code></pre><p>爽爽爽～～～～～</p>
+<p><strong>全局变量</strong><br>为了直接使用，加到环境变量里，修改/etc/profile文件，在文件末尾添加：<br>export PATH=/opt/mysql5.7/bin:$PATH</p>
+<p>source /etc/profile</p>
+<p><strong>设置root用户可以远程访问</strong></p>
+<pre><code>[root@CentOS7 data]#  mysql -u root -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.17
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.
+
+mysql&gt; set password = password(&apos;123456&apos;);
+
+mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;123456&apos; WITH GRANT OPTION;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql&gt; flush privileges; 
+Query OK, 0 rows affected (0.00 sec)
+</code></pre><p>关闭CentOS7的防火墙，再用第三方数据库管理工具连接测试，OK啦。</p>
+<p>MySQL5.7 编译安装完毕</p>
+<p>##<strong>源码编译安装PHP5</strong></p>
+<p><strong>安装依赖库保平安</strong></p>
+<p>yum -y install gd zlib zlib-devel openssl openssl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel libticonv.x86_64 libticonv-devel.x86_64</p>
+<p>具备第三方源的前提下的平安符<br>yum -y install gd zlib zlib-devel openssl openssl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel libticonv.x86_64 libticonv-devel.x86_64 php-mcrypt libmcrypt libmcrypt-devel mhash mhash-devel libevent libevent-devel libxml2 libxml2-devel bzip2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel</p>
+<p>###<strong>依赖包的一些点滴</strong></p>
+<p><strong>扩展支持(mcrypt、mhash扩展和libevent)</strong></p>
+<p>如果想让编译的php支持mcrypt、mhash扩展和libevent，需要安装以下包<br>libmcrypt<br>libmcrypt-devel<br>mhash<br>mhash-devel</p>
+<p>说明：<br>mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原。<br>mhash是基于离散数学原理的不可逆向的php加密方式扩展库，其在默认情况下不开启。<br>mhash的可以用于创建校验数值，消息摘要，消息认证码，以及无需原文的关键信息保存（如密码）等。</p>
+<p>centos源不能安装libmcrypt-devel，由于版权的原因没有自带mcrypt的包，不过我在centos7中安装了epel源，哈哈哈。</p>
+<p>使用yum命令安装</p>
+<pre><code># yum install php-mcrypt libmcrypt libmcrypt-devel mhash mhash-devel
+</code></pre><p><strong>libevent相关包</strong><br>libevent是一个异步事件通知库文件，其API提供了在某文件描述上发生某事件时或其超时时执行回调函数的机制<br>它主要用来替换事件驱动的网络服务器上的event loop机制。目前来说， libevent支持/dev/poll、kqueue、select、poll、epoll及Solaris的event ports。可以根据需要安装libevent，系统一般会自带libevent，但版本有些低。</p>
+<p> 使用yum命令安装</p>
+<h1 id="yum-install-libevent-libevent-devel"><a href="#yum-install-libevent-libevent-devel" class="headerlink" title="yum install libevent libevent-devel"></a>yum install libevent libevent-devel</h1><p><strong>支持xml的相关包</strong><br>bzip2 是一个基于Burrows-Wheeler 变换的无损压缩软件能够高效的完成文件数据的压缩<br>libcurl主要功能就是用不同的协议连接和沟通不同的服务器，也就是相当封装了的sockPHP<br>libcurl允许你用不同的协议连接和沟通不同的服务器</p>
+<h1 id="yum-install-libxml2-libxml2-devel-bzip2-devel-libcurl-devel"><a href="#yum-install-libxml2-libxml2-devel-bzip2-devel-libcurl-devel" class="headerlink" title="yum install libxml2 libxml2-devel bzip2-devel libcurl-devel"></a>yum install libxml2 libxml2-devel bzip2-devel libcurl-devel</h1><p><strong>图形相关的rpm包</strong><br>通常对应的错误提示：JIS-mapped Japanese font support in GD</p>
+<h1 id="yum-install-libjpeg-devel-libpng-devel-freetype-devel"><a href="#yum-install-libjpeg-devel-libpng-devel-freetype-devel" class="headerlink" title="yum install libjpeg-devel libpng-devel freetype-devel"></a>yum install libjpeg-devel libpng-devel freetype-devel</h1><p>来个一条龙<br>yum -y install gd zlib zlib-devel openssl openssl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel libticonv.x86_64 libticonv-devel.x86_64 php-mcrypt libmcrypt libmcrypt-devel mhash mhash-devel libevent libevent-devel libxml2 libxml2-devel bzip2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel</p>
+<p>前戏做足，好戏开始，各位同学往下面看，下面哦。。。。。。</p>
+<p><img src="/mnt/sdb1/暴漫表情图片/上车以我技术不会翻车.gif" alt=""> </p>
+<p>[root@CentOS7 php-5.6.30]# tar zxvf php-5.6.30.tar.gz    #解压源码包</p>
+<p>[root@CentOS7 tools]# cd php-5.6.30/         #进入PHP源码目录</p>
+<p>[root@CentOS7 php-5.6.30]# </p>
+<p>输下编译命令:</p>
+<pre><code>./configure --prefix=/opt/php \
+--sysconfdir=/opt/php/etc \
+--enable-fpm \
+--enable-pcntl \
+--enable-shmop \
+--enable-sysvmsg \
+--enable-sysvsem \
+--enable-sysvshm \
+--enable-sockets \
+--enable-shared \
+--enable-mbstring \
+--enable-xml \
+--enable-opcache \
+--enable-bcmath \
+--enable-soap \
+--enable-zip \
+--with-mysqli=/opt/mysql5.7/bin/mysql_config \
+--with-mysql=/opt/mysql5.7 \
+--with-openssl \
+--with-freetype-dir \
+--with-jpeg-dir \
+--with-png-dir \
+--with-zlib \
+--with-libxml-dir=/usr \
+--with-iconv \
+--with-mhash \
+--with-mcrypt \
+--with-config-file-path=/opt/php/etc \
+--with-config-file-scan-dir=/opt/php/etc/php.d \
+--with-bz2 \
+--with-curl \
+--with-gettext \
+--with-gd \
+</code></pre><p>–with-mysqli=/opt/mysql5.7/bin/mysql_config 和–with-mysql=/opt/mysql5.7 这两个参数，我指向了自己编译安装的MySQL5.7.17 目录</p>
+<p>最后看到下面这一段话：</p>
+<pre><code>Generating files
+configure: creating ./config.status
+creating main/internal_functions.c
+creating main/internal_functions_cli.c
++--------------------------------------------------------------------+
+| License:                                                           |
+| This software is subject to the PHP License, available in this     |
+| distribution in the file LICENSE.  By continuing this installation |
+| process, you are bound by the terms of this license agreement.     |
+| If you do not agree with the terms of this license, you must abort |
+| the installation process at this point.                            |
++--------------------------------------------------------------------+
+
+Thank you for using PHP.
+
+config.status: creating php5.spec
+config.status: creating main/build-defs.h
+config.status: creating scripts/phpize
+config.status: creating scripts/man1/phpize.1
+config.status: creating scripts/php-config
+config.status: creating scripts/man1/php-config.1
+config.status: creating sapi/cli/php.1
+config.status: creating sapi/fpm/php-fpm.conf
+config.status: creating sapi/fpm/init.d.php-fpm
+config.status: creating sapi/fpm/php-fpm.service
+config.status: creating sapi/fpm/php-fpm.8
+config.status: creating sapi/fpm/status.html
+config.status: creating sapi/cgi/php-cgi.1
+config.status: creating ext/phar/phar.1
+config.status: creating ext/phar/phar.phar.1
+config.status: creating main/php_config.h
+config.status: main/php_config.h is unchanged
+config.status: executing default commands
+[root@CentOS7 php-5.6.30]#
+</code></pre><p>然后就是 make -j 8 &amp;&amp; make install </p>
+<p>就这么完成了编译安装php5.6.30</p>
+<p><strong>为php-fpm提供Sysv init脚本，并将其添加至服务列表</strong></p>
+<pre><code>[root@CentOS7 ~]# cp /opt/tools/php-5.6.30/sapi/fpm/init.d.php-fpm /etc/rc.d/init.d/php-fpm
+[root@CentOS7 ~]# chmod +x /etc/rc.d/init.d/php-fpm
+[root@CentOS7 ~]# chkconfig --add php-fpm &amp;&amp; chkconfig php-fpm on
+[root@CentOS7 ~]# 
+</code></pre><p><strong>为php-fpm提供配置文件</strong></p>
+<pre><code>[root@CentOS7 ~]# cd /opt/php/etc/
+[root@CentOS7 etc]# ls
+pear.conf  php-fpm.conf.default
+[root@CentOS7 etc]# cp php-fpm.conf.default php-fpm.conf
+[root@CentOS7 etc]# ll
+总用量 52
+-rw-r--r-- 1 root root  1167 6月  13 15:51 pear.conf
+-rw-r--r-- 1 root root 22752 6月  13 16:05 php-fpm.conf
+-rw-r--r-- 1 root root 22752 6月  13 15:51 php-fpm.conf.default
+[root@CentOS7 etc]# 
+</code></pre><p><strong>编辑php-fpm的配置文件</strong></p>
+<pre><code>配置fpm的相关选项为你所需要的值，并启用pid文件（如下最后一行）：
+pm.max_children = 150
+pm.start_servers = 8
+pm.min_spare_servers = 5
+pm.max_spare_servers = 10
+pid = run/php-fpm.pid
+</code></pre><p><strong>接下来就可以启动php-fpm了</strong></p>
+<p>service php-fpm start</p>
+<p>[root@CentOS7 etc]# ps axuf |grep php</p>
+<pre><code>[root@CentOS7 etc]# ps axuf |grep php
+root      74719  0.0  0.0 112664   972 pts/1    S+   16:21   0:00          \_ grep --color=auto php
+root      74700  0.0  0.1 125980  5032 ?        Ss   16:21   0:00 php-fpm: master process (/opt/php/etc/php-fpm.conf)
+nobody    74701  0.0  0.1 128064  5108 ?        S    16:21   0:00  \_ php-fpm: pool www
+nobody    74702  0.0  0.1 128064  5108 ?        S    16:21   0:00  \_ php-fpm: pool www
+nobody    74703  0.0  0.1 128064  5108 ?        S    16:21   0:00  \_ php-fpm: pool www
+nobody    74704  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www
+nobody    74705  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www
+nobody    74706  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www
+nobody    74707  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www
+nobody    74708  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www
+[root@CentOS7 etc]# 
+</code></pre><p><strong>整合nginx和php5</strong></p>
+<p>1、编辑 /opt/nginx/conf/nginx.conf，启用如下选项：</p>
+<pre><code>location ~ \.php$ {
+        root           html;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+</code></pre><p>2、vim /opt/nginx/conf/fastcgi_params，将其内容更改为如下内容：</p>
+<pre><code>fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+fastcgi_param  SERVER_SOFTWARE    nginx;
+fastcgi_param  QUERY_STRING       $query_string;
+fastcgi_param  REQUEST_METHOD     $request_method;
+fastcgi_param  CONTENT_TYPE       $content_type;
+fastcgi_param  CONTENT_LENGTH     $content_length;
+fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
+fastcgi_param  REQUEST_URI        $request_uri;
+fastcgi_param  DOCUMENT_URI       $document_uri;
+fastcgi_param  DOCUMENT_ROOT      $document_root;
+fastcgi_param  SERVER_PROTOCOL    $server_protocol;
+fastcgi_param  REMOTE_ADDR        $remote_addr;
+fastcgi_param  REMOTE_PORT        $remote_port;
+fastcgi_param  SERVER_ADDR        $server_addr;
+fastcgi_param  SERVER_PORT        $server_port;
+fastcgi_param  SERVER_NAME        $server_name;
+</code></pre><p>并在所支持的主页面格式中添加php格式的主页，类似如下：</p>
+<pre><code>location / {
+        root   html;
+        index  index.php index.html index.htm;
+    }
+</code></pre><p>而后重新载入nginx的配置文件：</p>
+<h1 id="service-nginx-reload"><a href="#service-nginx-reload" class="headerlink" title="service nginx reload"></a>service nginx reload</h1><p>3、在/opt/nginx/html新建index.php的测试页面，测试php是否能正常工作：</p>
+<pre><code>&lt;?php
+phpinfo();
+?&gt;
+</code></pre><p>接着就可以通过浏览器访问此测试页面了。</p>
+<p>此处有个坑   浏览器访问，不能解析，显示“ File not found.”</p>
+<p>fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</p>
+<p>这一句有问题， /scripts是一个目录名，也就是你站点的根目录，比如说，你访问/index.php这个文件，其实就是访问操作系统中/scripts/index.php这个文件，这个文件是否存在？/scripts 改成 $document_root 就好了，呵呵。</p>
+<p>##编写一个脚本完成以下功能：</p>
+<p>   (1)、一键搭建LNMP源码编译环境；</p>
+<p>   (2)、可通过在脚本后面跟上一些参数来自定义安装目录等其他选项。</p>
+<p>请移步<br><a href="https://github.com/zhusas/shell-script/blob/master/lnmp.sh" target="_blank" rel="noopener">https://github.com/zhusas/shell-script/blob/master/lnmp.sh</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-第十二周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第十二周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:45.833Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>##1、请描述一次完整的http请求处理过程；</p>
+<p><strong>简介</strong><br>一次完整的HTTP请求过程从TCP三次握手建立连接成功后开始,客户端按照指定的格式开始向服务端发送HTTP请求，服务端接收请求后，解析HTTP请求，处理完业务逻辑，最后返回一个HTTP的响应给客户端，HTTP的响应内容同样有标准的格式。无论是什么客户端或者是什么服务端，大家只要按照HTTP的协议标准来实现的话，那么它一定是通用的。</p>
+<p><strong>1、客户端发起http请求阶段</strong></p>
+<p>客户端在与服务端TCP三次握手建立连接成功后</p>
+<p>开始按照指定的格式开始向服务端发送HTTP请求</p>
+<p>HTTP请求格式主要有四部分组成，分别是：请求行、请求头、空行、消息体，每部分内容占一行，如下图：<br><img src="http://i.imgur.com/M391Xco.png" alt=""></p>
+<p>下面我们来详解一下这个来自客户端的http请求</p>
+<p>请求行：请求行是请求消息的第一行，由三部分组成：分别是请求方法（GET/POST/DELETE/PUT/HEAD）、请求资源的URI路径、HTTP的版本号</p>
+<p>请求头：请求头中的信息有和缓存相关的头（Cache-Control，If-Modified-Since）、客户端身份信息（User-Agent）等等。</p>
+<p>消息体：请求体是客户端发给服务端的请求数据，这部分数据并不是每个请求必须的。</p>
+<p><strong>2、服务端接收客户端http请求阶段</strong></p>
+<p>服务端接收来自于网络上的主机请求报文中对某特定资源的一次请求的过程</p>
+<p><strong>3、服务端处理客户端http请求阶段</strong></p>
+<p>对请求报文进行解析，获取客户端请求的资源及请求方法等相关信息；</p>
+<p>根据请求报文的头信息，来确定请求合适，编码等</p>
+<p><strong>4、服务端根据客户端http请求与访问自己本地资源</strong></p>
+<p>获取请求报文中请求的资源，根据请求，从应用-》系统内核-》驱动-》资源存放媒介（硬盘、内存）获取客户端需要的信息</p>
+<p><strong>5、服务端构建http响应报文</strong></p>
+<p>服务器接收处理完请求后返回一个HTTP相应消息给客户端。HTTP响应消息的格式包括：状态行、响应头、空行、消息体。每部分内容占一行。</p>
+<p><img src="http://i.imgur.com/yNpPuHB.png" alt=""></p>
+<p>状态行：状态行位于相应消息的第一行，有HTTP协议版本号，状态码和状态说明三部分构成。</p>
+<p>响应头：响应头是服务器传递给客户端用于说明服务器的一些信息，以及将来继续访问该资源时的策略。</p>
+<p>响应体：响应体是服务端返回给客户端的HTML文本内容，或者其他格式的数据，比如：视频流、图片或者音频数据。</p>
+<p><strong>6、服务端将http响应报文发送给客户端</strong></p>
+<p>就是在已建立的tcp链接之上将相应报文及客户请求的数据从应用层，传输层、传输层、链路层、物理层层层打包头依次传输到客户端的物理层、链路层、传输层、应用层层层解包，最后客户端获得自己http请求的数据。</p>
+<p><strong>7、记录日志</strong></p>
+<p>服务端记录http请求访问日志</p>
+<p>##2、httpd所支持的处理模型有哪些，他们的分别使用于哪些环境。</p>
+<p><strong>prefork：多进程模型，每个进程响应一个请求</strong></p>
+<p>一个主进程：负责生成子进程及回收子进程；负责创建套接字；负责接收请求，并将其派发给某子进程进行处理；</p>
+<p>n个子进程：每个子进程处理一个请求；</p>
+<p>工作模型：会预先生成几个空闲进程，随时等待用于响应用户请求；最大空闲和最小空闲；</p>
+<p><strong>worker：多进程多线程模型，每线程处理一个用户请求</strong></p>
+<p>一个主进程：负责生成子进程；负责创建套接字；负责接收请求，并将其派发给某子进程进行处理；</p>
+<p>多个子进程：每个子进程负责生成多个线程；</p>
+<p>每个线程：负责响应用户请求；</p>
+<p>并发响应数量：m*n</p>
+<p>m：子进程数量</p>
+<p>n：每个子进程所能创建的最大线程数量；</p>
+<p><strong>event：事件驱动模型，多进程模型，每个进程响应多个请求</strong></p>
+<p>一个主进程 ：负责生成子进程；负责创建套接字；负责接收请求，并将其派发给某子进程进行处理；</p>
+<p>子进程：基于事件驱动机制直接响应多个请求；</p>
+<p>##3、源码编译安装LAMP环境（基于wordpress程序），并写出详细的安装、配置、测试过程。</p>
+<p><strong>1、安装包的准备</strong></p>
+<p>肯定是下载源码包了啊，所谓兵马未动粮草先行，这步过于简单，我就不写了。</p>
+<p>我准备的是以下几个包：<br>httpd-2.4.25.tar.gz<br>nginx-1.10.3.tar.gz（可选项，如果喜欢用nginx）<br>php-5.6.30.tar.gz<br>mariadb-10.1.21.tar.gz<br>openssl-1.0.2k.tar.gz<br>wordpress-4.7.3-zh_CN.tar.gz</p>
+<p><strong>2、更新系统组件</strong></p>
+<p>CentOS:yum update</p>
+<p>Ubuntu:apt update &amp;&amp; apt upgrade</p>
+<p>这一步是个人喜好，不喜勿喷~~~</p>
+<p><strong>3、检查原有httpd-2.2，如有请卸载</strong></p>
+<p>命令 </p>
+<p>rpm -qa | grep httpd </p>
+<p>yum remove httpd*</p>
+<p><strong>4、安装编译以来组件包，保平安</strong></p>
+<p>yum groupinstall “Development Tools” “Server Platform Development”</p>
+<p>yum install gcc gcc-c++ ncurses-devel perl cmake libaio pcre-devel openssl-devel bison.x86_64 bison-devel.x86_64 libxml2-devel.x86_64 </p>
+<p><strong>5、修改主机名</strong></p>
+<pre><code>[root@CentOS6 opt]# hostname LAMPW
+[root@CentOS6 opt]# vim /etc/sysconfig/network
+[root@CentOS6 opt]# vim /etc/hosts
+[root@CentOS6 opt]# cat /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=LAMPW
+NETWORKING_IPV6=no
+[root@CentOS6 opt]# cat /etc/hosts
+127.0.0.1   LAMPW
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+[root@CentOS6 opt]# 
+</code></pre><p><strong>6、这一步完了记得重启机器</strong></p>
+<p>reboot</p>
+<p><strong>7、编译安装Apache</strong></p>
+<p>httpd-2.4.25需要较新版本的apr和apr-util，因此需要事先对其进行升级。我这里用的是源码包编译安装</p>
+<p>(1)编译安装apr</p>
+<p>[root@LAMPW opt]# tar zxf apr-1.5.2.tar.gz</p>
+<p>[root@LAMPW opt]# cd apr-1.5.2</p>
+<p>[root@LAMPW apr-1.5.2]# ./configure –prefix=/opt/apr</p>
+<p>[root@LAMPW apr-1.5.2]# make &amp;&amp; make install</p>
+<p>(2)编译安装apr-util</p>
+<p>[root@LAMPW opt]# tar zxf apr-util-1.5.4.tar.gz</p>
+<p>[root@LAMPW opt]# cd apr-util-1.5.4</p>
+<p>[root@LAMPW apr-util-1.5.4]# ./configure –prefix=/opt/apr-util –with-apr=/opt/apr</p>
+<p>[root@LAMPW apr-util-1.5.4]# make &amp;&amp; make install</p>
+<p>(3)编译安装apache2.4.25</p>
+<p>编译参数如下：</p>
+<pre><code>./configure --prefix=/opt/apache24 \
+--enable-so \
+--enable-ssl \
+--enable-cgi \
+--enable-rewrite \
+--with-zlib \
+--with-pcre \
+--with-apr=/opt/apr \ 
+--with-apr-util=/opt/apr-util \
+--enable-modules=most \
+--enable-mpms-shared=all \
+--with-mpm=event \
+--enable-cache \
+--enable-cache-disk \
+</code></pre><p>(4)安装apache2.4.25服务脚本</p>
+<p>编辑一下内容放到/etc/init.d/下面，附上执行权限，chkconfig –add httpd &amp; chkconfig httpd on设置为开机启动即可，相关内容根据实际路径编辑一下即可：</p>
+<pre><code>#!/bin/bash
+#chkconfig: - 88 66
+#description:  this is a httpd scripts  of myself.
+prog=/opt/apache24/bin/httpd
+configfile=/opt/apache24/conf/httpd.conf
+lockfile=/opt/apache24/lock/httpd
+namearg=httpd
+pidfile=/opt/apache24/httpd.pid
+. /etc/init.d/functions
+
+start() {
+    if [ -e $lockfile  ];then
+    echo &quot;the program $namearg (`cat $pidfile`)is running&quot; &amp;&amp; exit 1
+    else
+        echo -n  &quot;Starting $namearg ...&quot; &amp;&amp; sleep 2
+        $prog -f $configfile &amp;&amp; touch $lockfile &amp;&amp; echo -e &quot;\t\t\t[\033[32m ok \033[0m]&quot; ||
+        echo -e &quot;\t\t\t[\033[32m fail \033[0m]&quot;
+    fi
+}
+
+stop (){
+    if [  -e $lockfile  ];then
+    echo -n  &quot;Stopping $namearg...&quot; &amp;&amp; sleep 2
+    killproc $namearg   &amp;&gt;/dev/null &amp;&amp; rm -rf $lockfile &amp;&amp; echo -e &quot;\t\t\t[\033[32m ok \033[0m]&quot;||  echo -e &quot;\t\t\t[\033[32m fail \033[0m]&quot;
+
+    else
+         echo  -e &quot;Stopping $namearg ...\t\t\t[\033[31m fail\033[0m]&quot;
+
+    fi
+}
+
+status () {
+
+    if [ -e $lockfile  ];then
+        echo &quot;the program $namearg (`cat $pidfile`)is running&quot; &amp;&amp; exit 1
+    else
+
+        echo &quot;the program $namearg is not running&quot;
+
+    fi
+}
+
+case $1 in
+start)
+    start
+    ;;
+stop)
+    stop
+    ;;
+restart)
+    stop
+    start
+    ;;
+status)
+    status
+    ;;
+*)
+    echo &quot;Usage: $namearg [start | stop | restart | status  ] &quot;
+    ;;
+esac
+</code></pre><p>(5)为httpd服务的相关命令添加环境变量</p>
+<p>vim /etc/profile,添加以下内容：</p>
+<pre><code>#Set the httpd variable environment for $PATH
+export httpd_HOME=/opt/apache24
+export PATH=$PATH:${httpd_HOME}/bin
+</code></pre><p>最后echo $PATH看看，OK啦</p>
+<p><strong>apache2.4到此编译安装完毕，httpd.conf根据实际情况自己修改一下下啦</strong></p>
+<p><strong>8.编译安装mysql-5.6.35,mysql-5.7已弃坑</strong></p>
+<p>(1)环境监察，看看有没有已安装的mysql相关包，有的话就卸载掉</p>
+<p>基础了，我就不写了</p>
+<p>(2)安装cmake，我喜欢用最新版，下载的是cmake version 3.8.0-rc2，源码编译安装，稍微麻烦，但是可以享受其过程。</p>
+<pre><code>[root@LAMPW opt]# tar zxf cmake-3.8.0.tar.gz
+[root@LAMPW opt]#./bootstrap --help  #看看有什么鬼参数
+[root@LAMPW opt]#./bootstrap --prefix=/usr   #我比较懒，直接一步到位，指定/usr目录
+[root@LAMPW opt]#make &amp;&amp; make install
+[root@LAMPW cmake-3.7.2]# cmake --version
+cmake version 3.8.0-rc2
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+[root@LAMPW cmake-3.7.2]# 
+</code></pre><p>well done！</p>
+<p>(3)建立MySQL程序目录和数据存储目录</p>
+<pre><code>[root@LAMPW /]# mkdir -pv /data/MySQL_data
+mkdir: created directory `/data&apos;
+mkdir: created directory `/data/MySQL_data&apos;
+[root@LAMPW /]# mkdir -pv /opt/MySQL
+mkdir: created directory `/opt/MySQL&apos;
+[root@LAMPW /]# 
+</code></pre><p>PS：其实这一步可以省略，在编译参数里面制定，make install是强制执行了，没有目录的话会自动创建，数据存放目录除外，亲测有效。</p>
+<p>(4)创建MySQL的系统用户组和系统用户</p>
+<pre><code>[root@LAMPW /]# groupadd -r mysql
+[root@LAMPW /]# useradd -d /data/MySQL_data/ -g mysql -M -r -s /sbin/nologin mysql
+[root@LAMPW /]# id mysql
+uid=498(mysql) gid=499(mysql) groups=499(mysql)
+</code></pre><p>(5)开始编译安装mysql-5.6.35</p>
+<pre><code>cmake . -DCMAKE_INSTALL_PREFIX=/opt/mysql \
+-DMYSQL_DATADIR=/data/mysql_data \
+-DSYSCONFDIR=/opt/mysql/etc \
+-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+-DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+-DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
+-DWITH_LIBWRAP=0 \
+-DMYSQL_UNIX_ADDR=/opt/mysql/tmp/mysql.sock \
+-DDEFAULT_CHARSET=utf8 \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DENABLED_LOCAL_INFILE=1 \
+-DWITH_MEMORY_STORAGE_ENGINE=1 \
+
+
+
+make -j 8 &amp;&amp; make install 
+</code></pre><p>PS: 编译前要删除/etc/my.cnf，不然编译会报错。</p>
+<p>(6)相关目录的授权</p>
+<p>cd /data &amp;&amp; chown -R mysql:mysql mysql_data/</p>
+<p>cd /opt/ &amp;&amp; chown -R mysql:mysql mysql/</p>
+<p>(7)初始化data存放目录设置</p>
+<p>cd /opt/mysql &amp;&amp;  scripts/mysql_install_db –user=mysql –basedir=/opt/mysql –datadir=/data/mysql_data</p>
+<p> ls /data/mysql_data # 有数据说明初始化成功 </p>
+<p>(8)初始化完成后mysql中目录文件的属主应改回成root，以免被别人攻破mysql用户密码而带来数据破坏等</p>
+<pre><code>[root@CentOS6 ~]# cd /opt/ &amp;&amp; chown -R root:root mysql/
+[root@CentOS6 opt]# ll
+total 122444
+drwx------  8  501    20     4096 Aug 12  2015 boost_1_59_0
+-rw-r--r--  1 root root  83709983 Mar 17 13:08 boost_1_59_0.tar.gz
+drwxr-xr-x 15 root root      4096 Mar 17 13:16 cmake-3.8.0-rc2
+-rw-r--r--  1 root root   7504498 Mar 17 13:08 cmake-3.8.0-rc2.tar.gz
+-rw-r--r--  1 root root   1974108 Mar 17 13:08 make-4.2.tar.gz
+drwxr-xr-x 13 root root      4096 Mar 17 17:30 mysql
+drwxr-xr-x 35 7161 31415     4096 Mar 17 17:00 mysql-5.6.35
+-rw-r--r--  1 root root  32167628 Mar 17 14:55 mysql-5.6.35.tar.gz
+[root@CentOS6 opt]# ls mysql/
+bin  COPYING  data  docs  include  lib  man  my.cnf  mysql-test  README  scripts  share  sql-bench  support-files
+[root@CentOS6 opt]# ll mysql/
+total 72
+drwxr-xr-x  2 root root  4096 Mar 17 17:01 bin
+-rw-r--r--  1 root root 17987 Nov 28 21:36 COPYING
+drwxr-xr-x  3 root root  4096 Mar 17 17:00 data
+drwxr-xr-x  2 root root  4096 Mar 17 17:00 docs
+drwxr-xr-x  3 root root  4096 Mar 17 17:00 include
+drwxr-xr-x  3 root root  4096 Mar 17 17:00 lib
+drwxr-xr-x  4 root root  4096 Mar 17 17:00 man
+-rw-r--r--  1 root root   943 Mar 17 17:30 my.cnf
+drwxr-xr-x 10 root root  4096 Mar 17 17:01 mysql-test
+-rw-r--r--  1 root root  2496 Nov 28 21:36 README
+drwxr-xr-x  2 root root  4096 Mar 17 17:18 scripts
+drwxr-xr-x 28 root root  4096 Mar 17 17:01 share
+drwxr-xr-x  4 root root  4096 Mar 17 17:01 sql-bench
+drwxr-xr-x  2 root root  4096 Mar 17 18:36 support-files
+[root@CentOS6 opt]# 
+</code></pre><p>（9）mysql主配置文件</p>
+<p>初始化后会自动在当前目录下创建一个my.cnf配置文件，直接修改就可以(在mysql 5.6 以后配置文件自动生成，不需要我们再进行复制)，但是/usr/local/mysql/support-files目录下，有默认配置的配置文件，可以拷贝过去。这里我用默认生成的。</p>
+<p>修改配置文件  #必须修改啊，不然下一步会报错哦</p>
+<pre><code>[root@CentOS6 /]# vim /opt/mysql/my.cnf
+
+[mysqld]
+
+basedir = /opt/mysql
+datadir = /data/mysql_data
+port = 3306
+</code></pre><p>（10）为mysql提供sysv服务脚本并启动服务</p>
+<pre><code>[root@CentOS6 ~]# cp /opt/mysql/support-files/mysql.server /etc/init.d/mysqld
+[root@CentOS6 ~]#chkconfig --add mysqld
+[root@CentOS6 ~]#chkconfig mysqld on
+[root@CentOS6 ~]# chkconfig mysqld --list
+mysqld             0:off    1:off    2:on    3:on    4:on    5:on    6:off
+[root@CentOS6 ~]# 
+</code></pre><p>service mysqld start 记得要测试OK，其中启动可能会报错，例如目录权限啊，sock 、pid 文件目录设置等，主要看看报错日志，跟着解决就好。</p>
+<p>一通肆虐（测试）</p>
+<pre><code>[root@CentOS6 mysql]# service mysqld 
+Usage: mysqld  {start|stop|restart|reload|force-reload|status}  [ MySQL server options ]
+[root@CentOS6 mysql]# service mysqld stop
+Shutting down MySQL.. SUCCESS! 
+[root@CentOS6 mysql]# service mysqld reload
+ ERROR! MySQL PID file could not be found!
+[root@CentOS6 mysql]# service mysqld start
+Starting MySQL. SUCCESS! 
+[root@CentOS6 mysql]# service mysqld status
+ SUCCESS! MySQL running (2019)
+[root@CentOS6 mysql]# service mysqld reload
+ SUCCESS! Reloading service MySQL
+[root@CentOS6 mysql]# service mysqld restart
+Shutting down MySQL.. SUCCESS! 
+Starting MySQL. SUCCESS! 
+[root@CentOS6 mysql]# 
+</code></pre><p>嗦嘎！</p>
+<p>（11）输出mysql的头文件至系统头文件路径/usr/include</p>
+<pre><code>[root@CentOS6 mysql]# ln -sv /opt/mysql/include/ /usr/include/mysql
+`/usr/include/mysql&apos; -&gt; `/opt/mysql/include/&apos;
+[root@CentOS6 mysql]# 
+</code></pre><p>（12）输出mysql的头文件至系统头文件路径/usr/include</p>
+<pre><code>[root@CentOS6 mysql]# ln -sv /opt/mysql/include/ /usr/include/mysql
+`/usr/include/mysql&apos; -&gt; `/opt/mysql/include/&apos;
+[root@CentOS6 mysql]# 
+</code></pre><p>（13）输出mysql的库文件给系统库查找路径</p>
+<pre><code>[root@CentOS6 ~]# vim /etc/ld.so.conf.d/mysql.conf 
+[root@CentOS6 ~]# ldconfig -v |grep mysql
+ldconfig: /etc/ld.so.conf.d/kernel-2.6.32-642.el6.x86_64.conf:6: duplicate hwcap 1 nosegneg
+/opt/mysql/lib:
+    libmysqlclient.so.18 -&gt; libmysqlclient_r.so.18.1.0
+/usr/lib64/mysql:
+    libmysqlclient.so.16 -&gt; libmysqlclient.so.16.0.0
+    libmysqlclient_r.so.16 -&gt; libmysqlclient_r.so.16.0.0
+[root@CentOS6 ~]# 
+</code></pre><p>（14） 修改PATH环境变量，让系统可以直接使用mysql的相关命令</p>
+<pre><code>[root@CentOS6 ~]# echo &quot;export PATH=$PATH:/opt/mysql/bin&quot; &gt; /etc/profile.d/mysql.sh  #一条命令搞定，很叼
+[root@CentOS6 ~]# ll /etc/profile.d/mysql.sh
+-rw-r--r-- 1 root root 83 Mar 20 11:03 /etc/profile.d/mysql.sh
+[root@CentOS6 ~]# cat /etc/profile.d/mysql.sh  #查看一下创建的文件内容
+export PATH=/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/root/bin:/opt/mysql/bin
+[root@CentOS6 ~]# source /etc/profile.d/mysql.sh  #使其即时生效
+[root@CentOS6 ~]# echo $?  #命令是OK的
+0
+[root@CentOS6 ~]# mysql    #用tab键匹配一下MySQL命令 ，bingo！
+mysql                       mysql_embedded
+mysqlaccess                 mysql_find_rows
+mysqlaccess.conf            mysql_fix_extensions
+mysqladmin                  mysqlhotcopy
+mysqlbinlog                 mysqlimport
+mysqlbug                    mysql_plugin
+mysqlcheck                  mysql_secure_installation
+mysql_client_test           mysql_setpermission
+mysql_client_test_embedded  mysqlshow
+mysql_config                mysqlslap
+mysql_config_editor         mysqltest
+mysql_convert_table_format  mysqltest_embedded
+mysqld                      mysql_tzinfo_to_sql
+mysqld_multi                mysql_upgrade
+mysqld_safe                 mysql_waitpid
+mysqldump                   mysql_zap
+mysqldumpslow               
+[root@CentOS6 ~]# 
+</code></pre><p>（15） 最终测试，使用mysql命令登录</p>
+<pre><code>[root@CentOS6 lib]# mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.6.35 Source distribution
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.
+
+mysql&gt; show status;
++-----------------------------------------------+-------------+
+| Variable_name                                 | Value       |
++-----------------------------------------------+-------------+
+| Aborted_clients                               | 0           |
+| Aborted_connects                              | 0           |
+| Binlog_cache_disk_use                         | 0           |
+| Binlog_cache_use                              | 0           |
+| Binlog_stmt_cache_disk_use                    | 0           |
+| Binlog_stmt_cache_use                         | 0           |
+| Bytes_received                                | 219         |
+| Bytes_sent                                    | 179         |
+| Com_admin_commands                            | 0           |
+| Com_assign_to_keycache                        | 0    
+</code></pre><p><strong>9、编译安装php</strong></p>
+<p>（1）安装依赖包保平安</p>
+<p>yum install gd-devel libmcrypt-devel libcurl-devel openssl-devel libxml2-devel</p>
+<p>(2)下载加压，下面是编译参数</p>
+<pre><code>./configure --prefix=/opt/php \
+--with-openssl \
+--with-mysqli=/opt/mysql/bin/mysql_config \
+--enable-mbstring \
+--with-freetype-dir \
+--with-jpeg-dir \
+--with-png-dir \
+--with-zlib \
+--with-libxml-dir=/usr \
+--enable-xml  \
+--enable-sockets \
+--with-apxs2=/opt/apache24/bin/apxs \
+--with-mcrypt  \
+--with-config-file-path=/opt/php/conf \
+--with-config-file-scan-dir=/opt/php/php.d \
+--with-bz2 \
+--enable-maintainer-zts \
+--with-mysql=mysqlnd \
+--with-pdo-mysql=mysqlnd \
+--with-mysqli=mysqlnd \
+--with-mysql=/opt/mysql \
+
+make -j 8
+make test
+make install
+</code></pre><p>（3）从源码包复制php配置文件</p>
+<p>cp /opt/php-5.6.30/php.ini-production /opt/php/etc/</p>
+<p>（4） 编辑apache配置文件httpd.conf，以apache支持php ，此为httpd模块加载方式，非fastcgi模式</p>
+<h1 id="vim-opt-apache24-conf-httpd-conf"><a href="#vim-opt-apache24-conf-httpd-conf" class="headerlink" title="vim /opt/apache24/conf/httpd.conf"></a>vim /opt/apache24/conf/httpd.conf</h1><p> 1、添加如下二行<br>   AddType application/x-httpd-php  .php<br>   AddType application/x-httpd-php-source  .phps</p>
+<p> 2、定位至DirectoryIndex index.html<br>   修改为：<br>    DirectoryIndex  index.php  index.html</p>
+<p>而后重新启动httpd，或让其重新载入配置文件即可测试php是否已经可以正常使用。</p>
+<p>vim /opt/apache24/htdocs/index.php  测试页面index.php示例如下：</p>
+<pre><code>&lt;?php
+  $link = mysql_connect(&apos;192.168.0.248&apos;,&apos;root&apos;,&apos;123456&apos;);
+  if ($link)
+    echo &quot; hahaha, Success...&quot;;
+  else
+    echo &quot;Failure...&quot;;
+
+  mysql_close();
+?&gt;
+
+
+&lt;? 
+        phpinfo(); 
+?&gt;
+</code></pre><p>（5） 测试是否ok</p>
+<p><img src="http://i.imgur.com/cRaZaL8.png" alt=""></p>
+<p><strong>安装部署WordPress</strong></p>
+<p>（1）下载WordPress，并解压到网站根目录</p>
+<pre><code>[root@lampw tools]# cp wordpress-4.7.3-zh_CN.tar.gz /opt/apache24/htdocswordpress.tar.gz
+[root@lampw tools]# cd /opt/apache24/htdocs/
+[root@lampw htdocs]# tar zxf wordpress.tar.gz 
+[root@lampw htdocs]# cd wordpress/
+[root@lampw wordpress]# ll
+total 188
+-rw-r--r--  1 nobody 65534   418 Sep 25  2013 index.php
+-rw-r--r--  1 nobody 65534 19935 Jan  3 02:51 license.txt
+-rw-r--r--  1 nobody 65534  6956 Mar  7 13:14 readme.html
+-rw-r--r--  1 nobody 65534  5447 Sep 28 05:36 wp-activate.php
+drwxr-xr-x  9 nobody 65534  4096 Mar  7 13:14 wp-admin
+-rw-r--r--  1 nobody 65534   364 Dec 19  2015 wp-blog-header.php
+-rw-r--r--  1 nobody 65534  1627 Aug 29  2016 wp-comments-post.php
+-rw-r--r--  1 nobody 65534  2930 Mar  7 13:14 wp-config-sample.php
+drwxr-xr-x  5 nobody 65534  4096 Mar  7 13:14 wp-content
+-rw-r--r--  1 nobody 65534  3286 May 25  2015 wp-cron.php
+drwxr-xr-x 18 nobody 65534 12288 Mar  7 13:14 wp-includes
+-rw-r--r--  1 nobody 65534  2422 Nov 21 10:46 wp-links-opml.php
+-rw-r--r--  1 nobody 65534  3301 Oct 25 11:15 wp-load.php
+-rw-r--r--  1 nobody 65534 33939 Nov 21 10:46 wp-login.php
+-rw-r--r--  1 nobody 65534  8048 Jan 11 13:15 wp-mail.php
+-rw-r--r--  1 nobody 65534 16250 Nov 29 13:39 wp-settings.php
+-rw-r--r--  1 nobody 65534 29896 Oct 19 12:47 wp-signup.php
+-rw-r--r--  1 nobody 65534  4513 Oct 15 03:39 wp-trackback.php
+-rw-r--r--  1 nobody 65534  3065 Sep  1  2016 xmlrpc.php
+</code></pre><p>（2）创建WordPress要连接mysql的账号</p>
+<pre><code>[root@lampw wordpress]# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1419
+Server version: 5.6.35 Source distribution
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.
+
+mysql&gt; CREATE DATABASE wpdb; 
+Query OK, 1 row affected (0.00 sec)
+
+mysql&gt; GRANT ALL PRIVILEGES ON wpdb.* TO wpuser@&apos;192.168.%.%&apos; IDENTIFIED BY &apos;wppass&apos;;;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+</code></pre><p>mysql&gt; </p>
+<p>3)创建WordPress的配置文件</p>
+<p>[root@WebServer wordpress]# pwd </p>
+<p>/usr/local/apache/htdocs/wordpress</p>
+<p>[root@WebServer wordpress]# cp wp-config-sample.php wp-config.php</p>
+<p>4）更改 wp-config.php关于数据库的连接相关配置</p>
+<p>[root@WebServer wordpress]# vim wp-config.php </p>
+<p>define(‘DB_NAME’, ‘wpdb’);    # 填写数据库 </p>
+<p>/*<em> MySQL数据库用户名 </em>/ </p>
+<p>define(‘DB_USER’, ‘wpuser’);    # 填写数据库账号 </p>
+<p>/*<em> MySQL数据库密码 </em>/ </p>
+<p>define(‘DB_PASSWORD’, ‘wppass’);    # 填写密码 </p>
+<p>/*<em> MySQL主机 </em>/ </p>
+<p>define(‘DB_HOST’, ‘10.10.10.4’);    # 数据库所在的主机，本机也可以填写localhost</p>
+<p>5）访问测试</p>
+<p>有图有真相</p>
+<p><img src="http://i.imgur.com/vDrgmqd.png" alt=""></p>
+<p>##4、建立httpd服务器(基于编译的方式进行)，要求：</p>
+<p>提供两个基于名称的虚拟主机</p>
+<p><strong>前期工作</strong></p>
+<p>建立相应目录，我一般都是放在/data，</p>
+<pre><code>[root@lampw data]# mkdir -pv /data/web/vhost/{www1,www2}
+mkdir: created directory `/data/web&apos;
+mkdir: created directory `/data/web/vhost&apos;
+mkdir: created directory `/data/web/vhost/www1&apos;
+mkdir: created directory `/data/web/vhost/www2&apos;
+</code></pre><p>vim /opt/apache24/conf/httpd.conf</p>
+<directory><br>    AllowOverride none<br>   # Require all denied<br></directory>
+
+
+
+<p><strong>(a)www1.stuX.com，页面文件目录为/web/vhosts/www1；错误日志为/var/log/httpd/www1.err，访问日志为/var/log/httpd/www1.access；</strong></p>
+<pre><code>[root@lampw data]# mkdir -pv /data/web/vhost/{www1,www2}
+mkdir: created directory `/data/web&apos;
+mkdir: created directory `/data/web/vhost&apos;
+mkdir: created directory `/data/web/vhost/www1&apos;
+mkdir: created directory `/data/web/vhost/www2&apos;
+</code></pre><p>vim /opt/apache24/conf/httpd.conf</p>
+<pre><code>&lt;VirtualHost 192.168.0.248:80&gt;
+
+        ServerName www1.stuX.com
+        DocumentRoot &quot;/data/web/vhosts/www1&quot;
+        ErrorLog /data/web/log/httpd/www1.err
+        CustomLog /data/web/log/httpd/www1.access combined
+        &lt;Directory &quot;/data/web/vhosts/www1&quot;&gt;
+                Options None
+                AllowOverride None
+                Require all granted
+        &lt;/Directory&gt;
+
+        &lt;Location &quot;/server-status&quot;&gt;
+
+               SetHandler server-status 
+
+               Options None
+                AllowOverride None
+                AuthType Basic
+                AuthName &quot;Adimin Realm,show something&quot;
+                AuthUserFile &quot;/opt/apache24/conf/.htpasswd&quot;
+                Require user jerry
+        &lt;/Location&gt;
+&lt;/VirtualHost&gt;
+</code></pre><p><strong>(b)www2.stuX.com，页面文件目录为/web/vhosts/www2；错误日志为/var/log/httpd/www2.err，访问日志为/var/log/httpd/www2.access；</strong></p>
+<pre><code>[root@lampw data]# mkdir -pv /data/web/vhost/{www1,www2}
+mkdir: created directory `/data/web&apos;
+mkdir: created directory `/data/web/vhost&apos;
+mkdir: created directory `/data/web/vhost/www1&apos;
+mkdir: created directory `/data/web/vhost/www2&apos;
+
+
+[root@lampw data]# vim /opt/apache24/conf/httpd.conf
+
+    &lt;VirtualHost 192.168.0.248:80&gt;
+            ServerName www2.stuX.com
+            DocumentRoot &quot;/data/web/vhosts/www2&quot;
+            ErrorLog /data/web/log/httpd/www1.err
+            CustomLog /data/web/log/httpd/www1.access combined
+            &lt;Directory &quot;/data/web/vhosts/www2&quot;&gt;
+                    Options None
+                    AllowOverride None
+                    Require all granted
+            &lt;/Directory&gt;
+    &lt;/VirtualHost&gt;
+</code></pre><p><strong>(c)为两个虚拟主机建立各自的主页文件index.html，内容分别为其对应的主机名；</strong></p>
+<pre><code>[root@lampw data]# vim /data/web/vhost/www1/index.html
+[root@lampw data]# vim /data/web/vhost/www2/index.html
+[root@lampw data]# cat /data/web/vhost/www1/index.html
+&lt;h1&gt;www1.stuX.com&lt;/h1&gt;
+[root@lampw data]# cat /data/web/vhost/www2/index.html
+&lt;h1&gt;www2.stuX.com&lt;/h1&gt;
+[root@lampw data]# 
+</code></pre><p><strong>(d)通过www1.stuX.com/server-status输出httpd工作状态相关信息，且只允许提供帐号密码才能访问(status:status)；</strong></p>
+<p>[root@lampw ~]# cd /opt/apache24/bin/</p>
+<p>[root@lampw bin]# ./htpasswd -m -c /opt/apache24/conf/.htpasswd jerry</p>
+<p>[root@lampw data]# vim /opt/apache24/conf/httpd.conf</p>
+<pre><code>&lt;VirtualHost 192.168.0.248:80&gt;
+
+        ServerName www1.stuX.com
+        DocumentRoot &quot;/data/web/vhosts/www1&quot;
+        ErrorLog /data/web/log/httpd/www1.err
+        CustomLog /data/web/log/httpd/www1.access combined
+        &lt;Directory &quot;/data/web/vhosts/www1&quot;&gt;
+                Options None
+                AllowOverride None
+                Require all granted
+        &lt;/Directory&gt;
+
+        &lt;Location &quot;/server-status&quot;&gt;
+
+               SetHandler server-status 
+
+               Options None
+                AllowOverride None
+                AuthType Basic
+                AuthName &quot;Adimin Realm,show something&quot;
+                AuthUserFile &quot;/opt/apache24/conf/.htpasswd&quot;
+                Require user jerry
+        &lt;/Location&gt;
+&lt;/VirtualHost&gt;
+</code></pre><p>##5、为第4题中的第2个虚拟主机提供https服务，使得用户可以通过https安全的访问此web站点；</p>
+<p>(1)要求使用证书认证，证书中要求使用的国家(CN)、州(HA)、城市(ZZ)和组织(MageEdu)；</p>
+<p>(2)设置部门为Ops，主机名为www2.stuX.com，邮件为<a href="mailto:admin@stuX.com" target="_blank" rel="noopener">admin@stuX.com</a>；</p>
+<p><strong>生成私钥</strong></p>
+<pre><code>[root@lampw pki]# (umask 077; openssl genrsa -out /etc/pki/ca-trust/cakey.pem 8192)
+Generating RSA private key, 8192 bit long modulus
+...................................................................................................................++
+........................................................................................................................................................................................................................................................++
+e is 65537 (0x10001)
+</code></pre><p><strong>生成自签证书</strong></p>
+<pre><code>[root@lampw pki]# openssl req -new -x509 -key /etc/pki/ca-trust/cakey.pem -out /etc/pki/ca-trust/cacert.pem -days 3655
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter &apos;.&apos;, the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:CN  
+State or Province Name (full name) [Some-State]:HA
+Locality Name (eg, city) []:ZZ
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:MageEdu
+Organizational Unit Name (eg, section) []:MageEdu
+Common Name (e.g. server FQDN or YOUR name) []:www2.stuX.com
+Email Address []:admin@stuX.com
+[root@lampw pki]# 
+</code></pre><p><strong>为CA提供所需的目录及文件</strong></p>
+<pre><code>[root@lampw pki]# mkdir  -pv  /etc/pki/CA/{certs,crl,newcerts}
+mkdir: created directory `/etc/pki/CA&apos;
+mkdir: created directory `/etc/pki/CA/certs&apos;
+mkdir: created directory `/etc/pki/CA/crl&apos;
+mkdir: created directory `/etc/pki/CA/newcerts&apos;
+[root@lampw pki]# touch  /etc/pki/CA/{serial,index.txt}
+[root@lampw pki]# echo  01 &gt; /etc/pki/CA/serial
+[root@lampw pki]# 
+</code></pre><p><strong>用到证书的主机生成私钥</strong></p>
+<pre><code>[root@lampw pki]# mkdir  -pv  /etc/pki/CA/{certs,crl,newcerts}
+mkdir: created directory `/etc/pki/CA&apos;
+mkdir: created directory `/etc/pki/CA/certs&apos;
+mkdir: created directory `/etc/pki/CA/crl&apos;
+mkdir: created directory `/etc/pki/CA/newcerts&apos;
+[root@lampw pki]# touch  /etc/pki/CA/{serial,index.txt}
+[root@lampw pki]# echo  01 &gt; /etc/pki/CA/serial
+[root@lampw pki]#  mkdir -pv /opt/apache24/ssl
+mkdir: created directory `/opt/apache24/ssl&apos;
+[root@lampw pki]# cd /opt/apache24/ssl
+[root@lampw ssl]# (umask  077; openssl  genrsa -out  /opt/apache24/ssl/httpd.key 8192)
+Generating RSA private key, 8192 bit long modulus
+.............................................................................................................++
+....................................................++
+e is 65537 (0x10001)
+[root@lampw ssl]# 
+</code></pre><p><strong>生成证书签署请求</strong></p>
+<pre><code>[root@lampw ssl]# openssl  req  -new  -key  /opt/apache24/ssl/httpd.key  -out /opt/apache24/ssl/httpd.csr  -days  365
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter &apos;.&apos;, the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:CN
+State or Province Name (full name) [Some-State]:HA
+Locality Name (eg, city) []:ZZ
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:MageEdu
+Organizational Unit Name (eg, section) []:MageEdu
+Common Name (e.g. server FQDN or YOUR name) []:www2.stuX.com
+Email Address []:admin@stuX.com
+
+Please enter the following &apos;extra&apos; attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+</code></pre><p><strong>将请求通过可靠方式发送给CA主机，这次是在同一台机器，我就略过，如果是生产环境，估计就是要发给可信的证书签署机构</strong></p>
+<p><strong>在CA主机上签署证书</strong></p>
+<pre><code>[root@centos ssl]# openssl ca  -in  /etc/httpd/ssl/httpd.csr  -out  /etc/pki/CA/certs/httpd.crt  -days  365
+Using configuration from /etc/pki/tls/openssl.cnf
+Check that the request matches the signature
+Signature ok
+Certificate Details:
+        Serial Number: 1 (0x1)
+        Validity
+            Not Before: Mar 22 03:49:48 2017 GMT
+            Not After : Mar 22 03:49:48 2018 GMT
+        Subject:
+            countryName               = CN
+            stateOrProvinceName       = HA
+            organizationName          = MageEdu
+            organizationalUnitName    = ops
+            commonName                = www2.stuX.com
+            emailAddress              = admin@stuX.com
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                OpenSSL Generated Certificate
+            X509v3 Subject Key Identifier: 
+                EC:C4:48:10:BE:BD:1D:D2:48:38:17:B7:FD:0D:57:DE:51:B1:8F:64
+            X509v3 Authority Key Identifier: 
+                keyid:ED:42:A1:59:88:A2:45:0A:F2:64:46:A6:BA:C9:7A:5D:E3:9C:FB:AE
+
+Certificate is to be certified until Mar 22 03:49:48 2018 GMT (365 days)
+Sign the certificate? [y/n]:y
+
+
+1 out of 1 certificate requests certified, commit? [y/n]y
+Write out database with 1 new entries
+Data Base Updated
+[root@centos ssl]# 
+</code></pre><p>ssl]# ls /etc/pki/CA/certs/httpd.crt</p>
+<p>/etc/pki/CA/certs/httpd.crt</p>
+<p>ssl]# cp /etc/pki/CA/certs/httpd.crt /etc/httpd24/ssl/</p>
+<p>ssl]# ls</p>
+<p>httpd.crt  httpd.csr  httpd.key</p>
+<p>2、修改配置文件提供ssl服务</p>
+<p>开启主配置文件的ssl调用，删除www2在httpd-vhosts中的定义</p>
+<p>Include /etc/httpd24/extra/httpd-ssl.conf</p>
+<p>~]# vim /etc/httpd24/extra/httpd-ssl.conf</p>
+<p>[root@localhost httpd24]# cat extra/httpd-ssl.conf | grep -v “^#”</p>
+<p>Listen 443</p>
+<p>SSLPassPhraseDialog  builtin</p>
+<virtualhost 192.168.150.136:443=""><br><br>DocumentRoot “/web/vhost/www2”<br><br>ServerName www2.stuX.com:443<br><br>ServerAdmin <a href="mailto:you@example.com" target="_blank" rel="noopener">you@example.com</a><br><br>ErrorLog “/var/log/httpd/www2.err”<br><br>TransferLog “/usr/local/apache24/logs/access_log”<br><br>SSLEngine on<br><br>SSLCertificateFile “/etc/httpd24/ssl/httpd.crt”<br><br>SSLCertificateKeyFile “/etc/httpd24/ssl/httpd.key”<br><br><directory "="" web="" vhost="" www2"=""><br><br> AllowOverride None<br><br>    Options None<br><br>    Require all granted<br><br></directory><br><br></virtualhost>             
+
+<p>主配置文件中启用ssl模块</p>
+<p>~]# vim /etc/httpd24/httpd.conf</p>
+<p>LoadModule ssl_module modules/mod_ssl.so</p>
+<p>重启httpd服务后测试</p>
+<p>httpd24]# ss -tnl | grep 443</p>
+<p>LISTEN     0      128                      :::443                     :::*     </p>
+<p>##6、在LAMP架构中，请分别以php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd，列出详细的过程。</p>
+<p><strong>php编译成httpd模块形式</strong></p>
+<p>参阅第三题第九步</p>
+<p><strong>php以fpm工作为独立守护进程的方式来支持httpd</strong></p>
+<p>./configure –prefix=/opt/php5-fpm \<br>–with-mysql=mysqlnd \<br>–with-openssl \<br>–with-mysqli=mysqlnd \<br>–enable-mbstring \<br>–with-freetype-dir \<br>–with-jpeg-dir \<br>–with-png-dir \<br>–with-zlib \<br>–with-libxml-dir=/usr \<br>–enable-xml \<br>–enable-sockets \<br>–enable-fpm \<br>–with-mcrypt \<br>–with-config-file-path=/opt/php5-fpm/conf \<br>–with-config-file-scan-dir=/opt/php5-fpm/conf.d \<br>–with-bz2</p>
+<p>添加了–enable-fpm选项 ，这是重点啊，各位记住。</p>
+<p>make &amp;&amp; make install</p>
+<p>拷贝配置文件至/opt/php5-fpm/conf目录</p>
+<p>php-5.4.26]# cp php.ini-production /etc/php.ini</p>
+<p>拷贝php-fpm配置文件，并同时取消pid选项的注释</p>
+<p>cp /usr/local/php5/etc/php-fpm.conf.default  /usr/local/php5/etc/php-fpm.conf</p>
+<p>php-5.4.26]# vim /usr/local/php5/etc/php-fpm.conf</p>
+<p>pid = /usr/local/php5/var/run/php-fpm.pid</p>
+<p>添加服务脚本</p>
+<p>fpm]# pwd</p>
+<p>/root/php-5.4.26/sapi/fpm</p>
+<p>fpm]# cp init.d.php-fpm /etc/rc.d/init.d/php-fp</p>
+<p>~]# chmod +x /etc/rc.d/init.d/php-fpm</p>
+<p>~]# chkconfig –add php-fpm</p>
+<p>启动php-fpm</p>
+<p>~]# service php-fpm start</p>
+<p>配置httpd</p>
+<p>~]# vim /etc/httpd24/httpd.conf</p>
+<p>启用这两个模块</p>
+<p>LoadModule proxy_module modules/mod_proxy.so</p>
+<p>LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so</p>
+<p>添加文件类型</p>
+<p>AddType application/x-httpd-php .php</p>
+<p>AddType application/x-httpd-php-source .phps</p>
+<p>添加php文件的访问通过fpm</p>
+<p>ProxyRequests Off</p>
+<p>ProxyPassMatch ^/(.*.php)$ fcgi://127.0.0.1:9000/usr/local/apache24/htdocs/$1</p>
+<p>找到 DirectoryIndex index.html</p>
+<p>改为</p>
+<p>DirectoryIndex index.php index.html</p>
+<p>编辑php测试页并开启httpd进行测试</p>
+<p>php-5.4.26]# cd /usr/local/apache24/htdocs/</p>
+<p>htdocs]# vim index.php</p>
+<pre><code>&lt;h1&gt;phpfpmtest&lt;/h1&gt;
+
+&lt;?php
+
+    phpinfo();
+
+?&gt;
+</code></pre><p>[root@localhost htdocs]# apachectl start</p>
+<p>AH00558: httpd: Could not reliably determine the server’s fully qualified domain name, using localhost.</p>
+<p>localdomain. Set the ‘ServerName’ directive globally to suppress this</p>
+<p>[root@localhost htdocs]# ss -tnl     httpd 80 php-fpm 9000</p>
+<p>State       Recv-Q Send-Q                   Local Address:Port                     Peer Address:Port</p>
+<p>LISTEN      0      128                                 :::80                                 :::*     </p>
+<p>LISTEN      0      128                                 :::22                                 :::*     </p>
+<p>LISTEN      0      128                                  <em>:22                                  </em>:*     </p>
+<p>LISTEN      0      100                                ::1:25                                 :::*     </p>
+<p>LISTEN      0      100                          127.0.0.1:25                                  <em>:</em>     </p>
+<p>LISTEN      0      128                          127.0.0.1:6010                                <em>:</em>     </p>
+<p>LISTEN      0      128                                ::1:6010                               :::*     </p>
+<p>LISTEN      0      128                          127.0.0.1:6011                                <em>:</em>     </p>
+<p>LISTEN      0      128                                ::1:6011                               :::*     </p>
+<p>LISTEN      0      128                          127.0.0.1:9000                                <em>:</em></p>
+<p>此时的Server API为FPM/FastCGI</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">

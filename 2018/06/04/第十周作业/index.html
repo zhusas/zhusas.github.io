@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jerry" />
+
+
+
+<meta name="description" content="##1、请详细描述CentOS系统的启动流程（详细到每个过程系统做了哪些事情） 从dawning大湿兄那里借来的图，如下：  启动过程 （PC架构）   POST –&amp;gt; Boot Sequence(BIOS) –&amp;gt; Boot Loader (MBR)–&amp;gt;GRUB—&amp;gt; Kernel(ramdisk) –&amp;gt; rootfs –&amp;gt; switchroot –&amp;gt; /s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jerry&#39;s Blog">
+<meta property="og:url" content="https://zhusas/github.io/2018/06/04/第十周作业/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="##1、请详细描述CentOS系统的启动流程（详细到每个过程系统做了哪些事情） 从dawning大湿兄那里借来的图，如下：  启动过程 （PC架构）   POST –&amp;gt; Boot Sequence(BIOS) –&amp;gt; Boot Loader (MBR)–&amp;gt;GRUB—&amp;gt; Kernel(ramdisk) –&amp;gt; rootfs –&amp;gt; switchroot –&amp;gt; /s">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://i.imgur.com/fCgoqDA.jpg">
+<meta property="og:updated_time" content="2018-06-04T08:29:46.461Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jerry&#39;s Blog">
+<meta name="twitter:description" content="##1、请详细描述CentOS系统的启动流程（详细到每个过程系统做了哪些事情） 从dawning大湿兄那里借来的图，如下：  启动过程 （PC架构）   POST –&amp;gt; Boot Sequence(BIOS) –&amp;gt; Boot Loader (MBR)–&amp;gt;GRUB—&amp;gt; Kernel(ramdisk) –&amp;gt; rootfs –&amp;gt; switchroot –&amp;gt; /s">
+<meta name="twitter:image" content="http://i.imgur.com/fCgoqDA.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jerry&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Jerry&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: 
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jerry</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于运维</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jerry</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jerry</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-第十周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第十周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:46.461Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>##1、请详细描述CentOS系统的启动流程（详细到每个过程系统做了哪些事情）</p>
+<p><strong>从dawning大湿兄那里借来的图，如下：</strong></p>
+<p><img src="http://i.imgur.com/fCgoqDA.jpg" alt=""></p>
+<p>启动过程 （PC架构）<br>   POST –&gt; Boot Sequence(BIOS) –&gt; Boot Loader (MBR)–&gt;GRUB—&gt; Kernel(ramdisk) –&gt; rootfs –&gt; switchroot –&gt; /sbin/init–&gt;(/etc/inittab, /etc/init/*.conf) –&gt; 设定默认运行级别&gt; 系统初始化脚本 –&gt; 关闭或启动对应级别下的服务 –&gt; 启动终端</p>
+<p><strong>第一步：加电自检（POST）</strong></p>
+<p>   系统加电之后，首先进行的硬件自检，一但通电后主板会自动读取ROM（只读）中的程序，进行加载，计算机会首先加载BIOS信息，BIOS信息是如此的重要，以至于计算机必须在最开始就找到它。检查各种硬件设备是否完整存在，如内存，硬盘，显示,IO设备等。如果有硬件故障的话将按两种情况理：对于严重故障(致命性故障)则停机，此时由于各种初始化操作还没完成，不能给出任何提示或信号；对于非严重故障则给出提示或声音报警信号，等待用户处理），如果没有故障，POST完成自己<br>的接力任务，将尾部工作交接给BIOS处理。</p>
+<p><strong>第二步：系统引导过程Boot Sequence（BIOS）</strong></p>
+<p>  POST 过程结束后，系统的控制权从 BISO 转交到 boot loader。Boot loader 一般存储在系统的硬盘上（传统的 BIOS/MBR 系统），这个时候机器不能获取外部的存储或者网络信息，一些重要的值（日期、时间、其他外部值）都是从CMOS里读取.</p>
+<p>  POST（POST-power on self test)—&gt;ROM-&gt;CMOS(互补金属氧化物)-&gt;BIOS (Basic Input Output System，基础输入输出系统） </p>
+<p>  BIOS（Basic Input/Output System）启动初始化硬件的工作，包括屏幕和键盘，内存检测，这个过程也被成为 POST（Power On Self Test），通过ROM加载自检程序，然后按照 CMOS RAM 中设置的启动设备查找顺序，来寻找可启动设备 。注：BIOS 程序嵌在主板的 ROM 芯片上的。</p>
+<p><strong>第三步：启动加载器阶段Master Boot Loader(MBR)</strong></p>
+<p> 硬盘上第0磁道第一个扇区被称为MBR，也就是Master Boot Record，即主引导记录，决定启动介质按照BIOS所设定的系统启动流程，根据引导次序(Boot Sequence)自上而下的寻找对应存储设备上操作系统的MBR。它的大小仅有512字节，但里面却存放了预启动信息、分区表信息。可分为两部分：</p>
+<p>第一部分为引导（PRE-BOOT）区，占了 446个字节；</p>
+<p>第二部分为分区表（PARTITION TABLE），共有64个字节，每个主分区占用16字节，记录硬盘的分区信息。（这就是为什么一块硬盘只能有4个主分区）分区表有效性标记会占用2字节。 </p>
+<p>  预引导区的作用之一是找到标记为活动（ACTIVE）的分区，并将活动分区的引导区读入内存。剩余两个字节为结束标记。寻找 grub，读取配置文件/etc/grub.conf，决定默认启动项根据MBR所指引的活动分区上寻找系统分区中的 bootloader.在bootloader当中配置了所要引导操作系统的内核所在的位置，因此BIOS被载入内存以后，当它实现将控制权限转交给bootloader以后，bootloader接收整个系统的控制权限，而后根据用户的选择去读取相应操作系统中的内核，并将内核装载入内存的某个空间位置，解压缩，这时kernel就可以在内存中活动，并根据kernel本身功能在内存当中探索硬件并加载硬件驱动程序并完成内核初始化，bootloader会将控制权限转交给内核。 </p>
+<p><strong>第四步：引导加载器阶段（GRUB加载器）</strong> </p>
+<p>   对于GRUB来说，一个比较好的方面就是它包含了linux文件系统的支持。GRUB能够从ext2或者ext3文件系统中加载linux内核。一旦Bootloader的第一阶段已完成MBR（启动加载器阶段），并能找到实际的引导加载程序位置，第1阶段启动加载器加载引导程序到内存中开始第二阶段。GRUB引导加载器阶段它是通过将本来两阶段的boot loader转换成三个阶段的boot loader。</p>
+<p>stage1个阶段 ：BIOS加载MBR里面的GRUB（属于第1阶段的文件），由于只有GRUB只占用446字节所以不能实现太多的功能，所以就有此阶段里面的文件来加载第1.5阶段的文件（/boot/grub下的文件）</p>
+<p>stage1.5个阶段：这个阶段里面的就是加载识别文件系统的程序，来识别文件系统，不加载就无法识别文件系统，进而就找不到boot目录，由于GRUB是无法识别LVM，所以你不能把/boot分区设置为LVM，所以必须要把/boot单独分区    </p>
+<p>stage2个阶段：这里面才是正在的开始寻找内核的过程，然后是启动内核</p>
+<p>（当stage1.5的boot loader被加载并运行时，stage2 的boot loader才能被加载。）</p>
+<p>   当stage2被加载时，GRUB能根据请求的情况显示一个可选内核的清单（在 /etc/grub.conf 中进行定义，同时还有几个软符号链接 /etc/grub/menu.lst 和 /etc/grub.conf)。你可以选择一个内核，修改其附加的内核参数。同时，你可以选择使用命令行的shell来对启动过程进行更深层次的手工控制。</p>
+<p>GRUB的配置文件中的配置哪些信息</p>
+<p> 在第二阶段boot loader加载到内存中后，就可以对文件系统进行查询了，同时，默认的内核镜像以及初始化内存盘镜像也被加载到内存中。</p>
+<p>   根据grub设定的内核映像所在路径，系统读取内存映像，并进行解压缩操作。此时，屏幕一般会输出“Uncompressing Linux(解压内核中)”的提示。当解压缩内核完成后，屏幕输出“OK, booting the kernel(正在启动内核)”。</p>
+<p><strong>第五步：加载kernel </strong></p>
+<p>   GRUB把内核加载到内存后展开并运行，此时GRUB的任务已经完成，接下来内核将会接管并完成：</p>
+<p>探测硬件—&gt;加载驱动—&gt;挂载根文件系统—&gt;切换至根文件系统（rootfs）—&gt;运行/sbin/init完成系统初始化</p>
+<p>  内核一般都是压缩的，所以它的首要任务是解压缩，然后检查和分析系统的硬件并初始化内核里的硬件驱动程序。内核刚加载到内存的时候，文件系统还不能使用，它使用的是 Boot Loader 加载进内存的 initramfs。系统将解压后的内核放置在内存之中，并调用start_kernel()函数来启动一系列的初始化函数并初始化各种设备，完成Linux核心环境的建立。至此，Linux内核已经建立起来了，基于Linux的程序应该可以正常运行了。</p>
+<p><strong>第六步：初始化initrd /etc/inittab</strong></p>
+<p>  在核心加载完毕,进行完硬件侦测与驱动程序加载后,内核会启动第一个进程/sbin/init, init进程将会读取/etc/inittab，init进程是系统所有进程的起点，你可以把它比拟成系统所有进程的老祖宗，没有这个进程，系统中任何进程都不会启动。</p>
+<p>  /etc/inittab最主要的功能就是准备软件运行的环境，包括系统的主机名称、网络配置、语系处理、文件系统格式及其他服务的启动等,而所有的动作都根据在/etc/inittab中的配置.将会执行/etc/inittab来设定系统运行的默认级别，</p>
+<p>  init进程首先会读取/etc/inittab文件，根据inittab文件中的内容依次执行<br>  设定系统运行的默认级别（id:3:initdefault:）<br>  执行系统初始化脚本文件（si::sysinit:/etc/rc.d/rc.sysinit）<br>  执行在该运行级别下所启动或关闭对应的服务（l3:3:wait:/etc/rc.d/rc 3）<br>  启动6个虚拟终端</p>
+<p>  0-6：7个级别的定义</p>
+<p>  0：关机, shutdown</p>
+<p>1：单用户模式(singleuser)，root用户，无须认证；维护模式；</p>
+<p>2：多用户模式(multiuser)，会启动网络功能，但不会启动NFS；维护模式；</p>
+<p>3：多用户模式(mutliuser)，完全功能模式；文本界面；</p>
+<p>4：预留级别：目前无特别使用目的，但习惯以同3级别功能使用；</p>
+<p>5：多用户模式(multi user)，完全功能模式，图形界面；</p>
+<p>6：重启，reboot</p>
+<p>许多程序需要开机启动。它们在Windows叫做”服务”（service），在Linux就叫做”守护进程”（daemon）。init进程的一大任务，就是去运行这些开机启动的程序。但是，不同的场合需要启动不同的程序，比如用作服务器时，需要启动Apache，用作桌面就不需要。</p>
+<p>Linux允许为不同的场合，分配不同的开机启动程序，这就叫做”运行级别”（runlevel）。也就是说，启动时根据”运行级别”，确定要运行哪些程序。</p>
+<p>  要访问根文件系统必须要加载根文件系统所在的设备，而这时根文件系统又没有挂载，要挂载根文件系统有需要根文件系统的驱动程序，这是一个典型的先有鸡先有蛋的问题！为解决这个问题，GRUB在加载内核同时，也把initrd加载到内存中并运行.那么initrd又起到了什么作用哪？</p>
+<p>initrd展开后的文件    </p>
+<p>linux中/下的文件<br>       我们可以看到，其实initrd文件其实是一个虚拟的根文件系统，里面有bin、lib、lib64、sys、var、etc、sysroot、dev、proc、tmp等根目录，它的功能就是讲内核与真正的根建立联系，内核通过它加载根文件系统的驱动程序，然后以读写方式挂载根文件系统，至此，内核加载完成。</p>
+<p><strong>第七步：运行/sbin/init，进行系统初始化</strong></p>
+<p>   /sbin/init 最主要的功能就是准备软件运行的环境，包括系统的主机名称、网络配置、语系处理、文件系统格式及其他服务的启动等,而所有的动作都根据在/etc/inittab中的配置.init首先运行/etc/init/rcS.conf脚本，如下图</p>
+<p><strong>第八步：启动系统服务/etc/rc.d/rc.sysinit</strong></p>
+<p>可以看到，init进程通过执行/etc/rc.d/rcS.conf首先调用了/etc/rc.d/rc.sysinit，对系统做初始化设置，设置好整个系统环境。我们来看看这个脚本都是做了些什么哪？</p>
+<p>   事实上init执行/etc/rc.d/rc.sysinit的初始化将会做很多设置：</p>
+<pre><code>1、获得网络环境 
+
+2、挂载设备 
+
+3、开机启动画面Plymouth（取替了过往的 RHGB） 
+
+4、判断是否启用SELinux 
+
+5、显示于开机过程中的欢迎画面 
+
+6、初始化硬件 
+
+7、用户自定义模块的加载 
+
+8、配置内核的参数 
+
+9、设置主机名 
+
+10、同步存储器 
+
+11、设备映射器及相关的初始化 
+
+12、初始化软件磁盘阵列（RAID） 
+
+13、初始化 LVM 的文件系统功能 
+
+14、检验磁盘文件系统（fsck） 
+
+15、设置磁盘配额(quota) 
+
+16、重新以可读写模式挂载系统磁盘 
+
+17、更新quota（非必要） 
+
+18、启动系统虚拟随机数生成器 
+
+19、配置机器（非必要） 
+
+20、清除开机过程当中的临时文件 
+
+21、创建ICE目录 
+
+22、启动交换分区（swap） 
+
+23、将开机信息写入/var/log/dmesg文件中
+</code></pre><p><strong>第九步：启动配置文件/etc/rc.d/rc.n</strong></p>
+<p>设定玩系统默认运行级别以后，接着调用/etc/rc.d/rc脚本，/etc/rc.d, 里面存放了rc.local, rc.sysinit, init.d, rcX.d (X包括0-6对应相对runlevel).这个脚本接收默认运行级别参数后，依脚本设置启用或停止/etc/rc.d/rc[0-6].d/中相应的程序。</p>
+<p>/etc/rc.d/rc3].d/下的脚本文件在系统初始化阶段，脚本名字以K开头的,表示STOP动作（关闭）,名字以S开头,表示Start动作（启动）,文件名K/S 后面的的数字代表优先级，名称中的数字表示执行次序（优先级）,数字越小表示越先执行，优先级越高</p>
+<p><strong>第十步：用户自定义开机启动程序 (/etc/rc.d/rc.local)</strong></p>
+<p>  系统根据runlevel启动完rcX.d中的脚本之后,会调用rc.local脚本,如果你有一个脚本命令不论在3和5都想开机启动,那么就添加于此,免去rc3.d和rc5.d分别增加启动脚本工作量.最后，将执行/etc/rc.d/rc.local脚本，可以根据自己的需求将一些执行命令或者脚本写到其中，当开机时就可以加载。</p>
+<p><strong>第十一步：打印登录提示符</strong></p>
+<p>   系统初始化完成后，init给出用户登录提示符（login）或者图形化登录界面，用户输入用户和密码登陆后，系统会为用户分配一个用户ID（uid）和组ID（gid），这两个ID是用户的身份标识，用于检测用户运行程序时的身份验证。登录成功后，整个系统启动流程运行完毕！</p>
+<p>##2、为运行于虚拟机上的CentOS 6添加一块新硬件，提供两个主分区；<br>  (1) 为硬盘新建两个主分区；并为其安装grub；<br>  (2) 为硬盘的第一个主分区提供内核和ramdisk文件； 为第二个分区提供rootfs；<br>  (3) 为rootfs提供bash、ls、cat程序及所依赖的库文件；<br>  (4) 为grub提供配置文件；<br>  (5) 将新的硬盘设置为第一启动项并能够正常启动目标主机；</p>
+<p><strong>为硬盘新建两个主分区</strong></p>
+<pre><code>[root@centos ~]# fdisk -l  #先来看看磁盘情况啊，你不看，一上来直接搞，小心搞出事情！！
+
+Disk /dev/sda: 171.8 GB, 171798691840 bytes
+255 heads, 63 sectors/track, 20886 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00098b32
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          64      512000   83  Linux
+Partition 1 does not end on cylinder boundary.
+/dev/sda2              64       20887   167259136   8e  Linux LVM
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+
+Disk /dev/mapper/vg_centos-lv_root: 170.2 GB, 170196467712 bytes
+255 heads, 63 sectors/track, 20691 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+
+Disk /dev/mapper/vg_centos-lv_swap: 1073 MB, 1073741824 bytes
+255 heads, 63 sectors/track, 130 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+</code></pre><p>不错不错，看到sdb了， 分的40G</p>
+<p><strong>开始分区</strong></p>
+<pre><code>[root@centos ~]# fdisk /dev/sdb
+
+Command (m for help): p
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x86662f67
+
+   Device Boot      Start         End      Blocks   Id  System
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-5221, default 1): 
+Using default value 1
+Last cylinder, +cylinders or +size{K,M,G} (1-5221, default 5221): +20G
+
+Command (m for help): p
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x86662f67
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1        2612    20980858+  83  Linux
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 2
+First cylinder (2613-5221, default 2613): 
+Using default value 2613
+Last cylinder, +cylinders or +size{K,M,G} (2613-5221, default 5221): 
+Using default value 5221
+
+Command (m for help): p
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x86662f67
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1        2612    20980858+  83  Linux
+/dev/sdb2            2613        5221    20956792+  83  Linux
+
+Command (m for help): w
+The partition table has been altered!
+</code></pre><p><strong>分区完了就开始格式化了啊</strong></p>
+<pre><code>[root@centos ~]# mkfs.ext4 /dev/sdb1
+mke2fs 1.41.12 (17-May-2010)
+文件系统标签=
+操作系统:Linux
+块大小=4096 (log=2)
+分块大小=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+1313760 inodes, 5245214 blocks
+262260 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=4294967296
+161 block groups
+32768 blocks per group, 32768 fragments per group
+8160 inodes per group
+Superblock backups stored on blocks: 
+    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+    4096000
+
+正在写入inode表: 完成                            
+Creating journal (32768 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 21 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+[root@centos ~]# mkfs.ext4 /dev/sdb2
+mke2fs 1.41.12 (17-May-2010)
+文件系统标签=
+操作系统:Linux
+块大小=4096 (log=2)
+分块大小=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+1310720 inodes, 5239198 blocks
+261959 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=4294967296
+160 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks: 
+    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+    4096000
+
+正在写入inode表: 完成                            
+Creating journal (32768 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 26 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+</code></pre><p><strong>挂载分区sdb1到/mnt/boot下</strong></p>
+<pre><code>[root@centos mnt]#mkdir boot
+[root@centos mnt]#mount /dev/sdb1 /mnt/boot  
+</code></pre><p><strong>安装grub</strong></p>
+<pre><code>[root@centos mnt]# grub-install --root-de
+[root@centos mnt]# grub-install --root-directory=/mnt  /dev/sdb
+Probing devices to guess BIOS drives. This may take a long time.
+/dev/mapper/vg_centos-lv_root does not have any corresponding BIOS drive.
+[root@centos mnt]# ll
+总用量 8
+drwxr-xr-x 3 root root 4096 2月  20 10:09 boot
+drwxr-xr-x 2 root root 4096 10月 18 10:41 hgfs
+[root@centos mnt]# 
+</code></pre><p><strong>复制内核及ramdisk文件到sdb1上</strong></p>
+<pre><code>[root@centos mnt]# cp /boot/vmlinuz-2.6.32-642.13.1.el6.x86_64 /mnt/boot/vmlinuz
+[root@centos mnt]# cp /boot/initramfs-2.6.32-642.13.1.el6.x86_64.img /mnt/boot/initramfs.img
+</code></pre><p><strong>在/mnt/boot/grub目录下编辑新建grub.conf文件</strong></p>
+<p>   内容如下：</p>
+<pre><code>default=0
+timeout=5
+title CentOS6(test)
+root (hd0,0)
+kernel /vmlinuz ro root=/dev/sda2 selinux=0 init=/bin/bash
+initrd /initramfs.img
+</code></pre><p><strong>挂载分区/dev/sdb2到/mnt/sysroot下</strong></p>
+<pre><code>mkdir /mnt/sysroot
+mount /dev/sdb2 /mnt/sysroot/
+</code></pre><p><strong>建立FHS</strong></p>
+<pre><code>[root@centos sysroot]#  mkdir -pv /mnt/sysroot/{bin,dev,etc/{rc.d/init.d,sysconfig/network-scripts},lib/modules,lib64,proc,sbin,sys,tmp,usr/local/{bin,sbin},var/{lock,log,run}}
+mkdir: 已创建目录 &quot;/mnt/sysroot/bin&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/dev&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc/rc.d&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc/rc.d/init.d&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc/sysconfig&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/etc/sysconfig/network-scripts&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/lib&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/lib/modules&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/lib64&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/proc&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/sbin&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/sys&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/tmp&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/usr&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/usr/local&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/usr/local/bin&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/usr/local/sbin&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/var&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/var/lock&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/var/log&quot;
+mkdir: 已创建目录 &quot;/mnt/sysroot/var/run&quot;
+[root@centos sysroot]# 
+</code></pre><p><strong>拷贝bash、ls、cat程序及其依赖库</strong></p>
+<pre><code>[root@centos sysroot]# cp /bin/{bash,ls,cat} /mnt/sysroot/bin
+
+[root@centos bin]# cp `ldd /bin/{bash,ls,cat}  |grep -oe &quot;/lib.*[[:space:]]&quot;|sort -u` /mnt/sysroot/lib64/
+
+[root@centos bin]# chroot /mnt/sysroot
+</code></pre><p><strong>chroot先测试一下</strong></p>
+<pre><code>[root@centos bin]# chroot /mnt/sysroot
+bash-4.1# ls
+bin  dev  etc  lib  lib64  proc  sbin  sys  tmp  usr  var
+bash-4.1# exit
+exit
+[root@centos bin]# 
+</code></pre><p>OK，接下来挂载到另外一台虚拟机上测试一下，亲测成功。</p>
+<p>##3、制作一个kickstart文件以及一个引导镜像。描述其过程。</p>
+<p>思路</p>
+<ol>
+<li>找到一个已安装好的centos的ks文件，一般位于/root/anaconda-ks.cfg，修修改改，生成一个自定义的ks.cfg文件。</li>
+<li>放到解压的原版IOS到某目录，添加ks文件。</li>
+<li>修改光盘的isolinux.cfg文件，在 append 指令后附加 ks 设置。</li>
+<li>再生成自定义的ISO文件。</li>
+<li>最后用此ISO去安装启动一台裸虚拟机测试是否能自动安装。</li>
+</ol>
+<p><strong>找到一个已安装好的centos的ks文件，一般位于/root/anaconda-ks.cfg，修修改改，生成一个自定义的ks.cfg文件</strong></p>
+<pre><code>#platform=x86, AMD64, 或 Intel EM64T
+#version=DEVEL
+# Firewall configuration
+firewall --disabled
+# Install OS instead of upgrade
+install
+# Use CDROM installation media
+cdrom
+# Root password
+rootpw --iscrypted $1$Qo3PJbQH$GyTUtGgr1U.th4KTIrvfT1
+# System authorization information
+auth  --useshadow  --passalgo=sha512
+# Use graphical install
+graphical
+firstboot --disable
+# System keyboard
+keyboard us
+# System language
+lang zh_CN
+# SELinux configuration
+selinux --disabled
+# Installation logging level
+logging --level=info
+
+# System timezone
+timezone  Asia/Shanghai
+# Network information
+network  --bootproto=dhcp --device=eth1 --onboot=on
+# System bootloader configuration
+bootloader --location=mbr
+# Partition clearing information
+clearpart --all --initlabel 
+# Disk partitioning information
+part /boot --fstype=&quot;ext4&quot; --size=500
+part swap --fstype=&quot;swap&quot; --size=2000
+part / --fstype=&quot;ext4&quot; --grow --size=1
+
+%packages
+@base
+@compat-libraries
+@graphical-admin-tools
+@legacy-unix
+@network-tools
+@xfce-desktop
+NetworkManager-openswan
+arptables_jf
+arpwatch
+audit-viewer
+authd
+cups-lpd
+dbench
+dropwatch
+dump
+ebtables
+ettercap
+finger
+finger-server
+firstaidkit-gui
+ipset
+iptraf
+iptstate
+krb5-appl-servers
+ksh
+lksctp-tools
+lshw-gui
+mipv6-daemon
+mksh
+mrtg
+ncompress
+netlabel_tools
+nmap
+openvpn
+policycoreutils-gui
+qstat
+rsh
+rsh-server
+rusers
+rusers-server
+rwho
+sabayon
+setroubleshoot
+stunnel
+system-config-kickstart
+system-config-lvm
+talk
+talk-server
+tcp_wrappers
+telnet
+telnet-server
+tftp
+vtun
+wireshark
+wireshark-gnome
+yumex
+-cpuspeed
+-irqbalance
+-mdadm
+
+%end
+</code></pre><p><strong>放到解压的原版IOS到某目录，添加ks文件</strong></p>
+<p>我这里是用软碟通直接提取修改，所以就神略了</p>
+<p>还有一个坑就是ks配置文件里面用cdrom参数制定本地光盘安装会报错，建议用url方式。这个坑踩得我受伤了，就不写了。</p>
+<p>##4、写一个脚本</p>
+<p>  (1) 能接受四个参数：start, stop, restart, status<br>   start: 输出“starting 脚本名 finished.”<br>   …</p>
+<p>  (2) 其它任意参数，均报错退出；</p>
+<pre><code>#!/bin/bash
+#
+
+
+case $1  in
+    start)
+        echo &quot;starting $0 finished&quot;
+          ;;
+
+    stop)
+        echo &quot;stopping $0 finished&quot;
+          ;;
+
+    restart)
+        echo &quot;restarting $0 finished&quot;
+          ;;
+
+    status)
+        echo &quot; $0 status&quot;                               
+          ;;
+
+        *)
+           echo &quot;Usage: $prog {start|stop|restart|status}&quot;
+           exit 1
+          ;;
+esac
+</code></pre><p>##5、写一个脚本，判断给定的用户是否登录了当前系统；</p>
+<p>  (1) 如果登录了，则显示用户登录，脚本终止；</p>
+<p>  (2) 每3秒钟，查看一次用户是否登录；</p>
+<pre><code>#!/bin/bash
+#
+until who | grep &quot;^logstash\&gt;&quot; &amp;&gt; /dev/null; do
+    sleep 3
+done
+</code></pre><p>6、写一个脚本，显示用户选定要查看的信息；</p>
+<p>   cpu) display cpu info</p>
+<p>   mem) display memory info</p>
+<p>   disk) display disk info</p>
+<p>   quit) quit</p>
+<p>   非此四项选择，则提示错误，并要求用户重新选择，只到其给出正确的选择为止；</p>
+<pre><code>#!/bin/bash
+#
+cat &lt;&lt; EOF
+Display information as following shown selection
+cpu) display cpu info
+mem) display memory info
+disk) display disk info
+quit) quit
+************************************************
+EOF
+
+while true; do
+    read -p &quot;Please input your selection: &quot; selection
+
+    case $selection in
+    cpu) 
+        lscpu
+        ;;
+    mem)
+        free -m
+        ;;
+    disk) 
+        fdisk -l /dev/vd[a-z]
+        ;;
+    quit)
+        echo &quot;Bye Bye&quot;
+        exit 0
+        ;;
+    *)
+        echo &quot;Please input valid selection&quot;
+        ;;
+    esac
+done
+</code></pre><p>7、写一个脚本</p>
+<p>  (1) 用函数实现返回一个用户的UID和SHELL；用户名通过参数传递而来；</p>
+<p>  (2) 提示用户输入一个用户名或输入“quit”退出；</p>
+<p>  当输入的是用户名，则调用函数显示用户信息；</p>
+<p>  当用户输入quit，则退出脚本；进一步地：显示键入的用户相关信息后，再次提醒输出用户名或quit: </p>
+<pre><code>#!/bin/bash
+#
+
+
+userInfo() {
+        local userLine=$(grep $1 /etc/passwd)
+        local userSHELL=${userLine##*:}
+        local userID=$(echo $userLine | cut -f3 -d:)
+        echo &quot;$userSHELL and $userID&quot;
+
+}
+
+quit() {
+    if [ &quot;$1&quot; == &quot;quit&quot; ]; then
+        echo &quot;Bye Bye&quot;
+        exit 2
+    fi
+}
+
+while true; do
+    read -p &quot;Please input your username or input &apos;quit&apos;: &quot; choice
+
+    if [ &quot;$choice&quot; == &quot;quit&quot; ]; then
+        quit $choice
+        break
+    fi
+
+    if id $choice &gt;&amp; /dev/null; then
+        userInfo $choice
+    fi
+done
+</code></pre><p>8、写一个脚本，完成如下功能（使用函数）</p>
+<p>   (1) 提示用户输入一个可执行命令的名字；获取此命令依赖的所有库文件；</p>
+<p>   (2) 复制命令文件至/mnt/sysroot目录下的对应的rootfs的路径上，例如，如果复制的文件原路径是/usr/bin/useradd，则复制到/mnt/sysroot/usr/bin/目录中；</p>
+<p>   (3) 复制此命令依赖的各库文件至/mnt/sysroot目录下的对应的rootfs的路径上；规则同上面命令相关的要求；</p>
+<pre><code>#!/bin/bash
+read -p &quot;Please input a command: &quot; cmd
+
+cmdPath=$(which $cmd | grep bin)
+
+cpCmd() {
+
+cp $cmdPath /mnt/sysroot$cmdpath
+echo &quot;Copy $cmdPath to path /mnt/sysroot/&quot;
+
+}
+
+cpFile() {
+
+libFile=$(ldd $cmdPath | grep -o &quot;/[^[:space:]]\{1,\}&quot;)
+for i in $libFile; do
+
+    cp $lib /mnt/sysroot$cmdPath
+    echo &quot;Copy $libFile to path/mnt/sysroot/$cmdPath&quot;
+done
+}
+
+cpCmd
+
+cpFile
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/06/04/第十周作业/"></a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry</a></p>
+        <p><span>发布时间:</span>2018-06-04, 16:29:46</p>
+        <p><span>最后更新:</span>2018-06-04, 16:29:46</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/04/第十周作业/" title="">https://zhusas/github.io/2018/06/04/第十周作业/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas/github.io/2018/06/04/第十周作业/　　作者: Jerry" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/06/04/第四周作业/">
+                    
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/06/04/第十一周作业/">
+                    
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/06/04/第四周作业/" title="上一篇: ">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/06/04/第十一周作业/" title="下一篇: ">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第一周作业/">第一周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第五周作业/">第五周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第四周作业/">第四周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十周作业/">第十周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十一周作业/">第十一周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十五周作业/">第十五周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十四周作业/">第十四周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十三周作业/">第十三周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十六周作业/">第十六周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十二周作业/">第十二周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十八周作业/">第十八周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第三周作业/">第三周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第七周作业/">第七周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第六周作业/">第六周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第九周作业/">第九周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第二周作业/">第二周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第八周作业/">第八周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/test1/">test1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 Jerry
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

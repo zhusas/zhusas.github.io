@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jerry" />
+
+
+
+<meta name="description" content="#Linux上的文件管理类命令都有哪些，其常用的使用方法及其相关示例演示。 ##目录管理类的命令 ###mkdir用法： mkdir [选项]... 目录... 选项：  -p 递归创建多个目录 实例： [root@centos7 ~]# mkdir -p /tmp/jerry/2016/11/4 [root@centos7 /]# tree /tmp  /tmp ├── akonadi-root">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jerry&#39;s Blog">
+<meta property="og:url" content="https://zhusas/github.io/2018/06/04/第二周作业/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="#Linux上的文件管理类命令都有哪些，其常用的使用方法及其相关示例演示。 ##目录管理类的命令 ###mkdir用法： mkdir [选项]... 目录... 选项：  -p 递归创建多个目录 实例： [root@centos7 ~]# mkdir -p /tmp/jerry/2016/11/4 [root@centos7 /]# tree /tmp  /tmp ├── akonadi-root">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-04T08:29:45.325Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jerry&#39;s Blog">
+<meta name="twitter:description" content="#Linux上的文件管理类命令都有哪些，其常用的使用方法及其相关示例演示。 ##目录管理类的命令 ###mkdir用法： mkdir [选项]... 目录... 选项：  -p 递归创建多个目录 实例： [root@centos7 ~]# mkdir -p /tmp/jerry/2016/11/4 [root@centos7 /]# tree /tmp  /tmp ├── akonadi-root">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jerry&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Jerry&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: 
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jerry</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于运维</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jerry</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jerry</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-第二周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第二周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:45.325Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#Linux上的文件管理类命令都有哪些，其常用的使用方法及其相关示例演示。</p>
+<p>##目录管理类的命令</p>
+<p>###mkdir<br>用法：</p>
+<pre><code>mkdir [选项]... 目录...
+</code></pre><p>选项： </p>
+<pre><code>-p 递归创建多个目录
+</code></pre><p>实例：</p>
+<pre><code>[root@centos7 ~]# mkdir -p /tmp/jerry/2016/11/4
+[root@centos7 /]# tree /tmp
+ /tmp
+├── akonadi-root.9I0Ba3
+├── anaconda.log
+├── hogsuspend
+├── hsperfdata_root
+│   └── 88148
+├── hsperfdata_user
+├── ifcfg.log
+├── jerry
+│   └── 2016
+│       └── 11
+│           └── 4
+
+
+**注意：**
+**centos7&amp;6默认没有安装tree命令，记得yum install tree 就OK。**
+</code></pre><p>选项：</p>
+<pre><code>-v 显示创建过程即命令执行过程
+</code></pre><p>实例：</p>
+<pre><code>[root@centos7 /]# mkdir -pv /tmp/aaa/bbb/ccc/2016/11qa
+mkdir: 已创建目录 &quot;/tmp/aaa&quot;
+mkdir: 已创建目录 &quot;/tmp/aaa/bbb&quot;
+mkdir: 已创建目录 &quot;/tmp/aaa/bbb/ccc&quot;
+mkdir: 已创建目录 &quot;/tmp/aaa/bbb/ccc/2016&quot;
+mkdir: 已创建目录 &quot;/tmp/aaa/bbb/ccc/2016/11qa&quot;
+</code></pre><p>选项：</p>
+<pre><code>-m：设定目录权限，不加则为默认权限
+</code></pre><p>实例：</p>
+<pre><code>[root@centos7 /]# mkdir -m 777 -pv /tmp/fbi/cia
+mkdir: 已创建目录 &quot;/tmp/fbi&quot;
+mkdir: 已创建目录 &quot;/tmp/fbi/cia&quot;    
+[root@centos7 /]# ll /tmp/fbi
+总用量 0
+drwxrwxrwx. 2 root root 6 11月  4 15:52 cia
+
+[root@centos7 /]# mkdir -m 775 -pv /tmp/hbo/oom/ubuntu
+mkdir: 已创建目录 &quot;/tmp/hbo&quot;
+mkdir: 已创建目录 &quot;/tmp/hbo/oom&quot;
+mkdir: 已创建目录 &quot;/tmp/hbo/oom/ubuntu
+[root@centos7 /]# ll /tmp/hbo/oom/
+总用量 0
+drwxrwxr-x. 2 root root 6 11月  4 16:00 ubuntu
+
+注意：-m 参数设定的目录权限只对最后一级的目录生效，其上级目录均是默认的755。哈哈~~
+</code></pre><p>###rmdir<br>用法：</p>
+<pre><code>rmdir [选项]... 目录...
+</code></pre><p>选项参数：</p>
+<pre><code>    --ignore-fail-on-non-empty
+                忽略仅由目录非空产生的所有错误
+-p, --parents   remove DIRECTORY and its ancestors; e.g., &apos;rmdir -p a/b/c&apos; is
+                similar to &apos;rmdir a/b/c a/b a&apos;
+-v, --verbose   output a diagnostic for every directory processed
+    --help         显示此帮助信息并退出
+    --version     显示版本信息并退出
+</code></pre><p>实例：</p>
+<pre><code>[root@centos7 tmp]# rmdir -pv fbi/cia/
+rmdir: 正在删除目录 &quot;fbi/cia/&quot;
+rmdir: 正在删除目录 &quot;fbi&quot;
+</code></pre><p>##文件查看类命令</p>
+<p>###cat<br>用法：</p>
+<pre><code>用法：cat [选项]... [文件]...
+将[文件]或标准输入组合输出到标准输出。
+</code></pre><p>选项：</p>
+<pre><code>-A, --show-all           等于-vET
+-b, --number-nonblank    对非空输出行编号
+-e                       等于-vE
+-E, --show-ends          在每行结束处显示&quot;$&quot;
+-n, --number             对输出的所有行编号
+-s, --squeeze-blank      不输出多行空行
+-t                       与-vT 等价
+-T, --show-tabs          将跳格字符显示为^I
+-u                       (被忽略)
+-v, --show-nonprinting   使用^ 和M- 引用，除了LFD和 TAB 之外
+    --help        显示此帮助信息并退出
+    --version        显示版本信息并退出
+</code></pre><p>平时可能用到的选项就是输出行号了，实例如下：</p>
+<pre><code>[root@centos7 /]# cat -n /etc/rc.local 
+ 1    #!/bin/bash
+ 2    # THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES
+ 3    #
+ 4    # It is highly advisable to create own systemd services or udev rules
+ 5    # to run scripts during boot instead of using this file.
+ 6    #
+ 7    # In contrast to previous versions due to parallel execution during boot
+ 8    # this script will NOT be run after all other services.
+ 9    #
+10    # Please note that you must run &apos;chmod +x /etc/rc.d/rc.local&apos; to ensure
+11    # that this script will be executed during boot.
+12    
+13    touch /var/lock/subsys/local
+[root@centos7 /]# 
+</code></pre><p>###tac<br>tac命令：与cat功能相近，只是逆序显示文件内容</p>
+<p>###head<br>用法：</p>
+<pre><code>head [选项]... [文件]...
+查看文件的前N行，默认为10行
+</code></pre><p>选项：</p>
+<pre><code>-n 
+-#
+</code></pre><p>实例：</p>
+<pre><code>[root@centos7 ~]# head  /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+[root@centos7 ~]# head - 15 /etc/passwd
+
+[root@centos7 ~]# head -15 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:99:99:Nobody:/:/sbin/nologin
+avahi-autoipd:x:170:170:Avahi IPv4LL Stack:/var/lib/avahi-autoipd:/sbin/nologin
+systemd-bus-proxy:x:999:997:systemd Bus Proxy:/:/sbin/nologin
+</code></pre><p>###tail<br>用法：</p>
+<pre><code>tail [选项]... [文件]...
+</code></pre><p>选项参数：</p>
+<pre><code>-n：指定显示的行数。不加任何参数默认显示10行，从最后一行开始；
+-#：直接指定显示的行数，从最后一行开始；
+-f：查看文件尾部内容结束后不退出，跟随显示新增的行；
+</code></pre><p>实例：</p>
+<pre><code>[root@centos7 ~]# tail -2 /etc/passwd
+tcpdump:x:72:72::/:/sbin/nologin
+user:x:1000:1000:user:/home/user:/bin/bash
+
+[root@centos7 ~]# tail /etc/passwd
+mysql:x:27:27:MariaDB Server:/var/lib/mysql:/sbin/nologin
+pcp:x:988:985:Performance Co-Pilot:/var/lib/pcp:/sbin/nologin
+pulse:x:171:171:PulseAudio System Daemon:/var/run/pulse:/sbin/nologin
+gdm:x:42:42::/var/lib/gdm:/sbin/nologin
+gnome-initial-setup:x:987:982::/run/gnome-initial-setup/:/sbin/nologin
+avahi:x:70:70:Avahi mDNS/DNS-SD Stack:/var/run/avahi-daemon:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+oprofile:x:16:16:Special user account to be used by OProfile:/var/lib/oprofile:/sbin/nologin
+tcpdump:x:72:72::/:/sbin/nologin
+user:x:1000:1000:user:/home/user:/bin/bash
+</code></pre><p>###more<br>用法：</p>
+<pre><code>more [选项] 文件...
+特点：翻屏至文件尾部后自动退出；
+</code></pre><p>选项参数：</p>
+<pre><code>-d        显示帮助，而不是响铃
+-f        统计逻辑行数而不是屏幕行数
+-l        抑制换页(form feed)后的暂停
+-p        不滚屏，清屏并显示文本
+-c        不滚屏，显示文本并清理行尾
+-u        抑制下划线
+-s        将多个空行压缩为一行
+-NUM      指定每屏显示的行数为 NUM
++NUM      从文件第 NUM 行开始显示
++/STRING  从匹配搜索字符串 STRING 的文件位置开始显示
+-V        输出版本信息并退出
+</code></pre><p>实例：</p>
+<pre><code>略过，给你个眼神自己体会^_^
+</code></pre><p>###less</p>
+<p> 特点： 其实man读取帮助手册就是调用的less指令。所以less命令的操作方式同man</p>
+<p>##文件管理类命令</p>
+<p>###cp<br>用法：</p>
+<pre><code>单源复制：cp [OPTION]... [-T] SOURCE DEST
+多源复制：cp [OPTION]... SOURCE... DIRECTORY
+         cp [OPTION]... -t DIRECTORY SOURCE...
+
+单源复制：cp [OPTION]... [-T] SOURCE DEST
+         如果DEST不存在：则事先创建此文件，并复制源文件的数据流至DEST中；
+            如果DEST存在：
+                如果DEST是非目录文件：则覆盖目标文件；
+                如果DEST是目录文件：则先在DEST目录下创建一个与源文件同名的文件，并复制其数据流；
+
+多源复制：cp [OPTION]... SOURCE... DIRECTORY
+         cp [OPTION]... -t DIRECTORY SOURCE...
+
+            如果DEST不存在：错误；
+            如果DEST存在：
+                如果DEST是非目录文件：错误；
+                如果DEST是目录文件：分别复制每个文件至目标目录中，并保持原名；
+</code></pre><p>选项参数：</p>
+<pre><code>-i：交互式复制，即覆盖之前提醒用户确认；
+-f：强制覆盖目标文件；
+-r, -R：递归复制目录；
+-d：复制符号链接文件本身，而非其指向的源文件；
+-a：-dR --preserve=all, archive，用于实现归档；
+--preserv=
+      mode：权限
+      ownership：属主和属组
+      timestamps: 时间戳
+      context：安全标签
+      xattr：扩展属性
+      links：符号链接
+      all：上述所有属性
+</code></pre><p>实例：</p>
+<pre><code>`单源复制-目标文件不存在情况`
+[root@centos ~]# ls /tmp/
+whatis.q3Uigb  yum.log
+[root@centos ~]# cp /etc/issue /tmp
+[root@centos ~]# ls /tmp/
+issue  whatis.q3Uigb  yum.log
+[root@centos ~]# cat /tmp/issue 
+CentOS release 6.5 (Final)
+Kernel \r on an \m
+
+`单源复制-目标文件已存在情况`
+[root@centos ~]# cp /etc/hosts /tmp/issue 
+cp: overwrite `/tmp/issue&apos;? y
+[root@centos ~]# cat /tmp/issue 
+ 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+ ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+`多源复制-目标目录不存在情况`
+[root@centos ~]# cp /etc/hosts /etc/issue /tmp/x
+cp: target `/tmp/x&apos; is not a directory
+
+`多源复制-目标目录已存在情况`
+[root@centos ~]# mkdir /tmp/x
+[root@centos ~]# cp /etc/hosts /etc/issue /tmp/x
+[root@centos ~]# ls /tmp/x
+hosts  issue
+[root@centos ~]# 
+
+`-r选项实例`
+[root@centos ~]# mkdir -p /tmp/souce/x/y/z
+[root@centos ~]# mkdir /tmp/dest
+[root@centos ~]# cp -r /tmp/souce/ /tmp/dest/
+[root@centos ~]# tree /tmp/dest/    /tmp/dest/
+└── souce
+    └── x
+        └── y
+            └── z
+
+4 directories, 0 files
+[root@centos ~]# 
+
+`--preserve选项实例`
+[root@centos ~]# ls -l /tmp/ |grep liubin
+-rw-rw-r--. 1 liubin liubin    0 Sep 27 04:56 liubin    
+[root@centos ~]# cp --preserve=ownership /tmp/liubin /tmp/root
+[root@centos ~]# ls -l /tmp/
+total 16
+drwxr-xr-x. 3 root   root   4096 Sep 27 04:53 dest
+-rw-r--r--. 1 root   root    158 Sep 27 04:43 issue    
+-rw-rw-r--. 1 liubin liubin    0 Sep 27 04:56 liubin    
+-rw-rw-r--. 1 liubin liubin    0 Sep 27 04:59 root    
+drwxr-xr-x. 3 root   root   4096 Sep 27 04:49 souce
+drwxr-xr-x. 2 root   root   4096 Sep 27 04:44 x
+-rw-------. 1 root   root      0 Sep 27 03:07 yum.log    
+</code></pre><p>###mv<br>用法：</p>
+<pre><code>mv [OPTION]... [-T] SOURCE DEST
+mv [OPTION]... SOURCE... DIRECTORY
+mv [OPTION]... -t DIRECTORY SOURCE..            
+</code></pre><p>选项参数：</p>
+<pre><code>-i：交互式    
+-f：强制移动
+</code></pre><p>实例：</p>
+<pre><code>[root@localhost ~]# tree test
+test
+|-- 1p2a
+|-- 28pa
+|-- Pa99
+|-- cpdoc.txt
+|-- hahaha
+|   |-- cpdoc.txt
+|   |-- cpdoc1.txt
+|   `-- text.txt
+|-- p,a
+|-- pa
+|-- pa12
+`-- papi
+
+1 directory, 11 files
+
+[root@localhost ~]# mv test/1p2a test/hahaha
+[root@localhost ~]# tree test
+test
+|-- 28pa
+|-- Pa99
+|-- cpdoc.txt
+|-- hahaha
+|   |-- 1p2a
+|   |-- cpdoc.txt
+|   |-- cpdoc1.txt
+|   `-- text.txt
+|-- p,a
+|-- pa
+|-- pa12
+`-- papi
+
+1 directory, 11 files
+
+[root@localhost ~]# mv test/hahaha test/mvtest
+[root@localhost ~]# tree test
+test
+|-- 28pa
+|-- Pa99
+|-- cpdoc.txt
+|-- mvtest
+|   |-- 1p2a
+|   |-- cpdoc.txt
+|   |-- cpdoc1.txt
+|   `-- text.txt
+|-- p,a
+|-- pa
+|-- pa12
+`-- papi
+
+1 directory, 11 files
+</code></pre><p>###rm<br>用法：</p>
+<pre><code>rm [OPTION]... FILE...
+</code></pre><p>选项参数：</p>
+<pre><code>-i：interactive
+-f：force
+-r: recursive
+</code></pre><p>实例：</p>
+<pre><code>[root@centos ~]# ls /tmp
+dest  issue  liubin  root  souce  yum.log
+[root@centos ~]# tree /tmp/souce/
+/tmp/souce/
+└── x
+    └── y
+        └── z    
+3 directories, 0 files
+[root@centos ~]# rm -rf /tmp/souce/
+[root@centos ~]# ls
+anaconda-ks.cfg  install.log  install.log.syslog
+[root@centos ~]#
+</code></pre><p>#bash的工作特性之命令执行状态返回值和命令行展开所涉及的内容及其示例演示。</p>
+<p>##用法<br>echo $?：显示最近一条命令的执行结果</p>
+<p>只能查看最近一条命令的执行的状态结果返回值</p>
+<p>命令执行成功，则显示：0</p>
+<p>命令执行失败，则显示：1-255之间的任意数字 </p>
+<p>##实例</p>
+<pre><code>[root@centos7 ~]# ls /var
+account  cache  db     games   kerberos  local  log   nis  preserve  spool   tmp  yp
+adm      crash  empty  gopher  lib       lock   mail  opt  run       target  www
+[root@centos7 ~]# echo $?
+0
+[root@centos7 ~]# ls /varte
+ls: 无法访问/varte: 没有那个文件或目录
+[root@centos7 ~]# echo $?
+2
+[root@centos7 ~]# lsd /var
+bash: lsd: 未找到命令...
+[root@centos7 ~]# echo $?
+127
+[root@centos7 ~]# 
+</code></pre><p>###请使用命令行展开功能来完成以下练习：</p>
+<p>##创建/tmp目录下的：a_c, a_d, b_c, b_d</p>
+<pre><code>[root@centos7 ~]#  mkdir -v /tmp/{a,b}_{c,d}
+mkdir: 已创建目录 &quot;/tmp/a_c&quot;
+mkdir: 已创建目录 &quot;/tmp/a_d&quot;
+mkdir: 已创建目录 &quot;/tmp/b_c&quot;
+mkdir: 已创建目录 &quot;/tmp/b_d&quot;
+[root@centos7 ~]# ls /tmp/
+a_c
+a_d
+anaconda.log
+b_c 
+b_d
+</code></pre><p>##创建/tmp/mylinux目录下的：</p>
+<pre><code>mylinux
+├── bin
+├── boot
+│   └── grub
+├── dev
+├── etc
+│   ├── rc.d
+│   │   └── init.d
+│   └── sysconfig
+│       └── network-scripts
+├── lib
+│   └── modules
+├── lib64
+├── proc
+├── sbin
+├── sys
+├── tmp
+├── usr
+│   └── local
+│       ├── bin
+│       └── sbin
+└── var
+    ├── lock
+    ├── log
+    └── run
+
+
+
+[root@centos7 ~]# mkdir -pv /tmp/mylinux/{bin,boot/grub,dev,etc/{rc.d/init.d,sysconfig/network-scripts},lib/modules,lib64,proc,sbin,sys,tmp,usr/local/{bin,sbin},var/{lock,log,run}}
+mkdir: 已创建目录 &quot;/tmp/mylinux&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/bin&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/boot&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/boot/grub&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/dev&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/etc&quot; 
+mkdir: 已创建目录 &quot;/tmp/mylinux/etc/rc.d&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/etc/rc.d/init.d&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/etc/sysconfig&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/etc/sysconfig/network-scripts&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/lib&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/lib/modules&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/lib64&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/proc&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/sbin&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/sys&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/tmp&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/usr&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/usr/local&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/usr/local/bin&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/usr/local/sbin&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/var&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/var/lock&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/var/log&quot;
+mkdir: 已创建目录 &quot;/tmp/mylinux/var/run&quot;
+[root@centos7 ~]# 
+</code></pre><p>##文件的元数据信息有哪些，分别表示什么含义，如何查看？如何修改文件的时间戳信息。</p>
+<pre><code>[root@centos7 etc]# stat /bin/bash
+文件：&quot;/bin/bash&quot;
+大小：960392        块：1880       IO 块：4096   普通文件
+设备：fd00h/64768d    Inode：67111627    硬链接：1
+权限：(0755/-rwxr-xr-x)  Uid：(    0/    root)   Gid：(    0/    root)
+环境：system_u:object_r:shell_exec_t:s0 
+最近访问：2016-11-06 13:06:17.318000042 +0800
+最近更改：2016-08-03 00:00:07.000000000 +0800
+最近改动：2016-11-03 13:47:45.414998262 +0800
+创建时间：-
+
+touch命令：
+touch - change file timestamps
+
+touch [OPTION]... FILE...
+ -c: 指定的文件路径不存在时不予创建；
+ -a: 仅修改access time；
+ -m：仅修改modify time；
+ -t STAMP
+    [[CC]YY]MMDDhhmm[.ss]
+
+
+
+实例一：创建不存在的文件
+
+命令：
+touch log2012.log log2013.log
+
+输出：
+［root@localhost test］# touch log2012.log log2013.log
+［root@localhost test］# ll
+ -rw-r--r-- 1 root root 0 10-28 16:01 log2012.log
+ -rw-r--r-- 1 root root 0 10-28 16:01 log2013.log
+
+如果log2014.log不存在，则不创建文件
+［root@localhost test］# touch -c log2014.log
+［root@localhost test］# ll
+ -rw-r--r-- 1 root root 0 10-28 16:01 log2012.log
+ -rw-r--r-- 1 root root 0 10-28 16:01 log2013.log
+
+实例二：更新log.log的时间和log2012.log时间戳相同
+
+命令：
+touch -r log.log log2012.log
+
+输出：
+［root@localhost test］# ll
+ -rw-r--r-- 1 root root 0 10-28 16:01 log2012.log
+ -rw-r--r-- 1 root root 0 10-28 16:01 log2013.log
+ -rw-r--r-- 1 root root 0 10-28 14:48 log.log
+［root@localhost test］# touch -r log.log log2012.log
+［root@localhost test］# ll
+ -rw-r--r-- 1 root root 0 10-28 14:48 log2012.log
+ -rw-r--r-- 1 root root 0 10-28 16:01 log2013.log
+ -rw-r--r-- 1 root root 0 10-28 14:48 log.log
+
+实例三：设定文件的时间戳
+
+命令：
+touch -t 201211142234.50 log.log
+
+输出：
+［root@localhost test］# ll
+ -rw-r--r-- 1 root root 0 10-28 14:48 log2012.log
+ -rw-r--r-- 1 root root 0 10-28 16:01 log2013.log
+ -rw-r--r-- 1 root root 0 10-28 14:48 log.log
+［root@localhost test］# touch -t 201211142234.50 log.log
+［root@localhost test］# ll
+ -rw-r--r-- 1 root root 0 10-28 14:48 log2012.log
+ -rw-r--r-- 1 root root 0 10-28 16:01 log2013.log
+ -rw-r--r-- 1 root root 0 2012-11-14 log.log
+
+说明：
+ -t time 使用指定的时间值 time 作为指定文件相应时间戳记的新值．此处的 time规定为如下形式的十进制数：
+［［CC］YY］MMDDhhmm［.SS］
+
+ 这里，CC为年数中的前两位，即”世纪数”；YY为年数的后两位，即某世纪中的年数．如果不给出CC的值，则touch 将把年数CCYY限定1969--2068之内．MM为月数，DD为天将把年数CCYY限定在1969--2068之内．MM为月数，DD为天数，hh 为小时数（几点），mm为分钟数，SS为秒数．此处秒的设定范围是0--61，这样可以处理闰秒．这些数字组成的时间是环境变量TZ指定的时区中的一个时 间．由于系统的限制，早于1970年1月1日的时间是错误的
+</code></pre><p>##如何定义一个命令的别名，如何在命令中引用另一个命令的执行结果？</p>
+<p>命令别名查看：</p>
+<p>[root@centos ~]# alias</p>
+<p>alias cp=’cp -i’</p>
+<p>alias l.=’ls -d .* –color=auto’</p>
+<p>alias ll=’ls -l –color=auto’</p>
+<p>alias ls=’ls –color=auto’</p>
+<p>alias mv=’mv -i’</p>
+<p>alias rm=’rm -i’</p>
+<p>创建别名：</p>
+<p>[root@centos ~]# alias clear=’cls’</p>
+<p>[root@centos ~]# alias</p>
+<p>alias clear=’cls’</p>
+<p>alias cp=’cp -i’</p>
+<p>alias l.=’ls -d .* –color=auto’</p>
+<p>alias ll=’ls -l –color=auto’</p>
+<p>alias ls=’ls –color=auto’</p>
+<p>alias mv=’mv -i’</p>
+<p>alias rm=’rm -i’</p>
+<p>引用命令的执行结果：</p>
+<p> 使用“引用：</p>
+<p>[root@centos ~]# echo <code>date</code></p>
+<p>Tue Sep 27 06:45:08 CST 2016</p>
+<p>[root@centos ~]#</p>
+<p>使用$(COMMAND)引用</p>
+<p>[root@centos ~]# file $(which –skip-alias ls)</p>
+<p>/bin/ls: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.18, stripped</p>
+<p>[root@centos ~]#</p>
+<p>##显示var目录下所有以l开头，以一个小写字母结尾，且中间至少出现一位数字（可以有其它字符）的文件或目录。</p>
+<pre><code>[root@centos7 /]# ls -dl /var/l*[0-9]*[a-z]
+drwxr-xr-x. 2 root root 6 11月  6 14:58 /var/l42opm
+drwxr-xr-x. 2 root root 6 11月  6 14:58 /var/l47wsd
+-rw-r--r--. 1 root root 0 11月  6 15:38 /var/l9cxz
+drwxr-xr-x. 2 root root 6 11月  6 15:35 /var/ls4gs
+drwxr-xr-x. 2 root root 6 11月  6 15:34 /var/lw56tcp
+-rw-r--r--. 1 root root 0 11月  6 15:37 /var/lw89cxz
+-rw-r--r--. 1 root root 0 11月  6 15:37 /var/lw99cxz
+
+
+[root@centos7 /]# ls -dl /var/l*[[:digit:]]*[[:alpha:]]
+drwxr-xr-x. 2 root root 6 11月  6 14:58 /var/l42opm
+drwxr-xr-x. 2 root root 6 11月  6 14:58 /var/l47wsd
+-rw-r--r--. 1 root root 0 11月  6 15:38 /var/l9cxz
+drwxr-xr-x. 2 root root 6 11月  6 15:35 /var/ls4gs
+drwxr-xr-x. 2 root root 6 11月  6 15:34 /var/lw56tcp
+-rw-r--r--. 1 root root 0 11月  6 15:37 /var/lw89cxz
+-rw-r--r--. 1 root root 0 11月  6 15:37 /var/lw99cxz
+</code></pre><p>##显示/etc目录下，以任意一个数字开头，且以非数字结尾的文件或目录。</p>
+<pre><code>[root@centos7 /]# ls -dl /etc/[[:digit:]]*[[:alpha:]]
+drwxr-xr-x. 2 root root  6 11月  6 15:43 /etc/12sad
+-rw-r--r--. 1 root root 29 11月  6 15:45 /etc/12sd
+drwxr-xr-x. 2 root root  6 11月  6 15:43 /etc/23gfhg
+-rw-r--r--. 1 root root 35 11月  6 15:46 /etc/4543sdcsf
+
+
+[root@centos7 /]# ls -dl /etc/[0-9]*[^0-9]
+drwxr-xr-x. 2 root root  6 11月  6 15:43 /etc/12sad
+-rw-r--r--. 1 root root 29 11月  6 15:45 /etc/12sd
+drwxr-xr-x. 2 root root  6 11月  6 15:43 /etc/23gfhg
+-rw-r--r--. 1 root root 35 11月  6 15:46 /etc/4543sdcsf
+</code></pre><p>##显示/etc目录下，以非字母开头，后面跟了一个字母以及其它任意长度任意字符的文件或目录。</p>
+<pre><code>[root@centos7 /]# ls -dl /etc/[^a-z]*[a-z]
+drwxr-xr-x. 2 root root  6 11月  6 15:43 /etc/12sad
+-rw-r--r--. 1 root root 29 11月  6 15:45 /etc/12sd
+drwxr-xr-x. 2 root root  6 11月  6 15:43 /etc/23gfhg
+-rw-r--r--. 1 root root 35 11月  6 15:46 /etc/4543sdcsf
+</code></pre><p>##在/tmp目录下创建以tfile开头，后跟当前日期和时间的文件，文件名形如：tfile-2016-05-27-09-32-22。<br>    touch /tmp/tfile-$(date +%F-%H-%M-%S)</p>
+<p>##复制/etc目录下所有以p开头，以非数字结尾的文件或目录到/tmp/mytest1目录中。</p>
+<pre><code>mkdir /tmp/mytest1 &amp;&amp; cp -r /etc/p*[^0-9] /tmp/mytest1/
+</code></pre><p>##复制/etc目录下所有以.d结尾的文件或目录至/tmp/mytest2目录中。</p>
+<pre><code>mkdir /tmp/mytest2 &amp;&amp; cp -r /etc/*.d /tmp/mytest2/
+</code></pre><p>##复制/etc/目录下所有以l或m或n开头，以.conf结尾的文件至/tmp/mytest3目录中。</p>
+<pre><code>mkdir -p /tmp/mytest3 &amp;&amp; cp  /etc/[lmn]*.conf /tmp/mytest3/
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/06/04/第二周作业/"></a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry</a></p>
+        <p><span>发布时间:</span>2018-06-04, 16:29:45</p>
+        <p><span>最后更新:</span>2018-06-04, 16:29:45</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/04/第二周作业/" title="">https://zhusas/github.io/2018/06/04/第二周作业/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas/github.io/2018/06/04/第二周作业/　　作者: Jerry" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/06/04/第九周作业/">
+                    
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/06/04/第八周作业/">
+                    
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/06/04/第九周作业/" title="上一篇: ">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/06/04/第八周作业/" title="下一篇: ">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第一周作业/">第一周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第五周作业/">第五周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第四周作业/">第四周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十周作业/">第十周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十一周作业/">第十一周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十五周作业/">第十五周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十四周作业/">第十四周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十三周作业/">第十三周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十六周作业/">第十六周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十二周作业/">第十二周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十八周作业/">第十八周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第三周作业/">第三周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第七周作业/">第七周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第六周作业/">第六周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第九周作业/">第九周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第二周作业/">第二周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第八周作业/">第八周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/test1/">test1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 Jerry
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

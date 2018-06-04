@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jerry" />
+
+
+
+<meta name="description" content="##1、创建一个10G分区，并格式为ext4文件系统； ###(1) 要求其block大小为2048, 预留空间百分比为2, 卷标为MYDATA, 默认挂载属性包含acl； ###(2) 挂载至/data/mydata目录，要求挂载时禁止程序自动运行，且不更新文件的访问时间戳； [root@centos ~]# fdisk -l   #马哥说不写注释的都是耍流氓  Disk /dev/sda: 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jerry&#39;s Blog">
+<meta property="og:url" content="https://zhusas/github.io/2018/06/04/第七周作业/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="##1、创建一个10G分区，并格式为ext4文件系统； ###(1) 要求其block大小为2048, 预留空间百分比为2, 卷标为MYDATA, 默认挂载属性包含acl； ###(2) 挂载至/data/mydata目录，要求挂载时禁止程序自动运行，且不更新文件的访问时间戳； [root@centos ~]# fdisk -l   #马哥说不写注释的都是耍流氓  Disk /dev/sda: 1">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-04T08:29:45.641Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jerry&#39;s Blog">
+<meta name="twitter:description" content="##1、创建一个10G分区，并格式为ext4文件系统； ###(1) 要求其block大小为2048, 预留空间百分比为2, 卷标为MYDATA, 默认挂载属性包含acl； ###(2) 挂载至/data/mydata目录，要求挂载时禁止程序自动运行，且不更新文件的访问时间戳； [root@centos ~]# fdisk -l   #马哥说不写注释的都是耍流氓  Disk /dev/sda: 1">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jerry&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Jerry&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: 
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jerry</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于运维</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jerry</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jerry</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-第七周作业" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/第七周作业/" class="article-date">
+      <time datetime="2018-06-04T08:29:45.641Z" itemprop="datePublished">2018-06-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>##1、创建一个10G分区，并格式为ext4文件系统；</p>
+<p>###(1) 要求其block大小为2048, 预留空间百分比为2, 卷标为MYDATA, 默认挂载属性包含acl；</p>
+<p>###(2) 挂载至/data/mydata目录，要求挂载时禁止程序自动运行，且不更新文件的访问时间戳；</p>
+<pre><code>[root@centos ~]# fdisk -l   #马哥说不写注释的都是耍流氓
+
+Disk /dev/sda: 171.8 GB, 171798691840 bytes
+255 heads, 63 sectors/track, 20886 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00098b32
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          64      512000   83  Linux
+Partition 1 does not end on cylinder boundary.
+/dev/sda2              64       20887   167259136   8e  Linux LVM
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes   #创建一个10G分区
+255 heads, 63 sectors/track, 1305 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+
+Disk /dev/mapper/vg_centos-lv_root: 170.2 GB, 170196467712 bytes
+255 heads, 63 sectors/track, 20691 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+
+Disk /dev/mapper/vg_centos-lv_swap: 1073 MB, 1073741824 bytes
+255 heads, 63 sectors/track, 130 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+[root@centos ~]# fdisk /dev/sdb 
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0x248136bc.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won&apos;t be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: DOS-compatible mode is deprecated. It&apos;s strongly recommended to
+         switch off the mode (command &apos;c&apos;) and change display units to
+         sectors (command &apos;u&apos;).
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-1305, default 1): 
+Using default value 1
+Last cylinder, +cylinders or +size{K,M,G} (1-1305, default 1305): 
+Using default value 1305
+
+Command (m for help): wq
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@centos ~]# fdisk -l
+
+Disk /dev/sda: 171.8 GB, 171798691840 bytes
+255 heads, 63 sectors/track, 20886 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00098b32
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          64      512000   83  Linux
+Partition 1 does not end on cylinder boundary.
+/dev/sda2              64       20887   167259136   8e  Linux LVM
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes
+255 heads, 63 sectors/track, 1305 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x248136bc
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1        1305    10482381   83  Linux
+
+Disk /dev/mapper/vg_centos-lv_root: 170.2 GB, 170196467712 bytes
+255 heads, 63 sectors/track, 20691 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+
+Disk /dev/mapper/vg_centos-lv_swap: 1073 MB, 1073741824 bytes
+255 heads, 63 sectors/track, 130 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+
+[root@centos ~]# mkfs -b 2048 -t ext4 -L MYDATA -m 2 /dev/sdb1  #格式为ext4文件系统，其block大小为2048, 预留空间百分比为2, 卷标为MYDATA
+mke2fs 1.41.12 (17-May-2010)
+文件系统标签=MYDATA
+操作系统:Linux
+块大小=2048 (log=1)
+分块大小=2048 (log=1)
+Stride=0 blocks, Stripe width=0 blocks
+655360 inodes, 5241190 blocks
+262059 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=542113792
+320 block groups
+16384 blocks per group, 16384 fragments per group
+2048 inodes per group
+Superblock backups stored on blocks: 
+    16384, 49152, 81920, 114688, 147456, 409600, 442368, 802816, 1327104, 
+    2048000, 3981312
+
+正在写入inode表: 完成                            
+Creating journal (32768 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 20 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+
+[root@centos ~]# tune2fs -o acl /dev/sdb1  #默认挂载属性包含acl
+tune2fs 1.41.12 (17-May-2010)
+[root@centos ~]# mkdir -p /data/mydata &amp;&amp; mount -o noexec,noatime /dev/sdb1 /data/mydata #挂载至/data/mydata目录，要求挂载时禁止程序自动运行，且不更新文件的访问时间戳
+[root@centos ~]# echo $? 
+0
+[root@centos ~]# cd /data/
+[root@centos data]# ll
+总用量 2
+drwxr-xr-x 3 root root 2048 12月 26 17:36 mydata
+[root@centos data]# cd mydata/
+[root@centos mydata]# ll
+总用量 16
+drwx------ 2 root root 16384 12月 26 17:36 lost+found
+[root@centos mydata]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/mapper/vg_centos-lv_root
+                      156G  3.8G  145G   3% /
+tmpfs                 1.9G   72K  1.9G   1% /dev/shm
+/dev/sda1             477M  160M  292M  36% /boot
+/dev/sdb1             9.8G   13M  9.3G   1% /data/mydata
+[root@centos mydata]# 
+</code></pre><p>##2、创建一个大小为1G的swap分区，并创建好文件系统，并启用之；</p>
+<pre><code>[root@centos ~]# fdisk /dev/sdb 
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0x70af3aab.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won&apos;t be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: DOS-compatible mode is deprecated. It&apos;s strongly recommended to
+         switch off the mode (command &apos;c&apos;) and change display units to
+         sectors (command &apos;u&apos;).
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-130, default 1): 
+Using default value 1
+Last cylinder, +cylinders or +size{K,M,G} (1-130, default 130): 
+Using default value 130
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+[root@centos ~]# mkswap /dev/sdb1
+Setting up swapspace version 1, size = 1044188 KiB
+no label, UUID=85de9eea-a86d-48f4-a24d-00615a9812f8
+[root@centos ~]# swapon /dev/sdb1 
+[root@centos ~]# free -m
+             total       used       free     shared    buffers     cached
+Mem:          3816        517       3299          1         27        289
+-/+ buffers/cache:        200       3615
+Swap:         1019          0       1019
+[root@centos ~]# echo &quot;/dev/sdb1 swap swap defaults 0 0&quot; &gt;&gt; /etc/fstab #swap现已加入开机挂载全家桶！
+</code></pre><p>##3、写一个脚本</p>
+<p>###(1)、获取并列出当前系统上的所有磁盘设备；(2)、显示每个磁盘设备上每个分区相关的空间使用信息；</p>
+<pre><code>[root@centos gogogogogogogogoo]# cat DiskInfo_Jerry.sh  #马哥说过，脚本就是命令的拼凑，所以，命令学好，脚本风骚。
+#!/bin/bash
+#Author: Jerry
+lsblk
+df -ahT
+
+[root@centos gogogogogogogogoo]# bash DiskInfo_Jerry.sh 
+NAME                          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda                             8:0    0   160G  0 disk 
+├─sda1                          8:1    0   500M  0 part /boot
+└─sda2                          8:2    0 159.5G  0 part 
+  ├─vg_centos-lv_root (dm-0)  253:0    0 158.5G  0 lvm  /
+  └─vg_centos-lv_swap (dm-1)  253:1    0     1G  0 lvm  
+sdb                             8:16   0    10G  0 disk 
+└─sdb1                          8:17   0    10G  0 part 
+  ├─vg_mage-mylv1-real (dm-3) 253:3    0     5G  0 lvm  
+  │ ├─vg_mage-mylv1 (dm-2)    253:2    0     5G  0 lvm  
+  │ └─vg_mage-snvg1 (dm-5)    253:5    0     5G  1 lvm  
+  └─vg_mage-snvg1-cow (dm-4)  253:4    0   160M  1 lvm  
+    └─vg_mage-snvg1 (dm-5)    253:5    0     5G  1 lvm  
+sdc                             8:32   0    60G  0 disk 
+└─sdc1                          8:33   0    60G  0 part 
+
+Filesystem           Type                 Size  Used Avail Use% Mounted on
+/dev/mapper/vg_centos-lv_root
+                     ext4                 156G  3.4G  145G   3% /
+proc                 proc                    0     0     0    - /proc
+sysfs                sysfs                   0     0     0    - /sys
+devpts               devpts                  0     0     0    - /dev/pts
+tmpfs                tmpfs                1.9G   68K  1.9G   1% /dev/shm
+/dev/sda1            ext4                 477M   35M  418M   8% /boot
+/dev/mapper/vg_mage-mylv1
+                     ext4                 4.8G   10M  4.6G   1% /users
+none                 binfmt_misc             0     0     0    - /proc/sys/fs/binfmt_misc
+vmware-vmblock       fuse.vmware-vmblock     0     0     0    - /var/run/vmblock-fuse
+
+[root@centos gogogogogogogogoo]# 
+</code></pre><p>##4、总结RAID的各个级别及其组合方式和性能的不同；</p>
+<pre><code>RAID-0: 
+    读、写性能提升；
+    可用空间：N*min(S1,S2,...)
+    无容错能力
+    最少磁盘数：2, 2+
+
+RAID-1：
+    读性能提升、写性能略有下降；
+    可用空间：1*min(S1,S2,...)
+    有冗余能力
+    最少磁盘数：2, 2+
+
+RAID-4：
+    1101, 0110, 1011
+
+RAID-5：
+    读、写性能提升
+    可用空间：(N-1)*min(S1,S2,...)
+    有容错能力：1块磁盘
+    最少磁盘数：3, 3+
+
+RAID-6：
+    读、写性能提升
+    可用空间：(N-2)*min(S1,S2,...)
+    有容错能力：2块磁盘
+    最少磁盘数：4, 4+
+
+
+混合类型
+    RAID-10：
+        读、写性能提升
+        可用空间：N*min(S1,S2,...)/2
+        有容错能力：每组镜像最多只能坏一块；
+        最少磁盘数：4, 4+
+</code></pre><p>##5、创建一个大小为10G的RAID1，要求有一个空闲盘，而且CHUNK大小为128k;</p>
+<pre><code>生产环境都是用服务器自带的磁盘阵列卡来做raid，具体详见各厂商的操作文档，此题我就跳过了，请老湿原谅我的直接。
+</code></pre><p>##6、创建一个大小为4G的RAID5设备，chunk大小为256k，格式化ext4文件系统，要求可开机自动挂载至/backup目录，而且不更新访问时间戳，且支持acl功能；</p>
+<pre><code>生产环境都是用服务器自带的磁盘阵列卡来做raid，具体详见各厂商的操作文档，此题我就跳过了，请老湿原谅我的直接。
+更新访问时间戳我要说一下，生产环境一般都是要更新访问时间戳的
+</code></pre><p>##7、写一个脚本，(1) 接受一个以上文件路径作为参数；(2) 显示每个文件拥有的行数；(3) 总结说明本次共为几个文件统计了其行数；</p>
+<pre><code>[root@centos gogogogogogogogoo]# bash Sum_wc-l.sh /etc/ssh/sshd_config /etc/fstab /etc/rc.local 
+Number of rows in /etc/ssh/sshd_config is 138
+Number of rows in /etc/fstab is 16
+Number of rows in /etc/rc.local is 7
+total of 3  files
+[root@centos gogogogogogogogoo]# cat Sum_wc-l.sh 
+#!/bin/bash
+#
+if [ $# -lt 1 ];then
+    echo &quot;At least one filesname &quot;
+    exit 2
+fi
+
+    for i in $*;do
+       line=$(cat $i | wc -l)
+       echo &quot;Number of rows in $i is $line&quot;
+    done 
+
+echo &quot;total of $#  files&quot;
+[root@centos gogogogogogogogoo]# 
+</code></pre><p>##8、写一个脚本 (1) 传递两个以上字符串当作用户名；(2) 创建这些用户；且密码同用户名；(3) 总结说明共创建了几个用户；</p>
+<pre><code>[root@centos gogogogogogogogoo]# bash Creat_user.sh 
+At least two username 
+[root@centos gogogogogogogogoo]# bash Creat_user.sh abb1 abb2 abb3 abb4
+Add user abb1 finished
+Add user abb2 finished
+Add user abb3 finished
+Add user abb4 finished
+total of Create 4 users
+[root@centos gogogogogogogogoo]# cat Creat_user.sh 
+#!/bin/bash
+
+if [ $# -lt 2 ];then
+    echo &quot;At least two username &quot;
+    exit 2
+fi    
+
+    for i in $*;do
+        if grep &quot;^$i\&gt;&quot; /etc/passwd &amp;&gt; /dev/null;then
+
+            echo &quot;User $i exists&quot;
+    else
+        useradd $i
+            echo $i | passwd --stdin $i &amp;&gt; /dev/null
+            echo &quot;Add user $i finished&quot;
+        fi
+
+    done 
+
+echo &quot;total of Create $# users&quot;
+[root@centos gogogogogogogogoo]# 
+</code></pre><p>##9、写一个脚本，新建20个用户，visitor1-visitor20；计算他们的ID之和；</p>
+<pre><code>[root@centos gogogogogogogogoo]# bash sum_userid.sh 
+The users ID sum is: 10330
+[root@centos gogogogogogogogoo]# cat sum_userid.sh 
+#!/bin/bash
+
+num=0
+
+for i in {1..20};do
+    if id visitor$i &amp;&gt; /dev/null;then
+    echo &quot;visitor$i exists&quot;
+        else
+            useradd visitor$i
+        id=$(grep &quot;^visitor$i\&gt;&quot; /etc/passwd | cut -d: -f 3)
+        let num+=$id
+    fi
+done
+
+echo &quot;The users ID sum is: $num&quot;
+[root@centos gogogogogogogogoo]# 
+</code></pre><p>##10、写一脚本，分别统计/etc/rc.d/rc.sysinit、/etc/rc.d/init.d/functions和/etc/fstab文件中以#号开头的行数之和，以及总的空白行数；</p>
+<pre><code>[root@centos jerry_go]# cat title10-2.sh 
+#!/bin/bash
+#Author:Jerry
+#Description
+#
+#
+
+    if [ -e $1 ]; then
+        jinghao1=$(grep &quot;^#&quot; $1 | wc -l)
+        blank_line1=$(grep &quot;^$&quot; $1 | wc -l)
+        echo &quot;The file $1 Jinghao_lines:$jinghao1    Blank_lines:$blank_line1  &quot; 
+    else
+        echo &quot;The file $1 no exist&quot;
+        exit 2
+    fi
+
+
+    if [ -e $2 ]; then
+        jinghao2=$(grep &quot;^#&quot; $2 | wc -l)
+        blank_line2=$(grep &quot;^$&quot; $2 | wc -l)
+        echo &quot;The file $2 Jinghao_lines:$jinghao2    Blank_lines:$blank_line2  &quot; 
+    else
+        echo &quot;The file $2 no exist&quot;
+        exit 2
+   fi
+
+
+    if [ -e $3 ]; then
+        jinghao3=$(grep &quot;^#&quot; $3 | wc -l)
+        blank_line3=$(grep &quot;^$&quot; $3 | wc -l)
+        echo &quot;The file $3 Jinghao_lines:$jinghao3    Blank_lines:$blank_line3  &quot;  
+    else
+        echo &quot;The file $3 no exist&quot;
+        exit 2
+    fi
+
+    echo &quot;Total jinghao lines: $[$jinghao1+$jinghao2+$jinghao3]&quot;   
+    echo &quot;Total blank lines: $[$blank_line1+$blank_line2+$blank_line3]&quot; &amp;&amp; exit 0  
+
+走一个！come on baby！
+[root@centos jerry_go]# bash title10-2.sh /etc/rc.d/rc.sysinit /etc/rc.d/init.d/functions /etc/fstab 
+The file /etc/rc.d/rc.sysinit Jinghao_lines:44    Blank_lines:100  
+The file /etc/rc.d/init.d/functions Jinghao_lines:43    Blank_lines:105  
+The file /etc/fstab Jinghao_lines:8    Blank_lines:1  
+Total jinghao lines: 95
+Total blank lines: 206
+[root@centos jerry_go]# 
+
+异常的走一个！ 欧耶！
+[root@centos jerry_go]# bash title10-2.sh /etc/rc.d/rc.sysinit /etc/rc.d/init.d/funct234ions /etc/fstab 
+The file /etc/rc.d/rc.sysinit Jinghao_lines:44    Blank_lines:100  
+The file /etc/rc.d/init.d/funct234ions no exist
+[root@centos jerry_go]#
+
+异常的再走一个！    
+[root@centos jerry_go]# bash title10-2.sh /etc/rc.d/rc.sysinit /etc/rc.d/init.d/functions /etc/fst123ab 
+The file /etc/rc.d/rc.sysinit Jinghao_lines:44    Blank_lines:100  
+The file /etc/rc.d/init.d/functions Jinghao_lines:43    Blank_lines:105  
+The file /etc/fst123ab no exist
+[root@centos jerry_go]# 
+
+最后发现井号的英文是well number ， 脚本里面用拼音实在是很low，不过我是刚开始嘛，who care......
+</code></pre><p>##11、写一个脚本，显示当前系统上所有默认shell为bash的用户的用户名、UID以及此类所有用户的UID之和；</p>
+<pre><code>[root@centos jerry_go]# cat week7_title11.sh
+#!/bin/bash
+#Author:Jerry
+#Description
+#
+#
+
+grep &quot;bin/bash$&quot; /etc/passwd  |cut -d&quot;:&quot; -f1,3
+
+for i in `grep &quot;bin/bash$&quot; /etc/passwd  |awk -F &quot;:&quot; &apos;{print $3}&apos;`;do
+    let sum+=$i
+done
+
+ echo &quot;Users ID sum is:$sum&quot;
+
+[root@centos jerry_go]# bash week7_title11.sh 
+root:0
+magedu:500
+mamamamam:501
+magedu1:502
+abb1:503
+abb2:504
+abb3:505
+abb4:506
+visitor1:507
+visitor2:508
+visitor3:509
+visitor4:510
+visitor5:511
+visitor6:512
+visitor7:513
+visitor8:514
+visitor9:515
+visitor10:516
+visitor11:517
+visitor12:518
+visitor13:519
+visitor14:520
+visitor15:521
+visitor16:522
+visitor17:523
+visitor18:524
+visitor19:525
+visitor20:526
+Users ID sum is:13851
+</code></pre><p>##12、写一个脚本，显示当前系统上所有，拥有附加组的用户的用户名；并说明共有多少个此类用户；</p>
+<pre><code>[root@centos jerry_go]# bash week7_title12.sh 
+bin
+daemon
+sys
+adm
+lp
+mail
+haldaemon
+This users has 7.
+
+[root@centos jerry_go]# cat week7_title12.sh 
+#!/bin/bash
+#Author:Jerry
+#Description
+#
+
+grep -v &quot;:$&quot; /etc/group |awk -F &quot;:&quot; &apos;{print $1}&apos;
+echo &quot;This users has $(grep -v &quot;:$&quot; /etc/group |awk -F &quot;:&quot; &apos;{print $1}&apos;|wc -l).&quot;
+[root@centos jerry_go]# 
+</code></pre><p>###13、创建一个由至少两个物理卷组成的大小为20G的卷组；要求，PE大小为8M；而在卷组中创建一个大小为5G的逻辑卷mylv1，格式化为ext4文件系统，开机自动挂载至/users目录，支持acl；</p>
+<pre><code>[root@centos ~]# pvdisplay   #先看看环境
+  --- Physical volume ---
+  PV Name               /dev/sda2
+  VG Name               vg_centos
+  PV Size               159.51 GiB / not usable 3.00 MiB
+  Allocatable           yes (but full)
+  PE Size               4.00 MiB
+  Total PE              40834
+  Free PE               0
+  Allocated PE          40834
+  PV UUID               1O2YO5-7puR-3Pfu-nR15-tqCc-JjPN-giIZeh
+
+  &quot;/dev/sdb1&quot; is a new physical volume of &quot;10.00 GiB&quot;
+  --- NEW Physical volume ---
+  PV Name               /dev/sdb1
+  VG Name               
+  PV Size               10.00 GiB
+  Allocatable           NO
+  PE Size               0   
+  Total PE              0
+  Free PE               0
+  Allocated PE          0
+  PV UUID               dmUkps-1j6e-q50O-yOh8-nBlT-lw6t-nGKnat
+
+  &quot;/dev/sdc1&quot; is a new physical volume of &quot;60.00 GiB&quot;
+  --- NEW Physical volume ---
+  PV Name               /dev/sdc1
+  VG Name               
+  PV Size               60.00 GiB
+  Allocatable           NO
+  PE Size               0   
+  Total PE              0
+  Free PE               0
+  Allocated PE          0
+  PV UUID               WfoY2H-efkl-qx0z-Yetm-wyV0-3lUU-u815Aq
+
+[root@centos ~]# vgcreate -s 8m vg_mage /dev/sdb1 /dev/sdc1  #创建一个由至少两个物理卷组成的大小为20G的卷组，我这里不止了，无伤大雅。
+  Volume group &quot;vg_mage&quot; successfully created
+[root@centos ~]# lvcreate -L 5G -n mylv1 vg_mage &amp;&amp; mkfs.ext4 /dev/vg_mage/mylv1 #在卷组中创建一个大小为5G的逻辑卷mylv1，格式化为ext4文件系统
+[root@centos ~]# mkdir /users &amp;&amp; echo &quot;/dev/vg_mage/mylv1 /users ext4 defaults,acl 0 0&quot; &gt;&gt; /etc/fstab  #自动挂载至/users目录，支持acl
+[root@centos ~]# cat /etc/fstab 
+
+#
+# /etc/fstab
+# Created by anaconda on Thu Jun 23 18:40:21 2016
+#
+# Accessible filesystems, by reference, are maintained under &apos;/dev/disk&apos;
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/vg_centos-lv_root /                       ext4    defaults        1 1
+UUID=7b714956-acd7-44cb-af53-4eacde793fd9 /boot                   ext4    defaults        1 2
+#/dev/mapper/vg_centos-lv_swap swap                    swap    defaults        0 0
+tmpfs                   /dev/shm                tmpfs   defaults        0 0
+devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
+sysfs                   /sys                    sysfs   defaults        0 0
+proc                    /proc                   proc    defaults        0 0
+/dev/vg_mage/mylv1 /users ext4 defaults,acl 0 0
+
+ [root@centos ~]#
+</code></pre><p>###14、新建用户magedu；其家目录为/users/magedu，而后su切换至此用户，复制多个文件至家目录；</p>
+<pre><code>[root@centos ~]# useradd magedu -d /users/magedu
+[root@centos ~]# su - magedu
+[magedu@centos ~]$ cp /etc/*.conf ~
+[magedu@centos ~]$ ls -al
+总用量 188
+drwx------  4 magedu magedu  4096 12月 27 12:52 .
+drwxr-xr-x. 4 root   root    4096 12月 27 12:48 ..
+-rw-r--r--  1 magedu magedu   148 12月 27 12:52 asound.conf
+-rw-r--r--  1 magedu magedu    18 5月  11 2016 .bash_logout
+-rw-r--r--  1 magedu magedu   176 5月  11 2016 .bash_profile
+-rw-r--r--  1 magedu magedu   124 5月  11 2016 .bashrc
+-rw-r--r--  1 magedu magedu  1780 12月 27 12:52 cas.conf
+-rw-r--r--  1 magedu magedu 21214 12月 27 12:52 dnsmasq.conf
+-rw-r--r--  1 magedu magedu   519 12月 27 12:52 dracut.conf
+-rw-r--r--  1 magedu magedu    20 12月 27 12:52 fprintd.conf
+-rw-r--r--  1 magedu magedu     0 12月 27 12:52 gai.conf
+drwxr-xr-x  2 magedu magedu  4096 11月 12 2010 .gnome2
+-rw-r--r--  1 magedu magedu     9 12月 27 12:52 host.conf
+-rw-r--r--  1 magedu magedu     0 12月 27 12:52 init.conf
+-rw-r--r--  1 magedu magedu  8120 12月 27 12:52 kdump.conf
+-rw-r--r--  1 magedu magedu   449 12月 27 12:52 krb5.conf
+-rw-r--r--  1 magedu magedu  1662 12月 27 12:52 latrace.conf
+-rw-r--r--  1 magedu magedu    47 12月 27 12:52 ld.so.conf
+-rw-r--r--  1 magedu magedu  2293 12月 27 12:52 libuser.conf
+-rw-r--r--  1 magedu magedu   662 12月 27 12:52 logrotate.conf
+-rw-r--r--  1 magedu magedu 10814 12月 27 12:52 ltrace.conf
+-rw-r--r--  1 magedu magedu   827 12月 27 12:52 mke2fs.conf
+drwxr-xr-x  4 magedu magedu  4096 6月  23 2016 .mozilla
+-rw-r--r--  1 magedu magedu  2620 12月 27 12:52 mtools.conf
+-rw-r--r--  1 magedu magedu  1688 12月 27 12:52 nsswitch.conf
+-rw-r--r--  1 magedu magedu  1698 12月 27 12:52 ntp.conf
+-rw-r--r--  1 magedu magedu   370 12月 27 12:52 pm-utils-hd-apm-restore.conf
+-rw-r--r--  1 magedu magedu   789 12月 27 12:52 prelink.conf
+-rw-r--r--  1 magedu magedu   966 12月 27 12:52 readahead.conf
+-rw-r--r--  1 magedu magedu    81 12月 27 12:52 resolv.conf
+-rw-r--r--  1 magedu magedu  2875 12月 27 12:52 rsyslog.conf
+-rw-r--r--  1 magedu magedu   216 12月 27 12:52 sestatus.conf
+-rw-r--r--  1 magedu magedu  6717 12月 27 12:52 smartd.conf
+-rw-r--r--  1 magedu magedu   256 12月 27 12:52 sos.conf
+-rw-r--r--  1 magedu magedu  1800 12月 27 12:52 sysctl.conf
+-rw-r--r--  1 magedu magedu  1309 12月 27 12:52 tpvmlp.conf
+-rw-r--r--  1 magedu magedu    45 12月 27 12:52 Trolltech.conf
+-rw-r--r--  1 magedu magedu   485 12月 27 12:52 updatedb.conf
+-rw-r--r--  1 magedu magedu  3008 12月 27 12:52 warnquota.conf
+-rw-r--r--  1 magedu magedu   969 12月 27 12:52 yum.conf
+[magedu@centos ~]$ 
+</code></pre><p>15、扩展mylv1至9G，确保扩展完成后原有数据完全可用；</p>
+<pre><code>lvextend -L +4G /dev/mapper/myvg-mylv1 
+resize2fs /dev/mapper/myvg-mylv1
+</code></pre><p>16、缩减mylv1至7G，确保缩减完成后原有数据完全可用；</p>
+<pre><code># umount /dev/vg_mage/mylv1
+# e2fsck -f /dev/vg_mage/mylv1
+# resize2fs /dev/vg_mage/mylv11 7G
+# lvreduce -L 7G /dev/vg_mage/mylv1
+# mount /dev/vg_mage/mylv1 /users/
+</code></pre><p>17、对mylv1创建快照，并通过备份数据；要求保留原有的属主属组等信息；</p>
+<pre><code>[root@centos users]# lvcreate -s -l 20 -n snvg1 -p r /dev/vg_mage/mylv1
+Logical volume &quot;snvg1&quot; created.
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/06/04/第七周作业/"></a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry</a></p>
+        <p><span>发布时间:</span>2018-06-04, 16:29:45</p>
+        <p><span>最后更新:</span>2018-06-04, 16:29:45</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/04/第七周作业/" title="">https://zhusas/github.io/2018/06/04/第七周作业/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas/github.io/2018/06/04/第七周作业/　　作者: Jerry" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/06/04/第三周作业/">
+                    
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/06/04/第六周作业/">
+                    
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/06/04/第三周作业/" title="上一篇: ">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/06/04/第六周作业/" title="下一篇: ">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第一周作业/">第一周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第五周作业/">第五周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第四周作业/">第四周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十周作业/">第十周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十一周作业/">第十一周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十五周作业/">第十五周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十四周作业/">第十四周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十三周作业/">第十三周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十六周作业/">第十六周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十二周作业/">第十二周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第十八周作业/">第十八周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第三周作业/">第三周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第七周作业/">第七周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第六周作业/">第六周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第九周作业/">第九周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第二周作业/">第二周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/第八周作业/">第八周作业</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/04/test1/">test1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 Jerry
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
