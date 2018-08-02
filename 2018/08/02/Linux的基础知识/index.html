@@ -25,7 +25,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://i.imgur.com/JMpVlhj.png">
 <meta property="og:image" content="http://i.imgur.com/xE0k8AB.png">
-<meta property="og:updated_time" content="2018-08-02T06:24:08.496Z">
+<meta property="og:updated_time" content="2018-08-02T06:26:20.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux的基础知识">
 <meta name="twitter:description" content="一、计算机的组成及其功能硬件冯·洛伊曼体系 控制器(Control)：是整个计算机的中枢神经，其功能是对程序规定的控制信息进行解释，根据其要求进行控制，调度程序、数据、地址，协调计算机各部分工作及内存与外设的访问等。 运算器(Datapath)：运算器的功能是对数据进行各种算术运算和逻辑运算，即对数据进行加工处理。 存储器(Memory)：存储器的功能是存储程序、数据和各种信号、命令等信息，并在需">
@@ -304,7 +304,7 @@
 <li>运算器(Datapath)：运算器的功能是对数据进行各种算术运算和逻辑运算，即对数据进行加工处理。</li>
 <li>存储器(Memory)：存储器的功能是存储程序、数据和各种信号、命令等信息，并在需要时提供这些信息。</li>
 <li>输入(Input system)：输入设备是计算机的重要组成部分，输入设备与输出设备合称为外部设备，简称外设，输入设备的作用是将程序、原始数据、文字、字符、控制命令或现场采集的数据等信息输入到计算机。常见的输入设备有键盘、鼠标器、光电输入机、磁带机、磁盘机、光盘机等。</li>
-<li>输出(Output system)：输出设备与输入设备同样是计算机的重要组成部分，它把外算机的中间结果或最后结果、机内的各种数据符号及文字或各种控制信号等信息输出出来。微机常用的输出设备有显示终端CRT、打印机、激光印字机、绘图仪及磁带、光盘机等。</li>
+<li>输出(Output system)：输出设备与输入设备同样是计算机的重要组成部分，它把外算机的中间结果或最后结果、机内的各种数据符号及文字或各种控制信号等信息输出出来。微机常用的输出设备有显示终端CRT、打印机、激光印字机、绘图仪及磁带、光盘机等。<a id="more"></a></li>
 </ol>
 <h2 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h2><h3 id="低级语言："><a href="#低级语言：" class="headerlink" title="低级语言："></a>低级语言：</h3><p>汇编语言，汇编器；写驱动</p>
 <h3 id="高级语言："><a href="#高级语言：" class="headerlink" title="高级语言："></a>高级语言：</h3><p>系统级：C，C++，对性能要求较高的服务类程序<br>应用级：Java,Python,Ruby</p>
@@ -404,7 +404,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1：用户命令；  （普通用户和管理员）</span><br><span class="line">2：系统调用；</span><br><span class="line">3：C库调用；</span><br><span class="line">4：设备文件及特殊文件；</span><br><span class="line">5：文件格式；（配置文件格式）</span><br><span class="line">6：游戏使用帮助；</span><br><span class="line">7：杂项；</span><br><span class="line">8：管理工具及守护进行；</span><br></pre></td></tr></table></figure>
 <h1 id="请罗列Linux发行版的基础目录名称命名法则及其功用规定"><a href="#请罗列Linux发行版的基础目录名称命名法则及其功用规定" class="headerlink" title="请罗列Linux发行版的基础目录名称命名法则及其功用规定"></a>请罗列Linux发行版的基础目录名称命名法则及其功用规定</h1><h2 id="FHS："><a href="#FHS：" class="headerlink" title="FHS："></a>FHS：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FHS：全称Filesystem Hierarchy Standard，其定义了两层规范，</span><br></pre></td></tr></table></figure>
 <h2 id="下面的各个目录应该要放什么数据："><a href="#下面的各个目录应该要放什么数据：" class="headerlink" title="/下面的各个目录应该要放什么数据："></a>/下面的各个目录应该要放什么数据：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">/bin：所有用户可用的基本命令程序文件；</span><br><span class="line"></span><br><span class="line">/sbin：供系统管理使用的工具程序；</span><br><span class="line"></span><br><span class="line">/boot：引导加载器必须用到的各静态文件：kernel，initramfs（initrd），grub等；</span><br><span class="line"></span><br><span class="line">/dev：存储特殊文件或设备文件；设备有两种类型：字符设备（线性设备）例如：键盘、显示器；块设备（随机设备）例如：硬盘、内存；</span><br><span class="line"></span><br><span class="line">/etc：系统程序的配置文件，只能为静态</span><br><span class="line"></span><br><span class="line">/home：普通用户的家目录的集中位置；一般每个普通用户的家目录默认为此目录下与用户名同名的子目录，/home/USERNAME；</span><br><span class="line"></span><br><span class="line">/root：管理员的家目录；可选</span><br><span class="line"></span><br><span class="line">/lib：为系统启动或根文件系统上的应用程序（/bin，/sbin等）提供共享库，以及为内核提供的内核参数模块； libc.so.：动态链接的C库； ld：运行时链接器/加载器； modules：用于存储内核模块的目录；</span><br><span class="line"></span><br><span class="line">/lib64：64位系统特有的存放64位共享库的路径；</span><br><span class="line"></span><br><span class="line">/media：便携式设备挂载点，cdrom，floppy等；</span><br><span class="line"></span><br><span class="line">/mnt：其它文件系统的临时挂载点；</span><br><span class="line"></span><br><span class="line">/opt：附加应用程序的安装位置；可选路径；</span><br><span class="line"></span><br><span class="line">/srv：当前主机为服务提供的数据；</span><br><span class="line"></span><br><span class="line">/tmp：为那些会产生临时文件的程序提供的用于存储临时文件的目录；可供所有用户执行写入操作；有特殊权限；</span><br><span class="line"></span><br><span class="line">/usr：usr Hierarchy，全局共享的只读数据路径；</span><br><span class="line"></span><br><span class="line">/var：/var Hierarchy，存储经常发生变化的数据的目录；</span><br></pre></td></tr></table></figure>
-
       
     </div>
     
@@ -415,7 +414,7 @@
         <p><span>本文标题:</span><a href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jerry</a></p>
         <p><span>发布时间:</span>2018-08-02, 14:22:00</p>
-        <p><span>最后更新:</span>2018-08-02, 14:24:08</p>
+        <p><span>最后更新:</span>2018-08-02, 14:26:20</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/08/02/Linux的基础知识/" title="Linux的基础知识">https://zhusas.github.io/2018/08/02/Linux的基础知识/</a>
             <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/02/Linux的基础知识/　　作者: Jerry" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
