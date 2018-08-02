@@ -175,9 +175,11 @@
                             
                                 <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
                             
+                                <a class="fa 新浪微博" href="/sina weibo" title="新浪微博"></a>
+                            
                                 <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
                             
-                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                                <a class="fa 简书" href="/jianshu" title="简书"></a>
                             
                         </ul>
                     </nav>
@@ -249,9 +251,11 @@
                             
                                 <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
                             
+                                <a class="fa 新浪微博" target="_blank" href="/sina weibo" title="新浪微博"></a>
+                            
                                 <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
                             
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                                <a class="fa 简书" target="_blank" href="/jianshu" title="简书"></a>
                             
                         </ul>
             </nav>
@@ -290,7 +294,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h1 id="一、计算机的组成及其功能"><a href="#一、计算机的组成及其功能" class="headerlink" title="一、计算机的组成及其功能"></a>一、计算机的组成及其功能</h1><h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><h3 id="冯·洛伊曼体系"><a href="#冯·洛伊曼体系" class="headerlink" title="冯·洛伊曼体系"></a>冯·洛伊曼体系</h3><ol>
+              <h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><h3 id="冯·洛伊曼体系"><a href="#冯·洛伊曼体系" class="headerlink" title="冯·洛伊曼体系"></a>冯·洛伊曼体系</h3><ol>
 <li>控制器(Control)：是整个计算机的中枢神经，其功能是对程序规定的控制信息进行解释，根据其要求进行控制，调度程序、数据、地址，协调计算机各部分工作及内存与外设的访问等。</li>
 <li>运算器(Datapath)：运算器的功能是对数据进行各种算术运算和逻辑运算，即对数据进行加工处理。</li>
 <li>存储器(Memory)：存储器的功能是存储程序、数据和各种信号、命令等信息，并在需要时提供这些信息。</li>
@@ -504,6 +508,22 @@
     
 <script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 10;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
 
 
 
@@ -516,22 +536,8 @@
 <script>
     // Open in New Window
     
-        var oOpenInNew = {
-            
-            
-            
-            
-            
-            
-             archives: ".archive-article-title", 
-             miniArchives: "a.post-list-link", 
-            
-             friends: "#js-friends a", 
-             socail: ".social a" 
-        }
-        for (var x in oOpenInNew) {
-            $(oOpenInNew[x]).attr("target", "_blank");
-        }
+        $("a").attr("target", "_blank");
+        $("#scroll a, #toc a").removeAttr("target");
     
 </script>
 
