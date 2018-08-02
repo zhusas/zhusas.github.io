@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jerry" />
+
+
+
+<meta name="description" content="VIM很强大，但是万变不离其宗，最核心的三模式以下图表示：  1、复制/etc/rc.d/rc.sysinit文件至/tmp目录，将/tmp/rc.sysinit文件中的以至少一个空白字符开头的行的行首加#；1:%s/^[[:blank:]]\+.*/\0#/g">
+<meta name="keywords" content="shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim编辑器和脚本小试牛刀">
+<meta property="og:url" content="https://zhusas.github.io/2018/08/02/Vim编辑器和脚本小试牛刀/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="VIM很强大，但是万变不离其宗，最核心的三模式以下图表示：  1、复制/etc/rc.d/rc.sysinit文件至/tmp目录，将/tmp/rc.sysinit文件中的以至少一个空白字符开头的行的行首加#；1:%s/^[[:blank:]]\+.*/\0#/g">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://i.imgur.com/6np2y0D.jpg">
+<meta property="og:updated_time" content="2018-08-02T08:45:50.218Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vim编辑器和脚本小试牛刀">
+<meta name="twitter:description" content="VIM很强大，但是万变不离其宗，最核心的三模式以下图表示：  1、复制/etc/rc.d/rc.sysinit文件至/tmp目录，将/tmp/rc.sysinit文件中的以至少一个空白字符开头的行的行首加#；1:%s/^[[:blank:]]\+.*/\0#/g">
+<meta name="twitter:image" content="http://i.imgur.com/6np2y0D.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jerry&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Vim编辑器和脚本小试牛刀 | Jerry&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jerry</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于运维</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jerry</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jerry</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Vim编辑器和脚本小试牛刀" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/02/Vim编辑器和脚本小试牛刀/" class="article-date">
+      <time datetime="2018-08-02T08:44:00.000Z" itemprop="datePublished">2018-08-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vim编辑器和脚本小试牛刀
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>VIM很强大，但是万变不离其宗，最核心的三模式以下图表示：</p>
+<p><img src="http://i.imgur.com/6np2y0D.jpg" alt=""></p>
+<h3 id="1、复制-etc-rc-d-rc-sysinit文件至-tmp目录，将-tmp-rc-sysinit文件中的以至少一个空白字符开头的行的行首加-；"><a href="#1、复制-etc-rc-d-rc-sysinit文件至-tmp目录，将-tmp-rc-sysinit文件中的以至少一个空白字符开头的行的行首加-；" class="headerlink" title="1、复制/etc/rc.d/rc.sysinit文件至/tmp目录，将/tmp/rc.sysinit文件中的以至少一个空白字符开头的行的行首加#；"></a>1、复制/etc/rc.d/rc.sysinit文件至/tmp目录，将/tmp/rc.sysinit文件中的以至少一个空白字符开头的行的行首加#；</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/^[[:blank:]]\+.*/\0<span class="comment">#/g</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="2、复制-boot-grub-grub-conf至-tmp目录中，删除-tmp-grub-conf文件中的行首的空白字符；"><a href="#2、复制-boot-grub-grub-conf至-tmp目录中，删除-tmp-grub-conf文件中的行首的空白字符；" class="headerlink" title="2、复制/boot/grub/grub.conf至/tmp目录中，删除/tmp/grub.conf文件中的行首的空白字符；"></a>2、复制/boot/grub/grub.conf至/tmp目录中，删除/tmp/grub.conf文件中的行首的空白字符；</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/^[[:space:]]\+//g</span><br></pre></td></tr></table></figure>
+<h3 id="3、删除-tmp-rc-sysinit文件中的以-开头，且后面跟了至少一个空白字符的行行的-和空白字符"><a href="#3、删除-tmp-rc-sysinit文件中的以-开头，且后面跟了至少一个空白字符的行行的-和空白字符" class="headerlink" title="3、删除/tmp/rc.sysinit文件中的以#开头，且后面跟了至少一个空白字符的行行的#和空白字符"></a>3、删除/tmp/rc.sysinit文件中的以#开头，且后面跟了至少一个空白字符的行行的#和空白字符</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/^<span class="comment">#[[:blank:]]\+//g</span></span><br></pre></td></tr></table></figure>
+<h3 id="4、为-tmp-grub-conf文件中前三行的行首加-号；"><a href="#4、为-tmp-grub-conf文件中前三行的行首加-号；" class="headerlink" title="4、为/tmp/grub.conf文件中前三行的行首加#号；"></a>4、为/tmp/grub.conf文件中前三行的行首加#号；</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:1,3s/^/\0<span class="comment">#/g</span></span><br></pre></td></tr></table></figure>
+<h3 id="5、将-etc-yum-repos-d-CentOS-Media-repo文件中所有的enabled-0或gpgcheck-0的最后的0修改为1；"><a href="#5、将-etc-yum-repos-d-CentOS-Media-repo文件中所有的enabled-0或gpgcheck-0的最后的0修改为1；" class="headerlink" title="5、将/etc/yum.repos.d/CentOS-Media.repo文件中所有的enabled=0或gpgcheck=0的最后的0修改为1；"></a>5、将/etc/yum.repos.d/CentOS-Media.repo文件中所有的enabled=0或gpgcheck=0的最后的0修改为1；</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/\(enabled\|gpgcheck\)=0/\1=1/g</span><br></pre></td></tr></table></figure>
+<h3 id="6、每4小时执行一次对-etc目录的备份，备份至-backup目录中，保存的目录名为形如etc-201504020202"><a href="#6、每4小时执行一次对-etc目录的备份，备份至-backup目录中，保存的目录名为形如etc-201504020202" class="headerlink" title="6、每4小时执行一次对/etc目录的备份，备份至/backup目录中，保存的目录名为形如etc-201504020202"></a>6、每4小时执行一次对/etc目录的备份，备份至/backup目录中，保存的目录名为形如etc-201504020202</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* */4 * * * /usr/bin/cp /etc /backup/etc-$(date +%Y%m%d%H%M)/</span><br></pre></td></tr></table></figure>
+<h3 id="7、每周2，4，6备份-var-log-messages文件至-backup-messages-logs-目录中，保存的文件名形如messages-20150402"><a href="#7、每周2，4，6备份-var-log-messages文件至-backup-messages-logs-目录中，保存的文件名形如messages-20150402" class="headerlink" title="7、每周2，4，6备份/var/log/messages文件至/backup/messages_logs/目录中，保存的文件名形如messages-20150402"></a>7、每周2，4，6备份/var/log/messages文件至/backup/messages_logs/目录中，保存的文件名形如messages-20150402</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * 2,4,6   /usr/bin/cp /var/<span class="built_in">log</span>/messages /backupmessages_logs/messages-$(date +%Y%m%d)</span><br></pre></td></tr></table></figure>
+<h3 id="8、每天每两小时取当前系统-proc-meminfo文件中的所有以S开头的信息至-stats-memory-txt文件中"><a href="#8、每天每两小时取当前系统-proc-meminfo文件中的所有以S开头的信息至-stats-memory-txt文件中" class="headerlink" title="8、每天每两小时取当前系统/proc/meminfo文件中的所有以S开头的信息至/stats/memory.txt文件中"></a>8、每天每两小时取当前系统/proc/meminfo文件中的所有以S开头的信息至/stats/memory.txt文件中</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* */2 * * * /usr/bin/grep -E <span class="string">"S.*"</span> /proc/meminfo&gt;&gt;/stats/memory.txt</span><br></pre></td></tr></table></figure>
+<h3 id="9、工作日的工作时间内，每两小时执行一次echo-“howdy”"><a href="#9、工作日的工作时间内，每两小时执行一次echo-“howdy”" class="headerlink" title="9、工作日的工作时间内，每两小时执行一次echo “howdy”"></a>9、工作日的工作时间内，每两小时执行一次echo “howdy”</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 9-18/2 * * 1-5        /usr/bin/<span class="built_in">echo</span> <span class="string">"howdy"</span></span><br></pre></td></tr></table></figure>
+<h2 id="脚本编程部分"><a href="#脚本编程部分" class="headerlink" title="脚本编程部分"></a>脚本编程部分</h2><h3 id="创建目录-tmp-testdir-当前日期时间-在此目录创建100个空文件：file1-file100"><a href="#创建目录-tmp-testdir-当前日期时间-在此目录创建100个空文件：file1-file100" class="headerlink" title="创建目录/tmp/testdir-当前日期时间; 在此目录创建100个空文件：file1-file100"></a>创建目录/tmp/testdir-当前日期时间; 在此目录创建100个空文件：file1-file100</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># cat testdir</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#Author:Jerry</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /tmp &amp;&amp; mkdir testdir-$(date +%Y%m%d%H%M%S)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> testdir-$(date +%Y%m%d%H%M%S)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..100&#125;; <span class="keyword">do</span></span><br><span class="line">    touch file<span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># bash testdir</span></span><br><span class="line">[root@centos7 ~]<span class="comment"># ls /tmp/testdir-20161219144412/</span></span><br><span class="line">file1    file14  file2   file25  file30  file36  file41  file47  file52  file58  file63  file69  file74  file8   file85  file90  file96</span><br><span class="line">file10   file15  file20  file26  file31  file37  file42  file48  file53  file59  file64  file7   file75  file80  file86  file91  file97</span><br><span class="line">file100  file16  file21  file27  file32  file38  file43  file49  file54  file6   file65  file70  file76  file81  file87  file92  file98</span><br><span class="line">file11   file17  file22  file28  file33  file39  file44  file5   file55  file60  file66  file71  file77  file82  file88  file93  file99</span><br><span class="line">file12   file18  file23  file29  file34  file4   file45  file50  file56  file61  file67  file72  file78  file83  file89  file94</span><br><span class="line">file13   file19  file24  file3   file35  file40  file46  file51  file57  file62  file68  file73  file79  file84  file9   file95</span><br><span class="line">[root@centos7 ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h3 id="12、显示-etc-passwd文件中位于第偶数行的用户的用户名；"><a href="#12、显示-etc-passwd文件中位于第偶数行的用户的用户名；" class="headerlink" title="12、显示/etc/passwd文件中位于第偶数行的用户的用户名；"></a>12、显示/etc/passwd文件中位于第偶数行的用户的用户名；</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># sed -n '2~2p' /etc/passwd |cut -d ":" -f1</span></span><br><span class="line">bin</span><br><span class="line">adm</span><br><span class="line">sync</span><br><span class="line">halt</span><br><span class="line">operator</span><br><span class="line">ftp</span><br><span class="line">avahi-autoipd</span><br><span class="line">systemd-network</span><br><span class="line">polkitd</span><br><span class="line">apache</span><br><span class="line">abrt</span><br><span class="line">unbound</span><br><span class="line">saslauth</span><br><span class="line">amandabackup</span><br><span class="line">geoclue</span><br><span class="line">setroubleshoot</span><br><span class="line">ntp</span><br><span class="line">nfsnobody</span><br><span class="line">qemu</span><br><span class="line">mysql</span><br><span class="line">pulse</span><br><span class="line">gnome-initial-setup</span><br><span class="line">sshd</span><br><span class="line">tcpdump</span><br><span class="line">hadoop</span><br><span class="line">testbash</span><br><span class="line">nologin</span><br><span class="line">user1</span><br></pre></td></tr></table></figure>
+<h3 id="13、创建10用户user10-user19；密码同用户名；"><a href="#13、创建10用户user10-user19；密码同用户名；" class="headerlink" title="13、创建10用户user10-user19；密码同用户名；"></a>13、创建10用户user10-user19；密码同用户名；</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> &#123;10..19&#125;;<span class="keyword">do</span></span><br><span class="line">            <span class="keyword">if</span> id user<span class="variable">$i</span> ;<span class="keyword">then</span></span><br><span class="line">                    <span class="built_in">echo</span> <span class="string">"user<span class="variable">$i</span> exists."</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                    useradd user<span class="variable">$i</span></span><br><span class="line">                    <span class="built_in">echo</span> <span class="string">"user<span class="variable">$i</span>"</span> | passwd --stdin user<span class="variable">$i</span></span><br><span class="line">            <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="14、在-tmp-创建10个空文件file10-file19-把file10的属主和属组改为user10，依次类推。"><a href="#14、在-tmp-创建10个空文件file10-file19-把file10的属主和属组改为user10，依次类推。" class="headerlink" title="14、在/tmp/创建10个空文件file10-file19; 把file10的属主和属组改为user10，依次类推。"></a>14、在/tmp/创建10个空文件file10-file19; 把file10的属主和属组改为user10，依次类推。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">            <span class="built_in">cd</span> /tmp/</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> &#123;10..19&#125;;<span class="keyword">do</span></span><br><span class="line">            <span class="keyword">if</span> [ -e file<span class="variable">$i</span> ] ;<span class="keyword">then</span></span><br><span class="line">                    <span class="built_in">echo</span> <span class="string">"file<span class="variable">$i</span> exists."</span></span><br><span class="line">                    chown user<span class="variable">$i</span>:user<span class="variable">$i</span> file<span class="variable">$i</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">                    touch file<span class="variable">$i</span></span><br><span class="line">                    chown user<span class="variable">$i</span>:user<span class="variable">$i</span> file<span class="variable">$i</span></span><br><span class="line">            <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry</a></p>
+        <p><span>发布时间:</span>2018-08-02, 16:44:00</p>
+        <p><span>最后更新:</span>2018-08-02, 16:45:50</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/02/Vim编辑器和脚本小试牛刀/" title="Vim编辑器和脚本小试牛刀">https://zhusas.github.io/2018/08/02/Vim编辑器和脚本小试牛刀/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/02/Vim编辑器和脚本小试牛刀/　　作者: Jerry" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/08/02/skr-grep-skr-find/">
+                    skr! grep~ skr~~find!
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、复制-etc-rc-d-rc-sysinit文件至-tmp目录，将-tmp-rc-sysinit文件中的以至少一个空白字符开头的行的行首加-；"><span class="toc-number">1.</span> <span class="toc-text">1、复制/etc/rc.d/rc.sysinit文件至/tmp目录，将/tmp/rc.sysinit文件中的以至少一个空白字符开头的行的行首加#；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、复制-boot-grub-grub-conf至-tmp目录中，删除-tmp-grub-conf文件中的行首的空白字符；"><span class="toc-number">2.</span> <span class="toc-text">2、复制/boot/grub/grub.conf至/tmp目录中，删除/tmp/grub.conf文件中的行首的空白字符；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、删除-tmp-rc-sysinit文件中的以-开头，且后面跟了至少一个空白字符的行行的-和空白字符"><span class="toc-number">3.</span> <span class="toc-text">3、删除/tmp/rc.sysinit文件中的以#开头，且后面跟了至少一个空白字符的行行的#和空白字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、为-tmp-grub-conf文件中前三行的行首加-号；"><span class="toc-number">4.</span> <span class="toc-text">4、为/tmp/grub.conf文件中前三行的行首加#号；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、将-etc-yum-repos-d-CentOS-Media-repo文件中所有的enabled-0或gpgcheck-0的最后的0修改为1；"><span class="toc-number">5.</span> <span class="toc-text">5、将/etc/yum.repos.d/CentOS-Media.repo文件中所有的enabled=0或gpgcheck=0的最后的0修改为1；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、每4小时执行一次对-etc目录的备份，备份至-backup目录中，保存的目录名为形如etc-201504020202"><span class="toc-number">6.</span> <span class="toc-text">6、每4小时执行一次对/etc目录的备份，备份至/backup目录中，保存的目录名为形如etc-201504020202</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、每周2，4，6备份-var-log-messages文件至-backup-messages-logs-目录中，保存的文件名形如messages-20150402"><span class="toc-number">7.</span> <span class="toc-text">7、每周2，4，6备份/var/log/messages文件至/backup/messages_logs/目录中，保存的文件名形如messages-20150402</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、每天每两小时取当前系统-proc-meminfo文件中的所有以S开头的信息至-stats-memory-txt文件中"><span class="toc-number">8.</span> <span class="toc-text">8、每天每两小时取当前系统/proc/meminfo文件中的所有以S开头的信息至/stats/memory.txt文件中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9、工作日的工作时间内，每两小时执行一次echo-“howdy”"><span class="toc-number">9.</span> <span class="toc-text">9、工作日的工作时间内，每两小时执行一次echo “howdy”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#脚本编程部分"><span class="toc-number"></span> <span class="toc-text">脚本编程部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建目录-tmp-testdir-当前日期时间-在此目录创建100个空文件：file1-file100"><span class="toc-number">1.</span> <span class="toc-text">创建目录/tmp/testdir-当前日期时间; 在此目录创建100个空文件：file1-file100</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12、显示-etc-passwd文件中位于第偶数行的用户的用户名；"><span class="toc-number">2.</span> <span class="toc-text">12、显示/etc/passwd文件中位于第偶数行的用户的用户名；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13、创建10用户user10-user19；密码同用户名；"><span class="toc-number">3.</span> <span class="toc-text">13、创建10用户user10-user19；密码同用户名；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14、在-tmp-创建10个空文件file10-file19-把file10的属主和属组改为user10，依次类推。"><span class="toc-number">4.</span> <span class="toc-text">14、在/tmp/创建10个空文件file10-file19; 把file10的属主和属组改为user10，依次类推。</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Vim编辑器和脚本小试牛刀　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/08/02/skr-grep-skr-find/" title="下一篇: skr! grep~ skr~~find!">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux一些基本操作/">Linux一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux上的文件管理类命令其常用的使用方法及其相关示例演示/">Linux上的文件管理类命令其常用的使用方法及其相关示例演示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 Jerry
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 10;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a").attr("target", "_blank");
+        $("#scroll a, #toc a").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
