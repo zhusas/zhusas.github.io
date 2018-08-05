@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jerry Zhu" />
+
+
+
+<meta name="description" content="DNS查询过程以及DNS服务器类别DNS查询过程  1、在浏览器中输入www.qq.com域名，操作系统会先检查自己本地的hosts文件是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。  2、如果hosts里没有这个域名的映射，则查找本地DNS解析器缓存，是否有这个网址映射关系，如果有，直接返回，完成域名解析。  3、如果hosts与本地DNS解析器缓存都没有相应的网址映射">
+<meta name="keywords" content="DNS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自建DNS总结">
+<meta property="og:url" content="https://zhusas.github.io/2018/08/05/自建DNS总结/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="DNS查询过程以及DNS服务器类别DNS查询过程  1、在浏览器中输入www.qq.com域名，操作系统会先检查自己本地的hosts文件是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。  2、如果hosts里没有这个域名的映射，则查找本地DNS解析器缓存，是否有这个网址映射关系，如果有，直接返回，完成域名解析。  3、如果hosts与本地DNS解析器缓存都没有相应的网址映射">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://i.imgur.com/0jr6eA2.jpg">
+<meta property="og:image" content="http://i.imgur.com/OoFnAxj.jpg">
+<meta property="og:image" content="http://i.imgur.com/wteqhjS.png">
+<meta property="og:updated_time" content="2018-08-05T04:07:01.997Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自建DNS总结">
+<meta name="twitter:description" content="DNS查询过程以及DNS服务器类别DNS查询过程  1、在浏览器中输入www.qq.com域名，操作系统会先检查自己本地的hosts文件是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。  2、如果hosts里没有这个域名的映射，则查找本地DNS解析器缓存，是否有这个网址映射关系，如果有，直接返回，完成域名解析。  3、如果hosts与本地DNS解析器缓存都没有相应的网址映射">
+<meta name="twitter:image" content="http://i.imgur.com/0jr6eA2.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jerry&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>自建DNS总结 | Jerry&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jerry Zhu</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于运维</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-自建DNS总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/05/自建DNS总结/" class="article-date">
+      <time datetime="2018-08-05T04:05:00.000Z" itemprop="datePublished">2018-08-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      自建DNS总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="DNS查询过程以及DNS服务器类别"><a href="#DNS查询过程以及DNS服务器类别" class="headerlink" title="DNS查询过程以及DNS服务器类别"></a>DNS查询过程以及DNS服务器类别</h3><p><strong>DNS查询过程</strong></p>
+<p><img src="http://i.imgur.com/0jr6eA2.jpg" alt=""></p>
+<p>1、在浏览器中输入<a href="http://www.qq.com域名，操作系统会先检查自己本地的hosts文件是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。" target="_blank" rel="noopener">www.qq.com域名，操作系统会先检查自己本地的hosts文件是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。</a> </p>
+<p>2、如果hosts里没有这个域名的映射，则查找本地DNS解析器缓存，是否有这个网址映射关系，如果有，直接返回，完成域名解析。 </p>
+<p>3、如果hosts与本地DNS解析器缓存都没有相应的网址映射关系，首先会找TCP/ip参数中设置的首选DNS服务器，在此我们叫它本地DNS服务器，此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。 </p>
+<p>4、如果要查询的域名，不由本地DNS服务器区域解析，但该服务器已缓存了此网址映射关系，则调用这个IP地址映射，完成域名解析，此解析不具有权威性。 <a id="more"></a></p>
+<p>5、如果本地DNS服务器本地区域文件与缓存解析都失效，则根据本地DNS服务器的设置（是否设置转发器）进行查询，如果未用转发模式，本地DNS就把请求发至13台根DNS，根DNS服务器收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个IP。本地DNS服务器收到IP信息后，将会联系负责.com域的这台服务器。这台负责.com域的服务器收到请求后，如果自己无法解析，它就会找一个管理.com域的下一级DNS服务器地址(qq.com)给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找qq.com域服务器，重复上面的动作，进行查询，直至找到<a href="http://www.qq.com主机。" target="_blank" rel="noopener">www.qq.com主机。</a> </p>
+<p>6、如果用的是转发模式，此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。不管是本地DNS服务器用是是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</p>
+<p>从客户端到本地DNS服务器是属于递归查询，而DNS服务器之间就是的交互查询就是迭代查询。</p>
+<p><strong>DNS服务器类别</strong></p>
+<p><strong>主域名服务器</strong></p>
+<p>负责维护这个区域的所有域名信息，是特定的所有信息的权威信息源</p>
+<p><strong>辅助域名服务器</strong></p>
+<p>当主域名服务器出现故障、关闭或负载过重时，辅助域名服务器作为备份服务提供域名解析服务。辅助域名服务器中的区域文件内的数据是从另外一台域名服务器复制过来的，并不是直接输入的，也就是说这个区域文件只是一份副本，这里的数据是无法修改的。</p>
+<p><strong>缓存服务器</strong></p>
+<p>可运行域名服务器软件但没有域名数据库。它从某个远程服务器取得每次域名服务器查询的回答，一旦获取一个答案，就将它放在高速缓存中，以后查询相同的信息时就用它予以回答。缓存域名服务器不是权威性服务器，因为提供的所有信息都是间接信息。</p>
+<p><strong>转发服务器</strong></p>
+<p>负责所有非本地域名的本地查询。转发域名服务器接到查询请求时，在其缓存中查找，如找不到就把请求依次转发到指定的域名服务器，直到查询到结果为止，否则返回无法映射的结果。</p>
+<h3 id="搭建一套DNS服务器，负责解析qq-com域名（自行设定主机名及IP）"><a href="#搭建一套DNS服务器，负责解析qq-com域名（自行设定主机名及IP）" class="headerlink" title="搭建一套DNS服务器，负责解析qq.com域名（自行设定主机名及IP）"></a>搭建一套DNS服务器，负责解析qq.com域名（自行设定主机名及IP）</h3><p>  (1)、能够对一些主机名进行正向解析和逆向解析；</p>
+<p>  (2)、对子域cdn.qq.com进行子域授权，子域负责解析对应子域中的主机名；</p>
+<p>  (3)、为了保证DNS服务系统的高可用性，请设计一套方案，并写出详细的实施过程</p>
+<p>先来个架构图：</p>
+<p><img src="http://i.imgur.com/OoFnAxj.jpg" alt=""></p>
+<p><strong>先来安装bind</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@DNS2 ~]<span class="comment"># yum install bind</span></span><br><span class="line"></span><br><span class="line">[root@DNS2 ~]<span class="comment"># rpm -qa |grep bind  #查看安装的包和版本</span></span><br><span class="line"><span class="built_in">bind</span>-9.8.2-0.47.rc1.el6_8.4.x86_64</span><br><span class="line"><span class="built_in">bind</span>-libs-9.8.2-0.47.rc1.el6_8.4.x86_64</span><br><span class="line">PackageKit-device-rebind-0.5.8-26.el6.x86_64</span><br><span class="line"><span class="built_in">bind</span>-utils-9.8.2-0.47.rc1.el6_8.4.x86_64</span><br><span class="line">[root@DNS2 ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>我是两台DNS测试机一起安装的，这里只列出其中同一台的安装操作命令。</p>
+<p><strong>主配置文件之一：/etc/named.conf</strong></p>
+<p><img src="http://i.imgur.com/wteqhjS.png" alt=""></p>
+<p><strong>主配置文件之二：/etc/named.rfc1912.zones</strong></p>
+<p>在文件尾部加上一下内容，这里就实现了能够对qq.com域名进行正向解析和逆向解析</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">zone <span class="string">"qq.com"</span> IN &#123;</span><br><span class="line">    <span class="built_in">type</span> master;</span><br><span class="line">    file <span class="string">"qq.com.zone"</span>;</span><br><span class="line">    allow-transter &#123; 192.168.0.244; &#125;; <span class="comment">#这里这行IP是从DNS服务器的IP</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">"0.168.192.in-addr.arpa"</span> IN &#123;</span><br><span class="line">    <span class="built_in">type</span> master</span><br><span class="line">    file <span class="string">"0.168.192.zone"</span>;</span><br><span class="line">    allow-transter &#123; 192.168.0.244; &#125;; <span class="comment">#这里这行IP是从DNS服务器的IP</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">[root@centos named]<span class="comment"># dig -x 192.168.0.116</span></span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.8.2rc1-RedHat-9.8.2-0.47.rc1.el6_8.4 &lt;&lt;&gt;&gt; -x 192.168.0.116</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 31489</span><br><span class="line">;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;116.0.168.192.in-addr.arpa.	IN	PTR</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">116.0.168.192.in-addr.arpa. 3600 IN	PTR	www.qq.com.</span><br><span class="line">116.0.168.192.in-addr.arpa. 3600 IN	PTR	ns1.qq.com.</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">0.168.192.in-addr.arpa.	3600	IN	NS	ns1.qq.com.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">ns1.qq.com.		3600	IN	A	192.168.0.116</span><br><span class="line"></span><br><span class="line">;; Query time: 0 msec</span><br><span class="line">;; SERVER: 127.0.0.1<span class="comment">#53(127.0.0.1)</span></span><br><span class="line">;; WHEN: Tue Feb 28 13:50:38 2017</span><br><span class="line">;; MSG SIZE  rcvd: 120</span><br><span class="line"></span><br><span class="line">[root@centos named]<span class="comment"># dig -t A www.qq.com</span></span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.8.2rc1-RedHat-9.8.2-0.47.rc1.el6_8.4 &lt;&lt;&gt;&gt; -t A www.qq.com</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 31217</span><br><span class="line">;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.qq.com.			IN	A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.qq.com.		3600	IN	A	192.168.0.116</span><br><span class="line"></span><br><span class="line">;; AUTHORITY SECTION:</span><br><span class="line">qq.com.		3600	IN	NS	ns1.qq.com.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">ns1.qq.com.		3600	IN	A	192.168.0.116</span><br><span class="line"></span><br><span class="line">;; Query time: 0 msec</span><br><span class="line">;; SERVER: 127.0.0.1<span class="comment">#53(127.0.0.1)</span></span><br><span class="line">;; WHEN: Tue Feb 28 13:51:04 2017</span><br><span class="line">;; MSG SIZE  rcvd: 82</span><br><span class="line"></span><br><span class="line">[root@centos named]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p><strong>接下来配置对子域cdn.qq.com进行子域授权，子域负责解析对应子域中的主机名</strong>、</p>
+<p>另外启动一台，安装bind</p>
+<p>vim /etc/named.conf </p>
+<p>vim /etc/named.rfc1912.zones  加入以下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zone <span class="string">"cdn.qq.com"</span> IN &#123;</span><br><span class="line">    <span class="built_in">type</span> master;</span><br><span class="line">    file <span class="string">"cdn.qq.com.zone"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>​     </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">vim /var/named/cdn.qq.com.zone</span><br><span class="line"><span class="variable">$TTL</span> 3600</span><br><span class="line"><span class="variable">$ORIGIN</span> cdn.qq.com.</span><br><span class="line">@   IN  SOA ns1.cdn.qq.com. admin.qq.com. (</span><br><span class="line">        122701</span><br><span class="line">        2H</span><br><span class="line">        10M</span><br><span class="line">        1W</span><br><span class="line">        1D )</span><br><span class="line">    IN  NS  ns1</span><br><span class="line">ns1 IN  A   192.168.20.51</span><br><span class="line">www IN  A   192.168.20.199</span><br><span class="line"><span class="comment"># chown :named /var/named/cdn.qq.com.zone</span></span><br><span class="line"><span class="comment"># chmod 640 /var/named/cdn.qq.com.zone</span></span><br><span class="line">检查named配置文件及区域配置文件：</span><br><span class="line"><span class="comment"># named-checkconf</span></span><br><span class="line"><span class="comment"># named-checkzone cdn.qq.com /var/named/cdn.qq.com.zone</span></span><br><span class="line"><span class="comment"># systemctl start named.service</span></span><br><span class="line">在主域S1上的配置：</span><br><span class="line"><span class="comment"># vim /var/named/qq.com.zone</span></span><br><span class="line">cdn IN  NS  ns1.cdn</span><br><span class="line">ns1.cdn IN  A   192.168.20.51</span><br><span class="line"><span class="comment"># rndc reload</span></span><br><span class="line">测试解析：</span><br><span class="line"><span class="comment"># dig -t A www.cdn.qq.com</span></span><br></pre></td></tr></table></figure>
+<h3 id="DNS服务器主从"><a href="#DNS服务器主从" class="headerlink" title="DNS服务器主从"></a>DNS服务器主从</h3><p>其实不难，就是很多细节要注意，我先贴配置文件吧</p>
+<p>主机  192.168.0.116</p>
+<p> /etc/named.conf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">options &#123;</span><br><span class="line">        listen-on port 53 &#123; 192.168.0.116; &#125;;</span><br><span class="line">//      listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">        directory       <span class="string">"/var/named"</span>;</span><br><span class="line">        dump-file       <span class="string">"/var/named/data/cache_dump.db"</span>;</span><br><span class="line">        statistics-file <span class="string">"/var/named/data/named_stats.txt"</span>;</span><br><span class="line">        memstatistics-file <span class="string">"/var/named/data/named_mem_stats.txt"</span>;</span><br><span class="line">        allow-query     &#123; any; &#125;;</span><br><span class="line">        recursion yes;</span><br><span class="line"></span><br><span class="line">        dnssec-enable no;</span><br><span class="line">        dnssec-validation no;</span><br><span class="line">        dnssec-lookaside no;</span><br><span class="line">        /* Path to ISC DLV key */</span><br><span class="line">//      bindkeys-file <span class="string">"/etc/named.iscdlv.key"</span>;</span><br><span class="line"></span><br><span class="line">//      managed-keys-directory <span class="string">"/var/named/dynamic"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file <span class="string">"data/named.run"</span>;</span><br><span class="line">                severity dynamic;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">"."</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> hint;</span><br><span class="line">        file <span class="string">"named.ca"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include <span class="string">"/etc/named.rfc1912.zones"</span>;</span><br><span class="line">include <span class="string">"/etc/named.root.key"</span>;</span><br></pre></td></tr></table></figure>
+<p>从机 192.168.0.117</p>
+<p> /etc/named.conf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">options &#123;</span><br><span class="line">        listen-on port 53 &#123; 192.168.0.117; &#125;;</span><br><span class="line">//      listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">        directory       <span class="string">"/var/named"</span>;</span><br><span class="line">        dump-file       <span class="string">"/var/named/data/cache_dump.db"</span>;</span><br><span class="line">        statistics-file <span class="string">"/var/named/data/named_stats.txt"</span>;</span><br><span class="line">        memstatistics-file <span class="string">"/var/named/data/named_mem_stats.txt"</span>;</span><br><span class="line">        allow-query     &#123; any; &#125;;</span><br><span class="line">        recursion yes;</span><br><span class="line"></span><br><span class="line">        dnssec-enable no;</span><br><span class="line">        dnssec-validation no;</span><br><span class="line">        dnssec-lookaside no;</span><br><span class="line">        /* Path to ISC DLV key */</span><br><span class="line">//      bindkeys-file <span class="string">"/etc/named.iscdlv.key"</span>;</span><br><span class="line"></span><br><span class="line">//      managed-keys-directory <span class="string">"/var/named/dynamic"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file <span class="string">"data/named.run"</span>;</span><br><span class="line">                severity dynamic;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">"."</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> hint;</span><br><span class="line">        file <span class="string">"named.ca"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include <span class="string">"/etc/named.rfc1912.zones"</span>;</span><br><span class="line">include <span class="string">"/etc/named.root.key"</span>;</span><br></pre></td></tr></table></figure>
+<p>打开辅助DNS服务器的/etc/named.rfc1912.zones文件，添加两个区域记录，这两个记录是主DNS服务器配置文件里已经存在的记录，一个是正向解析记录，一个是反向解析记录</p>
+<p>type: slave，表示此时DNS服务器为辅助DNS服务器，于是下面一行就要定义主DNS服务器的IP地址，辅助DNS服务器才知道去哪里同步数据。辅助DNS服务器的资源类型数据文件通常保存在slaves目录，只需定义一个名称，文件内容通常是自动生成。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">zone <span class="string">"qq.com"</span> IN &#123;</span><br><span class="line">    <span class="built_in">type</span> slave;</span><br><span class="line">    file <span class="string">"slaves/qq.com.zone"</span>;</span><br><span class="line">    masters &#123; 192.168.0.116; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">"0.168.192.in-addr.arpa"</span> IN &#123;</span><br><span class="line">    <span class="built_in">type</span> slave;</span><br><span class="line">    file <span class="string">"slaves/192.168.0.116.zone"</span>;</span><br><span class="line">    masters &#123; 192.168.0.116; &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>修改主DNS服务器的数据文件，添加一条辅助DNS服务器记录，给辅助DNS服务器授权。</p>
+<p>正向解析文件<br>vim /var/named/qq.com.zone</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$TTL</span> 3600</span><br><span class="line"><span class="variable">$ORIGIN</span> qq.com.</span><br><span class="line">@   IN  SOA ns1.qq.com. admin.qq.com. (</span><br><span class="line">        2016122703</span><br><span class="line">        2H</span><br><span class="line">        10M</span><br><span class="line">        1W</span><br><span class="line">        1D )</span><br><span class="line">    IN  NS  ns1</span><br><span class="line">ns1 IN  A   192.168.0.116</span><br><span class="line">www IN  A   192.168.0.116</span><br><span class="line">cdn IN  NS  ns1.cdn</span><br><span class="line">ns1.cdn IN  A   192.168.0.117</span><br><span class="line">    IN  NS  ns2</span><br><span class="line">ns2 IN  A   192.168.0.117</span><br></pre></td></tr></table></figure>
+<p>添加了一条NS记录，值为，ns2.qq.com.，对应的A记录也要增加一条，把IP地址指向对应的辅助DNS服务器的IP地址。修改完成后，记得要把序列号的值加1，用于通知辅助DNS服务器自动更新数据文件。</p>
+<p>修改反向解析文件/var/named/0.168.192.zone</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$TTL</span> 3600</span><br><span class="line"><span class="variable">$ORIGIN</span> 0.168.192.in-addr.arpa.</span><br><span class="line">@       IN      SOA     ns1.qq.com.  nsadmin.qq.com. (</span><br><span class="line">        16122702</span><br><span class="line">        1H</span><br><span class="line">        10M</span><br><span class="line">        3D</span><br><span class="line">        12H )</span><br><span class="line">         IN      NS      ns1.qq.com.</span><br><span class="line">116      IN      PTR     ns1.qq.com.</span><br><span class="line">116      IN      PTR     www.qq.com.</span><br><span class="line">         IN      NS      ns2.qq.com.</span><br><span class="line">117      IN      PTR     ns2.qq.com.</span><br></pre></td></tr></table></figure>
+<p>同样的也增加了两条记录，一条辅助DNS服务器的NS记录和对应的PTR记录。修改完成后记得所序列号的值加1，用于通知辅助DNS服务器自动更新数据文件。</p>
+<p>最后两边都把named服务重启一下，再rndc reload 就好</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/08/05/自建DNS总结/">自建DNS总结</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
+        <p><span>发布时间:</span>2018-08-05, 12:05:00</p>
+        <p><span>最后更新:</span>2018-08-05, 12:07:01</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/05/自建DNS总结/" title="自建DNS总结">https://zhusas.github.io/2018/08/05/自建DNS总结/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/05/自建DNS总结/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/08/05/通讯加密及私有CA/">
+                    通讯加密及私有CA
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS查询过程以及DNS服务器类别"><span class="toc-number">1.</span> <span class="toc-text">DNS查询过程以及DNS服务器类别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搭建一套DNS服务器，负责解析qq-com域名（自行设定主机名及IP）"><span class="toc-number">2.</span> <span class="toc-text">搭建一套DNS服务器，负责解析qq.com域名（自行设定主机名及IP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS服务器主从"><span class="toc-number">3.</span> <span class="toc-text">DNS服务器主从</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"自建DNS总结　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/08/05/通讯加密及私有CA/" title="下一篇: 通讯加密及私有CA">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/自建DNS总结/">自建DNS总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/通讯加密及私有CA/">通讯加密及私有CA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/CentOS系统的启动流程/">CentOS系统的启动流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本小练/">脚本小练</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本小工具/">OSI七层模型及脚本小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本又见脚本/">脚本又见脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux一些基本操作/">Linux一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux上的文件管理类命令其常用的使用方法及其相关示例演示/">Linux上的文件管理类命令其常用的使用方法及其相关示例演示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 Jerry Zhu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 10;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a").attr("target", "_blank");
+        $("#scroll a, #toc a").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
