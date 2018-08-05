@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jerry Zhu" />
+
+
+
+<meta name="description" content="为运行于虚拟机上的CentOS 6添加一块新硬件，提供两个主分区  (1) 为硬盘新建两个主分区；并为其安装grub；  (2) 为硬盘的第一个主分区提供内核和ramdisk文件； 为第二个分区提供rootfs；  (3) 为rootfs提供bash、ls、cat程序及所依赖的库文件；  (4) 为grub提供配置文件；  (5) 将新的硬盘设置为第一启动项并能够正常启动目标主机；">
+<meta name="keywords" content="shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="脚本写到手抽筋">
+<meta property="og:url" content="https://zhusas.github.io/2018/08/05/脚本写到手抽筋/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="为运行于虚拟机上的CentOS 6添加一块新硬件，提供两个主分区  (1) 为硬盘新建两个主分区；并为其安装grub；  (2) 为硬盘的第一个主分区提供内核和ramdisk文件； 为第二个分区提供rootfs；  (3) 为rootfs提供bash、ls、cat程序及所依赖的库文件；  (4) 为grub提供配置文件；  (5) 将新的硬盘设置为第一启动项并能够正常启动目标主机；">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-05T03:13:52.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="脚本写到手抽筋">
+<meta name="twitter:description" content="为运行于虚拟机上的CentOS 6添加一块新硬件，提供两个主分区  (1) 为硬盘新建两个主分区；并为其安装grub；  (2) 为硬盘的第一个主分区提供内核和ramdisk文件； 为第二个分区提供rootfs；  (3) 为rootfs提供bash、ls、cat程序及所依赖的库文件；  (4) 为grub提供配置文件；  (5) 将新的硬盘设置为第一启动项并能够正常启动目标主机；">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jerry&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>脚本写到手抽筋 | Jerry&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jerry Zhu</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于运维</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-脚本写到手抽筋" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/05/脚本写到手抽筋/" class="article-date">
+      <time datetime="2018-08-05T03:12:00.000Z" itemprop="datePublished">2018-08-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      脚本写到手抽筋
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="为运行于虚拟机上的CentOS-6添加一块新硬件，提供两个主分区"><a href="#为运行于虚拟机上的CentOS-6添加一块新硬件，提供两个主分区" class="headerlink" title="为运行于虚拟机上的CentOS 6添加一块新硬件，提供两个主分区"></a>为运行于虚拟机上的CentOS 6添加一块新硬件，提供两个主分区</h3><p>  (1) 为硬盘新建两个主分区；并为其安装grub；<br>  (2) 为硬盘的第一个主分区提供内核和ramdisk文件； 为第二个分区提供rootfs；<br>  (3) 为rootfs提供bash、ls、cat程序及所依赖的库文件；<br>  (4) 为grub提供配置文件；<br>  (5) 将新的硬盘设置为第一启动项并能够正常启动目标主机；<a id="more"></a></p>
+<p><strong>为硬盘新建两个主分区</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[root@centos ~]<span class="comment"># fdisk -l  #先来看看磁盘情况啊，你不看，一上来直接搞，小心搞出事情！！</span></span><br><span class="line"></span><br><span class="line">Disk /dev/sda: 171.8 GB, 171798691840 bytes</span><br><span class="line">255 heads, 63 sectors/track, 20886 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x00098b32</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sda1   *           1          64      512000   83  Linux</span><br><span class="line">Partition 1 does not end on cylinder boundary.</span><br><span class="line">/dev/sda2              64       20887   167259136   8e  Linux LVM</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 42.9 GB, 42949672960 bytes</span><br><span class="line">255 heads, 63 sectors/track, 5221 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x00000000</span><br><span class="line"></span><br><span class="line">Disk /dev/mapper/vg_centos-lv_root: 170.2 GB, 170196467712 bytes</span><br><span class="line">255 heads, 63 sectors/track, 20691 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x00000000</span><br><span class="line"></span><br><span class="line">Disk /dev/mapper/vg_centos-lv_swap: 1073 MB, 1073741824 bytes</span><br><span class="line">255 heads, 63 sectors/track, 130 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x00000000</span><br></pre></td></tr></table></figure>
+<p>​    </p>
+<p>不错不错，看到sdb了， 分的40G</p>
+<p><strong>开始分区</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">[root@centos ~]<span class="comment"># fdisk /dev/sdb</span></span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 42.9 GB, 42949672960 bytes</span><br><span class="line">255 heads, 63 sectors/track, 5221 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x86662f67</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</span><br><span class="line">Command action</span><br><span class="line">   e   extended</span><br><span class="line">   p   primary partition (1-4)</span><br><span class="line">p</span><br><span class="line">Partition number (1-4): 1</span><br><span class="line">First cylinder (1-5221, default 1): </span><br><span class="line">Using default value 1</span><br><span class="line">Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1-5221, default 5221): +20G</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 42.9 GB, 42949672960 bytes</span><br><span class="line">255 heads, 63 sectors/track, 5221 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x86662f67</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sdb1               1        2612    20980858+  83  Linux</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</span><br><span class="line">Command action</span><br><span class="line">   e   extended</span><br><span class="line">   p   primary partition (1-4)</span><br><span class="line">p</span><br><span class="line">Partition number (1-4): 2</span><br><span class="line">First cylinder (2613-5221, default 2613): </span><br><span class="line">Using default value 2613</span><br><span class="line">Last cylinder, +cylinders or +size&#123;K,M,G&#125; (2613-5221, default 5221): </span><br><span class="line">Using default value 5221</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 42.9 GB, 42949672960 bytes</span><br><span class="line">255 heads, 63 sectors/track, 5221 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk identifier: 0x86662f67</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sdb1               1        2612    20980858+  83  Linux</span><br><span class="line">/dev/sdb2            2613        5221    20956792+  83  Linux</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): w</span><br><span class="line">The partition table has been altered!</span><br></pre></td></tr></table></figure>
+<p><strong>分区完了就开始格式化了啊</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">[root@centos ~]<span class="comment"># mkfs.ext4 /dev/sdb1</span></span><br><span class="line">mke2fs 1.41.12 (17-May-2010)</span><br><span class="line">文件系统标签=</span><br><span class="line">操作系统:Linux</span><br><span class="line">块大小=4096 (<span class="built_in">log</span>=2)</span><br><span class="line">分块大小=4096 (<span class="built_in">log</span>=2)</span><br><span class="line">Stride=0 blocks, Stripe width=0 blocks</span><br><span class="line">1313760 inodes, 5245214 blocks</span><br><span class="line">262260 blocks (5.00%) reserved <span class="keyword">for</span> the super user</span><br><span class="line">第一个数据块=0</span><br><span class="line">Maximum filesystem blocks=4294967296</span><br><span class="line">161 block groups</span><br><span class="line">32768 blocks per group, 32768 fragments per group</span><br><span class="line">8160 inodes per group</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span><br><span class="line">	4096000</span><br><span class="line"></span><br><span class="line">正在写入inode表: 完成                            </span><br><span class="line">Creating journal (32768 blocks): 完成</span><br><span class="line">Writing superblocks and filesystem accounting information: 完成</span><br><span class="line"></span><br><span class="line">This filesystem will be automatically checked every 21 mounts or</span><br><span class="line">180 days, whichever comes first.  Use tune2fs -c or -i to override.</span><br><span class="line">[root@centos ~]<span class="comment"># mkfs.ext4 /dev/sdb2</span></span><br><span class="line">mke2fs 1.41.12 (17-May-2010)</span><br><span class="line">文件系统标签=</span><br><span class="line">操作系统:Linux</span><br><span class="line">块大小=4096 (<span class="built_in">log</span>=2)</span><br><span class="line">分块大小=4096 (<span class="built_in">log</span>=2)</span><br><span class="line">Stride=0 blocks, Stripe width=0 blocks</span><br><span class="line">1310720 inodes, 5239198 blocks</span><br><span class="line">261959 blocks (5.00%) reserved <span class="keyword">for</span> the super user</span><br><span class="line">第一个数据块=0</span><br><span class="line">Maximum filesystem blocks=4294967296</span><br><span class="line">160 block groups</span><br><span class="line">32768 blocks per group, 32768 fragments per group</span><br><span class="line">8192 inodes per group</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, </span><br><span class="line">	4096000</span><br><span class="line"></span><br><span class="line">正在写入inode表: 完成                            </span><br><span class="line">Creating journal (32768 blocks): 完成</span><br><span class="line">Writing superblocks and filesystem accounting information: 完成</span><br><span class="line"></span><br><span class="line">This filesystem will be automatically checked every 26 mounts or</span><br><span class="line">180 days, whichever comes first.  Use tune2fs -c or -i to override.</span><br></pre></td></tr></table></figure>
+<p><strong>挂载分区sdb1到/mnt/boot下</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centos mnt]<span class="comment">#mkdir boot</span></span><br><span class="line">[root@centos mnt]<span class="comment">#mount /dev/sdb1 /mnt/boot</span></span><br></pre></td></tr></table></figure>
+<p><strong>安装grub</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@centos mnt]<span class="comment"># grub-install --root-de</span></span><br><span class="line">[root@centos mnt]<span class="comment"># grub-install --root-directory=/mnt  /dev/sdb</span></span><br><span class="line">Probing devices to guess BIOS drives. This may take a long time.</span><br><span class="line">/dev/mapper/vg_centos-lv_root does not have any corresponding BIOS drive.</span><br><span class="line">[root@centos mnt]<span class="comment"># ll</span></span><br><span class="line">总用量 8</span><br><span class="line">drwxr-xr-x 3 root root 4096 2月  20 10:09 boot</span><br><span class="line">drwxr-xr-x 2 root root 4096 10月 18 10:41 hgfs</span><br><span class="line">[root@centos mnt]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p><strong>复制内核及ramdisk文件到sdb1上</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centos mnt]<span class="comment"># cp /boot/vmlinuz-2.6.32-642.13.1.el6.x86_64 /mnt/boot/vmlinuz</span></span><br><span class="line">[root@centos mnt]<span class="comment"># cp /boot/initramfs-2.6.32-642.13.1.el6.x86_64.img /mnt/boot/initramfs.img</span></span><br></pre></td></tr></table></figure>
+<p><strong>在/mnt/boot/grub目录下编辑新建grub.conf文件</strong></p>
+<p>   内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">default=0</span><br><span class="line">timeout=5</span><br><span class="line">title CentOS6(<span class="built_in">test</span>)</span><br><span class="line">root (hd0,0)</span><br><span class="line">kernel /vmlinuz ro root=/dev/sda2 selinux=0 init=/bin/bash</span><br><span class="line">initrd /initramfs.img</span><br></pre></td></tr></table></figure>
+<p><strong>挂载分区/dev/sdb2到/mnt/sysroot下</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/sysroot</span><br><span class="line">mount /dev/sdb2 /mnt/sysroot/</span><br></pre></td></tr></table></figure>
+<p><strong>建立FHS</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@centos sysroot]<span class="comment">#  mkdir -pv /mnt/sysroot/&#123;bin,dev,etc/&#123;rc.d/init.d,sysconfig/network-scripts&#125;,lib/modules,lib64,proc,sbin,sys,tmp,usr/local/&#123;bin,sbin&#125;,var/&#123;lock,log,run&#125;&#125;</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/bin"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/dev"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/etc"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/etc/rc.d"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/etc/rc.d/init.d"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/etc/sysconfig"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/etc/sysconfig/network-scripts"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/lib"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/lib/modules"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/lib64"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/proc"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/sbin"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/sys"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/tmp"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/usr"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/usr/local"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/usr/local/bin"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/usr/local/sbin"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/var"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/var/lock"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/var/log"</span></span><br><span class="line">mkdir: 已创建目录 <span class="string">"/mnt/sysroot/var/run"</span></span><br><span class="line">[root@centos sysroot]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p><strong>拷贝bash、ls、cat程序及其依赖库</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@centos sysroot]<span class="comment"># cp /bin/&#123;bash,ls,cat&#125; /mnt/sysroot/bin</span></span><br><span class="line"></span><br><span class="line">[root@centos bin]<span class="comment"># cp `ldd /bin/&#123;bash,ls,cat&#125;  |grep -oe "/lib.*[[:space:]]"|sort -u` /mnt/sysroot/lib64/</span></span><br><span class="line"></span><br><span class="line">[root@centos bin]<span class="comment"># chroot /mnt/sysroot</span></span><br></pre></td></tr></table></figure>
+<p><strong>chroot先测试一下</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos bin]<span class="comment"># chroot /mnt/sysroot</span></span><br><span class="line">bash-4.1<span class="comment"># ls</span></span><br><span class="line">bin  dev  etc  lib  lib64  proc  sbin  sys  tmp  usr  var</span><br><span class="line">bash-4.1<span class="comment"># exit</span></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">[root@centos bin]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>OK，接下来挂载到另外一台虚拟机上测试一下，亲测成功。</p>
+<h3 id="制作一个kickstart文件以及一个引导镜像。"><a href="#制作一个kickstart文件以及一个引导镜像。" class="headerlink" title="制作一个kickstart文件以及一个引导镜像。"></a>制作一个kickstart文件以及一个引导镜像。</h3><p>思路</p>
+<ol>
+<li>找到一个已安装好的centos的ks文件，一般位于/root/anaconda-ks.cfg，修修改改，生成一个自定义的ks.cfg文件。</li>
+<li>放到解压的原版IOS到某目录，添加ks文件。</li>
+<li>修改光盘的isolinux.cfg文件，在 append 指令后附加 ks 设置。</li>
+<li>再生成自定义的ISO文件。</li>
+<li>最后用此ISO去安装启动一台裸虚拟机测试是否能自动安装。</li>
+</ol>
+<p><strong>找到一个已安装好的centos的ks文件，一般位于/root/anaconda-ks.cfg，修修改改，生成一个自定义的ks.cfg文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#platform=x86, AMD64, 或 Intel EM64T</span></span><br><span class="line"><span class="comment">#version=DEVEL</span></span><br><span class="line"><span class="comment"># Firewall configuration</span></span><br><span class="line">firewall --disabled</span><br><span class="line"><span class="comment"># Install OS instead of upgrade</span></span><br><span class="line">install</span><br><span class="line"><span class="comment"># Use CDROM installation media</span></span><br><span class="line">cdrom</span><br><span class="line"><span class="comment"># Root password</span></span><br><span class="line">rootpw --iscrypted <span class="variable">$1</span><span class="variable">$Qo3PJbQH</span><span class="variable">$GyTUtGgr1U</span>.th4KTIrvfT1</span><br><span class="line"><span class="comment"># System authorization information</span></span><br><span class="line">auth  --useshadow  --passalgo=sha512</span><br><span class="line"><span class="comment"># Use graphical install</span></span><br><span class="line">graphical</span><br><span class="line">firstboot --<span class="built_in">disable</span></span><br><span class="line"><span class="comment"># System keyboard</span></span><br><span class="line">keyboard us</span><br><span class="line"><span class="comment"># System language</span></span><br><span class="line">lang zh_CN</span><br><span class="line"><span class="comment"># SELinux configuration</span></span><br><span class="line">selinux --disabled</span><br><span class="line"><span class="comment"># Installation logging level</span></span><br><span class="line">logging --level=info</span><br><span class="line"></span><br><span class="line"><span class="comment"># System timezone</span></span><br><span class="line">timezone  Asia/Shanghai</span><br><span class="line"><span class="comment"># Network information</span></span><br><span class="line">network  --bootproto=dhcp --device=eth1 --onboot=on</span><br><span class="line"><span class="comment"># System bootloader configuration</span></span><br><span class="line">bootloader --location=mbr</span><br><span class="line"><span class="comment"># Partition clearing information</span></span><br><span class="line">clearpart --all --initlabel </span><br><span class="line"><span class="comment"># Disk partitioning information</span></span><br><span class="line">part /boot --fstype=<span class="string">"ext4"</span> --size=500</span><br><span class="line">part swap --fstype=<span class="string">"swap"</span> --size=2000</span><br><span class="line">part / --fstype=<span class="string">"ext4"</span> --grow --size=1</span><br><span class="line"></span><br><span class="line">%packages</span><br><span class="line">@base</span><br><span class="line">@compat-libraries</span><br><span class="line">@graphical-admin-tools</span><br><span class="line">@legacy-unix</span><br><span class="line">@network-tools</span><br><span class="line">@xfce-desktop</span><br><span class="line">NetworkManager-openswan</span><br><span class="line">arptables_jf</span><br><span class="line">arpwatch</span><br><span class="line">audit-viewer</span><br><span class="line">authd</span><br><span class="line">cups-lpd</span><br><span class="line">dbench</span><br><span class="line">dropwatch</span><br><span class="line">dump</span><br><span class="line">ebtables</span><br><span class="line">ettercap</span><br><span class="line">finger</span><br><span class="line">finger-server</span><br><span class="line">firstaidkit-gui</span><br><span class="line">ipset</span><br><span class="line">iptraf</span><br><span class="line">iptstate</span><br><span class="line">krb5-appl-servers</span><br><span class="line">ksh</span><br><span class="line">lksctp-tools</span><br><span class="line">lshw-gui</span><br><span class="line">mipv6-daemon</span><br><span class="line">mksh</span><br><span class="line">mrtg</span><br><span class="line">ncompress</span><br><span class="line">netlabel_tools</span><br><span class="line">nmap</span><br><span class="line">openvpn</span><br><span class="line">policycoreutils-gui</span><br><span class="line">qstat</span><br><span class="line">rsh</span><br><span class="line">rsh-server</span><br><span class="line">rusers</span><br><span class="line">rusers-server</span><br><span class="line">rwho</span><br><span class="line">sabayon</span><br><span class="line">setroubleshoot</span><br><span class="line">stunnel</span><br><span class="line">system-config-kickstart</span><br><span class="line">system-config-lvm</span><br><span class="line">talk</span><br><span class="line">talk-server</span><br><span class="line">tcp_wrappers</span><br><span class="line">telnet</span><br><span class="line">telnet-server</span><br><span class="line">tftp</span><br><span class="line">vtun</span><br><span class="line">wireshark</span><br><span class="line">wireshark-gnome</span><br><span class="line">yumex</span><br><span class="line">-cpuspeed</span><br><span class="line">-irqbalance</span><br><span class="line">-mdadm</span><br><span class="line"></span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+<p><strong>放到解压的原版IOS到某目录，添加ks文件</strong></p>
+<p>我这里是用软碟通直接提取修改，所以就省略了</p>
+<p>还有一个坑就是ks配置文件里面用cdrom参数制定本地光盘安装会报错，建议用url方式。这个坑踩得我受伤了，就不写了。</p>
+<h3 id="应用服务服务脚本"><a href="#应用服务服务脚本" class="headerlink" title="应用服务服务脚本"></a>应用服务服务脚本</h3><p>  (1) 能接受四个参数：start, stop, restart, status<br>   start: 输出“starting 脚本名 finished.”<br>   …</p>
+<p>  (2) 其它任意参数，均报错退出；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span>  <span class="keyword">in</span></span><br><span class="line">    start)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"starting <span class="variable">$0</span> finished"</span></span><br><span class="line">          ;;</span><br><span class="line"></span><br><span class="line">    stop)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"stopping <span class="variable">$0</span> finished"</span></span><br><span class="line">          ;;</span><br><span class="line"></span><br><span class="line">    restart)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"restarting <span class="variable">$0</span> finished"</span></span><br><span class="line">          ;;</span><br><span class="line"></span><br><span class="line">    status)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">" <span class="variable">$0</span> status"</span>                               </span><br><span class="line">          ;;</span><br><span class="line"></span><br><span class="line">        *)</span><br><span class="line">           <span class="built_in">echo</span> <span class="string">"Usage: <span class="variable">$prog</span> &#123;start|stop|restart|status&#125;"</span></span><br><span class="line">           <span class="built_in">exit</span> 1</span><br><span class="line">          ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+<p>​    </p>
+<h3 id="判断给定的用户是否登录了当前系统"><a href="#判断给定的用户是否登录了当前系统" class="headerlink" title="判断给定的用户是否登录了当前系统"></a>判断给定的用户是否登录了当前系统</h3><p>  (1) 如果登录了，则显示用户登录，脚本终止；</p>
+<p>  (2) 每3秒钟，查看一次用户是否登录；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">until who | grep <span class="string">"^logstash\&gt;"</span> &amp;&gt; /dev/null; <span class="keyword">do</span></span><br><span class="line">    sleep 3</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="显示用户选定要查看的信息；"><a href="#显示用户选定要查看的信息；" class="headerlink" title="显示用户选定要查看的信息；"></a>显示用户选定要查看的信息；</h3><p>   cpu) display cpu info</p>
+<p>   mem) display memory info</p>
+<p>   disk) display disk info</p>
+<p>   quit) quit</p>
+<p>   非此四项选择，则提示错误，并要求用户重新选择，只到其给出正确的选择为止；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">cat &lt;&lt; EOF</span><br><span class="line">Display information as following shown selection</span><br><span class="line">cpu) display cpu info</span><br><span class="line">mem) display memory info</span><br><span class="line">disk) display disk info</span><br><span class="line">quit) quit</span><br><span class="line">************************************************</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">read</span> -p <span class="string">"Please input your selection: "</span> selection</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$selection</span> <span class="keyword">in</span></span><br><span class="line">    cpu) </span><br><span class="line">        lscpu</span><br><span class="line">        ;;</span><br><span class="line">    mem)</span><br><span class="line">        free -m</span><br><span class="line">        ;;</span><br><span class="line">    disk) </span><br><span class="line">        fdisk -l /dev/vd[a-z]</span><br><span class="line">        ;;</span><br><span class="line">    quit)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Bye Bye"</span></span><br><span class="line">        <span class="built_in">exit</span> 0</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Please input valid selection"</span></span><br><span class="line">        ;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="尝试用shell函数"><a href="#尝试用shell函数" class="headerlink" title="尝试用shell函数"></a>尝试用shell函数</h3><p>  (1) 用函数实现返回一个用户的UID和SHELL；用户名通过参数传递而来；</p>
+<p>  (2) 提示用户输入一个用户名或输入“quit”退出；</p>
+<p>  当输入的是用户名，则调用函数显示用户信息；</p>
+<p>  当用户输入quit，则退出脚本；进一步地：显示键入的用户相关信息后，再次提醒输出用户名或quit: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">userInfo</span></span>() &#123;</span><br><span class="line">        <span class="built_in">local</span> userLine=$(grep <span class="variable">$1</span> /etc/passwd)</span><br><span class="line">        <span class="built_in">local</span> userSHELL=<span class="variable">$&#123;userLine##*:&#125;</span></span><br><span class="line">        <span class="built_in">local</span> userID=$(<span class="built_in">echo</span> <span class="variable">$userLine</span> | cut -f3 -d:)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$userSHELL</span> and <span class="variable">$userID</span>"</span></span><br><span class="line">        </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">quit</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$1</span>"</span> == <span class="string">"quit"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Bye Bye"</span></span><br><span class="line">        <span class="built_in">exit</span> 2</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">read</span> -p <span class="string">"Please input your username or input 'quit': "</span> choice</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$choice</span>"</span> == <span class="string">"quit"</span> ]; <span class="keyword">then</span></span><br><span class="line">        quit <span class="variable">$choice</span></span><br><span class="line">        <span class="built_in">break</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> id <span class="variable">$choice</span> &gt;&amp; /dev/null; <span class="keyword">then</span></span><br><span class="line">        userInfo <span class="variable">$choice</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>​    </p>
+<h3 id="完成如下功能（使用shell函数）"><a href="#完成如下功能（使用shell函数）" class="headerlink" title="完成如下功能（使用shell函数）"></a>完成如下功能（使用shell函数）</h3><p>   (1) 提示用户输入一个可执行命令的名字；获取此命令依赖的所有库文件；</p>
+<p>   (2) 复制命令文件至/mnt/sysroot目录下的对应的rootfs的路径上，例如，如果复制的文件原路径是/usr/bin/useradd，则复制到/mnt/sysroot/usr/bin/目录中；</p>
+<p>   (3) 复制此命令依赖的各库文件至/mnt/sysroot目录下的对应的rootfs的路径上；规则同上面命令相关的要求；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"Please input a command: "</span> cmd</span><br><span class="line"></span><br><span class="line">cmdPath=$(<span class="built_in">which</span> <span class="variable">$cmd</span> | grep bin)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">cpCmd</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">cp <span class="variable">$cmdPath</span> /mnt/sysroot<span class="variable">$cmdpath</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Copy <span class="variable">$cmdPath</span> to path /mnt/sysroot/"</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">cpFile</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">libFile=$(ldd <span class="variable">$cmdPath</span> | grep -o <span class="string">"/[^[:space:]]\&#123;1,\&#125;"</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$libFile</span>; <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line">    cp <span class="variable">$lib</span> /mnt/sysroot<span class="variable">$cmdPath</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Copy <span class="variable">$libFile</span> to path/mnt/sysroot/<span class="variable">$cmdPath</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cpCmd</span><br><span class="line"></span><br><span class="line">cpFile</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
+        <p><span>发布时间:</span>2018-08-05, 11:12:00</p>
+        <p><span>最后更新:</span>2018-08-05, 11:13:52</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/05/脚本写到手抽筋/" title="脚本写到手抽筋">https://zhusas.github.io/2018/08/05/脚本写到手抽筋/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/05/脚本写到手抽筋/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/08/05/CentOS系统的启动流程/">
+                    CentOS系统的启动流程
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#为运行于虚拟机上的CentOS-6添加一块新硬件，提供两个主分区"><span class="toc-number">1.</span> <span class="toc-text">为运行于虚拟机上的CentOS 6添加一块新硬件，提供两个主分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#制作一个kickstart文件以及一个引导镜像。"><span class="toc-number">2.</span> <span class="toc-text">制作一个kickstart文件以及一个引导镜像。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用服务服务脚本"><span class="toc-number">3.</span> <span class="toc-text">应用服务服务脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判断给定的用户是否登录了当前系统"><span class="toc-number">4.</span> <span class="toc-text">判断给定的用户是否登录了当前系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#显示用户选定要查看的信息；"><span class="toc-number">5.</span> <span class="toc-text">显示用户选定要查看的信息；</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#尝试用shell函数"><span class="toc-number">6.</span> <span class="toc-text">尝试用shell函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#完成如下功能（使用shell函数）"><span class="toc-number">7.</span> <span class="toc-text">完成如下功能（使用shell函数）</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"脚本写到手抽筋　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/08/05/CentOS系统的启动流程/" title="下一篇: CentOS系统的启动流程">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/CentOS系统的启动流程/">CentOS系统的启动流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本小练/">脚本小练</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本小工具/">OSI七层模型及脚本小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本又见脚本/">脚本又见脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux一些基本操作/">Linux一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux上的文件管理类命令其常用的使用方法及其相关示例演示/">Linux上的文件管理类命令其常用的使用方法及其相关示例演示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 Jerry Zhu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 10;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a").attr("target", "_blank");
+        $("#scroll a, #toc a").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
