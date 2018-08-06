@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jerry Zhu" />
+
+
+
+<meta name="description" content="源码编译安装LNMP架构环境先下载nmp三件套wget http://nginx.org/download/nginx-1.12.0.tar.gz wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.18.tar.gz">
+<meta name="keywords" content="php,lnmp,nginx,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="源码编译LNMP">
+<meta property="og:url" content="https://zhusas.github.io/2018/08/06/源码编译LNMP/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="源码编译安装LNMP架构环境先下载nmp三件套wget http://nginx.org/download/nginx-1.12.0.tar.gz wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.18.tar.gz">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-06T06:47:17.548Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="源码编译LNMP">
+<meta name="twitter:description" content="源码编译安装LNMP架构环境先下载nmp三件套wget http://nginx.org/download/nginx-1.12.0.tar.gz wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.18.tar.gz">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jerry&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>源码编译LNMP | Jerry&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jerry Zhu</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fpm/">fpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lnmp/">lnmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/samba/">samba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsftp/">vsftp</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于运维</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-源码编译LNMP" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/06/源码编译LNMP/" class="article-date">
+      <time datetime="2018-08-06T06:46:00.000Z" itemprop="datePublished">2018-08-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      源码编译LNMP
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lnmp/">lnmp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="源码编译安装LNMP架构环境"><a href="#源码编译安装LNMP架构环境" class="headerlink" title="源码编译安装LNMP架构环境"></a>源码编译安装LNMP架构环境</h2><h3 id="先下载nmp三件套"><a href="#先下载nmp三件套" class="headerlink" title="先下载nmp三件套"></a><strong>先下载nmp三件套</strong></h3><p>wget <a href="http://nginx.org/download/nginx-1.12.0.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.12.0.tar.gz</a></p>
+<p>wget <a href="https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.18.tar.gz" target="_blank" rel="noopener">https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.18.tar.gz</a> <a id="more"></a></p>
+<p>wget <a href="http://tw1.php.net/get/php-5.6.30.tar.gz/from/this/mirror" target="_blank" rel="noopener">http://tw1.php.net/get/php-5.6.30.tar.gz/from/this/mirror</a> -O php-5.6.30.tar.gz </p>
+<h3 id="编译安装Nginx"><a href="#编译安装Nginx" class="headerlink" title="编译安装Nginx"></a><strong>编译安装Nginx</strong></h3><p>1、建立Nginx的程序目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]# mkdir -pv /opt/nginx</span><br><span class="line">mkdir: 已创建目录 &quot;/opt/nginx&quot;</span><br><span class="line">[root@CentOS7 ~]#</span><br></pre></td></tr></table></figure>
+<p>2、 安装依赖包 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 opt]# yum -y install openssl-devel pcre-devel zlib-devel</span><br></pre></td></tr></table></figure>
+<p>3、创建nginx用户和组 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 opt]# useradd -U nginx -s /sbin/nologin</span><br></pre></td></tr></table></figure>
+<p>前戏做足，接下来开始编译了，啊啊啊～～～～～</p>
+<p>4、进入到nginx源码目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 opt]# cd nginx-1.12.0/</span><br><span class="line">[root@CentOS7 nginx-1.12.0]#</span><br></pre></td></tr></table></figure>
+<p>输入以下编译命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/opt/nginx \</span><br><span class="line">--with-select_module \</span><br><span class="line">--with-threads \</span><br><span class="line">--with-file-aio \</span><br><span class="line">--with-http_ssl_module \</span><br><span class="line">--with-http_v2_module \</span><br><span class="line">--with-http_realip_module \</span><br><span class="line">--with-http_sub_module \</span><br><span class="line">--with-http_dav_module \</span><br><span class="line">--with-http_flv_module \</span><br><span class="line">--with-http_gunzip_module \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--with-http_secure_link_module \</span><br><span class="line">--with-http_degradation_module \</span><br><span class="line">--with-http_slice_module \</span><br><span class="line">--with-http_stub_status_module \</span><br><span class="line">--without-mail_pop3_module \</span><br><span class="line">--without-mail_imap_module \</span><br><span class="line">--without-mail_smtp_module \</span><br><span class="line">--with-stream \</span><br><span class="line">--with-stream_ssl_module \</span><br></pre></td></tr></table></figure>
+<p>敲两下回车</p>
+<p>如下输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line">checking for OS</span><br><span class="line"> + Linux 3.10.0-514.16.1.el7.x86_64 x86_64</span><br><span class="line">checking for C compiler ... found</span><br><span class="line"> + using GNU C compiler</span><br><span class="line"> + gcc version: 4.8.5 20150623 (Red Hat 4.8.5-11) (GCC) </span><br><span class="line">checking for gcc -pipe switch ... found</span><br><span class="line">checking for -Wl,-E switch ... found</span><br><span class="line">checking for gcc builtin atomic operations ... found</span><br><span class="line">checking for C99 variadic macros ... found</span><br><span class="line">checking for gcc variadic macros ... found</span><br><span class="line">checking for gcc builtin 64 bit byteswap ... found</span><br><span class="line">checking for unistd.h ... found</span><br><span class="line">checking for inttypes.h ... found</span><br><span class="line">checking for limits.h ... found</span><br><span class="line">checking for sys/filio.h ... not found</span><br><span class="line">checking for sys/param.h ... found</span><br><span class="line">checking for sys/mount.h ... found</span><br><span class="line">checking for sys/statvfs.h ... found</span><br><span class="line">checking for crypt.h ... found</span><br><span class="line">checking for Linux specific features</span><br><span class="line">checking for epoll ... found</span><br><span class="line">checking for EPOLLRDHUP ... found</span><br><span class="line">checking for EPOLLEXCLUSIVE ... not found</span><br><span class="line">checking for O_PATH ... found</span><br><span class="line">checking for sendfile() ... found</span><br><span class="line">checking for sendfile64() ... found</span><br><span class="line">checking for sys/prctl.h ... found</span><br><span class="line">checking for prctl(PR_SET_DUMPABLE) ... found</span><br><span class="line">checking for sched_setaffinity() ... found</span><br><span class="line">checking for crypt_r() ... found</span><br><span class="line">checking for sys/vfs.h ... found</span><br><span class="line">checking for nobody group ... found</span><br><span class="line">checking for poll() ... found</span><br><span class="line">checking for /dev/poll ... not found</span><br><span class="line">checking for kqueue ... not found</span><br><span class="line">checking for crypt() ... not found</span><br><span class="line">checking for crypt() in libcrypt ... found</span><br><span class="line">checking for F_READAHEAD ... not found</span><br><span class="line">checking for posix_fadvise() ... found</span><br><span class="line">checking for O_DIRECT ... found</span><br><span class="line">checking for F_NOCACHE ... not found</span><br><span class="line">checking for directio() ... not found</span><br><span class="line">checking for statfs() ... found</span><br><span class="line">checking for statvfs() ... found</span><br><span class="line">checking for dlopen() ... not found</span><br><span class="line">checking for dlopen() in libdl ... found</span><br><span class="line">checking for sched_yield() ... found</span><br><span class="line">checking for SO_SETFIB ... not found</span><br><span class="line">checking for SO_REUSEPORT ... found</span><br><span class="line">checking for SO_ACCEPTFILTER ... not found</span><br><span class="line">checking for SO_BINDANY ... not found</span><br><span class="line">checking for IP_BIND_ADDRESS_NO_PORT ... not found</span><br><span class="line">checking for IP_TRANSPARENT ... found</span><br><span class="line">checking for IP_BINDANY ... not found</span><br><span class="line">checking for IP_RECVDSTADDR ... not found</span><br><span class="line">checking for IP_PKTINFO ... found</span><br><span class="line">checking for IPV6_RECVPKTINFO ... found</span><br><span class="line">checking for TCP_DEFER_ACCEPT ... found</span><br><span class="line">checking for TCP_KEEPIDLE ... found</span><br><span class="line">checking for TCP_FASTOPEN ... found</span><br><span class="line">checking for TCP_INFO ... found</span><br><span class="line">checking for accept4() ... found</span><br><span class="line">checking for kqueue AIO support ... not found</span><br><span class="line">checking for Linux AIO support ... found</span><br><span class="line">checking for int size ... 4 bytes</span><br><span class="line">checking for long size ... 8 bytes</span><br><span class="line">checking for long long size ... 8 bytes</span><br><span class="line">checking for void * size ... 8 bytes</span><br><span class="line">checking for uint32_t ... found</span><br><span class="line">checking for uint64_t ... found</span><br><span class="line">checking for sig_atomic_t ... found</span><br><span class="line">checking for sig_atomic_t size ... 4 bytes</span><br><span class="line">checking for socklen_t ... found</span><br><span class="line">checking for in_addr_t ... found</span><br><span class="line">checking for in_port_t ... found</span><br><span class="line">checking for rlim_t ... found</span><br><span class="line">checking for uintptr_t ... uintptr_t found</span><br><span class="line">checking for system byte ordering ... little endian</span><br><span class="line">checking for size_t size ... 8 bytes</span><br><span class="line">checking for off_t size ... 8 bytes</span><br><span class="line">checking for time_t size ... 8 bytes</span><br><span class="line">checking for AF_INET6 ... found</span><br><span class="line">checking for setproctitle() ... not found</span><br><span class="line">checking for pread() ... found</span><br><span class="line">checking for pwrite() ... found</span><br><span class="line">checking for pwritev() ... found</span><br><span class="line">checking for sys_nerr ... found</span><br><span class="line">checking for localtime_r() ... found</span><br><span class="line">checking for posix_memalign() ... found</span><br><span class="line">checking for memalign() ... found</span><br><span class="line">checking for mmap(MAP_ANON|MAP_SHARED) ... found</span><br><span class="line">checking for mmap(&quot;/dev/zero&quot;, MAP_SHARED) ... found</span><br><span class="line">checking for System V shared memory ... found</span><br><span class="line">checking for POSIX semaphores ... not found</span><br><span class="line">checking for POSIX semaphores in libpthread ... found</span><br><span class="line">checking for struct msghdr.msg_control ... found</span><br><span class="line">checking for ioctl(FIONBIO) ... found</span><br><span class="line">checking for struct tm.tm_gmtoff ... found</span><br><span class="line">checking for struct dirent.d_namlen ... not found</span><br><span class="line">checking for struct dirent.d_type ... found</span><br><span class="line">checking for sysconf(_SC_NPROCESSORS_ONLN) ... found</span><br><span class="line">checking for openat(), fstatat() ... found</span><br><span class="line">checking for getaddrinfo() ... found</span><br><span class="line">checking for PCRE library ... found</span><br><span class="line">checking for PCRE JIT support ... found</span><br><span class="line">checking for OpenSSL library ... found</span><br><span class="line">checking for zlib library ... found</span><br><span class="line">creating objs/Makefile</span><br><span class="line"></span><br><span class="line">Configuration summary</span><br><span class="line">  + using threads</span><br><span class="line">  + using system PCRE library</span><br><span class="line">  + using system OpenSSL library</span><br><span class="line">  + using system zlib library</span><br><span class="line"></span><br><span class="line">  nginx path prefix: &quot;/opt/nginx&quot;</span><br><span class="line">  nginx binary file: &quot;/opt/nginx/sbin/nginx&quot;</span><br><span class="line">  nginx modules path: &quot;/opt/nginx/modules&quot;</span><br><span class="line">  nginx configuration prefix: &quot;/opt/nginx/conf&quot;</span><br><span class="line">  nginx configuration file: &quot;/opt/nginx/conf/nginx.conf&quot;</span><br><span class="line">  nginx pid file: &quot;/opt/nginx/logs/nginx.pid&quot;</span><br><span class="line">  nginx error log file: &quot;/opt/nginx/logs/error.log&quot;</span><br><span class="line">  nginx http access log file: &quot;/opt/nginx/logs/access.log&quot;</span><br><span class="line">  nginx http client request body temporary files: &quot;client_body_temp&quot;</span><br><span class="line">  nginx http proxy temporary files: &quot;proxy_temp&quot;</span><br><span class="line">  nginx http fastcgi temporary files: &quot;fastcgi_temp&quot;</span><br><span class="line">  nginx http uwsgi temporary files: &quot;uwsgi_temp&quot;</span><br><span class="line">  nginx http scgi temporary files: &quot;scgi_temp&quot;</span><br><span class="line"></span><br><span class="line">[root@CentOS7 nginx-1.12.0]# make -j4 &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>好，接下来/opt/nginx 目录下已经有文件集目录生成了，运行./sbin/nginx -V看看输出啥，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 sbin]# ./nginx -V</span><br><span class="line">nginx version: nginx/1.12.0</span><br><span class="line">built by gcc 4.8.5 20150623 (Red Hat 4.8.5-11) (GCC) </span><br><span class="line">built with OpenSSL 1.0.1e-fips 11 Feb 2013</span><br><span class="line">TLS SNI support enabled</span><br><span class="line">configure arguments: --prefix=/opt/nginx --with-select_module --with-threads --with-file-aio --with-http_ssl_module --with-http_v2_module --with-http_realip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --with-stream --with-stream_ssl_module</span><br><span class="line">[root@CentOS7 sbin]#</span><br></pre></td></tr></table></figure>
+<p>嗦嘎，编译成功！</p>
+<p>运行试试，记得配置防火墙规则，如果你要关掉防火墙也可以 </p>
+<p>[root@CentOS7 html]# systemctl stop firewalld.service<br>[root@CentOS7 html]# systemctl disable firewalld.service </p>
+<p>上边两条命令拿去不谢。</p>
+<p>开机ngixn还要启动啊，init脚本得做好咧，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># nginx This shell script takes care of starting and stopping</span><br><span class="line"># nginx</span><br><span class="line">#</span><br><span class="line"># chkconfig: - 13 68</span><br><span class="line"># description: nginx is a web server</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: $named</span><br><span class="line"># Short-Description: start|stop|status|restart|configtest </span><br><span class="line">### END INIT INFO</span><br><span class="line">#variables</span><br><span class="line">NGINX_BIN=&quot;/opt/nginx/sbin/nginx&quot;</span><br><span class="line">NGINX_CONF=&quot;/opt/nginx/conf/nginx.conf&quot;</span><br><span class="line">NGINX_PID=&quot;/opt/nginx/logs/nginx.pid&quot;</span><br><span class="line">NETSTAT=&quot;/bin/netstat&quot;</span><br><span class="line">alter=$1</span><br><span class="line">prog=nginx</span><br><span class="line">#load system function</span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line">#function:echo ok or error</span><br><span class="line">function if_no &#123;</span><br><span class="line">if [ $2 == 0 ]; then</span><br><span class="line">echo -n $&quot;$1 $&#123;prog&#125;:&quot; &amp;&amp; success &amp;&amp; echo</span><br><span class="line">else</span><br><span class="line">echo -n $&quot;$1 $&#123;prog&#125;:&quot; &amp;&amp; failure &amp;&amp; echo</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line">#start nginx</span><br><span class="line">function start &#123;</span><br><span class="line">if [ -s $&#123;NGINX_PID&#125; ]; then</span><br><span class="line">echo &quot;nginx already running&quot; </span><br><span class="line">else</span><br><span class="line">if [ `$&#123;NETSTAT&#125; -tnpl | grep nginx | wc -l` -eq 0 ]; then</span><br><span class="line">rm -f $&#123;NGINX_PID&#125; 2&gt;/dev/null</span><br><span class="line">$&#123;NGINX_BIN&#125; -c $&#123;NGINX_CONF&#125; </span><br><span class="line">if_no start $?</span><br><span class="line">	else</span><br><span class="line">$&#123;NETSTAT&#125; -tnpl | grep nginx | awk &apos;&#123; print $7&#125;&apos; | cut -d &apos;/&apos; -f 1 &gt; $&#123;NGINX_PID&#125;</span><br><span class="line">if_no start $?</span><br><span class="line">fi</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line">#stop nginx</span><br><span class="line">function stop &#123;</span><br><span class="line">if [ -s $&#123;NGINX_PID&#125; ]; then</span><br><span class="line">cat $&#123;NGINX_PID&#125; | xargs kill -QUIT</span><br><span class="line">if_no stop $?</span><br><span class="line">else</span><br><span class="line">	if [ `$&#123;NETSTAT&#125; -tnpl | grep nginx | wc -l` -eq 0 ]; then</span><br><span class="line">rm -f $&#123;NGINX_PID&#125; 2&gt;/dev/null</span><br><span class="line">if_no stop 0</span><br><span class="line">else</span><br><span class="line">rm -f $&#123;NGINX_PID&#125; 2&gt;/dev/null</span><br><span class="line">kill `$&#123;NETSTAT&#125; -tnpl | grep nginx | awk &apos;&#123; print $7&#125;&apos; | cut -d &apos;/&apos; -f 1`</span><br><span class="line">if_no stop $?</span><br><span class="line">fi</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line">function restart &#123;</span><br><span class="line">if [ -s $&#123;NGINX_PID&#125; ]; then</span><br><span class="line">cat $&#123;NGINX_PID&#125; | xargs kill -HUP</span><br><span class="line">if_no restart $?</span><br><span class="line">else</span><br><span class="line">stop</span><br><span class="line">sleep 1</span><br><span class="line">start</span><br><span class="line">fi</span><br><span class="line">&#125;</span><br><span class="line">function status &#123;</span><br><span class="line">$&#123;NETSTAT&#125; -tnpl | grep nginx | grep LISTEN</span><br><span class="line">[ $? == 0 ] &amp;&amp; echo &quot;nginx is running&quot; || echo &quot;nginx is not running&quot;</span><br><span class="line">&#125;</span><br><span class="line">function configtest &#123;</span><br><span class="line">$&#123;NGINX_BIN&#125; -t</span><br><span class="line">&#125;</span><br><span class="line">case $alter in</span><br><span class="line">start)</span><br><span class="line">start</span><br><span class="line">;;</span><br><span class="line">stop)</span><br><span class="line">stop</span><br><span class="line">;;</span><br><span class="line">restart)</span><br><span class="line">restart</span><br><span class="line">;;</span><br><span class="line">status)</span><br><span class="line">status</span><br><span class="line">;;</span><br><span class="line">configtest)</span><br><span class="line">configtest</span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">echo &quot;use:$&#123;NGINX&#125; &#123;start|stop|restart|status|configtest&#125;&quot;</span><br><span class="line">;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+<p>脚本根据自己的Nginx安装路径设置好，加上可执行权限，放到/etc/init.d/目录下，之后使用下面两行命令开机启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 init.d]# chkconfig --add nginx </span><br><span class="line">[root@CentOS7 init.d]# chkconfig nginx on</span><br></pre></td></tr></table></figure>
+<p>Nginx的安装配置就到这里啦</p>
+<h3 id="源码编译安装MySQL"><a href="#源码编译安装MySQL" class="headerlink" title="源码编译安装MySQL"></a><strong>源码编译安装MySQL</strong></h3><p><strong>参考资料</strong></p>
+<p>Installing MySQL from Source</p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/source-installation.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/source-installation.html</a></p>
+<p>How to Get MySQL</p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/getting-mysql.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/getting-mysql.html</a></p>
+<p>Building MySQL Server with CMake</p>
+<p><a href="https://dev.mysql.com/doc/internals/en/cmake.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/internals/en/cmake.html</a></p>
+<p>港真，看官方文档很重要，会给你指点迷津，少走弯路～～～～～</p>
+<p>开始啦，之前已经下载好源码包mysql-boost-5.7.18.tar.gz ，开始脱（jie）衣（ya）服（suo），开搞！啊啊啊～～～</p>
+<p>不过要注意哦，官网文档有这么一段“温馨提示”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Source Installation System Requirements</span><br><span class="line"></span><br><span class="line">Installation of MySQL from source requires several development tools. Some of these tools are needed no matter whether you use a standard source distribution or a development source tree. Other tool requirements depend on which installation method you use.</span><br><span class="line"></span><br><span class="line">To install MySQL from source, the following system requirements must be satisfied, regardless of installation method:</span><br><span class="line"></span><br><span class="line">    CMake, which is used as the build framework on all platforms. CMake can be downloaded from http://www.cmake.org.</span><br><span class="line"></span><br><span class="line">    A good make program. Although some platforms come with their own make implementations, it is highly recommended that you use GNU make 3.75 or higher. It may already be available on your system as gmake. GNU make is available from http://www.gnu.org/software/make/.</span><br><span class="line"></span><br><span class="line">    A working ANSI C++ compiler. See the description of the FORCE_UNSUPPORTED_COMPILER. option for some guidelines.</span><br><span class="line"></span><br><span class="line">    The Boost C++ libraries are required to build MySQL (but not to use it). Boost 1.59.0 must be installed. To obtain Boost and its installation instructions, visit the official site. After Boost is installed, tell the build system where the Boost files are located by defining the WITH_BOOST option when you invoke CMake. For example:</span><br><span class="line"></span><br><span class="line">    shell&gt; cmake . -DWITH_BOOST=/usr/local/boost_1_59_0</span><br><span class="line"></span><br><span class="line">Adjust the path as necessary to match your installation.</span><br><span class="line"></span><br><span class="line">Sufficient free memory. If you encounter problems such as “internal compiler error” when compiling large source files, it may be that you have too little memory. If compiling on a virtual machine, try increasing the memory allocation.</span><br><span class="line"></span><br><span class="line">Perl is needed if you intend to run test scripts. Most Unix-like systems include Perl. On Windows, you can use a version such as ActiveState Perl.</span><br></pre></td></tr></table></figure>
+<p><strong>为了照顾英文不好的同学，我简单说几句</strong></p>
+<p><strong>1、必须安装cmake，新版的MySQL采用cmak来编译。</strong></p>
+<p><strong>2、linux系统中的make版本最少在3.75及以上</strong></p>
+<p><strong>3、linux必须有C++编译器</strong></p>
+<p><strong>4、必须安装Boost 1.59.0，指定的1.59.0版本，其他的高版本、低版本都不行，就这一个版本</strong></p>
+<p><strong>下载boost1.59</strong></p>
+<p>[root@CentOS7 opt]# yum remove boost-1.53.0-26.el7.x86_64  #删除系统自带的低版本boost<br>[root@CentOS7 opt]# wget <a href="https://dl.bintray.com/boostorg/release/1.59.0/source/boost_1_59_0.tar.gz" target="_blank" rel="noopener">https://dl.bintray.com/boostorg/release/1.59.0/source/boost_1_59_0.tar.gz</a>   #下载新版本的boost</p>
+<p><strong>创建mysql用户、用户组及目录</strong></p>
+<p>[root@CentOS7 /]# mkdir -pv /opt/mysql5.7/{conf,data}<br>mkdir: created directory <code>/opt/mysql5.7&#39;
+mkdir: created directory</code>/opt/mysql5.7/conf’<br>mkdir: created directory `/opt/mysql5.7/data’</p>
+<p>[root@CentOS7 /]# groupadd -r mysql &amp;&amp; useradd -r -g mysql -s /bin/false -M mysql #增加mysql用户及用户组</p>
+<p><strong>安装依赖包保平安</strong></p>
+<p>yum install zlib-devel ncurses ncurses-devel bison</p>
+<p><strong>进入源码目录编译安装</strong></p>
+<p>[root@CentOS7 opt]# cd mysql-5.7.18/<br>[root@CentOS7 mysql-5.7.18]# </p>
+<p>输入以下编译参数：</p>
+<p>cmake . -DCMAKE_INSTALL_PREFIX=/opt/mysql5.7 -DMYSQL_DATADIR=/opt/mysql5.7/data -DSYSCONFDIR=/opt/mysql5.7/conf -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DMYSQL_UNIX_ADDR=/opt/mysql5.7/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DENABLED_LOCAL_INFILE=1 -DWITH_BOOST=/opt/tools -DENABLE_DOWNLOADS=1 -DDOWNLOAD_BOOST=1 -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNODB_MEMCACHED=on </p>
+<p>敲回车</p>
+<p>等一会儿，看到最后一句 – Build files have been written to: /opt/mysql-5.7.18 ，哈哈，OK。</p>
+<p>PS：这里有个坑，官方文档说的不是很清楚，boost1.59的压缩包下载下来后，-DWITH_BOOST的设置为压缩包所在的目录就行，也不用解压，例如我的boost1.59的压缩包放在/opt路径下，我这里就设置为-DWITH_BOOST=/opt</p>
+<p>下一步就make -j 8 &amp;&amp; make install</p>
+<p>嘿嘿，我用的是Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz</p>
+<p><strong>无惊无险，编译完成，接下来就是要做初始化啦</strong></p>
+<p>官方MySQL5.7文档里面有这么一段话：</p>
+<p>After installing MySQL, you must initialize the data directory, including the tables in the mysql system database.<br>在安装MySQL,您必须初始化数据目录,包括MySQL系统数据库中的表。</p>
+<p>As of MySQL 5.7.6, use the server to initialize the data directory:<br>自MySQL 5.7.6起，使用MySQL服务器初始化数据目录:</p>
+<p>命令例子<br>shell&gt; bin/mysqld –initialize –user=mysql</p>
+<p>Before MySQL 5.7.6, use mysql_install_db:<br>在MySQL 5.7.6之前,使用mysql_install_db:</p>
+<p>命令例子<br>shell&gt; bin/mysql_install_db –user=mysql</p>
+<p>OK，我这里采用的是mysqld –initialize来做初始化，哈哈哈哈哈哈哈～～～～～～～</p>
+<p>进入MySQL应用目录<br>[root@CentOS7 ~]# cd /opt/mysql5.7/<br>[root@CentOS7 mysql5.7]#</p>
+<p>初始化MySQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 mysql5.7]# ./bin/mysqld --initialize --user=mysql --basedir=/opt/mysql5.7 --datadir=/opt/mysql5.7/data</span><br><span class="line">2017-06-12T05:41:26.221750Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).</span><br><span class="line">2017-06-12T05:41:26.350566Z 0 [Warning] InnoDB: New log files created, LSN=45790</span><br><span class="line">2017-06-12T05:41:26.375260Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.</span><br><span class="line">2017-06-12T05:41:26.429865Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: c6bc1e39-4f31-11e7-ac7a-000c29bf2761.</span><br><span class="line">2017-06-12T05:41:26.430714Z 0 [Warning] Gtid table is not ready to be used. Table &apos;mysql.gtid_executed&apos; cannot be opened.</span><br><span class="line">2017-06-12T05:41:26.431659Z 1 [Note] A temporary password is generated for root@localhost: kTsP_fwzx9zY</span><br><span class="line">[root@CentOS7 mysql5.7]# date</span><br><span class="line">2017年 06月 12日 星期一 13:41:36 CST</span><br><span class="line">[root@CentOS7 mysql5.7]#</span><br></pre></td></tr></table></figure>
+<p>会自动完成初始化，并生成一个临时的密码，如上。</p>
+<p>上边有个报警 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use –explicit_defaults_for_timestamp server option (see documentation for more details).</p>
+<p>我是乖乖仔，照做，删除掉data目录下初始化生成的文件，再来一波:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 mysql5.7]# rm -rf data/*</span><br><span class="line">[root@CentOS7 mysql5.7]# ll data/</span><br><span class="line">总用量 0</span><br><span class="line">[root@CentOS7 mysql5.7]#  ./bin/mysqld --initialize --user=mysql --basedir=/opt/mysql5.7 --datadir=/opt/mysql5.7/data --explicit_defaults_for_timestamp</span><br><span class="line">2017-06-12T07:04:15.856329Z 0 [Warning] InnoDB: New log files created, LSN=45790</span><br><span class="line">2017-06-12T07:04:15.877492Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.</span><br><span class="line">2017-06-12T07:04:15.931186Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: 58c9d7b2-4f3d-11e7-a336-000c29bf2761.</span><br><span class="line">2017-06-12T07:04:15.931749Z 0 [Warning] Gtid table is not ready to be used. Table &apos;mysql.gtid_executed&apos; cannot be opened.</span><br><span class="line">2017-06-12T07:04:15.932352Z 1 [Note] A temporary password is generated for root@localhost: l&gt;58J50te/vw</span><br><span class="line">[root@CentOS7 mysql5.7]#</span><br></pre></td></tr></table></figure>
+<p>报警没有了，嘿嘿。</p>
+<p><strong>编辑配置文件，添加以下内容</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">port=3306</span><br><span class="line">socket=/tmp/mysql.sock</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">basedir =/usr/local/mysql</span><br><span class="line">datadir =/mydata/data</span><br><span class="line">port =3306</span><br><span class="line">server_id =1</span><br><span class="line">socket =/tmp/mysql.sock</span><br><span class="line">pid-file=/mydata/data/mysql.pid</span><br><span class="line"></span><br><span class="line">bind-address=localhost</span><br><span class="line">#skip-grant-tables</span><br></pre></td></tr></table></figure>
+<p>拷贝配置文件<br>cp support-files/my-default.cnf /opt/mysql5.7/conf/my.cnf</p>
+<p>拷贝启动脚本<br>cp support-files/mysql.server /etc/init.d/mysqld</p>
+<p>chmod +x /etc/init.d/mysqld</p>
+<p>编辑启动脚本<br>主要编辑basedir和datadir这两项</p>
+<p>chkconfig  –add mysqld<br>chkconfig  mysqld on</p>
+<p>[root@CentOS7 opt]# service mysqld start<br>Starting MySQL.                                            [  确定  ]</p>
+<p>[root@CentOS7 opt]# service mysqld status<br>MySQL running (104746)                                     [  确定  ]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 opt]# netstat -ntlp</span><br><span class="line">Active Internet connections (only servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    </span><br><span class="line">tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      1/systemd           </span><br><span class="line">tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN      14334/dnsmasq       </span><br><span class="line">tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      14074/sshd          </span><br><span class="line">tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      14071/cupsd         </span><br><span class="line">tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN      14300/master        </span><br><span class="line">tcp        0      0 127.0.0.1:6010          0.0.0.0:*               LISTEN      98390/sshd: root@pt </span><br><span class="line">tcp        0      0 127.0.0.1:6011          0.0.0.0:*               LISTEN      103809/sshd: root@p </span><br><span class="line">tcp6       0      0 :::3306                 :::*                    LISTEN      104746/mysqld       </span><br><span class="line">tcp6       0      0 :::111                  :::*                    LISTEN      1/systemd           </span><br><span class="line">tcp6       0      0 :::22                   :::*                    LISTEN      14074/sshd          </span><br><span class="line">tcp6       0      0 ::1:631                 :::*                    LISTEN      14071/cupsd         </span><br><span class="line">tcp6       0      0 ::1:25                  :::*                    LISTEN      14300/master        </span><br><span class="line">tcp6       0      0 ::1:6010                :::*                    LISTEN      98390/sshd: root@pt </span><br><span class="line">tcp6       0      0 ::1:6011                :::*                    LISTEN      103809/sshd: root@p</span><br></pre></td></tr></table></figure>
+<p>爽爽爽～～～～～</p>
+<p><strong>全局变量</strong><br>为了直接使用，加到环境变量里，修改/etc/profile文件，在文件末尾添加：<br>export PATH=/opt/mysql5.7/bin:$PATH</p>
+<p>source /etc/profile</p>
+<p><strong>设置root用户可以远程访问</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 data]#  mysql -u root -p </span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 3</span><br><span class="line">Server version: 5.7.17</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; set password = password(&apos;123456&apos;);</span><br><span class="line"></span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;123456&apos; WITH GRANT OPTION;</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; flush privileges; </span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>关闭CentOS7的防火墙，再用第三方数据库管理工具连接测试，OK啦。</p>
+<p>MySQL5.7 编译安装完毕</p>
+<h3 id="源码编译安装PHP5"><a href="#源码编译安装PHP5" class="headerlink" title="源码编译安装PHP5"></a><strong>源码编译安装PHP5</strong></h3><p><strong>安装依赖库保平安</strong></p>
+<p>yum -y install gd zlib zlib-devel openssl openssl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel libticonv.x86_64 libticonv-devel.x86_64</p>
+<p>具备第三方源的前提下的平安符<br>yum -y install gd zlib zlib-devel openssl openssl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel libticonv.x86_64 libticonv-devel.x86_64 php-mcrypt libmcrypt libmcrypt-devel mhash mhash-devel libevent libevent-devel libxml2 libxml2-devel bzip2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel</p>
+<p><strong>依赖包的一些点滴</strong></p>
+<p><strong>扩展支持(mcrypt、mhash扩展和libevent)</strong></p>
+<p>如果想让编译的php支持mcrypt、mhash扩展和libevent，需要安装以下包<br>libmcrypt<br>libmcrypt-devel<br>mhash<br>mhash-devel</p>
+<p>说明：<br>mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原。<br>mhash是基于离散数学原理的不可逆向的php加密方式扩展库，其在默认情况下不开启。<br>mhash的可以用于创建校验数值，消息摘要，消息认证码，以及无需原文的关键信息保存（如密码）等。</p>
+<p>centos源不能安装libmcrypt-devel，由于版权的原因没有自带mcrypt的包，不过我在centos7中安装了epel源，哈哈哈。</p>
+<p>使用yum命令安装</p>
+<pre><code># yum install php-mcrypt libmcrypt libmcrypt-devel mhash mhash-devel
+</code></pre><p><strong>libevent相关包</strong><br>libevent是一个异步事件通知库文件，其API提供了在某文件描述上发生某事件时或其超时时执行回调函数的机制<br>它主要用来替换事件驱动的网络服务器上的event loop机制。目前来说， libevent支持/dev/poll、kqueue、select、poll、epoll及Solaris的event ports。可以根据需要安装libevent，系统一般会自带libevent，但版本有些低。</p>
+<p> 使用yum命令安装</p>
+<p>yum install libevent libevent-devel</p>
+<p><strong>支持xml的相关包</strong><br>bzip2 是一个基于Burrows-Wheeler 变换的无损压缩软件能够高效的完成文件数据的压缩<br>libcurl主要功能就是用不同的协议连接和沟通不同的服务器，也就是相当封装了的sockPHP<br>libcurl允许你用不同的协议连接和沟通不同的服务器</p>
+<p>yum install libxml2 libxml2-devel bzip2-devel libcurl-devel</p>
+<p><strong>图形相关的rpm包</strong><br>通常对应的错误提示：JIS-mapped Japanese font support in GD</p>
+<p>yum install libjpeg-devel libpng-devel freetype-devel</p>
+<p>来个一条龙<br>yum -y install gd zlib zlib-devel openssl openssl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel libticonv.x86_64 libticonv-devel.x86_64 php-mcrypt libmcrypt libmcrypt-devel mhash mhash-devel libevent libevent-devel libxml2 libxml2-devel bzip2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel</p>
+<p>前戏做足，好戏开始，各位同学往下面看，下面哦。。。。。。</p>
+<p>[root@CentOS7 php-5.6.30]# tar zxvf php-5.6.30.tar.gz    #解压源码包</p>
+<p>[root@CentOS7 tools]# cd php-5.6.30/         #进入PHP源码目录</p>
+<p>[root@CentOS7 php-5.6.30]# </p>
+<p>输下编译命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/opt/php \</span><br><span class="line">--sysconfdir=/opt/php/etc \</span><br><span class="line">--enable-fpm \</span><br><span class="line">--enable-pcntl \</span><br><span class="line">--enable-shmop \</span><br><span class="line">--enable-sysvmsg \</span><br><span class="line">--enable-sysvsem \</span><br><span class="line">--enable-sysvshm \</span><br><span class="line">--enable-sockets \</span><br><span class="line">--enable-shared \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--enable-xml \</span><br><span class="line">--enable-opcache \</span><br><span class="line">--enable-bcmath \</span><br><span class="line">--enable-soap \</span><br><span class="line">--enable-zip \</span><br><span class="line">--with-mysqli=/opt/mysql5.7/bin/mysql_config \</span><br><span class="line">--with-mysql=/opt/mysql5.7 \</span><br><span class="line">--with-openssl \</span><br><span class="line">--with-freetype-dir \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-png-dir \</span><br><span class="line">--with-zlib \</span><br><span class="line">--with-libxml-dir=/usr \</span><br><span class="line">--with-iconv \</span><br><span class="line">--with-mhash \</span><br><span class="line">--with-mcrypt \</span><br><span class="line">--with-config-file-path=/opt/php/etc \</span><br><span class="line">--with-config-file-scan-dir=/opt/php/etc/php.d \</span><br><span class="line">--with-bz2 \</span><br><span class="line">--with-curl \</span><br><span class="line">--with-gettext \</span><br><span class="line">--with-gd \</span><br></pre></td></tr></table></figure>
+<p>–with-mysqli=/opt/mysql5.7/bin/mysql_config 和–with-mysql=/opt/mysql5.7 这两个参数，我指向了自己编译安装的MySQL5.7.17 目录</p>
+<p>最后看到下面这一段话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Generating files</span><br><span class="line">configure: creating ./config.status</span><br><span class="line">creating main/internal_functions.c</span><br><span class="line">creating main/internal_functions_cli.c</span><br><span class="line">+--------------------------------------------------------------------+</span><br><span class="line">| License:                                                           |</span><br><span class="line">| This software is subject to the PHP License, available in this     |</span><br><span class="line">| distribution in the file LICENSE.  By continuing this installation |</span><br><span class="line">| process, you are bound by the terms of this license agreement.     |</span><br><span class="line">| If you do not agree with the terms of this license, you must abort |</span><br><span class="line">| the installation process at this point.                            |</span><br><span class="line">+--------------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line">Thank you for using PHP.</span><br><span class="line"></span><br><span class="line">config.status: creating php5.spec</span><br><span class="line">config.status: creating main/build-defs.h</span><br><span class="line">config.status: creating scripts/phpize</span><br><span class="line">config.status: creating scripts/man1/phpize.1</span><br><span class="line">config.status: creating scripts/php-config</span><br><span class="line">config.status: creating scripts/man1/php-config.1</span><br><span class="line">config.status: creating sapi/cli/php.1</span><br><span class="line">config.status: creating sapi/fpm/php-fpm.conf</span><br><span class="line">config.status: creating sapi/fpm/init.d.php-fpm</span><br><span class="line">config.status: creating sapi/fpm/php-fpm.service</span><br><span class="line">config.status: creating sapi/fpm/php-fpm.8</span><br><span class="line">config.status: creating sapi/fpm/status.html</span><br><span class="line">config.status: creating sapi/cgi/php-cgi.1</span><br><span class="line">config.status: creating ext/phar/phar.1</span><br><span class="line">config.status: creating ext/phar/phar.phar.1</span><br><span class="line">config.status: creating main/php_config.h</span><br><span class="line">config.status: main/php_config.h is unchanged</span><br><span class="line">config.status: executing default commands</span><br><span class="line">[root@CentOS7 php-5.6.30]#</span><br></pre></td></tr></table></figure>
+<p>然后就是 make -j 8 &amp;&amp; make install </p>
+<p>就这么完成了编译安装php5.6.30</p>
+<p><strong>为php-fpm提供Sysv init脚本，并将其添加至服务列表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]# cp /opt/tools/php-5.6.30/sapi/fpm/init.d.php-fpm /etc/rc.d/init.d/php-fpm</span><br><span class="line">[root@CentOS7 ~]# chmod +x /etc/rc.d/init.d/php-fpm</span><br><span class="line">[root@CentOS7 ~]# chkconfig --add php-fpm &amp;&amp; chkconfig php-fpm on</span><br><span class="line">[root@CentOS7 ~]#</span><br></pre></td></tr></table></figure>
+<p><strong>为php-fpm提供配置文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]# cd /opt/php/etc/</span><br><span class="line">[root@CentOS7 etc]# ls</span><br><span class="line">pear.conf  php-fpm.conf.default</span><br><span class="line">[root@CentOS7 etc]# cp php-fpm.conf.default php-fpm.conf</span><br><span class="line">[root@CentOS7 etc]# ll</span><br><span class="line">总用量 52</span><br><span class="line">-rw-r--r-- 1 root root  1167 6月  13 15:51 pear.conf</span><br><span class="line">-rw-r--r-- 1 root root 22752 6月  13 16:05 php-fpm.conf</span><br><span class="line">-rw-r--r-- 1 root root 22752 6月  13 15:51 php-fpm.conf.default</span><br><span class="line">[root@CentOS7 etc]#</span><br></pre></td></tr></table></figure>
+<p><strong>编辑php-fpm的配置文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">配置fpm的相关选项为你所需要的值，并启用pid文件（如下最后一行）：</span><br><span class="line">pm.max_children = 150</span><br><span class="line">pm.start_servers = 8</span><br><span class="line">pm.min_spare_servers = 5</span><br><span class="line">pm.max_spare_servers = 10</span><br><span class="line">pid = run/php-fpm.pid</span><br></pre></td></tr></table></figure>
+<p><strong>接下来就可以启动php-fpm了</strong></p>
+<p>service php-fpm start</p>
+<p>[root@CentOS7 etc]# ps axuf |grep php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 etc]# ps axuf |grep php</span><br><span class="line">root      74719  0.0  0.0 112664   972 pts/1    S+   16:21   0:00          \_ grep --color=auto php</span><br><span class="line">root      74700  0.0  0.1 125980  5032 ?        Ss   16:21   0:00 php-fpm: master process (/opt/php/etc/php-fpm.conf)</span><br><span class="line">nobody    74701  0.0  0.1 128064  5108 ?        S    16:21   0:00  \_ php-fpm: pool www</span><br><span class="line">nobody    74702  0.0  0.1 128064  5108 ?        S    16:21   0:00  \_ php-fpm: pool www</span><br><span class="line">nobody    74703  0.0  0.1 128064  5108 ?        S    16:21   0:00  \_ php-fpm: pool www</span><br><span class="line">nobody    74704  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www</span><br><span class="line">nobody    74705  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www</span><br><span class="line">nobody    74706  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www</span><br><span class="line">nobody    74707  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www</span><br><span class="line">nobody    74708  0.0  0.1 128064  5112 ?        S    16:21   0:00  \_ php-fpm: pool www</span><br><span class="line">[root@CentOS7 etc]#</span><br></pre></td></tr></table></figure>
+<p><strong>整合nginx和php5</strong></p>
+<p>1、编辑 /opt/nginx/conf/nginx.conf，启用如下选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location ~ \.php$ &#123;</span><br><span class="line">	    root           html;</span><br><span class="line">	    fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">	    fastcgi_index  index.php;</span><br><span class="line">	    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">	    include        fastcgi_params;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>2、vim /opt/nginx/conf/fastcgi_params，将其内容更改为如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;</span><br><span class="line">fastcgi_param  SERVER_SOFTWARE    nginx;</span><br><span class="line">fastcgi_param  QUERY_STRING       $query_string;</span><br><span class="line">fastcgi_param  REQUEST_METHOD     $request_method;</span><br><span class="line">fastcgi_param  CONTENT_TYPE       $content_type;</span><br><span class="line">fastcgi_param  CONTENT_LENGTH     $content_length;</span><br><span class="line">fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;</span><br><span class="line">fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;</span><br><span class="line">fastcgi_param  REQUEST_URI        $request_uri;</span><br><span class="line">fastcgi_param  DOCUMENT_URI       $document_uri;</span><br><span class="line">fastcgi_param  DOCUMENT_ROOT      $document_root;</span><br><span class="line">fastcgi_param  SERVER_PROTOCOL    $server_protocol;</span><br><span class="line">fastcgi_param  REMOTE_ADDR        $remote_addr;</span><br><span class="line">fastcgi_param  REMOTE_PORT        $remote_port;</span><br><span class="line">fastcgi_param  SERVER_ADDR        $server_addr;</span><br><span class="line">fastcgi_param  SERVER_PORT        $server_port;</span><br><span class="line">fastcgi_param  SERVER_NAME        $server_name;</span><br></pre></td></tr></table></figure>
+<p>并在所支持的主页面格式中添加php格式的主页，类似如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">	    root   html;</span><br><span class="line">	    index  index.php index.html index.htm;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>而后重新载入nginx的配置文件：</p>
+<p>service nginx reload</p>
+<p>3、在/opt/nginx/html新建index.php的测试页面，测试php是否能正常工作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>接着就可以通过浏览器访问此测试页面了。</p>
+<p>此处有个坑   浏览器访问，不能解析，显示“ File not found.”</p>
+<p>fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</p>
+<p>这一句有问题， /scripts是一个目录名，也就是你站点的根目录，比如说，你访问/index.php这个文件，其实就是访问操作系统中/scripts/index.php这个文件，这个文件是否存在？/scripts 改成 $document_root 就好了，呵呵。</p>
+<h2 id="一键搭建LNMP源码编译环境"><a href="#一键搭建LNMP源码编译环境" class="headerlink" title="一键搭建LNMP源码编译环境"></a>一键搭建LNMP源码编译环境</h2><p>请移步<br><a href="https://github.com/zhusas/lnmp" target="_blank" rel="noopener">https://github.com/zhusas/lnmp</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/08/06/源码编译LNMP/">源码编译LNMP</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
+        <p><span>发布时间:</span>2018-08-06, 14:46:00</p>
+        <p><span>最后更新:</span>2018-08-06, 14:47:17</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/06/源码编译LNMP/" title="源码编译LNMP">https://zhusas.github.io/2018/08/06/源码编译LNMP/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/06/源码编译LNMP/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/08/06/sed和awk的详细用法/">
+                    sed和awk的详细用法
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码编译安装LNMP架构环境"><span class="toc-number">1.</span> <span class="toc-text">源码编译安装LNMP架构环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#先下载nmp三件套"><span class="toc-number">1.1.</span> <span class="toc-text">先下载nmp三件套</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译安装Nginx"><span class="toc-number">1.2.</span> <span class="toc-text">编译安装Nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源码编译安装MySQL"><span class="toc-number">1.3.</span> <span class="toc-text">源码编译安装MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源码编译安装PHP5"><span class="toc-number">1.4.</span> <span class="toc-text">源码编译安装PHP5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一键搭建LNMP源码编译环境"><span class="toc-number">2.</span> <span class="toc-text">一键搭建LNMP源码编译环境</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"源码编译LNMP　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/08/06/sed和awk的详细用法/" title="下一篇: sed和awk的详细用法">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/源码编译LNMP/">源码编译LNMP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/sed和awk的详细用法/">sed和awk的详细用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/Linux防火墙的随笔/">Linux防火墙的随笔</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/vsftp文件共享服务/">vsftp文件共享服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/建立samba共享/">建立samba共享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/自签证书使用户可以通过https访问站点/">自签证书使用户可以通过https访问站点</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/Apache所支持的处理模型及应用环境/">Apache所支持的处理模型及应用环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/一次完整的http请求处理过程/">一次完整的http请求处理过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/自建DNS总结/">自建DNS总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/通讯加密及私有CA/">通讯加密及私有CA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/CentOS系统的启动流程/">CentOS系统的启动流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本小练/">脚本小练</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本小工具/">OSI七层模型及脚本小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本又见脚本/">脚本又见脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux一些基本操作/">Linux一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux上的文件管理类命令其常用的使用方法及其相关示例演示/">Linux上的文件管理类命令其常用的使用方法及其相关示例演示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 Jerry Zhu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 10;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a").attr("target", "_blank");
+        $("#scroll a, #toc a").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

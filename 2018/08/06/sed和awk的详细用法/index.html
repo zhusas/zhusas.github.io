@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jerry Zhu" />
+
+
+
+<meta name="description" content="sed用法sed(Stream EDitor)是一款流编辑器，用来对文本进行过滤与替换操作。其原理是：通过文件或管道读取文件内容，但是sed默认并不直接修改源文件，而是一次仅读取文件的一行至模式空间(pattern space)根据sed指令进行编辑并输出结果后清除模式空间，即所有的操作都是在模式空间中进行的。">
+<meta name="keywords" content="awk,sed">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sed和awk的详细用法">
+<meta property="og:url" content="https://zhusas.github.io/2018/08/06/sed和awk的详细用法/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="sed用法sed(Stream EDitor)是一款流编辑器，用来对文本进行过滤与替换操作。其原理是：通过文件或管道读取文件内容，但是sed默认并不直接修改源文件，而是一次仅读取文件的一行至模式空间(pattern space)根据sed指令进行编辑并输出结果后清除模式空间，即所有的操作都是在模式空间中进行的。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://i.imgur.com/Htcg1Zv.png">
+<meta property="og:updated_time" content="2018-08-06T06:31:40.595Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sed和awk的详细用法">
+<meta name="twitter:description" content="sed用法sed(Stream EDitor)是一款流编辑器，用来对文本进行过滤与替换操作。其原理是：通过文件或管道读取文件内容，但是sed默认并不直接修改源文件，而是一次仅读取文件的一行至模式空间(pattern space)根据sed指令进行编辑并输出结果后清除模式空间，即所有的操作都是在模式空间中进行的。">
+<meta name="twitter:image" content="http://i.imgur.com/Htcg1Zv.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jerry&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>sed和awk的详细用法 | Jerry&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jerry Zhu</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fpm/">fpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lnmp/">lnmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/samba/">samba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsftp/">vsftp</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于运维</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-sed和awk的详细用法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/06/sed和awk的详细用法/" class="article-date">
+      <time datetime="2018-08-06T06:30:00.000Z" itemprop="datePublished">2018-08-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      sed和awk的详细用法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/awk/">awk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sed/">sed</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="sed用法"><a href="#sed用法" class="headerlink" title="sed用法"></a>sed用法</h3><p>sed(Stream EDitor)是一款流编辑器，用来对文本进行过滤与替换操作。其原理是：通过文件或管道读取文件内容，但是sed默认并不直接修改源文件，而是一次仅读取文件的一行至模式空间(pattern space)根据sed指令进行编辑并输出结果后清除模式空间，即所有的操作都是在模式空间中进行的。</p>
+<p><img src="http://i.imgur.com/Htcg1Zv.png" alt=""></p>
+<a id="more"></a>
+<p><strong>语法格式</strong></p>
+<p>sed [option]… ‘script’ inputfile…</p>
+<p><strong>OPTIONS选项</strong></p>
+<p>-n，–quite，–silent：静默输出，即不输出模式中的内容至输出</p>
+<p>-e script：使用多个脚本指令执行编辑</p>
+<p>-f /PATH/TO/SCRIPT_FILE：从指定的文件中读取编辑脚本</p>
+<p>-r：支持在脚本中使用正则表达式</p>
+<p>-i，–in-place：直接在文件原处执行编辑，即修改源文件</p>
+<p><strong>SCRIPT，地址定界+编辑指令</strong></p>
+<p><strong>地址定界</strong></p>
+<p>(1) 不给地址：对全文进行处理；</p>
+<p>(2) 单地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#：指定的行</span><br><span class="line"></span><br><span class="line">$：文件的最后一行</span><br><span class="line"></span><br><span class="line">/PATTERN/：被模式匹配到的每一行</span><br></pre></td></tr></table></figure>
+<p>(3) 地址范围</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">m,n：指定m行到n行</span><br><span class="line"></span><br><span class="line">#,+n：指定#行到#+n行</span><br><span class="line"></span><br><span class="line">/pat1/,/pat2/：匹配到的pat1到pat2之间的行</span><br><span class="line"></span><br><span class="line">#,/pat/：第#行到匹配到pat</span><br></pre></td></tr></table></figure>
+<p>(4) 步进：~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1~2：所有奇数行，从一开始，步进2</span><br><span class="line"></span><br><span class="line">2~2：所有偶数行，从二开始，步进2</span><br></pre></td></tr></table></figure>
+<p>注意：如果//中正则表达式为空，则匹配最近一次正则表达式的匹配地址！</p>
+<p><strong>编辑命令</strong></p>
+<p>d：删除</p>
+<p>p：显示模式空间的内容</p>
+<p>a \text：在行后面追加内容，支持使用\n(换行符)实现多行追加</p>
+<p>i \text：在行前面插入内容，支持使用\n(换行符)实现多行追加</p>
+<p>c \text：替换行为单行或多行文本，支持使用\n(换行符)</p>
+<p>w /PATH/TO/SOMEFILE：保存模式空间匹配到的行至指定文件中</p>
+<p>r /PATH/FROM/SOMEFILE：读取指定文件的文本流至模式空间中匹配到的行的行后</p>
+<p>=：为模式空间中的行打印行号</p>
+<p>!：取反条件</p>
+<p>s/pattern/replacement/flags：替换，支持使用其他分隔符，如：s@@@, s###</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">替换标记(flags)：</span><br><span class="line">    #：替换行内匹配到的第#次的内容</span><br><span class="line">    g：行内全局替换</span><br><span class="line">    p：显示替换成功的行</span><br><span class="line">    w /PATH/TO/SOMEFILE：将替换后的结果保存至指定文件</span><br><span class="line">replacement：</span><br><span class="line">    &amp;：用pattern匹配到的内容进行替换</span><br><span class="line">    \n：在pattern中使用\(\)指定时，匹配第n个子串</span><br></pre></td></tr></table></figure>
+<p><strong>【难点】高级编辑命令：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">h：把模式空间中的内容覆盖至保持空间中；</span><br><span class="line">H：把模式空间中的内容追加至保持空间中；</span><br><span class="line">g：把保持空间中的内容覆盖至模式空间中；</span><br><span class="line">G：把保持空间中的内容追加至模式空间中；</span><br><span class="line">x：把模式空间中的内容与保持空间中的内容互换；</span><br><span class="line">n：显示并清空模式空间，然后读取匹配到的行的下一行覆盖至模式空间；</span><br><span class="line">N：追加读取匹配到的行的下一行至模式空间中；</span><br><span class="line">d：删除模式空间中的行；</span><br><span class="line">D：删除多行模式空间中的所有行；</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">	sed  -n  &apos;n;p&apos;  FILE：显示偶数行；</span><br><span class="line">	sed  &apos;1!G;h;$!d&apos;  FILE：逆序显示文件的内容；</span><br><span class="line">	sed  ’$!d&apos;  FILE：取出最后一行；</span><br><span class="line">	sed  &apos;$!N;$!D&apos; FILE：取出文件后两行；</span><br><span class="line">	sed &apos;/^$/d;G&apos; FILE：删除原有的所有空白行，而后为所有的非空白行后添加一个空白行；</span><br><span class="line">	sed  &apos;n;d&apos;  FILE：显示奇数行；</span><br><span class="line">	sed &apos;G&apos; FILE：在原有的每行后方添加一个空白行；</span><br></pre></td></tr></table></figure>
+<h2 id="awk用法"><a href="#awk用法" class="headerlink" title="awk用法"></a>awk用法</h2><p>其用法博大精深，且听我细细道来</p>
+<p>首先，grep，sed，awk三者区别，回顾一下：</p>
+<h3 id="grep-egrep-fgrep"><a href="#grep-egrep-fgrep" class="headerlink" title="grep, egrep, fgrep"></a><strong>grep, egrep, fgrep</strong></h3><p>文本过滤工具，只读不写，加上各种正则及关键字，那叫一个爽快。</p>
+<h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a><strong>sed</strong></h3><p>行编辑器，有模式空间及保持空间，实现文本行的编辑及输出。</p>
+<h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a><strong>awk</strong></h3><p>报告生成器，格式化文本输出；功能及其强大，不光可用正则，还可以使用条件判断语句，函数、数组，不愧为上古神器。</p>
+<p>有一点很重要，也很激励人心，就是“结合awk与其他工具诸如grep和sed，将会使shell编程更加容易，也更有逼格。”</p>
+<h3 id="awk命令的使用格式："><a href="#awk命令的使用格式：" class="headerlink" title="awk命令的使用格式："></a><strong>awk命令的使用格式：</strong></h3><p>awk [options] ‘program’ file1,file2,…</p>
+<p>awk [options] ‘PATTERN { action }’ file1,file2,… </p>
+<h3 id="program与PATTERN-action-的关系"><a href="#program与PATTERN-action-的关系" class="headerlink" title="program与PATTERN { action }的关系"></a><strong>program与PATTERN { action }的关系</strong></h3><p>很多同学在刚开始学习awk的时候，这里常常犯迷糊，me too！所以我觉得这个关系先理清楚，对awk往后的学习是有帮助的。</p>
+<p><strong>program包括PATTERN和ACTION，PATTERN和ACTION最少得有一个，语句之间用分号分隔</strong></p>
+<p><strong>【理解关键点】模式( pattern ) 用于匹配输入中的每行文本。对于匹配上的每行文本，awk 都执行对应的 动作( action )。模式和动作之间使用花括号隔开。awk 顺序扫描每一行文本，并使用 记录分隔符（一般是换行符）将读到的每一行作为 记录，使用 域分隔符( 一般是空格符或制表符 ) 将一行文本分割为多个 域， 每个域分别可以使用 $1, $2, … $n 表示。$1 表示第一个域，$2 表示第二个域，$n 表示第 n 个域。 $0 表示整个记录。模式或动作都可以不指定，缺省模式的情况下，将匹配所有行。缺省动作的情况下，将执行动作 {print}，即打印整个记录。</strong></p>
+<h3 id="先来说说ACTION"><a href="#先来说说ACTION" class="headerlink" title="先来说说ACTION"></a><strong>先来说说ACTION</strong></h3><p>其中最常用的ACTION参数之一就是print和printf了，前者实现打印输出，后者实现格式化输出</p>
+<p><strong>print</strong></p>
+<p>语法：</p>
+<p>print item1, item2, …</p>
+<p>要点</p>
+<p>(1) 逗号分隔符；</p>
+<p>(2) 输出的各item可以字符串，也可以是数值；当前记录的字段、变量或awk的表达式；</p>
+<p>(3) 如省略item，相当于print $0,打印整行字符</p>
+<p><strong>printf命令，这个就很有内涵了</strong></p>
+<p>要点：</p>
+<p>(1) FORMAT必须给出;</p>
+<p>(2) 不会自动换行，需要显式给出换行控制符，\n</p>
+<p>(3) FORMAT中需要分别为后面的每个item指定一个格式化符号；</p>
+<p>语法：</p>
+<p>printf 格式符/修饰符, item1, item2, …</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">格式符：</span><br><span class="line">        %c: 显示字符的ASCII码；</span><br><span class="line">        %d, %i: 显示十进制整数；</span><br><span class="line">        %e, %E: 科学计数法数值显示；</span><br><span class="line">        %f：显示为浮点数；</span><br><span class="line">        %g, %G：以科学计数法或浮点形式显示数值；</span><br><span class="line">        %s：显示字符串；</span><br><span class="line">        %u：无符号整数；</span><br><span class="line">        %%: 显示%自身；</span><br><span class="line"></span><br><span class="line">修饰符：</span><br><span class="line">        #[.#]：第一个数字控制显示的宽度；第二个#表示小数点后的精度；</span><br><span class="line">        %3.1f</span><br><span class="line">        -: 左对齐</span><br><span class="line">        +：显示数值的符号</span><br></pre></td></tr></table></figure>
+<p>记住哦，格式符和修饰符可以灵活组合使用</p>
+<h3 id="ACTION还支持以下干货"><a href="#ACTION还支持以下干货" class="headerlink" title="ACTION还支持以下干货"></a>ACTION还支持以下干货</h3><p><strong>(1) Expressions表达式</strong></p>
+<p><strong>(2) Control statements：if, while等；</strong></p>
+<p><strong>(3) Compound statements：组合语句；</strong></p>
+<p><strong>(4) input statements</strong></p>
+<p><strong>(5) output statements（print printf）</strong></p>
+<p><strong>我们来看看控制语句：</strong></p>
+<p>(1)if(condition) {statments} ：单分支if语句</p>
+<p>(2)if(condition) {statments} else {statements} ：双分支if语句</p>
+<p>(3)while(conditon) {statments}</p>
+<p>(4)do {statements} while(condition) ：循环体</p>
+<p>(5)for(expr1;expr2;expr3) {statements}</p>
+<p>(6)break</p>
+<p>(7)continue</p>
+<p>(8)delete array[index]</p>
+<p>(9)delete array</p>
+<p>(10)exit</p>
+<p>支持这么多，已经看傻,下面一个个来看看：</p>
+<p><strong>if-else</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">语法：if(condition) statement [else statement]</span><br><span class="line"></span><br><span class="line">~]# awk -F: &apos;&#123;if($3&gt;=1000) &#123;printf &quot;Common user: %s\n&quot;,$1&#125; else &#123;printf &quot;root or Sysuser: %s\n&quot;,$1&#125;&#125;&apos; /etc/passwd</span><br><span class="line"></span><br><span class="line">~]# awk -F: &apos;&#123;if($NF==&quot;/bin/bash&quot;) print $1&#125;&apos; /etc/passwd</span><br><span class="line"></span><br><span class="line">~]# awk &apos;&#123;if(NF&gt;5) print $0&#125;&apos; /etc/fstab</span><br><span class="line"></span><br><span class="line">~]# df -h | awk -F[%] &apos;/^\/dev/&#123;print $1&#125;&apos; | awk &apos;&#123;if($NF&gt;=20) print $1&#125;&apos;</span><br><span class="line"></span><br><span class="line">使用场景：对awk取得的整行或某个字段做条件判断；</span><br></pre></td></tr></table></figure>
+<p><strong>while循环</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">语法：while(condition) statement</span><br><span class="line">条件“真”，进入循环；条件“假”，退出循环；</span><br><span class="line"></span><br><span class="line">~]# awk &apos;/^[[:space:]]*linux16/&#123;i=1;while(i&lt;=NF) &#123;print $i,length($i); i++&#125;&#125;&apos; /etc/grub2.cfg</span><br><span class="line"></span><br><span class="line">~]# awk &apos;/^[[:space:]]*linux16/&#123;i=1;while(i&lt;=NF) &#123;if(length($i)&gt;=7) &#123;print $i,length($i)&#125;; i++&#125;&#125;&apos; /etc/grub2.cfg</span><br><span class="line"></span><br><span class="line">   使用场景：对一行内的多个字段逐一类似处理时使用；对数组中的各元素逐一处理时使用；</span><br></pre></td></tr></table></figure>
+<p><strong>do-while循环</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语法：do statement while(condition)</span><br><span class="line">意义：至少执行一次循环体</span><br></pre></td></tr></table></figure>
+<p><strong>for循环</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">语法：for(expr1;expr2;expr3) statement</span><br><span class="line"></span><br><span class="line">for(variable assignment;condition;iteration process) &#123;for-body&#125;</span><br><span class="line"></span><br><span class="line">~]# awk &apos;/^[[:space:]]*linux16/&#123;for(i=1;i&lt;=NF;i++) &#123;print $i,length($i)&#125;&#125;&apos; /etc/grub2.cfg</span><br><span class="line"></span><br><span class="line">特殊用法：</span><br><span class="line">	能够遍历数组中的元素；</span><br><span class="line">	语法：for(var in array) &#123;for-body&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>switch语句</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法：switch(expression) &#123;case VALUE1 or /REGEXP/: statement; case VALUE2 or /REGEXP2/: statement; ...; default: statement&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>next</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">提前结束对本行的处理而直接进入下一行；</span><br><span class="line"></span><br><span class="line">~]# awk -F: &apos;&#123;if($3%2!=0) next; print $1,$3&#125;&apos; /etc/passwd</span><br></pre></td></tr></table></figure>
+<p><strong>数组array</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   关联数组：array[index-expression]</span><br><span class="line"></span><br><span class="line">index-expression:</span><br><span class="line">	(1) 可使用任意字符串；字符串要使用双引号；</span><br><span class="line">	(2) 如果某数组元素事先不存在，在引用时，awk会自动创建此元素，并将其值初始化为“空串”；</span><br><span class="line"></span><br><span class="line">	若要判断数组中是否存在某元素，要使用&quot;index in array&quot;格式进行；</span><br><span class="line">		weekdays[mon]=&quot;Monday&quot;</span><br><span class="line"></span><br><span class="line">	若要遍历数组中的每个元素，要使用for循环；</span><br><span class="line">		for(var in array) &#123;for-body&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>函数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">内置函数</span><br><span class="line">	数值处理：</span><br><span class="line">		rand()：返回0和1之间一个随机数；</span><br><span class="line"></span><br><span class="line">    字符串处理：</span><br><span class="line">		length([s])：返回指定字符串的长度；</span><br><span class="line">		sub(r,s,[t])：以r表示的模式来查找t所表示的字符中的匹配的内容，并将其第一次出现替换为s所表示的内容；</span><br><span class="line">		gsub(r,s,[t])：以r表示的模式来查找t所表示的字符中的匹配的内容，并将其所有出现均替换为s所表示的内容；</span><br><span class="line">		split(s,a[,r])：以r为分隔符切割字符s，并将切割后的结果保存至a所表示的数组中；</span><br></pre></td></tr></table></figure>
+<p>好，上边ACTION啰嗦完了，哈哈哈哈哈，下面就要高潮咧O(∩_∩)O哈哈~</p>
+<h3 id="PATTERN"><a href="#PATTERN" class="headerlink" title="PATTERN"></a>PATTERN</h3><p>PATTERN有什么，有很多，超乎你的想象，它支持</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(1) empty：空模式，匹配每一行；</span><br><span class="line"></span><br><span class="line">(2) /regular expression/：仅处理能够被此处的模式匹配到的行；</span><br><span class="line"></span><br><span class="line">(3) relational expression: 关系表达式；【结果有“真”有“假”；结果为“真”才会被处理】；</span><br><span class="line"></span><br><span class="line">	【真：结果为非0值，非空字符串】这个跟bash的命令返回值不一样；</span><br><span class="line"></span><br><span class="line">(4) line ranges：行范围，</span><br><span class="line">	startline,endline：/pat1/,/pat2/</span><br><span class="line">	</span><br><span class="line">	例子：[root@CentOS7 ~]# awk -F: &apos;/^h/,/^u/&#123;print $1&#125;&apos; /etc/passwd</span><br><span class="line"></span><br><span class="line">	注意： 不支持直接给出数字的格式</span><br><span class="line">	</span><br><span class="line">	可以使用如下方式：</span><br><span class="line">	~]# awk -F: &apos;(NR&gt;=2&amp;&amp;NR&lt;=10)&#123;print $1&#125;&apos; /etc/passwd</span><br><span class="line">	</span><br><span class="line">(5) BEGIN/END模式</span><br><span class="line">	BEGIN&#123;&#125;: 仅在开始处理文件中的文本之前执行一次；</span><br><span class="line">	END&#123;&#125;：仅在文本处理完成之后执行一次	；</span><br></pre></td></tr></table></figure>
+<h3 id="选项-options"><a href="#选项-options" class="headerlink" title="选项[options]"></a>选项[options]</h3><p>​<br>-F：指明输入时用到的字段分隔符；</p>
+<p>-v var=value: 自定义变量；</p>
+<p>awk的options主要用来定义各种变量和使用各种內建变量。</p>
+<p><strong>内建变量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">FS：input field seperator，默认为空白字符；</span><br><span class="line">OFS：output field seperator，默认为空白字符；</span><br><span class="line">RS：input record seperator，输入时的换行符；</span><br><span class="line">ORS：output record seperator，输出时的换行符；</span><br><span class="line"></span><br><span class="line">NF：number of field，字段数量</span><br><span class="line">	&#123;print NF&#125;, &#123;print $NF&#125; 它们之间是有区别的，NF是有多少个字段数量，而$NF表示最后一个字段的内容</span><br><span class="line">NR：number of record, 行数；</span><br><span class="line">FNR：各文件分别计数；行数；</span><br><span class="line"></span><br><span class="line">$0：代表一行，读一行进行切片</span><br><span class="line"></span><br><span class="line">FILENAME：当前文件名；</span><br><span class="line"></span><br><span class="line">ARGC：命令行参数的个数；</span><br><span class="line">ARGV：数组，保存的是命令行所给定的各参数；</span><br><span class="line"></span><br><span class="line">PS：在awk中要做变量替换，是不能用引号引起来的</span><br></pre></td></tr></table></figure>
+<p><strong>自定义变量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1) -v var=value  #变量名区分字符大小写哦；</span><br><span class="line"></span><br><span class="line">(2) 在program中直接定义</span><br></pre></td></tr></table></figure>
+<p>好了，awk就介绍到这里，下面来写例子</p>
+<p><strong>例子1：显示/etc/passwd的账户</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#cat /etc/passwd |awk  -F &apos;:&apos;  &apos;&#123;print $1&#125;&apos;  </span><br><span class="line">root</span><br><span class="line">daemon</span><br><span class="line">bin</span><br><span class="line">sys</span><br></pre></td></tr></table></figure>
+<p>上边这种是awk+action的示例，每行都会执行action{print $1}。</p>
+<p>-F指定域分隔符为’:’。</p>
+<p><strong>例子2：搜索/etc/passwd有root关键字的所有行</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F: <span class="string">'/root/'</span> /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br></pre></td></tr></table></figure>
+<p>上边这种是pattern的使用示例，匹配了pattern(这里是root)的行才会执行action(没有指定action，默认输出每行的内容)。</p>
+<p>搜索支持正则，例如找root开头的: awk -F: ‘/^root/‘ /etc/passwd</p>
+<p><strong>例子3：搜索/etc/passwd有root关键字的所有行，并显示对应的shell</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F: <span class="string">'/root/&#123;print $7&#125;'</span> /etc/passwd             </span><br><span class="line">/bin/bash</span><br></pre></td></tr></table></figure>
+<p> 上边这里指定了匹配了pattern(这里是root)的行才会执行action{print $7}</p>
+<p><strong>例子4：删除/boot/grub/grub.conf文件中所有行的行首的空白字符</strong></p>
+<p>sed ‘s/^[[:space:]]+//‘ /boot/grub/grub.conf</p>
+<p>这里的sed使用了查找替换，思路就是先查找文件中所有行的行首的空白字符，用正则的行首锚定空字符，之后查找替换为空，即删除。</p>
+<p><strong>例子5：删除/etc/fstab文件中所有以#开头，后跟至少一个空白字符的行的行首的#和空白字符</strong></p>
+<p>sed  ‘s/^#[[:space:]]*//‘  /etc/fstab</p>
+<p>同样是查找替换的套路，参照例子4</p>
+<p><strong>例子6：把/etc/fstab文件的奇数行另存为/tmp/fstab.3</strong></p>
+<p>sed  ‘1~2!d’ /etc/fstab &gt; /tmp/fstab.3</p>
+<p>sed ‘1~2w /tmp/fstab.3’ /etc/fstab</p>
+<p>这里用到了sed地址定界中的步进+编辑命令，两种不同的编辑命令实现，真是飞刀又见飞刀，套路又见套路，套路就是熟悉其语法，命令，灵活组合使用。</p>
+<p><strong>例子7：echo一个文件路径给sed命令，取出其基名；进一步地，取出其路径名</strong></p>
+<p><strong>路径名</strong></p>
+<p>echo “/tmp/test/fstab” | sed ‘s#[^/]+\?$##’</p>
+<p>上边sed的#为分隔符，[^/]指匹配指定范围外的任意单个字符，</p>
+<p>+：匹配其前面的字符1次或多次：即其前面的字符要出现至少1次；</p>
+<p>\?：匹配其前面的字符0次或1次；即其前面的字符是可有可无的；</p>
+<p>$：行尾锚定；用于模式的最右侧</p>
+<p><strong>基名</strong></p>
+<p>echo “/tmp/test/fstab” | sed ‘s#(\/.*\/)##’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">上边的sed分隔符为#，用到了sed的查找替换、正则表达式及其分组，形式为\(正则表达式\)</span><br><span class="line"></span><br><span class="line">正则为\/.*\/，其中\为转移符，正则抽取出来就是/.*/  意思就是匹配到/开头的以/结尾期间的任意单个字符任意次。</span><br><span class="line"></span><br><span class="line">各位应该明白了吧。</span><br></pre></td></tr></table></figure>
+<p><strong>例子8：统计指定文件中所有行中每个单词出现的次数</strong></p>
+<p>awk ‘{for(i=1;i&lt;=NF;i++){count[$i]++}}END{for(i in count) {print i,count[i]}}’ /etc/fstab</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]<span class="comment"># awk '&#123;for(i=1;i&lt;=NF;i++)&#123;count[$i]++&#125;&#125;END&#123;for(i in count) &#123;print i,count[i]&#125;&#125;' /etc/fstab</span></span><br><span class="line">swap 2</span><br><span class="line">fstab(5), 1</span><br><span class="line">filesystems, 1</span><br><span class="line">on 1</span><br><span class="line">/etc/fstab 1</span><br><span class="line">/boot 1</span><br><span class="line">more 1</span><br><span class="line">mount(8) 1</span><br><span class="line">pages 1</span><br><span class="line"><span class="string">'/dev/disk'</span> 1</span><br><span class="line">/dev/mapper/cl_centos7-swap 1</span><br><span class="line">blkid(8) 1</span><br><span class="line">See 1</span><br><span class="line">/dev/mapper/cl_centos7-root 1</span><br><span class="line"><span class="keyword">for</span> 1</span><br><span class="line">and/or 1</span><br><span class="line">anaconda 1</span><br><span class="line">/ 1</span><br><span class="line">findfs(8), 1</span><br><span class="line">under 1</span><br><span class="line">17:33:09 1</span><br><span class="line">Created 1</span><br><span class="line">UUID=fe2021fb-ac21-474d-8256-f72b87fc915a 1</span><br><span class="line">0 6</span><br><span class="line">info 1</span><br><span class="line">Accessible 1</span><br><span class="line">22 1</span><br><span class="line"><span class="comment"># 7</span></span><br><span class="line">defaults 3</span><br><span class="line">xfs 2</span><br><span class="line">man 1</span><br><span class="line">are 1</span><br><span class="line">reference, 1</span><br><span class="line">Mar 1</span><br><span class="line">by 2</span><br><span class="line">maintained 1</span><br><span class="line">2017 1</span><br><span class="line">Wed 1</span><br><span class="line">[root@CentOS7 ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>7、统计当前系统上所有tcp连接的各种状态的个数；</p>
+<p>netstat -n | awk ‘/^tcp/ {++state[$NF]} END {for(key in state) print key,”t”,state[key]}’</p>
+<p>例子</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@xxx:~<span class="comment"># netstat -n | awk '/^tcp/ &#123;++state[$NF]&#125; END &#123;for(key in state) print key,"t",state[key]&#125;'</span></span><br><span class="line">FIN_WAIT2 t 71</span><br><span class="line">CLOSE_WAIT t 1</span><br><span class="line">TIME_WAIT t 2049</span><br><span class="line">ESTABLISHED t 1392</span><br><span class="line">LAST_ACK t 3</span><br><span class="line">FIN_WAIT1 t 4</span><br></pre></td></tr></table></figure>
+<p>8、统计指定的web访问日志中各ip的资源访问次数：</p>
+<p>awk ‘{ip[$1]++}END{for(i in ip) print i,ip[i]}’ /opt/nginx/logs/access.log</p>
+<p>9、写一个脚本：定义一个数组，数组元素为/var/log目录下所有以.log结尾的文件的名字；显示每个文件的行数；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]<span class="comment">#  cat week15_title9.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">files=/var/<span class="built_in">log</span>/*.<span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$files</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    wc -l <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]<span class="comment"># ./week15_title9.sh </span></span><br><span class="line">248 /var/<span class="built_in">log</span>/boot.log</span><br><span class="line">9 /var/<span class="built_in">log</span>/openlmi-install.log</span><br><span class="line">177 /var/<span class="built_in">log</span>/vmware-install.log</span><br><span class="line">326 /var/<span class="built_in">log</span>/vmware-vmsvc.log</span><br><span class="line">85 /var/<span class="built_in">log</span>/vmware-vmusr.log</span><br><span class="line">10 /var/<span class="built_in">log</span>/wpa_supplicant.log</span><br><span class="line">436 /var/<span class="built_in">log</span>/Xorg.0.log</span><br><span class="line">320 /var/<span class="built_in">log</span>/Xorg.9.log</span><br><span class="line">328 /var/<span class="built_in">log</span>/yum.log</span><br><span class="line">[root@CentOS7 ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>10、写一个脚本，能从所有同学中随机挑选一个同学回答问题；进一步地：可接受一个参数，做为要挑选的同学的个数；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]<span class="comment"># cat week15_title10.sh</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$1</span> ];<span class="keyword">then</span>  <span class="comment">#判断有无脚本参数传入，如有则执行，没有就执行else的语句</span></span><br><span class="line">    <span class="keyword">for</span>((i=1;i&lt;=<span class="variable">$1</span>;i++));<span class="keyword">do</span></span><br><span class="line">        a=$[<span class="variable">$RANDOM</span>%11] <span class="comment">#定义一个0~10的随机数</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    a=$[<span class="variable">$RANDOM</span>%11]</span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>11、授权centos用户可以运行fdisk命令完成磁盘管理，以及使用mkfs或mke2fs实现文件系统管理；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">visudo</span><br><span class="line">centos  ALL=(root)      NOPASSWD:/sbin/fdisk,/sbin/mke2fs,/sbin/mkfs</span><br></pre></td></tr></table></figure>
+<p>12、授权gentoo用户可以运行逻辑卷管理的相关命令；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">visudo</span><br><span class="line">gentoo  ALL=(root)      lvm</span><br></pre></td></tr></table></figure>
+<p>13、基于pam_time.so模块，限制用户通过sshd服务远程登录只能在工作时间进行；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config </span><br><span class="line">UsePAM yes  <span class="comment">#开启Pam模块认证</span></span><br></pre></td></tr></table></figure>
+<p>​    </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/lib64/security/pam_time.so <span class="comment">#确保pam_time.so存在 </span></span><br><span class="line"></span><br><span class="line">vim /etc/pam.d/sshd</span><br><span class="line">增加  account    required     pam_time.so</span><br><span class="line"></span><br><span class="line">vim /etc/security/time.conf</span><br><span class="line">添加 *;*;*;MoTuWeThFr0900-1800</span><br></pre></td></tr></table></figure>
+<p>14、基于pam_listfile.so模块，定义仅某些用户，或某些组内的用户可登录系统；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># vim /etc/sshd_userlist</span></span><br><span class="line">root</span><br><span class="line">centos</span><br><span class="line">gentoo</span><br><span class="line"></span><br><span class="line">chmod 600 /etc/sshd_userlist</span><br><span class="line">chown root /etc/sshd_userlist</span><br><span class="line">vim /etc/pam.d/sshd </span><br><span class="line"><span class="comment">#auth       required     pam_listfile.so item=user sense=allow file=/etc/sshd_userlist onerr=succeed</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/08/06/sed和awk的详细用法/">sed和awk的详细用法</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
+        <p><span>发布时间:</span>2018-08-06, 14:30:00</p>
+        <p><span>最后更新:</span>2018-08-06, 14:31:40</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/06/sed和awk的详细用法/" title="sed和awk的详细用法">https://zhusas.github.io/2018/08/06/sed和awk的详细用法/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/06/sed和awk的详细用法/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/08/06/源码编译LNMP/">
+                    源码编译LNMP
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/08/06/Linux防火墙的随笔/">
+                    Linux防火墙的随笔
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sed用法"><span class="toc-number">1.</span> <span class="toc-text">sed用法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#awk用法"><span class="toc-number"></span> <span class="toc-text">awk用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#grep-egrep-fgrep"><span class="toc-number">1.</span> <span class="toc-text">grep, egrep, fgrep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sed"><span class="toc-number">2.</span> <span class="toc-text">sed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#awk"><span class="toc-number">3.</span> <span class="toc-text">awk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#awk命令的使用格式："><span class="toc-number">4.</span> <span class="toc-text">awk命令的使用格式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#program与PATTERN-action-的关系"><span class="toc-number">5.</span> <span class="toc-text">program与PATTERN { action }的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#先来说说ACTION"><span class="toc-number">6.</span> <span class="toc-text">先来说说ACTION</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ACTION还支持以下干货"><span class="toc-number">7.</span> <span class="toc-text">ACTION还支持以下干货</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PATTERN"><span class="toc-number">8.</span> <span class="toc-text">PATTERN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选项-options"><span class="toc-number">9.</span> <span class="toc-text">选项[options]</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"sed和awk的详细用法　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/08/06/源码编译LNMP/" title="上一篇: 源码编译LNMP">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/08/06/Linux防火墙的随笔/" title="下一篇: Linux防火墙的随笔">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/源码编译LNMP/">源码编译LNMP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/sed和awk的详细用法/">sed和awk的详细用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/Linux防火墙的随笔/">Linux防火墙的随笔</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/vsftp文件共享服务/">vsftp文件共享服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/建立samba共享/">建立samba共享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/自签证书使用户可以通过https访问站点/">自签证书使用户可以通过https访问站点</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/Apache所支持的处理模型及应用环境/">Apache所支持的处理模型及应用环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/一次完整的http请求处理过程/">一次完整的http请求处理过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/自建DNS总结/">自建DNS总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/通讯加密及私有CA/">通讯加密及私有CA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/CentOS系统的启动流程/">CentOS系统的启动流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本小练/">脚本小练</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本小工具/">OSI七层模型及脚本小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本又见脚本/">脚本又见脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux一些基本操作/">Linux一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux上的文件管理类命令其常用的使用方法及其相关示例演示/">Linux上的文件管理类命令其常用的使用方法及其相关示例演示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 Jerry Zhu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 10;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a").attr("target", "_blank");
+        $("#scroll a, #toc a").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
