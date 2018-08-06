@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhusas.github.io/"/>
-  <updated>2018-08-06T05:46:10.699Z</updated>
+  <updated>2018-08-06T05:49:29.291Z</updated>
   <id>https://zhusas.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Apache所支持的处理模型及应用环境</title>
+    <link href="https://zhusas.github.io/2018/08/06/Apache%E6%89%80%E6%94%AF%E6%8C%81%E7%9A%84%E5%A4%84%E7%90%86%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%BA%94%E7%94%A8%E7%8E%AF%E5%A2%83/"/>
+    <id>https://zhusas.github.io/2018/08/06/Apache所支持的处理模型及应用环境/</id>
+    <published>2018-08-06T05:48:00.000Z</published>
+    <updated>2018-08-06T05:49:29.291Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>prefork：多进程模型，每个进程响应一个请求</strong></p><p>一个主进程：负责生成子进程及回收子进程；负责创建套接字；负责接收请求，并将其派发给某子进程进行处理；</p><p>n个子进程：每个子进程处理一个请求；</p><p>工作模型：会预先生成几个空闲进程，随时等待用于响应用户请求；最大空闲和最小空闲；<a id="more"></a></p><p><strong>worker：多进程多线程模型，每线程处理一个用户请求</strong></p><p>一个主进程：负责生成子进程；负责创建套接字；负责接收请求，并将其派发给某子进程进行处理；</p><p>多个子进程：每个子进程负责生成多个线程；</p><p>每个线程：负责响应用户请求；</p><p>并发响应数量：m*n</p><p>m：子进程数量</p><p>n：每个子进程所能创建的最大线程数量；</p><p><strong>event：事件驱动模型，多进程模型，每个进程响应多个请求</strong></p><p>一个主进程 ：负责生成子进程；负责创建套接字；负责接收请求，并将其派发给某子进程进行处理；</p><p>子进程：基于事件驱动机制直接响应多个请求；</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;prefork：多进程模型，每个进程响应一个请求&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;一个主进程：负责生成子进程及回收子进程；负责创建套接字；负责接收请求，并将其派发给某子进程进行处理；&lt;/p&gt;
+&lt;p&gt;n个子进程：每个子进程处理一个请求；&lt;/p&gt;
+&lt;p&gt;工作模型：会预先生成几个空闲进程，随时等待用于响应用户请求；最大空闲和最小空闲；&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="apache" scheme="https://zhusas.github.io/tags/apache/"/>
+    
+  </entry>
   
   <entry>
     <title>一次完整的http请求处理过程</title>

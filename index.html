@@ -186,7 +186,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li></ul>
                     </div>
                 </section>
                 
@@ -262,6 +262,73 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Apache所支持的处理模型及应用环境" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/06/Apache所支持的处理模型及应用环境/" class="article-date">
+      <time datetime="2018-08-06T05:48:00.000Z" itemprop="datePublished">2018-08-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/06/Apache所支持的处理模型及应用环境/">Apache所支持的处理模型及应用环境</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><strong>prefork：多进程模型，每个进程响应一个请求</strong></p>
+<p>一个主进程：负责生成子进程及回收子进程；负责创建套接字；负责接收请求，并将其派发给某子进程进行处理；</p>
+<p>n个子进程：每个子进程处理一个请求；</p>
+<p>工作模型：会预先生成几个空闲进程，随时等待用于响应用户请求；最大空闲和最小空闲；</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2018/08/06/Apache所支持的处理模型及应用环境/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-一次完整的http请求处理过程" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -831,73 +898,6 @@
       
         <p class="article-more-link">
           <a href="/2018/08/02/Vim编辑器和脚本小试牛刀/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-skr-grep-skr-find" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/08/02/skr-grep-skr-find/" class="article-date">
-      <time datetime="2018-08-02T08:32:00.000Z" itemprop="datePublished">2018-08-02</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>1、显示当前系统上root、fedora或user1用户的默认shell；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E <span class="string">"^(root|hadoop|user1)\&gt;"</span> /etc/passwd |cut -d<span class="string">":"</span> -f1,7</span><br></pre></td></tr></table></figure>
-<p>2、找出/etc/rc.d/init.d/functions文件中某单词后面跟一组小括号的行，形如：hello()；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 /]<span class="comment"># grep  -E -o "[_[:alnum:]]+\(\)"  /etc/rc.d/init.d/functions</span></span><br><span class="line">checkpid()</span><br><span class="line">__pids_var_run()</span><br><span class="line">__pids_pidof()</span><br><span class="line">daemon()</span><br><span class="line">killproc()</span><br><span class="line">pidfileofproc()</span><br><span class="line">pidofproc()</span><br><span class="line">status()</span><br><span class="line">echo_success()</span><br><span class="line">echo_failure()</span><br><span class="line">echo_passed()</span><br><span class="line">echo_warning()</span><br><span class="line">update_boot_stage()</span><br><span class="line">success()</span><br><span class="line">failure()</span><br><span class="line">passed()</span><br><span class="line">warning()</span><br><span class="line">action()</span><br><span class="line">strstr()</span><br><span class="line">is_ignored_file()</span><br><span class="line">is_true()</span><br><span class="line">is_false()</span><br><span class="line">apply_sysctl()</span><br></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/08/02/skr-grep-skr-find/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
