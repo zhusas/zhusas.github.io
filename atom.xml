@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhusas.github.io/"/>
-  <updated>2018-08-05T04:07:01.997Z</updated>
+  <updated>2018-08-06T05:46:10.699Z</updated>
   <id>https://zhusas.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一次完整的http请求处理过程</title>
+    <link href="https://zhusas.github.io/2018/08/06/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B/"/>
+    <id>https://zhusas.github.io/2018/08/06/一次完整的http请求处理过程/</id>
+    <published>2018-08-06T05:45:00.000Z</published>
+    <updated>2018-08-06T05:46:10.699Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>简介</strong><br>一次完整的HTTP请求过程从TCP三次握手建立连接成功后开始,客户端按照指定的格式开始向服务端发送HTTP请求，服务端接收请求后，解析HTTP请求，处理完业务逻辑，最后返回一个HTTP的响应给客户端，HTTP的响应内容同样有标准的格式。无论是什么客户端或者是什么服务端，大家只要按照HTTP的协议标准来实现的话，那么它一定是通用的。<a id="more"></a></p><p><strong>1、客户端发起http请求阶段</strong></p><p>客户端在与服务端TCP三次握手建立连接成功后</p><p>开始按照指定的格式开始向服务端发送HTTP请求</p><p>HTTP请求格式主要有四部分组成，分别是：请求行、请求头、空行、消息体，每部分内容占一行，如下图：<br><img src="http://i.imgur.com/M391Xco.png" alt=""></p><p>下面我们来详解一下这个来自客户端的http请求</p><p>请求行：请求行是请求消息的第一行，由三部分组成：分别是请求方法（GET/POST/DELETE/PUT/HEAD）、请求资源的URI路径、HTTP的版本号</p><p>请求头：请求头中的信息有和缓存相关的头（Cache-Control，If-Modified-Since）、客户端身份信息（User-Agent）等等。</p><p>消息体：请求体是客户端发给服务端的请求数据，这部分数据并不是每个请求必须的。</p><p><strong>2、服务端接收客户端http请求阶段</strong></p><p>服务端接收来自于网络上的主机请求报文中对某特定资源的一次请求的过程</p><p><strong>3、服务端处理客户端http请求阶段</strong></p><p>对请求报文进行解析，获取客户端请求的资源及请求方法等相关信息；</p><p>根据请求报文的头信息，来确定请求合适，编码等</p><p><strong>4、服务端根据客户端http请求与访问自己本地资源</strong></p><p>获取请求报文中请求的资源，根据请求，从应用-》系统内核-》驱动-》资源存放媒介（硬盘、内存）获取客户端需要的信息</p><p><strong>5、服务端构建http响应报文</strong></p><p>服务器接收处理完请求后返回一个HTTP响应消息给客户端。HTTP响应消息的格式包括：状态行、响应头、空行、消息体。每部分内容占一行。</p><p><img src="http://i.imgur.com/yNpPuHB.png" alt=""></p><p>状态行：状态行位于相应消息的第一行，有HTTP协议版本号，状态码和状态说明三部分构成。</p><p>响应头：响应头是服务器传递给客户端用于说明服务器的一些信息，以及将来继续访问该资源时的策略。</p><p>响应体：响应体是服务端返回给客户端的HTML文本内容，或者其他格式的数据，比如：视频流、图片或者音频数据。</p><p><strong>6、服务端将http响应报文发送给客户端</strong></p><p>就是在已建立的tcp链接之上将相应报文及客户请求的数据从应用层，传输层、传输层、链路层、物理层层层打包头依次传输到客户端的物理层、链路层、传输层、应用层层层解包，最后客户端获得自己http请求的数据。</p><p><strong>7、记录日志</strong></p><p>服务端记录http请求访问日志</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;简介&lt;/strong&gt;&lt;br&gt;一次完整的HTTP请求过程从TCP三次握手建立连接成功后开始,客户端按照指定的格式开始向服务端发送HTTP请求，服务端接收请求后，解析HTTP请求，处理完业务逻辑，最后返回一个HTTP的响应给客户端，HTTP的响应内容同样有标准的格式。无论是什么客户端或者是什么服务端，大家只要按照HTTP的协议标准来实现的话，那么它一定是通用的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="http" scheme="https://zhusas.github.io/tags/http/"/>
+    
+  </entry>
   
   <entry>
     <title>自建DNS总结</title>

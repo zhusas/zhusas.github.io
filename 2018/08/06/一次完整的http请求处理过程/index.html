@@ -15,14 +15,21 @@
 
 
 
-<meta name="keywords" content="linux ops MySQL MongoDB">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jerry&#39;s Blog">
-<meta property="og:url" content="https://zhusas.github.io/tags/MongoDB-Docker/index.html">
+<meta name="description" content="简介一次完整的HTTP请求过程从TCP三次握手建立连接成功后开始,客户端按照指定的格式开始向服务端发送HTTP请求，服务端接收请求后，解析HTTP请求，处理完业务逻辑，最后返回一个HTTP的响应给客户端，HTTP的响应内容同样有标准的格式。无论是什么客户端或者是什么服务端，大家只要按照HTTP的协议标准来实现的话，那么它一定是通用的。">
+<meta name="keywords" content="http">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次完整的http请求处理过程">
+<meta property="og:url" content="https://zhusas.github.io/2018/08/06/一次完整的http请求处理过程/index.html">
 <meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="简介一次完整的HTTP请求过程从TCP三次握手建立连接成功后开始,客户端按照指定的格式开始向服务端发送HTTP请求，服务端接收请求后，解析HTTP请求，处理完业务逻辑，最后返回一个HTTP的响应给客户端，HTTP的响应内容同样有标准的格式。无论是什么客户端或者是什么服务端，大家只要按照HTTP的协议标准来实现的话，那么它一定是通用的。">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://i.imgur.com/M391Xco.png">
+<meta property="og:image" content="http://i.imgur.com/yNpPuHB.png">
+<meta property="og:updated_time" content="2018-08-06T05:46:10.699Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jerry&#39;s Blog">
+<meta name="twitter:title" content="一次完整的http请求处理过程">
+<meta name="twitter:description" content="简介一次完整的HTTP请求过程从TCP三次握手建立连接成功后开始,客户端按照指定的格式开始向服务端发送HTTP请求，服务端接收请求后，解析HTTP请求，处理完业务逻辑，最后返回一个HTTP的响应给客户端，HTTP的响应内容同样有标准的格式。无论是什么客户端或者是什么服务端，大家只要按照HTTP的协议标准来实现的话，那么它一定是通用的。">
+<meta name="twitter:image" content="http://i.imgur.com/M391Xco.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -54,7 +61,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Tag: MongoDB,Docker | Jerry&#39;s Blog</title>
+<title>一次完整的http请求处理过程 | Jerry&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -64,9 +71,9 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
+        isPost: true,
         isArchive: false,
-        isTag: true,
+        isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
@@ -256,56 +263,189 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-一次完整的http请求处理过程" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/07/09/mongodb/" class="archive-article-date">
-      <time datetime="2018-07-09T05:38:00.000Z" itemprop="datePublished">07-09</time>
+    <div class="article-meta">
+      <a href="/2018/08/06/一次完整的http请求处理过程/" class="article-date">
+      <time datetime="2018-08-06T05:45:00.000Z" itemprop="datePublished">2018-08-06</time>
 </a>
 
 
-        </div>
-         
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一次完整的http请求处理过程
     </h1>
   
 
-        <div class="article-info info-on-archive">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 
-          
+        
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li></ul>
     </div>
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><strong>简介</strong><br>一次完整的HTTP请求过程从TCP三次握手建立连接成功后开始,客户端按照指定的格式开始向服务端发送HTTP请求，服务端接收请求后，解析HTTP请求，处理完业务逻辑，最后返回一个HTTP的响应给客户端，HTTP的响应内容同样有标准的格式。无论是什么客户端或者是什么服务端，大家只要按照HTTP的协议标准来实现的话，那么它一定是通用的。<a id="more"></a></p>
+<p><strong>1、客户端发起http请求阶段</strong></p>
+<p>客户端在与服务端TCP三次握手建立连接成功后</p>
+<p>开始按照指定的格式开始向服务端发送HTTP请求</p>
+<p>HTTP请求格式主要有四部分组成，分别是：请求行、请求头、空行、消息体，每部分内容占一行，如下图：<br><img src="http://i.imgur.com/M391Xco.png" alt=""></p>
+<p>下面我们来详解一下这个来自客户端的http请求</p>
+<p>请求行：请求行是请求消息的第一行，由三部分组成：分别是请求方法（GET/POST/DELETE/PUT/HEAD）、请求资源的URI路径、HTTP的版本号</p>
+<p>请求头：请求头中的信息有和缓存相关的头（Cache-Control，If-Modified-Since）、客户端身份信息（User-Agent）等等。</p>
+<p>消息体：请求体是客户端发给服务端的请求数据，这部分数据并不是每个请求必须的。</p>
+<p><strong>2、服务端接收客户端http请求阶段</strong></p>
+<p>服务端接收来自于网络上的主机请求报文中对某特定资源的一次请求的过程</p>
+<p><strong>3、服务端处理客户端http请求阶段</strong></p>
+<p>对请求报文进行解析，获取客户端请求的资源及请求方法等相关信息；</p>
+<p>根据请求报文的头信息，来确定请求合适，编码等</p>
+<p><strong>4、服务端根据客户端http请求与访问自己本地资源</strong></p>
+<p>获取请求报文中请求的资源，根据请求，从应用-》系统内核-》驱动-》资源存放媒介（硬盘、内存）获取客户端需要的信息</p>
+<p><strong>5、服务端构建http响应报文</strong></p>
+<p>服务器接收处理完请求后返回一个HTTP响应消息给客户端。HTTP响应消息的格式包括：状态行、响应头、空行、消息体。每部分内容占一行。</p>
+<p><img src="http://i.imgur.com/yNpPuHB.png" alt=""></p>
+<p>状态行：状态行位于相应消息的第一行，有HTTP协议版本号，状态码和状态说明三部分构成。</p>
+<p>响应头：响应头是服务器传递给客户端用于说明服务器的一些信息，以及将来继续访问该资源时的策略。</p>
+<p>响应体：响应体是服务端返回给客户端的HTML文本内容，或者其他格式的数据，比如：视频流、图片或者音频数据。</p>
+<p><strong>6、服务端将http响应报文发送给客户端</strong></p>
+<p>就是在已建立的tcp链接之上将相应报文及客户请求的数据从应用层，传输层、传输层、链路层、物理层层层打包头依次传输到客户端的物理层、链路层、传输层、应用层层层解包，最后客户端获得自己http请求的数据。</p>
+<p><strong>7、记录日志</strong></p>
+<p>服务端记录http请求访问日志</p>
+
+      
+    </div>
+    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/08/06/一次完整的http请求处理过程/">一次完整的http请求处理过程</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
+        <p><span>发布时间:</span>2018-08-06, 13:45:00</p>
+        <p><span>最后更新:</span>2018-08-06, 13:46:10</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/06/一次完整的http请求处理过程/" title="一次完整的http请求处理过程">https://zhusas.github.io/2018/08/06/一次完整的http请求处理过程/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/06/一次完整的http请求处理过程/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/08/05/自建DNS总结/">
+                    自建DNS总结
+                </a>
+            </div>
+        
+    </nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"一次完整的http请求处理过程　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
 
     
 
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/08/05/自建DNS总结/" title="下一篇: 自建DNS总结">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/一次完整的http请求处理过程/">一次完整的http请求处理过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/自建DNS总结/">自建DNS总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/通讯加密及私有CA/">通讯加密及私有CA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/CentOS系统的启动流程/">CentOS系统的启动流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本小练/">脚本小练</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本小工具/">OSI七层模型及脚本小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本又见脚本/">脚本又见脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux一些基本操作/">Linux一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux上的文件管理类命令其常用的使用方法及其相关示例演示/">Linux上的文件管理类命令其常用的使用方法及其相关示例演示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
