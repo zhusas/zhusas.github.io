@@ -14,11 +14,14 @@
 <meta name="author" content="Jerry Zhu" />
 
 
+    
+    
+
 
 <meta name="keywords" content="linux ops MySQL MongoDB">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Jerry&#39;s Blog">
-<meta property="og:url" content="https://zhusas.github.io/archives/index.html">
+<meta property="og:url" content="https://zhusas.github.io/page/3/index.html">
 <meta property="og:site_name" content="Jerry&#39;s Blog">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -50,11 +53,13 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
+    <style> .article { opacity: 0;} </style>
+
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Archives | Jerry&#39;s Blog</title>
+<title>Jerry&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -63,9 +68,9 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: false,
+        isHome: true,
         isPost: false,
-        isArchive: true,
+        isArchive: false,
         isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
@@ -258,351 +263,80 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2018/07/09/mongodb/" class="article-date">
+      <time datetime="2018-07-09T05:38:00.000Z" itemprop="datePublished">2018-07-09</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="MongoDB备份数据引擎升级"><a href="#MongoDB备份数据引擎升级" class="headerlink" title="MongoDB备份数据引擎升级"></a>MongoDB备份数据引擎升级</h2><p><strong>准备工作</strong></p>
+<ol>
+<li>确认已经安装需要运行的MongoDB版本</li>
+<li>确保有足够的空间进行数据导出导入</li>
+<li>您必须使用MongoDB版本3.0或更高版本才能使用WireldTiger存储引擎。 如果使用较早的MongoDB版本，则必须在继续更改存储引擎之前升级MongoDB版本。本文使用的是MongoDB 3.6</li>
+<li>本文使用docker来操作，请自行安装好docker环境。</li></ol>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/06/Linux防火墙的随笔/" class="archive-article-date">
-      <time datetime="2018-08-06T06:25:00.000Z" itemprop="datePublished">08-06</time>
-</a>
 
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/Linux防火墙的随笔/">Linux防火墙的随笔</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/06/vsftp文件共享服务/" class="archive-article-date">
-      <time datetime="2018-08-06T06:15:00.000Z" itemprop="datePublished">08-06</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/vsftp文件共享服务/">vsftp文件共享服务</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
+      
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vsftp/">vsftp</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li></ul>
     </div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/06/建立samba共享/" class="archive-article-date">
-      <time datetime="2018-08-06T06:06:00.000Z" itemprop="datePublished">08-06</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/建立samba共享/">建立samba共享</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/samba/">samba</a></li></ul>
+      
+        <p class="article-more-link">
+          <a href="/2018/07/09/mongodb/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
     </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
   </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/" class="archive-article-date">
-      <time datetime="2018-08-06T05:55:00.000Z" itemprop="datePublished">08-06</time>
-</a>
 
 
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fpm/">fpm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/06/自签证书使用户可以通过https访问站点/" class="archive-article-date">
-      <time datetime="2018-08-06T05:51:00.000Z" itemprop="datePublished">08-06</time>
-</a>
 
 
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/自签证书使用户可以通过https访问站点/">自签证书使用户可以通过https访问站点</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CA/">CA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https/">https</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/06/Apache所支持的处理模型及应用环境/" class="archive-article-date">
-      <time datetime="2018-08-06T05:48:00.000Z" itemprop="datePublished">08-06</time>
-</a>
 
 
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/Apache所支持的处理模型及应用环境/">Apache所支持的处理模型及应用环境</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/06/一次完整的http请求处理过程/" class="archive-article-date">
-      <time datetime="2018-08-06T05:45:00.000Z" itemprop="datePublished">08-06</time>
-</a>
 
 
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/一次完整的http请求处理过程/">一次完整的http请求处理过程</a>
-    </h1>
-  
 
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/05/自建DNS总结/" class="archive-article-date">
-      <time datetime="2018-08-05T04:05:00.000Z" itemprop="datePublished">08-05</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/05/自建DNS总结/">自建DNS总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/05/通讯加密及私有CA/" class="archive-article-date">
-      <time datetime="2018-08-05T03:37:00.000Z" itemprop="datePublished">08-05</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/05/通讯加密及私有CA/">通讯加密及私有CA</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CA/">CA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2018/08/05/脚本写到手抽筋/" class="archive-article-date">
-      <time datetime="2018-08-05T03:12:00.000Z" itemprop="datePublished">08-05</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
-  
-
-    
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
     </nav>
   
-
 </div>
       <footer id="footer">
     <div class="outer">
