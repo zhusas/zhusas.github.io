@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jerry Zhu" />
+
+
+
+<meta name="description" content="生成私钥 12345[root@lampw pki]# (umask 077; openssl genrsa -out /etc/pki/ca-trust/cakey.pem 8192)Generating RSA private key, 8192 bit long modulus..........................................................">
+<meta name="keywords" content="CA,SSL,https">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自签证书使用户可以通过https访问站点">
+<meta property="og:url" content="https://zhusas.github.io/2018/08/06/自签证书使用户可以通过https访问站点/index.html">
+<meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="生成私钥 12345[root@lampw pki]# (umask 077; openssl genrsa -out /etc/pki/ca-trust/cakey.pem 8192)Generating RSA private key, 8192 bit long modulus..........................................................">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-06T05:54:21.703Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自签证书使用户可以通过https访问站点">
+<meta name="twitter:description" content="生成私钥 12345[root@lampw pki]# (umask 077; openssl genrsa -out /etc/pki/ca-trust/cakey.pem 8192)Generating RSA private key, 8192 bit long modulus..........................................................">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jerry&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>自签证书使用户可以通过https访问站点 | Jerry&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jerry Zhu</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fpm/">fpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于运维</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jerry Zhu</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zhusas@163.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://github.com/zhusas" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhusas" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-自签证书使用户可以通过https访问站点" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/06/自签证书使用户可以通过https访问站点/" class="article-date">
+      <time datetime="2018-08-06T05:51:00.000Z" itemprop="datePublished">2018-08-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      自签证书使用户可以通过https访问站点
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CA/">CA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https/">https</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><strong>生成私钥</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@lampw pki]<span class="comment"># (umask 077; openssl genrsa -out /etc/pki/ca-trust/cakey.pem 8192)</span></span><br><span class="line">Generating RSA private key, 8192 bit long modulus</span><br><span class="line">...................................................................................................................++</span><br><span class="line">.......................................................................	.................................................................................................................................................................................++</span><br><span class="line">e is 65537 (0x10001)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><strong>生成自签证书</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@lampw pki]<span class="comment"># openssl req -new -x509 -key /etc/pki/ca-trust/cakey.pem -out /etc/pki/ca-trust/cacert.pem -days 3655</span></span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter <span class="string">'.'</span>, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [AU]:CN  </span><br><span class="line">State or Province Name (full name) [Some-State]:HA</span><br><span class="line">Locality Name (eg, city) []:ZZ</span><br><span class="line">Organization Name (eg, company) [Internet Widgits Pty Ltd]:Tmall</span><br><span class="line">Organizational Unit Name (eg, section) []:Tmall</span><br><span class="line">Common Name (e.g. server FQDN or YOUR name) []:www2.stuX.com</span><br><span class="line">Email Address []:admin@stuX.com</span><br><span class="line">[root@lampw pki]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p><strong>为CA提供所需的目录及文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@lampw pki]<span class="comment"># mkdir  -pv  /etc/pki/CA/&#123;certs,crl,newcerts&#125;</span></span><br><span class="line">mkdir: created directory `/etc/pki/CA<span class="string">'</span></span><br><span class="line"><span class="string">mkdir: created directory `/etc/pki/CA/certs'</span></span><br><span class="line">mkdir: created directory `/etc/pki/CA/crl<span class="string">'</span></span><br><span class="line"><span class="string">mkdir: created directory `/etc/pki/CA/newcerts'</span></span><br><span class="line">[root@lampw pki]<span class="comment"># touch  /etc/pki/CA/&#123;serial,index.txt&#125;</span></span><br><span class="line">[root@lampw pki]<span class="comment"># echo  01 &gt; /etc/pki/CA/serial</span></span><br><span class="line">[root@lampw pki]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p><strong>用到证书的主机生成私钥</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@lampw pki]<span class="comment"># mkdir  -pv  /etc/pki/CA/&#123;certs,crl,newcerts&#125;</span></span><br><span class="line">mkdir: created directory `/etc/pki/CA<span class="string">'</span></span><br><span class="line"><span class="string">mkdir: created directory `/etc/pki/CA/certs'</span></span><br><span class="line">mkdir: created directory `/etc/pki/CA/crl<span class="string">'</span></span><br><span class="line"><span class="string">mkdir: created directory `/etc/pki/CA/newcerts'</span></span><br><span class="line">[root@lampw pki]<span class="comment"># touch  /etc/pki/CA/&#123;serial,index.txt&#125;</span></span><br><span class="line">[root@lampw pki]<span class="comment"># echo  01 &gt; /etc/pki/CA/serial</span></span><br><span class="line">[root@lampw pki]<span class="comment">#  mkdir -pv /opt/apache24/ssl</span></span><br><span class="line">mkdir: created directory `/opt/apache24/ssl<span class="string">'</span></span><br><span class="line"><span class="string">[root@lampw pki]# cd /opt/apache24/ssl</span></span><br><span class="line"><span class="string">[root@lampw ssl]# (umask  077; openssl  genrsa -out  /opt/apache24/ssl/httpd.key 8192)</span></span><br><span class="line"><span class="string">Generating RSA private key, 8192 bit long modulus</span></span><br><span class="line"><span class="string">.............................................................................................................++</span></span><br><span class="line"><span class="string">....................................................++</span></span><br><span class="line"><span class="string">e is 65537 (0x10001)</span></span><br><span class="line"><span class="string">[root@lampw ssl]#</span></span><br></pre></td></tr></table></figure>
+<p><strong>生成证书签署请求</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@lampw ssl]<span class="comment"># openssl  req  -new  -key  /opt/apache24/ssl/httpd.key  -out /opt/apache24/ssl/httpd.csr  -days  365</span></span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter <span class="string">'.'</span>, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [AU]:CN</span><br><span class="line">State or Province Name (full name) [Some-State]:HA</span><br><span class="line">Locality Name (eg, city) []:ZZ</span><br><span class="line">Organization Name (eg, company) [Internet Widgits Pty Ltd]:Tmall</span><br><span class="line">Organizational Unit Name (eg, section) []:Tmall</span><br><span class="line">Common Name (e.g. server FQDN or YOUR name) []:www2.stuX.com</span><br><span class="line">Email Address []:admin@stuX.com</span><br><span class="line"></span><br><span class="line">Please enter the following <span class="string">'extra'</span> attributes</span><br><span class="line">to be sent with your certificate request</span><br><span class="line">A challenge password []:</span><br><span class="line">An optional company name []:</span><br></pre></td></tr></table></figure>
+<p><strong>将请求通过可靠方式发送给CA主机，这次是在同一台机器，我就略过，如果是生产环境，估计就是要发给可信的证书签署机构</strong></p>
+<p>1、在CA主机上签署证书</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[root@centos ssl]<span class="comment"># openssl ca  -in  /etc/httpd/ssl/httpd.csr  -out  /etc/pki/CA/certs/httpd.crt  -days  365</span></span><br><span class="line">Using configuration from /etc/pki/tls/openssl.cnf</span><br><span class="line">Check that the request matches the signature</span><br><span class="line">Signature ok</span><br><span class="line">Certificate Details:</span><br><span class="line">        Serial Number: 1 (0x1)</span><br><span class="line">        Validity</span><br><span class="line">            Not Before: Mar 22 03:49:48 2017 GMT</span><br><span class="line">            Not After : Mar 22 03:49:48 2018 GMT</span><br><span class="line">        Subject:</span><br><span class="line">            countryName               = CN</span><br><span class="line">            stateOrProvinceName       = HA</span><br><span class="line">            organizationName          = Tmall</span><br><span class="line">            organizationalUnitName    = ops</span><br><span class="line">            commonName                = www2.stuX.com</span><br><span class="line">            emailAddress              = admin@stuX.com</span><br><span class="line">        X509v3 extensions:</span><br><span class="line">            X509v3 Basic Constraints: </span><br><span class="line">                CA:FALSE</span><br><span class="line">            Netscape Comment: </span><br><span class="line">                OpenSSL Generated Certificate</span><br><span class="line">            X509v3 Subject Key Identifier: </span><br><span class="line">                EC:C4:48:10:BE:BD:1D:D2:48:38:17:B7:FD:0D:57:DE:51:B1:8F:64</span><br><span class="line">            X509v3 Authority Key Identifier: </span><br><span class="line">                keyid:ED:42:A1:59:88:A2:45:0A:F2:64:46:A6:BA:C9:7A:5D:E3:9C:FB:AE</span><br><span class="line"></span><br><span class="line">Certificate is to be certified until Mar 22 03:49:48 2018 GMT (365 days)</span><br><span class="line">Sign the certificate? [y/n]:y</span><br><span class="line"></span><br><span class="line">    1 out of 1 certificate requests certified, commit? [y/n]y</span><br><span class="line"></span><br><span class="line">    Write out database with 1 new entries</span><br><span class="line"></span><br><span class="line">    Data Base Updated</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@centos ssl]<span class="comment"># ls</span></span><br><span class="line">httpd.crt  httpd.csr  httpd.key</span><br></pre></td></tr></table></figure>
+<p>​   </p>
+<p>2、修改配置文件提供ssl服务</p>
+<p>开启主配置文件的ssl调用，删除www2在httpd-vhosts中的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Include /etc/httpd24/extra/httpd-ssl.conf</span><br><span class="line"></span><br><span class="line">~]# vim /etc/httpd24/extra/httpd-ssl.conf</span><br><span class="line"></span><br><span class="line">[root@localhost httpd24]# cat extra/httpd-ssl.conf | grep -v &quot;^#&quot;</span><br><span class="line"></span><br><span class="line">Listen 443</span><br><span class="line"></span><br><span class="line">SSLPassPhraseDialog  builtin</span><br><span class="line"></span><br><span class="line">&lt;VirtualHost 192.168.150.136:443&gt;</span><br><span class="line"></span><br><span class="line">DocumentRoot &quot;/web/vhost/www2&quot;</span><br><span class="line"></span><br><span class="line">ServerName www2.stuX.com:443</span><br><span class="line"></span><br><span class="line">ServerAdmin you@example.com</span><br><span class="line"></span><br><span class="line">ErrorLog &quot;/var/log/httpd/www2.err&quot;</span><br><span class="line"></span><br><span class="line">TransferLog &quot;/usr/local/apache24/logs/access_log&quot;</span><br><span class="line"></span><br><span class="line">SSLEngine on</span><br><span class="line"></span><br><span class="line">SSLCertificateFile &quot;/etc/httpd24/ssl/httpd.crt&quot;</span><br><span class="line"></span><br><span class="line">SSLCertificateKeyFile &quot;/etc/httpd24/ssl/httpd.key&quot;</span><br><span class="line"></span><br><span class="line">&lt;Directory &quot;/web/vhost/www2&quot;&gt;</span><br><span class="line"></span><br><span class="line"> AllowOverride None</span><br><span class="line"></span><br><span class="line">Options None</span><br><span class="line"></span><br><span class="line">Require all granted</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+<p>主配置文件中启用ssl模块</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]<span class="comment"># vim /etc/httpd24/httpd.conf</span></span><br><span class="line"></span><br><span class="line">LoadModule ssl_module modules/mod_ssl.so</span><br></pre></td></tr></table></figure>
+<p>重启httpd服务后测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">httpd24]<span class="comment"># ss -tnl | grep 443</span></span><br><span class="line"></span><br><span class="line">LISTEN     0      128                      :::443                     :::*</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/08/06/自签证书使用户可以通过https访问站点/">自签证书使用户可以通过https访问站点</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
+        <p><span>发布时间:</span>2018-08-06, 13:51:00</p>
+        <p><span>最后更新:</span>2018-08-06, 13:54:21</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/06/自签证书使用户可以通过https访问站点/" title="自签证书使用户可以通过https访问站点">https://zhusas.github.io/2018/08/06/自签证书使用户可以通过https访问站点/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/06/自签证书使用户可以通过https访问站点/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">
+                    php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/08/06/Apache所支持的处理模型及应用环境/">
+                    Apache所支持的处理模型及应用环境
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"自签证书使用户可以通过https访问站点　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/" title="上一篇: php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/08/06/Apache所支持的处理模型及应用环境/" title="下一篇: Apache所支持的处理模型及应用环境">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/自签证书使用户可以通过https访问站点/">自签证书使用户可以通过https访问站点</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/Apache所支持的处理模型及应用环境/">Apache所支持的处理模型及应用环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/一次完整的http请求处理过程/">一次完整的http请求处理过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/自建DNS总结/">自建DNS总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/通讯加密及私有CA/">通讯加密及私有CA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/CentOS系统的启动流程/">CentOS系统的启动流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本小练/">脚本小练</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本小工具/">OSI七层模型及脚本小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本又见脚本/">脚本又见脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux一些基本操作/">Linux一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux上的文件管理类命令其常用的使用方法及其相关示例演示/">Linux上的文件管理类命令其常用的使用方法及其相关示例演示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018 Jerry Zhu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 10;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a").attr("target", "_blank");
+        $("#scroll a, #toc a").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

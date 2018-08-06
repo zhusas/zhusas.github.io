@@ -15,21 +15,18 @@
 
 
 
-<meta name="description" content="记一次加密通讯的过程 第一阶段：ClientHello：支持的协议版本，比如tls 1.2；客户端生成一个随机数，稍后用户生成“会话密钥”支持的加密算法，比如AES、3DES、RSA；支持的压缩算法；">
-<meta name="keywords" content="CA,SSL">
+<meta name="description" content="php编译成httpd模块形式">
+<meta name="keywords" content="apache,php,fpm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通讯加密及私有CA">
-<meta property="og:url" content="https://zhusas.github.io/2018/08/05/通讯加密及私有CA/index.html">
+<meta property="og:title" content="php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程">
+<meta property="og:url" content="https://zhusas.github.io/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/index.html">
 <meta property="og:site_name" content="Jerry&#39;s Blog">
-<meta property="og:description" content="记一次加密通讯的过程 第一阶段：ClientHello：支持的协议版本，比如tls 1.2；客户端生成一个随机数，稍后用户生成“会话密钥”支持的加密算法，比如AES、3DES、RSA；支持的压缩算法；">
+<meta property="og:description" content="php编译成httpd模块形式">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://i.imgur.com/OTwBgQW.jpg">
-<meta property="og:image" content="http://i.imgur.com/X16Cqj1.jpg">
-<meta property="og:updated_time" content="2018-08-05T03:40:00.167Z">
+<meta property="og:updated_time" content="2018-08-06T05:57:19.977Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="通讯加密及私有CA">
-<meta name="twitter:description" content="记一次加密通讯的过程 第一阶段：ClientHello：支持的协议版本，比如tls 1.2；客户端生成一个随机数，稍后用户生成“会话密钥”支持的加密算法，比如AES、3DES、RSA；支持的压缩算法；">
-<meta name="twitter:image" content="http://i.imgur.com/OTwBgQW.jpg">
+<meta name="twitter:title" content="php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程">
+<meta name="twitter:description" content="php编译成httpd模块形式">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>通讯加密及私有CA | Jerry&#39;s Blog</title>
+<title>php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程 | Jerry&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -263,11 +260,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-通讯加密及私有CA" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/08/05/通讯加密及私有CA/" class="article-date">
-      <time datetime="2018-08-05T03:37:00.000Z" itemprop="datePublished">2018-08-05</time>
+      <a href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/" class="article-date">
+      <time datetime="2018-08-06T05:55:00.000Z" itemprop="datePublished">2018-08-06</time>
 </a>
 
 
@@ -282,7 +279,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      通讯加密及私有CA
+      php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程
     </h1>
   
 
@@ -293,7 +290,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CA/">CA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fpm/">fpm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -303,29 +300,28 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="记一次加密通讯的过程"><a href="#记一次加密通讯的过程" class="headerlink" title="记一次加密通讯的过程"></a>记一次加密通讯的过程</h3><p><img src="http://i.imgur.com/OTwBgQW.jpg" alt=""></p>
-<p><strong>第一阶段：ClientHello：</strong><br>支持的协议版本，比如tls 1.2；<br>客户端生成一个随机数，稍后用户生成“会话密钥”<br>支持的加密算法，比如AES、3DES、RSA；<br>支持的压缩算法；<br>    <a id="more"></a><br><strong>第二阶段：ServerHello</strong><br>确认使用的加密通信协议版本，比如tls 1.2；<br>服务器端生成一个随机数，稍后用于生成“会话密钥”<br>确认使用的加密方法；<br>服务器证书；</p>
-<p><strong>第三阶段：</strong><br>验正服务器证书，在确认无误后取出其公钥；（发证机构、证书完整性、证书持有者、证书有效期、吊销列表）<br>发送以下信息给服务器端：<br>一个随机数；<br>编码变更通知，表示随后的信息都将用双方商定的加密方法和密钥发送；<br>客户端握手结束通知；</p>
-<p><strong>第四阶段：</strong><br>收到客户端发来的第三个随机数pre-master-key后，计算生成本次会话所有到的“会话密钥”；<br>向客户端发送如下信息：<br>编码变更通知，表示随后的信息都将用双方商定的加密方法和密钥发送；<br>服务端握手结束通知；</p>
-<p><strong>下图来个通俗版的(密匙版本，可能不是完全吻合)：</strong></p>
-<p><img src="http://i.imgur.com/X16Cqj1.jpg" alt=""></p>
-<h3 id="创建私有CA的过程，以及为客户端发来的证书请求进行颁发证书"><a href="#创建私有CA的过程，以及为客户端发来的证书请求进行颁发证书" class="headerlink" title="创建私有CA的过程，以及为客户端发来的证书请求进行颁发证书"></a>创建私有CA的过程，以及为客户端发来的证书请求进行颁发证书</h3><p><strong>创建私有CA的过程</strong></p>
-<p><strong>第一步：生成私钥</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@centos private]<span class="comment"># (umask 077; openssl genrsa -out /etc/pki/CA/private/jerry_cakey.pam 8192)</span></span><br><span class="line">Generating RSA private key, 8192 bit long modulus</span><br><span class="line">......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................++</span><br><span class="line">..........++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">[root@centos private]<span class="comment"># ll</span></span><br><span class="line">总用量 8</span><br><span class="line">-rw------- 1 root root 6363 2月  24 15:39 jerry_cakey.pam</span><br><span class="line">[root@centos private]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<p><strong>第二步：生成自签证书</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@centos private]<span class="comment"># openssl req -new -x509 -key /etc/pki/CA/private/cakey.pem -out /etc/pki/CA/cacert.pem -days 3655</span></span><br><span class="line"></span><br><span class="line">-new：生成新证书签署请求；</span><br><span class="line"></span><br><span class="line">-x509：生成自签格式证书，专用于创建私有CA时；</span><br><span class="line"></span><br><span class="line">-key：生成请求时用到的私有文件路径；</span><br><span class="line"></span><br><span class="line">-out：生成的请求文件路径；如果自签操作将直接生成签署过的证书；</span><br><span class="line"></span><br><span class="line">-days：证书的有效时长，单位是day；</span><br></pre></td></tr></table></figure>
-<p>第三步：为CA提供所需的目录及文件；**</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centos private]<span class="comment"># mkdir  -pv  /etc/pki/CA/&#123;certs,crl,newcerts&#125;</span></span><br><span class="line">[root@centos private]<span class="comment"># touch  /etc/pki/CA/&#123;serial,index.txt&#125;</span></span><br><span class="line">[root@centos private]<span class="comment"># echo  01 &gt; /etc/pki/CA/serial</span></span><br></pre></td></tr></table></figure>
-<p><strong>为客户端发来的证书请求进行颁发证书</strong></p>
-<p><strong>第一步:用到证书的主机生成私钥:</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@centos ~]<span class="comment"># cd /etc/httpd/ssl</span></span><br><span class="line">[root@centos ssl]<span class="comment"># (umask  077; openssl  genrsa -out  /etc/httpd/ssl/httpd.key  8192)</span></span><br><span class="line">Generating RSA private key, 8192 bit long modulus</span><br><span class="line">......................................................................................................................................................................................................................................................................++</span><br><span class="line">......................................................................................................................................................................................++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">[root@centos ssl]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<p><strong>第二步:生成证书签署请求</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@centos ssl]<span class="comment">#  openssl  req  -new  -key  /etc/httpd/ssl/httpd.key  -out /etc/httpd/ssl/httpd.csr  -days  365</span></span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter <span class="string">'.'</span>, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [XX]:CN</span><br><span class="line">State or Province Name (full name) []:Hubei</span><br><span class="line">Locality Name (eg, city) [Default City]:Wuhan</span><br><span class="line">Organization Name (eg, company) [Default Company Ltd]:wanghuakeji</span><br><span class="line">Organizational Unit Name (eg, section) []:Ops</span><br><span class="line">Common Name (eg, your name or your server<span class="string">'s hostname) []:whmall.com</span></span><br><span class="line"><span class="string">Email Address []:caadmin@whmall.com</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Please enter the following '</span>extra<span class="string">' attributes</span></span><br><span class="line"><span class="string">to be sent with your certificate request</span></span><br><span class="line"><span class="string">A challenge password []:qweasdzxc</span></span><br><span class="line"><span class="string">An optional company name []:            </span></span><br><span class="line"><span class="string">[root@centos ssl]#</span></span><br></pre></td></tr></table></figure>
-<p><strong>第三步:将请求通过可靠方式发送给CA主机</strong></p>
-<p>两台主机就用scp，我这里是都在一台虚拟机上就用cp命令，过于简单，就不贴过程了</p>
-<p><strong>第四步：在CA主机上签署证书</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@centos ssl]<span class="comment"># openssl ca  -in  /etc/httpd/ssl/httpd.csr  -out  /etc/pki/CA/certs/httpd.crt  -days  365</span></span><br><span class="line">Using configuration from /etc/pki/tls/openssl.cnf</span><br><span class="line">Check that the request matches the signature</span><br><span class="line">Signature ok</span><br><span class="line">Certificate Details:</span><br><span class="line">        Serial Number: 1 (0x1)</span><br><span class="line">        Validity</span><br><span class="line">            Not Before: Feb 24 09:08:16 2017 GMT</span><br><span class="line">            Not After : Feb 24 09:08:16 2018 GMT</span><br><span class="line">        Subject:</span><br><span class="line">            countryName               = CN</span><br><span class="line">            stateOrProvinceName       = Hubei</span><br><span class="line">            organizationName          = FBI</span><br><span class="line">            organizationalUnitName    = Ops</span><br><span class="line">            commonName                = xxx.com</span><br><span class="line">            emailAddress              = caadmin@xxx.com</span><br><span class="line">        X509v3 extensions:</span><br><span class="line">            X509v3 Basic Constraints: </span><br><span class="line">                CA:FALSE</span><br><span class="line">            Netscape Comment: </span><br><span class="line">                OpenSSL Generated Certificate</span><br><span class="line">            X509v3 Subject Key Identifier: </span><br><span class="line">                D9:4A:37:A2:3E:C4:0D:B8:DF:BF:97:D2:DF:6F:21:6D:B5:56:E1:47</span><br><span class="line">            X509v3 Authority Key Identifier: </span><br><span class="line">                keyid:07:17:C7:46:2F:05:5C:12:D3:10:65:DE:58:83:36:A3:A9:0D:02:17</span><br><span class="line"></span><br><span class="line">Certificate is to be certified until Feb 24 09:08:16 2018 GMT (365 days)</span><br><span class="line">Sign the certificate? [y/n]:y</span><br><span class="line">1 out of 1 certificate requests certified, commit? [y/n]y</span><br><span class="line">Write out database with 1 new entries</span><br><span class="line">Data Base Updated</span><br><span class="line">[root@centos ssl]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<p>​    </p>
+        <p><strong>php编译成httpd模块形式</strong>   <a id="more"></a></p>
+<p>略。。。。。。</p>
+<p><strong>php以fpm工作为独立守护进程的方式来支持httpd</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">./configure –prefix=/opt/php5-fpm \</span><br><span class="line">–with-mysql=mysqlnd \</span><br><span class="line">–with-openssl \</span><br><span class="line">–with-mysqli=mysqlnd \</span><br><span class="line">–enable-mbstring \</span><br><span class="line">–with-freetype-dir \</span><br><span class="line">–with-jpeg-dir \ </span><br><span class="line">–with-png-dir \</span><br><span class="line">–with-zlib \</span><br><span class="line">–with-libxml-dir=/usr \</span><br><span class="line">–enable-xml \</span><br><span class="line">–enable-sockets \</span><br><span class="line">–enable-fpm \</span><br><span class="line">–with-mcrypt \</span><br><span class="line">–with-config-file-path=/opt/php5-fpm/conf \</span><br><span class="line">–with-config-file-scan-dir=/opt/php5-fpm/conf.d \</span><br><span class="line">–with-bz2</span><br></pre></td></tr></table></figure>
+<p>添加了–enable-fpm选项 ，这是重点啊，各位记住。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>拷贝配置文件至/opt/php5-fpm/conf目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp php.ini-production /etc/php.ini</span><br></pre></td></tr></table></figure>
+<p>拷贝php-fpm配置文件，并同时取消pid选项的注释</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="built_in">local</span>/php5/etc/php-fpm.conf.default  /usr/<span class="built_in">local</span>/php5/etc/php-fpm.conf</span><br><span class="line">vim /usr/<span class="built_in">local</span>/php5/etc/php-fpm.conf</span><br><span class="line">pid = /usr/<span class="built_in">local</span>/php5/var/run/php-fpm.pid</span><br></pre></td></tr></table></figure>
+<p><strong>添加服务脚本</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入源码目录，拷贝开机启动服务文件</span></span><br><span class="line">cp init.d.php-fpm /etc/rc.d/init.d/php-fp</span><br><span class="line"></span><br><span class="line"><span class="comment">#加上执行属性</span></span><br><span class="line">chmod +x /etc/rc.d/init.d/php-fpm</span><br><span class="line"></span><br><span class="line"><span class="comment">#加入到开机启动服务</span></span><br><span class="line">chkconfig –add php-fpm</span><br></pre></td></tr></table></figure>
+<p><strong>启动php-fpm</strong></p>
+<p> service php-fpm start</p>
+<p><strong>配置httpd</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># vim /etc/httpd24/httpd.conf</span><br><span class="line"></span><br><span class="line">#启用这两个模块:</span><br><span class="line"></span><br><span class="line">LoadModule proxy_module modules/mod_proxy.so</span><br><span class="line"></span><br><span class="line">LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so</span><br></pre></td></tr></table></figure>
+<p><strong>添加文件类型</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加文件类型</span></span><br><span class="line">AddType application/x-httpd-php .php</span><br><span class="line">AddType application/x-httpd-php-source .phps</span><br><span class="line"></span><br><span class="line">添加php文件的访问通过fpm</span><br><span class="line">ProxyRequests Off</span><br><span class="line">ProxyPassMatch ^/(.*.php)$ fcgi://127.0.0.1:9000/usr/<span class="built_in">local</span>/apache24/htdocs/<span class="variable">$1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">找到 DirectoryIndex index.html</span><br><span class="line">改为</span><br><span class="line">DirectoryIndex index.php index.html</span><br></pre></td></tr></table></figure>
+<p><strong>编辑php测试页并开启httpd进行测试</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/apache24/htdocs/</span><br><span class="line"></span><br><span class="line">vim index.php</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;h1&gt;phpfpmtest&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">    phpinfo();</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost htdocs]# apachectl start</span><br><span class="line"></span><br><span class="line">AH00558: httpd: Could not reliably determine the server&apos;s fully qualified domain name, using localhost.</span><br><span class="line"></span><br><span class="line">localdomain. Set the &apos;ServerName&apos; directive globally to suppress this</span><br><span class="line"></span><br><span class="line">[root@localhost htdocs]# ss -tnls     </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">State       Recv-Q Send-Q                   Local Address:Port                     Peer Address:Port</span><br><span class="line"></span><br><span class="line">LISTEN      0      128                                 :::80                                 :::*     </span><br><span class="line"></span><br><span class="line">LISTEN      0      128                                 :::22                                 :::*     </span><br><span class="line"></span><br><span class="line">LISTEN      0      128                                  *:22                                  *:*     </span><br><span class="line"></span><br><span class="line">LISTEN      0      100                                ::1:25                                 :::*     </span><br><span class="line"></span><br><span class="line">LISTEN      0      100                          127.0.0.1:25                                  *:*     </span><br><span class="line"></span><br><span class="line">LISTEN      0      128                          127.0.0.1:6010                                *:*     </span><br><span class="line"></span><br><span class="line">LISTEN      0      128                                ::1:6010                               :::*     </span><br><span class="line"></span><br><span class="line">LISTEN      0      128                          127.0.0.1:6011                                *:*     </span><br><span class="line"></span><br><span class="line">LISTEN      0      128                                ::1:6011                               :::*     </span><br><span class="line"></span><br><span class="line">LISTEN      0      128                          127.0.0.1:9000                                *:*</span><br></pre></td></tr></table></figure>
+<p>此时的Server API为FPM/FastCGI</p>
 
       
     </div>
@@ -334,13 +330,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/08/05/通讯加密及私有CA/">通讯加密及私有CA</a></p>
+        <p><span>本文标题:</span><a href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
-        <p><span>发布时间:</span>2018-08-05, 11:37:00</p>
-        <p><span>最后更新:</span>2018-08-05, 11:40:00</p>
+        <p><span>发布时间:</span>2018-08-06, 13:55:00</p>
+        <p><span>最后更新:</span>2018-08-06, 13:57:19</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/08/05/通讯加密及私有CA/" title="通讯加密及私有CA">https://zhusas.github.io/2018/08/05/通讯加密及私有CA/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/05/通讯加密及私有CA/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/" title="php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程">https://zhusas.github.io/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -352,16 +348,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/08/05/自建DNS总结/">
-                    自建DNS总结
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/08/05/脚本写到手抽筋/">
-                    脚本写到手抽筋
+                <a href="/2018/08/06/自签证书使用户可以通过https访问站点/">
+                    自签证书使用户可以通过https访问站点
                 </a>
             </div>
         
@@ -373,7 +363,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#记一次加密通讯的过程"><span class="toc-number">1.</span> <span class="toc-text">记一次加密通讯的过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建私有CA的过程，以及为客户端发来的证书请求进行颁发证书"><span class="toc-number">2.</span> <span class="toc-text">创建私有CA的过程，以及为客户端发来的证书请求进行颁发证书</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -409,7 +399,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"通讯加密及私有CA　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -429,15 +419,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/08/05/自建DNS总结/" title="上一篇: 自建DNS总结">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/08/05/脚本写到手抽筋/" title="下一篇: 脚本写到手抽筋">
+            <a href="/2018/08/06/自签证书使用户可以通过https访问站点/" title="下一篇: 自签证书使用户可以通过https访问站点">
                 <i class="fa fa-angle-right"></i>
             </a>
         
