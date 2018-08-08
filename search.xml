@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title>HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题</title>
+      <link href="/2018/08/08/haproxy-replica-set/"/>
+      <url>/2018/08/08/haproxy-replica-set/</url>
+      <content type="html"><![CDATA[<p>接上回，自从搭建起副本集之后，很嗨，再也不担心单机挂了之后数据丢失了。应用往MongoDB副本集写也做了相应配置。</p><p>在做nginx读取MongoDB副本集数据测试中，发现了新问题  <a id="more"></a></p><p>按照<a href="https://github.com/mdirolf/nginx-gridfs中连接副本集的配置例子，如下：" target="_blank" rel="noopener">https://github.com/mdirolf/nginx-gridfs中连接副本集的配置例子，如下：</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location /gridfs/ &#123;</span><br><span class="line">    gridfs my_app field=filename type=string;</span><br><span class="line">    mongo &quot;foo&quot;</span><br><span class="line">          10.7.2.27:27017</span><br><span class="line">          10.7.2.28:27017;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>在主节点关闭后，其设置的第二个节点是不起作用的（我设置了五个，均不起作用，nginx读取MongoDB节点中的文件报错）</strong></p><p>由此可见nginx-gridfs插件这里是有问题的，但是我们的web服务器已经在使用了这个插件，不能轻易更换，只能另寻他法。</p><p><strong>经过测试，发现副本集在原主节点挂掉后，余下节点（包括新选举的主节点和从节点）都可以使用直连模式来读取文件。</strong></p><p>于是一个大胆的想法浮现了，何不在nginx和副本集之间加个负载均衡器？ <strong>嗯，我选了HAproxy。</strong></p><p>HAproxy的介绍百度一大堆，我就不重复了，直接上配置文件（部分以变量代替）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">global</span><br><span class="line">    maxconn 50000 <span class="comment">#默认最大连接数,需考虑ulimit-n限制</span></span><br><span class="line">    <span class="built_in">log</span> 127.0.0.1 local0</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    mode tcp <span class="comment">#四层反向代理，不受套接字文件数量限制</span></span><br><span class="line">    timeout connect 20s <span class="comment">#haproxy将客户端请求转发至后端服务器所等待的超时时长</span></span><br><span class="line">    timeout client 30s <span class="comment">#客户端非活动状态的超时时长</span></span><br><span class="line">    timeout server 30s <span class="comment">#客户端与服务器端建立连接后，等待服务器端的超时时长</span></span><br><span class="line">    timeout check 10s <span class="comment">#健康状态监测时的超时时间，过短会误判，过长资源消耗\</span></span><br><span class="line">    timeout http-keep-alive 60s  <span class="comment">#长连接超时</span></span><br><span class="line">    <span class="comment">#option redispatch #当使用了cookie时，haproxy将会将其请求的后端服务器的serverID插入到cookie中，以保证会话的SESSION持久性</span></span><br><span class="line">    <span class="comment">#retries 3 #后端服务器的失败重连次数，链接失败次数超过此处值会将对应后端服务器标记不可用</span></span><br><span class="line"></span><br><span class="line">frontend mongo-in</span><br><span class="line">        <span class="built_in">bind</span> *:29000</span><br><span class="line">        <span class="built_in">log</span> global <span class="comment">#使用全局日志配置</span></span><br><span class="line">        <span class="comment">#option tcplog</span></span><br><span class="line">        <span class="comment">#option dontlognull </span></span><br><span class="line">        default_backend mongo  <span class="comment">#定义默认转发的后端服务器</span></span><br><span class="line"></span><br><span class="line">backend mongo <span class="comment">#定义后端服务群default_servers</span></span><br><span class="line">    balance roundrobin <span class="comment">#分发策略</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#check启用健康监测，监测MongoDB的服务端口，每个2秒监测一次，失败3次标记为不可用，成功2次恢复为可用</span></span><br><span class="line">    server mongo_rs1 <span class="variable">$MONGODB_RS1_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3  </span><br><span class="line">    server mongo_rs2 <span class="variable">$MONGODB_RS2_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br><span class="line">    server mongo_rs3 <span class="variable">$MONGODB_RS3_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br><span class="line">    server mongo_rs4 <span class="variable">$MONGODB_RS4_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br><span class="line">    server mongo_rs5 <span class="variable">$MONGODB_RS5_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br></pre></td></tr></table></figure><p>上了之后，问题解决，哈哈哈哈哈。。。。。。。。。。。。。。。。。</p><p><strong>总结</strong></p><hr><ol><li>如果用HAproxy转发HTTP连接，须考虑Linux的open files限制，如果是tcp的代理，可以忽略，其在内核就完成转发了。</li><li>多看官方文档。</li><li>任何解决方案都要考虑业务场景的真实需求。</li><li>这里因为对从节点的数据实时性要求不是即时同步，首要需求是数据的多份拷贝的完整性和服务的高可用。</li></ol>]]></content>
+      
+      
+        <tags>
+            
+            <tag> haproxy </tag>
+            
+            <tag> replica set </tag>
+            
+            <tag> mongodb </tag>
+            
+            <tag> nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Ansible和Docker Swarm还有MongoDB Replica Set</title>
       <link href="/2018/08/07/nsible%E5%92%8CDocker-Swarm%E8%BF%98%E6%9C%89MongoDB-Replica-Set/"/>
       <url>/2018/08/07/nsible%E5%92%8CDocker-Swarm%E8%BF%98%E6%9C%89MongoDB-Replica-Set/</url>
@@ -11,15 +32,15 @@
       
         <tags>
             
+            <tag> replica set </tag>
+            
+            <tag> mongodb </tag>
+            
             <tag> ansible </tag>
             
             <tag> docker </tag>
             
             <tag> swarm </tag>
-            
-            <tag> mongodb </tag>
-            
-            <tag> replica set </tag>
             
         </tags>
       
@@ -34,9 +55,9 @@
       
         <tags>
             
-            <tag> lvs </tag>
-            
             <tag> nginx </tag>
+            
+            <tag> lvs </tag>
             
             <tag> wordpress </tag>
             
@@ -53,9 +74,9 @@
       
         <tags>
             
-            <tag> php </tag>
-            
             <tag> nginx </tag>
+            
+            <tag> php </tag>
             
             <tag> lnmp </tag>
             

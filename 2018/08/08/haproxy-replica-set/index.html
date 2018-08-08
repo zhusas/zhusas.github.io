@@ -15,20 +15,18 @@
 
 
 
-<meta name="description" content="数据目录为 /data      1）共享名为shared，工作组为whmall vim /etc/samba/smb.conf">
-<meta name="keywords" content="linux,samba">
+<meta name="description" content="接上回，自从搭建起副本集之后，很嗨，再也不担心单机挂了之后数据丢失了。应用往MongoDB副本集写也做了相应配置。 在做nginx读取MongoDB副本集数据测试中，发现了新问题">
+<meta name="keywords" content="haproxy,replica set,mongodb,nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="建立samba共享">
-<meta property="og:url" content="https://zhusas.github.io/2018/08/06/建立samba共享/index.html">
+<meta property="og:title" content="HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题">
+<meta property="og:url" content="https://zhusas.github.io/2018/08/08/haproxy-replica-set/index.html">
 <meta property="og:site_name" content="Jerry&#39;s Blog">
-<meta property="og:description" content="数据目录为 /data      1）共享名为shared，工作组为whmall vim /etc/samba/smb.conf">
+<meta property="og:description" content="接上回，自从搭建起副本集之后，很嗨，再也不担心单机挂了之后数据丢失了。应用往MongoDB副本集写也做了相应配置。 在做nginx读取MongoDB副本集数据测试中，发现了新问题">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://i.imgur.com/F4LHTsz.png">
-<meta property="og:updated_time" content="2018-08-06T06:07:34.810Z">
+<meta property="og:updated_time" content="2018-08-08T05:48:42.606Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="建立samba共享">
-<meta name="twitter:description" content="数据目录为 /data      1）共享名为shared，工作组为whmall vim /etc/samba/smb.conf">
-<meta name="twitter:image" content="http://i.imgur.com/F4LHTsz.png">
+<meta name="twitter:title" content="HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题">
+<meta name="twitter:description" content="接上回，自从搭建起副本集之后，很嗨，再也不担心单机挂了之后数据丢失了。应用往MongoDB副本集写也做了相应配置。 在做nginx读取MongoDB副本集数据测试中，发现了新问题">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -60,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>建立samba共享 | Jerry&#39;s Blog</title>
+<title>HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题 | Jerry&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -262,11 +260,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-建立samba共享" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-haproxy-replica-set" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/08/06/建立samba共享/" class="article-date">
-      <time datetime="2018-08-06T06:06:00.000Z" itemprop="datePublished">2018-08-06</time>
+      <a href="/2018/08/08/haproxy-replica-set/" class="article-date">
+      <time datetime="2018-08-08T05:47:00.000Z" itemprop="datePublished">2018-08-08</time>
 </a>
 
 
@@ -281,7 +279,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      建立samba共享
+      HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题
     </h1>
   
 
@@ -292,7 +290,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/samba/">samba</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/haproxy/">haproxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/replica-set/">replica set</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -302,29 +300,25 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>数据目录为 /data     </p>
-<p><strong>1）共享名为shared，工作组为whmall</strong></p>
-<p>vim /etc/samba/smb.conf <a id="more"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">修改</span><br><span class="line">workgroup = MYGROUP</span><br><span class="line">为</span><br><span class="line">workgroup = whmall</span><br><span class="line"></span><br><span class="line">修改</span><br><span class="line">passdb backend = tdbsam</span><br><span class="line">为</span><br><span class="line">    passdb backend = smbpasswd</span><br><span class="line">    smb passwd file = /etc/samba/smbpasswd</span><br></pre></td></tr></table></figure>
-<p><strong>2)添加组develop，添加用户gentoo,centos和ubuntu，其中gentoo和centos以develop为附加组，ubuntu不属于develop组；密码均为用户名</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 samba]<span class="comment"># groupadd develop</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment"># useradd -G develop gentoo</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment"># useradd -G develop centos</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment"># useradd ubuntu</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment">#  echo "gentoo"|  passwd --stdin gentoo</span></span><br><span class="line">更改用户 gentoo 的密码 。</span><br><span class="line">passwd：所有的身份验证令牌已经成功更新。</span><br><span class="line">[root@CentOS7 samba]<span class="comment"># echo "centos"|  passwd --stdin centos</span></span><br><span class="line">更改用户 centos 的密码 。</span><br><span class="line">passwd：所有的身份验证令牌已经成功更新。</span><br><span class="line">[root@CentOS7 samba]<span class="comment"># echo "ubuntu"|  passwd --stdin ubuntu</span></span><br></pre></td></tr></table></figure>
-<p><strong>3)添加samba用户gentoo,centos和ubuntu，密码均为“111111”</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 samba]<span class="comment">#  smbpasswd -a gentoo</span></span><br><span class="line">New SMB password:</span><br><span class="line">Retype new SMB password:</span><br><span class="line">startsmbfilepwent_internal: file /etc/samba/smbpasswd did not exist. File successfully created.</span><br><span class="line">Added user gentoo.</span><br><span class="line">[root@CentOS7 samba]<span class="comment">#  smbpasswd -a centos</span></span><br><span class="line">New SMB password:</span><br><span class="line">Retype new SMB password:</span><br><span class="line">Added user centos.</span><br><span class="line">[root@CentOS7 samba]<span class="comment">#  smbpasswd -a ubuntu</span></span><br><span class="line">New SMB password:</span><br><span class="line">Retype new SMB password:</span><br><span class="line">Added user ubuntu.</span><br><span class="line">[root@CentOS7 samba]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<p><strong>4)此samba共享shared仅允许develop组具有写权限，其他用户只能以只读方式访问</strong></p>
-<p>vim smb.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">末尾添加</span><br><span class="line">[shared]</span><br><span class="line">comment = whmall.com</span><br><span class="line">path = /data</span><br><span class="line">guest = yes </span><br><span class="line">writable = no</span><br><span class="line">write list = +develop</span><br></pre></td></tr></table></figure>
-<p><strong>5)此samba共享服务仅允许来自于172.16.0.0/16网络的主机访问； </strong></p>
-<p>vim smb.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">添加 </span><br><span class="line">hosts allow = 172.16.0.0/16</span><br></pre></td></tr></table></figure>
-<p>启动samba服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 samba]<span class="comment"># systemctl start smb.service</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment"># systemctl status smb.service</span></span><br><span class="line">● smb.service - Samba SMB Daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/smb.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 四 2017-03-23 14:39:18 CST; 5s ago</span><br><span class="line"> Main PID: 101560 (smbd)</span><br><span class="line">   Status: <span class="string">"smbd: ready to serve connections..."</span></span><br><span class="line">   CGroup: /system.slice/smb.service</span><br><span class="line">           ├─101560 /usr/sbin/smbd</span><br><span class="line">           ├─101561 /usr/sbin/smbd</span><br><span class="line">           ├─101562 /usr/sbin/smbd</span><br><span class="line">           └─101563 /usr/sbin/smbd</span><br><span class="line"></span><br><span class="line">3月 23 14:39:18 CentOS7 systemd[1]: Starting Samba SMB Daemon...</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101557]: [2017/03/23 14:39:18.773050,  0] .....)</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101557]:   Unknown parameter encountered: <span class="string">"g..."</span></span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101557]: [2017/03/23 14:39:18.773117,  0] .....)</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101557]:   Ignoring unknown parameter <span class="string">"guest"</span></span><br><span class="line">3月 23 14:39:18 CentOS7 systemd[1]: smb.service: Supervising process 101...s.</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101560]: [2017/03/23 14:39:18.787425,  0] .....)</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101560]:   STATUS=daemon <span class="string">'smbd'</span> finished sta...s</span><br><span class="line">3月 23 14:39:18 CentOS7 systemd[1]: Started Samba SMB Daemon.</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show <span class="keyword">in</span> full.</span><br></pre></td></tr></table></figure>
-<p><strong>PS： CentOS7最好关闭防火墙，还有SELinux</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]<span class="comment"># systemctl list-unit-files |grep fire</span></span><br><span class="line">firewalld.service                             enabled </span><br><span class="line">[root@CentOS7 ~]<span class="comment"># systemctl stop firewalld.service </span></span><br><span class="line">[root@CentOS7 ~]<span class="comment"># systemctl disable firewalld.service </span></span><br><span class="line">Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.</span><br><span class="line">Removed symlink /etc/systemd/system/basic.target.wants/firewalld.service.</span><br></pre></td></tr></table></figure>
-<p><strong>亲测OK，有图有真相</strong></p>
-<p>PS:这里我把hosts allow = 172.16.0.0/16  改为了hosts allow = 192.168.0.0/24</p>
-<p>workgroup 改为WORKGROUP</p>
-<p>这样就看到了，欧耶~</p>
-<p><img src="http://i.imgur.com/F4LHTsz.png" alt=""></p>
+        <p>接上回，自从搭建起副本集之后，很嗨，再也不担心单机挂了之后数据丢失了。应用往MongoDB副本集写也做了相应配置。</p>
+<p>在做nginx读取MongoDB副本集数据测试中，发现了新问题  <a id="more"></a></p>
+<p>按照<a href="https://github.com/mdirolf/nginx-gridfs中连接副本集的配置例子，如下：" target="_blank" rel="noopener">https://github.com/mdirolf/nginx-gridfs中连接副本集的配置例子，如下：</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location /gridfs/ &#123;</span><br><span class="line">    gridfs my_app field=filename type=string;</span><br><span class="line">    mongo &quot;foo&quot;</span><br><span class="line">          10.7.2.27:27017</span><br><span class="line">          10.7.2.28:27017;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>在主节点关闭后，其设置的第二个节点是不起作用的（我设置了五个，均不起作用，nginx读取MongoDB节点中的文件报错）</strong></p>
+<p>由此可见nginx-gridfs插件这里是有问题的，但是我们的web服务器已经在使用了这个插件，不能轻易更换，只能另寻他法。</p>
+<p><strong>经过测试，发现副本集在原主节点挂掉后，余下节点（包括新选举的主节点和从节点）都可以使用直连模式来读取文件。</strong></p>
+<p>于是一个大胆的想法浮现了，何不在nginx和副本集之间加个负载均衡器？ <strong>嗯，我选了HAproxy。</strong></p>
+<p>HAproxy的介绍百度一大堆，我就不重复了，直接上配置文件（部分以变量代替）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">global</span><br><span class="line">    maxconn 50000 <span class="comment">#默认最大连接数,需考虑ulimit-n限制</span></span><br><span class="line">    <span class="built_in">log</span> 127.0.0.1 local0</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    mode tcp <span class="comment">#四层反向代理，不受套接字文件数量限制</span></span><br><span class="line">    timeout connect 20s <span class="comment">#haproxy将客户端请求转发至后端服务器所等待的超时时长</span></span><br><span class="line">    timeout client 30s <span class="comment">#客户端非活动状态的超时时长</span></span><br><span class="line">    timeout server 30s <span class="comment">#客户端与服务器端建立连接后，等待服务器端的超时时长</span></span><br><span class="line">    timeout check 10s <span class="comment">#健康状态监测时的超时时间，过短会误判，过长资源消耗\</span></span><br><span class="line">    timeout http-keep-alive 60s  <span class="comment">#长连接超时</span></span><br><span class="line">    <span class="comment">#option redispatch #当使用了cookie时，haproxy将会将其请求的后端服务器的serverID插入到cookie中，以保证会话的SESSION持久性</span></span><br><span class="line">    <span class="comment">#retries 3 #后端服务器的失败重连次数，链接失败次数超过此处值会将对应后端服务器标记不可用</span></span><br><span class="line"></span><br><span class="line">frontend mongo-in</span><br><span class="line">        <span class="built_in">bind</span> *:29000</span><br><span class="line">        <span class="built_in">log</span> global <span class="comment">#使用全局日志配置</span></span><br><span class="line">        <span class="comment">#option tcplog</span></span><br><span class="line">        <span class="comment">#option dontlognull </span></span><br><span class="line">        default_backend mongo  <span class="comment">#定义默认转发的后端服务器</span></span><br><span class="line"></span><br><span class="line">backend mongo <span class="comment">#定义后端服务群default_servers</span></span><br><span class="line">    balance roundrobin <span class="comment">#分发策略</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#check启用健康监测，监测MongoDB的服务端口，每个2秒监测一次，失败3次标记为不可用，成功2次恢复为可用</span></span><br><span class="line">    server mongo_rs1 <span class="variable">$MONGODB_RS1_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3  </span><br><span class="line">    server mongo_rs2 <span class="variable">$MONGODB_RS2_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br><span class="line">    server mongo_rs3 <span class="variable">$MONGODB_RS3_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br><span class="line">    server mongo_rs4 <span class="variable">$MONGODB_RS4_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br><span class="line">    server mongo_rs5 <span class="variable">$MONGODB_RS5_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br></pre></td></tr></table></figure>
+<p>上了之后，问题解决，哈哈哈哈哈。。。。。。。。。。。。。。。。。</p>
+<p><strong>总结</strong></p>
+<hr>
+<ol>
+<li>如果用HAproxy转发HTTP连接，须考虑Linux的open files限制，如果是tcp的代理，可以忽略，其在内核就完成转发了。</li>
+<li>多看官方文档。</li>
+<li>任何解决方案都要考虑业务场景的真实需求。</li>
+<li>这里因为对从节点的数据实时性要求不是即时同步，首要需求是数据的多份拷贝的完整性和服务的高可用。</li>
+</ol>
 
       
     </div>
@@ -333,13 +327,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/08/06/建立samba共享/">建立samba共享</a></p>
+        <p><span>本文标题:</span><a href="/2018/08/08/haproxy-replica-set/">HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
-        <p><span>发布时间:</span>2018-08-06, 14:06:00</p>
-        <p><span>最后更新:</span>2018-08-06, 14:07:34</p>
+        <p><span>发布时间:</span>2018-08-08, 13:47:00</p>
+        <p><span>最后更新:</span>2018-08-08, 13:48:42</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/08/06/建立samba共享/" title="建立samba共享">https://zhusas.github.io/2018/08/06/建立samba共享/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/06/建立samba共享/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/08/08/haproxy-replica-set/" title="HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题">https://zhusas.github.io/2018/08/08/haproxy-replica-set/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/08/haproxy-replica-set/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -351,16 +345,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/08/06/vsftp文件共享服务/">
-                    vsftp文件共享服务
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">
-                    php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程
+                <a href="/2018/08/07/nsible和Docker-Swarm还有MongoDB-Replica-Set/">
+                    Ansible和Docker Swarm还有MongoDB Replica Set
                 </a>
             </div>
         
@@ -408,7 +396,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"建立samba共享　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -428,15 +416,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/08/06/vsftp文件共享服务/" title="上一篇: vsftp文件共享服务">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/" title="下一篇: php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程">
+            <a href="/2018/08/07/nsible和Docker-Swarm还有MongoDB-Replica-Set/" title="下一篇: Ansible和Docker Swarm还有MongoDB Replica Set">
                 <i class="fa fa-angle-right"></i>
             </a>
         
