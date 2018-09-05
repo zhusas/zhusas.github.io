@@ -3,6 +3,24 @@
   
     
     <entry>
+      <title>redis_LB_swarm</title>
+      <link href="/2018/09/05/redis-LB-swarm/"/>
+      <url>/2018/09/05/redis-LB-swarm/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>memecached_LB_swarm</title>
+      <link href="/2018/09/05/memecached-LB-swarm/"/>
+      <url>/2018/09/05/memecached-LB-swarm/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
       <title>HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题</title>
       <link href="/2018/08/08/haproxy-replica-set/"/>
       <url>/2018/08/08/haproxy-replica-set/</url>
@@ -172,9 +190,9 @@
       
         <tags>
             
-            <tag> SSL </tag>
-            
             <tag> CA </tag>
+            
+            <tag> SSL </tag>
             
             <tag> https </tag>
             
@@ -236,9 +254,9 @@
       
         <tags>
             
-            <tag> SSL </tag>
-            
             <tag> CA </tag>
+            
+            <tag> SSL </tag>
             
         </tags>
       
