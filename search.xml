@@ -3,11 +3,19 @@
   
     
     <entry>
-      <title>redis_LB_swarm</title>
+      <title>Docker Swarm中的Redis负载均衡</title>
       <link href="/2018/09/05/redis-LB-swarm/"/>
       <url>/2018/09/05/redis-LB-swarm/</url>
-      <content type="html"><![CDATA[]]></content>
+      <content type="html"><![CDATA[<h1 id="come-soon"><a href="#come-soon" class="headerlink" title="come soon"></a>come soon</h1><p><img src="/2018/09/05/redis-LB-swarm/redisDockerswarm.jpeg" alt=""></p>]]></content>
       
+      
+        <tags>
+            
+            <tag> docker swarm </tag>
+            
+            <tag> redis </tag>
+            
+        </tags>
       
     </entry>
     
