@@ -3,13 +3,15 @@
   
     
     <entry>
-      <title>Docker Swarm中的Redis负载均衡</title>
-      <link href="/2018/09/05/redis-LB-swarm/"/>
-      <url>/2018/09/05/redis-LB-swarm/</url>
-      <content type="html"><![CDATA[<h1 id="come-soon"><a href="#come-soon" class="headerlink" title="come soon"></a>come soon</h1><p><img src="/2018/09/05/redis-LB-swarm/redisDockerswarm.jpeg" alt=""></p>]]></content>
+      <title>Redis在Docker Swarm中的HA和LB</title>
+      <link href="/2018/09/11/redis-service-on-swarm/"/>
+      <url>/2018/09/11/redis-service-on-swarm/</url>
+      <content type="html"><![CDATA[<p><img src="/2018/09/11/redis-service-on-swarm/redisDockerswarm.jpeg" alt=""></p><h3 id="业务场景之一"><a href="#业务场景之一" class="headerlink" title="业务场景之一"></a>业务场景之一</h3><p>Redis在业务场景中也很重要，涉及到的，所以这次迁移到docker swarm中来跑，目标是高可用及负载均衡，任意一台机器关掉，服务不中断。<a id="more"></a></p><h3 id="为什么用Docker-Swarm-service的方式"><a href="#为什么用Docker-Swarm-service的方式" class="headerlink" title="为什么用Docker Swarm service的方式"></a>为什么用Docker Swarm service的方式</h3><p>这个是根据业务数据的写入方式来决定的，也考虑过Redis cluster，哨兵，swarm volume+分布式存储的方式，因为业务数据没有持久化的需求，仅仅是把redis当做业务多类型键值缓存服务来使用，所以这里保证Redis服务高可用即可。</p><p>docker swarm的搭建略过，不懂的同学可以自行Google（为什么不用百度，你懂的~~）</p><h3 id="Let’s-do-it"><a href="#Let’s-do-it" class="headerlink" title="Let’s do it!"></a>Let’s do it!</h3><p>好，先建立Redis的服务，复制三个副本</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker service create --name redis -p 6379:6379 --replicas 3 --restart-condition on-failure redis</span><br></pre></td></tr></table></figure><p>看看运行效果：<br><img src="/2018/09/11/redis-service-on-swarm/redis.service.ps.png" alt=""></p><p>Good~，接下来配置HAproxy</p><p>先准备好配置文件，考虑一下部署策略，如果要以service方式来部署，建议采用分布式存储文件如Ceph，GlusterFS，OpenShift等解决方案。这里条件有限，采取单机部署，</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name haproxy -v /data/haproxy_config:/usr/<span class="built_in">local</span>/etc/haproxy -p 29000:29000 -p 443:443 -p 172.16.2.5:16379:16379 haproxy</span><br></pre></td></tr></table></figure><p>备注：<br>-v /data/haproxy_config:/usr/local/etc/haproxy   挂载编辑好的 配置文件到haproxy到容器里面</p><p>好，看看HAproxy的配置：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">frontend haproxy_redis</span><br><span class="line">bind *:16379</span><br><span class="line">mode tcp</span><br><span class="line">log global</span><br><span class="line">default_backend redis_server</span><br><span class="line"></span><br><span class="line">backend redis_server</span><br><span class="line">mode tcp</span><br><span class="line">balance source</span><br><span class="line">server redis1 172.16.2.2:6379 check port 6379 inter 20s rise 2 fall 3</span><br><span class="line">server redis2 172.16.2.3:6379 check port 6379 inter 20s rise 2 fall 3</span><br><span class="line">server redis3 172.16.2.4:6379 check port 6379 inter 20s rise 2 fall 3</span><br></pre></td></tr></table></figure><p>然后开始模拟测试，随意关掉一台，OK。应用仍能提供服务，再关掉一台，还有一台。</p><p>那有人说，全挂了咋办啊，额。。。。。。难道上线不做监控报警吗？第一台有问题了就应第一时间知道并处理了啊~~~</p>]]></content>
       
       
         <tags>
+            
+            <tag> haproxy </tag>
             
             <tag> docker swarm </tag>
             

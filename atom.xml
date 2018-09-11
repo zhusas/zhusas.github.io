@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhusas.github.io/"/>
-  <updated>2018-09-07T09:38:24.014Z</updated>
+  <updated>2018-09-11T05:51:42.085Z</updated>
   <id>https://zhusas.github.io/</id>
   
   <author>
@@ -17,23 +17,23 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Docker Swarm中的Redis负载均衡</title>
-    <link href="https://zhusas.github.io/2018/09/05/redis-LB-swarm/"/>
-    <id>https://zhusas.github.io/2018/09/05/redis-LB-swarm/</id>
-    <published>2018-09-05T07:00:00.000Z</published>
-    <updated>2018-09-07T09:38:24.014Z</updated>
+    <title>Redis在Docker Swarm中的HA和LB</title>
+    <link href="https://zhusas.github.io/2018/09/11/redis-service-on-swarm/"/>
+    <id>https://zhusas.github.io/2018/09/11/redis-service-on-swarm/</id>
+    <published>2018-09-11T05:41:00.000Z</published>
+    <updated>2018-09-11T05:51:42.085Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="come-soon"><a href="#come-soon" class="headerlink" title="come soon"></a>come soon</h1><p><img src="/2018/09/05/redis-LB-swarm/redisDockerswarm.jpeg" alt=""></p>]]></content>
+    <content type="html"><![CDATA[<p><img src="/2018/09/11/redis-service-on-swarm/redisDockerswarm.jpeg" alt=""></p><h3 id="业务场景之一"><a href="#业务场景之一" class="headerlink" title="业务场景之一"></a>业务场景之一</h3><p>Redis在业务场景中也很重要，涉及到的，所以这次迁移到docker swarm中来跑，目标是高可用及负载均衡，任意一台机器关掉，服务不中断。<a id="more"></a></p><h3 id="为什么用Docker-Swarm-service的方式"><a href="#为什么用Docker-Swarm-service的方式" class="headerlink" title="为什么用Docker Swarm service的方式"></a>为什么用Docker Swarm service的方式</h3><p>这个是根据业务数据的写入方式来决定的，也考虑过Redis cluster，哨兵，swarm volume+分布式存储的方式，因为业务数据没有持久化的需求，仅仅是把redis当做业务多类型键值缓存服务来使用，所以这里保证Redis服务高可用即可。</p><p>docker swarm的搭建略过，不懂的同学可以自行Google（为什么不用百度，你懂的~~）</p><h3 id="Let’s-do-it"><a href="#Let’s-do-it" class="headerlink" title="Let’s do it!"></a>Let’s do it!</h3><p>好，先建立Redis的服务，复制三个副本</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker service create --name redis -p 6379:6379 --replicas 3 --restart-condition on-failure redis</span><br></pre></td></tr></table></figure><p>看看运行效果：<br><img src="/2018/09/11/redis-service-on-swarm/redis.service.ps.png" alt=""></p><p>Good~，接下来配置HAproxy</p><p>先准备好配置文件，考虑一下部署策略，如果要以service方式来部署，建议采用分布式存储文件如Ceph，GlusterFS，OpenShift等解决方案。这里条件有限，采取单机部署，</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name haproxy -v /data/haproxy_config:/usr/<span class="built_in">local</span>/etc/haproxy -p 29000:29000 -p 443:443 -p 172.16.2.5:16379:16379 haproxy</span><br></pre></td></tr></table></figure><p>备注：<br>-v /data/haproxy_config:/usr/local/etc/haproxy   挂载编辑好的 配置文件到haproxy到容器里面</p><p>好，看看HAproxy的配置：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">frontend haproxy_redis</span><br><span class="line">bind *:16379</span><br><span class="line">mode tcp</span><br><span class="line">log global</span><br><span class="line">default_backend redis_server</span><br><span class="line"></span><br><span class="line">backend redis_server</span><br><span class="line">mode tcp</span><br><span class="line">balance source</span><br><span class="line">server redis1 172.16.2.2:6379 check port 6379 inter 20s rise 2 fall 3</span><br><span class="line">server redis2 172.16.2.3:6379 check port 6379 inter 20s rise 2 fall 3</span><br><span class="line">server redis3 172.16.2.4:6379 check port 6379 inter 20s rise 2 fall 3</span><br></pre></td></tr></table></figure><p>然后开始模拟测试，随意关掉一台，OK。应用仍能提供服务，再关掉一台，还有一台。</p><p>那有人说，全挂了咋办啊，额。。。。。。难道上线不做监控报警吗？第一台有问题了就应第一时间知道并处理了啊~~~</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;come-soon&quot;&gt;&lt;a href=&quot;#come-soon&quot; class=&quot;headerlink&quot; title=&quot;come soon&quot;&gt;&lt;/a&gt;come soon&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/2018/09/05/redis-LB-swarm/redis
-      
+      &lt;p&gt;&lt;img src=&quot;/2018/09/11/redis-service-on-swarm/redisDockerswarm.jpeg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;业务场景之一&quot;&gt;&lt;a href=&quot;#业务场景之一&quot; class=&quot;headerlink&quot; title=&quot;业务场景之一&quot;&gt;&lt;/a&gt;业务场景之一&lt;/h3&gt;&lt;p&gt;Redis在业务场景中也很重要，涉及到的，所以这次迁移到docker swarm中来跑，目标是高可用及负载均衡，任意一台机器关掉，服务不中断。&lt;/p&gt;
     
     </summary>
     
+    
+      <category term="haproxy" scheme="https://zhusas.github.io/tags/haproxy/"/>
     
       <category term="docker swarm" scheme="https://zhusas.github.io/tags/docker-swarm/"/>
     
@@ -46,7 +46,7 @@
     <link href="https://zhusas.github.io/2018/09/05/memecached-LB-swarm/"/>
     <id>https://zhusas.github.io/2018/09/05/memecached-LB-swarm/</id>
     <published>2018-09-05T06:52:00.000Z</published>
-    <updated>2018-09-07T09:23:16.372Z</updated>
+    <updated>2018-09-11T05:47:22.705Z</updated>
     
     <content type="html"><![CDATA[<p>话说上次在docker swarm里面实现了MongoDB复制集之后，可以愉快地重启运行复制集节点的机器了，存储的资料也不担心硬盘挂掉而丢失， 真是快哉~</p><p>所以，再接再厉，把Redis和Memcached也迁移到docker swarm跑起来。</p><p>先来说说memcached的业务场景及特性，知己知彼，百战百胜嘛</p><p><img src="/2018/09/05/memecached-LB-swarm/memcached_banner.jpg" alt="">   <a id="more"></a></p><p><strong>memcached场景之一</strong></p><p>用户要是忘记了密码，或者新注册用户等，总之在需要接收手机短信验证码的时候，得先输入正确的验证码，应用在生成图形验证码的时候，会往memecached里面写入验证码的哈希值，跟用户输入转换的哈希值作比较。</p><p>所以，这是一个对可用性有要求的场景，辣么，memcached必须不能单实例跑了（你看上图是一群）。</p><p><strong>memcached特性</strong></p><ol><li>在Memcached中可以保存的item数据量是没有限制的，只要内存足够；</li><li>Memcached单进程最大使用内存为2GB，要使用更多内存，可以分别在不同端口启动多个Memcached进程；</li><li>Memcached是一种无阻塞的socket通信方式的服务，基于libevent库，由于无阻塞通信，对内存读写速度非常之快；</li><li>Memcached分为服务器和客户端，可以配置多个服务器和客户端，应用于分布式的服务非常广泛；</li><li>Memcached作为小规模的数据分布式平台是非常高效的；</li></ol><p><strong>memcached存在的问题</strong></p><p>本身没有内置分布式功能，无法实现使用多台memcachd服务器来存储不同的数据，最大程度的使用相同的资源。服务器之间没有任何通信，并且不进行任何数据复制备份，所以当任何服务器节点出现故障时，会出现单点故障，如果需要实现高可用，就需要通过其他方式。</p><p>那么有问题，就会有解决方案，来张图：</p><p><img src="/2018/09/05/memecached-LB-swarm/ingress-lb.png" alt=""></p><p>这次要用到跨主机通讯，当您需要在不同Docker主机上运行的容器进行通信时，或者当多个应用程序使用swarm服务协同工作时，<strong>Overlay networks</strong>是最佳选择。</p><p>haproxy之上是应用，不考虑会话保持之类，纯粹在应用和memcached之间充当一个tcp负载均衡。</p><p>这里使用默认的overlay网络</p><p><img src="/2018/09/05/memecached-LB-swarm/ingress_overlay.png" alt=""></p><p><strong>为什么要加HAproxy？</strong><br>虽然docker的overlay网络能实现内部的负载均衡，但是万一swarm内运行服务的某节点挂了，IP都不通，那如何是好啊，该加还是得加。</p><p>那HAproxy挂了呢，挂了就上keepalived，利用vrrp协议，避免单点，这里不铺开。</p><p><strong>先建立memcached的service</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker service create --name memcached --replicas=3 -p 11211:11211 memcached</span><br></pre></td></tr></table></figure><p>名为memcached且开放了11211端口的service，三个swarm节点上都有容器实例。</p><p><strong>启动并配置HAproxy</strong></p><p>配置文件相关配置段如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">frontend haproxy_memcached</span><br><span class="line">bind *:8090</span><br><span class="line">mode tcp</span><br><span class="line">log global</span><br><span class="line">default_backend memcached_server</span><br><span class="line"></span><br><span class="line">backend memcached_server</span><br><span class="line">mode tcp</span><br><span class="line">balance source</span><br><span class="line">server memcached1 172.16.10.1:11211 check</span><br><span class="line">server memcached2 172.16.10.2:11211 check</span><br><span class="line">server memcached3 172.16.10.3:11211 check</span><br></pre></td></tr></table></figure><p>balance source<br>haroxy 将用户IP经过hash计算后 指定到固定的真实服务器上（类似于nginx 的IP hash 指令）</p><p>172.16.10.1~3<br>运行memcached service的docker swarm节点IP</p><p>容器服务还有自动重新启动策略，重启策略控制Docker守护程序在退出后是否重新启动容器。Docker支持以下重启策略：none、on-failure、any，  默认为any。</p><p>OK，打完收工。</p>]]></content>
     
