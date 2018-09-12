@@ -85,15 +85,13 @@
       
         <tags>
             
+            <tag> Ansible </tag>
+            
             <tag> replica set </tag>
             
             <tag> mongodb </tag>
             
-            <tag> ansible </tag>
-            
             <tag> docker </tag>
-            
-            <tag> swarm </tag>
             
         </tags>
       
@@ -131,9 +129,9 @@
             
             <tag> php </tag>
             
-            <tag> lnmp </tag>
-            
             <tag> MySQL </tag>
+            
+            <tag> lnmp </tag>
             
         </tags>
       
@@ -225,9 +223,9 @@
       
         <tags>
             
-            <tag> CA </tag>
-            
             <tag> SSL </tag>
+            
+            <tag> CA </tag>
             
             <tag> https </tag>
             
@@ -289,9 +287,9 @@
       
         <tags>
             
-            <tag> CA </tag>
-            
             <tag> SSL </tag>
+            
+            <tag> CA </tag>
             
         </tags>
       
@@ -444,7 +442,7 @@
       
         <tags>
             
-            <tag> SSL,MySQL </tag>
+            <tag> MySQL </tag>
             
         </tags>
       
@@ -459,7 +457,7 @@
       
         <tags>
             
-            <tag> MongoDB,Docker </tag>
+            <tag> MongoDB </tag>
             
         </tags>
       
