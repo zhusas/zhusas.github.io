@@ -16,15 +16,21 @@
 
 
 
-<meta name="keywords" content="linux ops MySQL MongoDB">
+<meta name="description" content="使用Ansible也有一段时间了，最近不是很忙，所以有时间来总结一下开车经验，温故而知新。  为什么要自动化？">
+<meta name="keywords" content="Ansible">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ansible_story">
+<meta property="og:title" content="Ansible开车之路（一）">
 <meta property="og:url" content="https://zhusas.github.io/2018/09/12/ansible-story/index.html">
 <meta property="og:site_name" content="Jerry&#39;s Blog">
+<meta property="og:description" content="使用Ansible也有一段时间了，最近不是很忙，所以有时间来总结一下开车经验，温故而知新。  为什么要自动化？">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-12T03:03:32.302Z">
+<meta property="og:image" content="https://zhusas.github.io/2018/09/12/ansible-story/car.gif">
+<meta property="og:image" content="https://zhusas.github.io/2018/09/12/ansible-story/Ansible_arch.png">
+<meta property="og:updated_time" content="2018-09-12T08:55:28.917Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ansible_story">
+<meta name="twitter:title" content="Ansible开车之路（一）">
+<meta name="twitter:description" content="使用Ansible也有一段时间了，最近不是很忙，所以有时间来总结一下开车经验，温故而知新。  为什么要自动化？">
+<meta name="twitter:image" content="https://zhusas.github.io/2018/09/12/ansible-story/car.gif">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +62,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>ansible_story | Jerry&#39;s Blog</title>
+<title>Ansible开车之路（一） | Jerry&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -184,7 +190,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HAproxy/">HAproxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ansible/">ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-swarm/">docker swarm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fpm/">fpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/haproxy/">haproxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lnmp/">lnmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memcached/">memcached</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/replica-set/">replica set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/samba/">samba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swarm/">swarm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsftp/">vsftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HAproxy/">HAproxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB-Docker/">MongoDB,Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL/">SSL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSL-MySQL/">SSL,MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ansible/">ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-swarm/">docker swarm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fpm/">fpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/haproxy/">haproxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lnmp/">lnmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs/">lvs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memcached/">memcached</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/replica-set/">replica set</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/samba/">samba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swarm/">swarm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vsftp/">vsftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
                     </div>
                 </section>
                 
@@ -263,7 +269,7 @@
   
     <div class="article-meta">
       <a href="/2018/09/12/ansible-story/" class="article-date">
-      <time datetime="2018-09-12T03:03:31.000Z" itemprop="datePublished">2018-09-12</time>
+      <time datetime="2018-09-12T03:03:00.000Z" itemprop="datePublished">2018-09-12</time>
 </a>
 
 
@@ -278,7 +284,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ansible_story
+      Ansible开车之路（一）
     </h1>
   
 
@@ -288,6 +294,10 @@
         
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -295,7 +305,26 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <p>使用Ansible也有一段时间了，最近不是很忙，所以有时间来总结一下开车经验，温故而知新。</p>
+<p><img src="/2018/09/12/ansible-story/car.gif" alt=""></p>
+<h3 id="为什么要自动化？"><a href="#为什么要自动化？" class="headerlink" title="为什么要自动化？  "></a>为什么要自动化？  <a id="more"></a></h3><p>Ansible 是一款功能十分强大的开源自动化工具。不同于其他管理工具的是，它还是一款部署和编排工具。可以从多方面大幅提升生产效率，轻松应对各种自动化挑战, 并可以为其他自动化解决方案的多项核心功能提供更有效的替代方案。其中的一个很酷的功能是如何在不停机的情况下，实现持续集成和持续部署 (CI/CD)。</p>
+<p>我想在部署的时候冲杯咖啡喝，所以我要自动化。</p>
+<h3 id="为什么要实现零停机？"><a href="#为什么要实现零停机？" class="headerlink" title="为什么要实现零停机？"></a>为什么要实现零停机？</h3><p>出现停机和业务中断，不仅会造成企业的收入及声誉损失，还会影响客户的服务体验。对于业务和用户遍布全球所<br>有时区的网化商城，只有在最严峻复杂的升级过程中才会进行停机处理（当然不包括更新应用版本），关键系统停机也会给生产效率带来重大影响。</p>
+<p>因此，需要自动化部署流程，避免人为的操作失误带来的影响，来实现能够不影响运营能力的方式进行更新的目标，我们公司就是这种情况（这牛逼吹得。。。。。。）</p>
+<h3 id="Ansible简介"><a href="#Ansible简介" class="headerlink" title="Ansible简介"></a>Ansible简介</h3><p>Ansilbe可以部署一群远程主机，远程的主机可以是远程虚拟机或物理机， 也可以是本地主机。Ansilbe通过SSH协议实现远程节点和管理节点之间的通信。理论上说，只要运维通过ssh登录到一台远程主机上能做的操作，Ansible都可以做到。</p>
+<h3 id="Ansible的架构及工作机制"><a href="#Ansible的架构及工作机制" class="headerlink" title="Ansible的架构及工作机制"></a>Ansible的架构及工作机制</h3><p>Ansilbe管理节点和远程主机节点通过ssh协议进行通信。所以Ansible配置的时候只需要保证从Ansible管理节点通过SSH能够连接到被管理的远程的远程节点即可。。但是SSH必须配置为公钥认证登录方式，而非密码认证。</p>
+<p><img src="/2018/09/12/ansible-story/Ansible_arch.png" alt=""></p>
+<p>执行Ansible或者Ansible-playbook（会读取Playbook文件）时，Ansible会遵循预先编排的规则将playbooks逐条拆解为Play，<strong>注意是逐条拆解啊</strong>，再将Play组织成Ansible可识别的Task，随后调用Task设计的所有Module和Plugin，根据Inventory中定义的主机列表通过SSH（Linux默认）将Task以零食文件或者命令的形式传输到远程主机执行并返回执行结果，如果是临时文件则执行完毕后自动删除。</p>
+<p>接下来唠嗑一下上图的几个关键组成部分：</p>
+<ul>
+<li>USER：就是使用Ansible的人或程序（例如Jenkins构建成功后调用Ansible执行部署操作）。</li>
+<li>INVENTORY：被管理的主机清单，Ansible根据这个文件来获知往哪些主机执行才做。</li>
+<li>MODULES：执行Task中用到的功能模块，多数为内置的核心模块，也有扩展模块，Github上也有很多大牛开源的第三方模块，应有尽有。</li>
+<li>PLUGINS：模块功能的补充，如连接类型插件、循环插件、变量插件等。</li>
+<li>API：第三方程序调用的应用程序编程接口。</li>
+</ul>
+<p>好了，还有不明白的可以自行谷歌，接下来把工作中用到Ansible的地方，以一例一一篇方式分享。</p>
+
       
     </div>
     
@@ -303,12 +332,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/09/12/ansible-story/">ansible_story</a></p>
+        <p><span>本文标题:</span><a href="/2018/09/12/ansible-story/">Ansible开车之路（一）</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
-        <p><span>发布时间:</span>2018-09-12, 11:03:31</p>
-        <p><span>最后更新:</span>2018-09-12, 11:03:32</p>
+        <p><span>发布时间:</span>2018-09-12, 11:03:00</p>
+        <p><span>最后更新:</span>2018-09-12, 16:55:28</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/09/12/ansible-story/" title="ansible_story">https://zhusas.github.io/2018/09/12/ansible-story/</a>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/12/ansible-story/" title="Ansible开车之路（一）">https://zhusas.github.io/2018/09/12/ansible-story/</a>
             <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/09/12/ansible-story/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -336,7 +365,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要自动化？"><span class="toc-number">1.</span> <span class="toc-text">为什么要自动化？  </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要实现零停机？"><span class="toc-number">2.</span> <span class="toc-text">为什么要实现零停机？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ansible简介"><span class="toc-number">3.</span> <span class="toc-text">Ansible简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ansible的架构及工作机制"><span class="toc-number">4.</span> <span class="toc-text">Ansible的架构及工作机制</span></a></li></ol>
         
     </div>
     <style>
@@ -372,7 +401,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"ansible_story　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Ansible开车之路（一）　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -404,7 +433,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/12/ansible-story/">ansible_story</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/11/redis-service-on-swarm/">Redis在Docker Swarm中的HA和LB</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/05/memecached-LB-swarm/">memcached在docker swarm中的负载均衡</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/08/haproxy-replica-set/">HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/07/nsible和Docker-Swarm还有MongoDB-Replica-Set/">Ansible和Docker Swarm还有MongoDB Replica Set</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/LVS实战/">LVS实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/源码编译LNMP/">源码编译LNMP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/sed和awk的详细用法/">sed和awk的详细用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/Linux防火墙的随笔/">Linux防火墙的随笔</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/vsftp文件共享服务/">vsftp文件共享服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/建立samba共享/">建立samba共享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/自签证书使用户可以通过https访问站点/">自签证书使用户可以通过https访问站点</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/Apache所支持的处理模型及应用环境/">Apache所支持的处理模型及应用环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/一次完整的http请求处理过程/">一次完整的http请求处理过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/自建DNS总结/">自建DNS总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/通讯加密及私有CA/">通讯加密及私有CA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/CentOS系统的启动流程/">CentOS系统的启动流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本小练/">脚本小练</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本小工具/">OSI七层模型及脚本小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本又见脚本/">脚本又见脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux一些基本操作/">Linux一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux上的文件管理类命令其常用的使用方法及其相关示例演示/">Linux上的文件管理类命令其常用的使用方法及其相关示例演示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/12/ansible-story/">Ansible开车之路（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/11/redis-service-on-swarm/">Redis在Docker Swarm中的HA和LB</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/05/memecached-LB-swarm/">memcached在docker swarm中的负载均衡</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/08/haproxy-replica-set/">HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/07/nsible和Docker-Swarm还有MongoDB-Replica-Set/">Ansible和Docker Swarm还有MongoDB Replica Set</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/LVS实战/">LVS实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/源码编译LNMP/">源码编译LNMP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/sed和awk的详细用法/">sed和awk的详细用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/Linux防火墙的随笔/">Linux防火墙的随笔</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/vsftp文件共享服务/">vsftp文件共享服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/建立samba共享/">建立samba共享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/自签证书使用户可以通过https访问站点/">自签证书使用户可以通过https访问站点</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/Apache所支持的处理模型及应用环境/">Apache所支持的处理模型及应用环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/06/一次完整的http请求处理过程/">一次完整的http请求处理过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/自建DNS总结/">自建DNS总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/通讯加密及私有CA/">通讯加密及私有CA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本写到手抽筋/">脚本写到手抽筋</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/CentOS系统的启动流程/">CentOS系统的启动流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/脚本小练/">脚本小练</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本小工具/">OSI七层模型及脚本小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/脚本又见脚本/">脚本又见脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Vim编辑器和脚本小试牛刀/">Vim编辑器和脚本小试牛刀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/skr-grep-skr-find/">skr! grep~ skr~~find!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux一些基本操作/">Linux一些基本操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux上的文件管理类命令其常用的使用方法及其相关示例演示/">Linux上的文件管理类命令其常用的使用方法及其相关示例演示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/Linux的基础知识/">Linux的基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/mongodb/">MongoDB备份数据引擎升级</a></li></ul>
 
 
 

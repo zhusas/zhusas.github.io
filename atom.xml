@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhusas.github.io/"/>
-  <updated>2018-09-12T03:03:32.302Z</updated>
+  <updated>2018-09-12T08:55:28.917Z</updated>
   <id>https://zhusas.github.io/</id>
   
   <author>
@@ -17,16 +17,24 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>ansible_story</title>
+    <title>Ansible开车之路（一）</title>
     <link href="https://zhusas.github.io/2018/09/12/ansible-story/"/>
     <id>https://zhusas.github.io/2018/09/12/ansible-story/</id>
-    <published>2018-09-12T03:03:31.000Z</published>
-    <updated>2018-09-12T03:03:32.302Z</updated>
+    <published>2018-09-12T03:03:00.000Z</published>
+    <updated>2018-09-12T08:55:28.917Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用Ansible也有一段时间了，最近不是很忙，所以有时间来总结一下开车经验，温故而知新。</p><p><img src="/2018/09/12/ansible-story/car.gif" alt=""></p><h3 id="为什么要自动化？"><a href="#为什么要自动化？" class="headerlink" title="为什么要自动化？  "></a>为什么要自动化？  <a id="more"></a></h3><p>Ansible 是一款功能十分强大的开源自动化工具。不同于其他管理工具的是，它还是一款部署和编排工具。可以从多方面大幅提升生产效率，轻松应对各种自动化挑战, 并可以为其他自动化解决方案的多项核心功能提供更有效的替代方案。其中的一个很酷的功能是如何在不停机的情况下，实现持续集成和持续部署 (CI/CD)。</p><p>我想在部署的时候冲杯咖啡喝，所以我要自动化。</p><h3 id="为什么要实现零停机？"><a href="#为什么要实现零停机？" class="headerlink" title="为什么要实现零停机？"></a>为什么要实现零停机？</h3><p>出现停机和业务中断，不仅会造成企业的收入及声誉损失，还会影响客户的服务体验。对于业务和用户遍布全球所<br>有时区的网化商城，只有在最严峻复杂的升级过程中才会进行停机处理（当然不包括更新应用版本），关键系统停机也会给生产效率带来重大影响。</p><p>因此，需要自动化部署流程，避免人为的操作失误带来的影响，来实现能够不影响运营能力的方式进行更新的目标，我们公司就是这种情况（这牛逼吹得。。。。。。）</p><h3 id="Ansible简介"><a href="#Ansible简介" class="headerlink" title="Ansible简介"></a>Ansible简介</h3><p>Ansilbe可以部署一群远程主机，远程的主机可以是远程虚拟机或物理机， 也可以是本地主机。Ansilbe通过SSH协议实现远程节点和管理节点之间的通信。理论上说，只要运维通过ssh登录到一台远程主机上能做的操作，Ansible都可以做到。</p><h3 id="Ansible的架构及工作机制"><a href="#Ansible的架构及工作机制" class="headerlink" title="Ansible的架构及工作机制"></a>Ansible的架构及工作机制</h3><p>Ansilbe管理节点和远程主机节点通过ssh协议进行通信。所以Ansible配置的时候只需要保证从Ansible管理节点通过SSH能够连接到被管理的远程的远程节点即可。。但是SSH必须配置为公钥认证登录方式，而非密码认证。</p><p><img src="/2018/09/12/ansible-story/Ansible_arch.png" alt=""></p><p>执行Ansible或者Ansible-playbook（会读取Playbook文件）时，Ansible会遵循预先编排的规则将playbooks逐条拆解为Play，<strong>注意是逐条拆解啊</strong>，再将Play组织成Ansible可识别的Task，随后调用Task设计的所有Module和Plugin，根据Inventory中定义的主机列表通过SSH（Linux默认）将Task以零食文件或者命令的形式传输到远程主机执行并返回执行结果，如果是临时文件则执行完毕后自动删除。</p><p>接下来唠嗑一下上图的几个关键组成部分：</p><ul><li>USER：就是使用Ansible的人或程序（例如Jenkins构建成功后调用Ansible执行部署操作）。</li><li>INVENTORY：被管理的主机清单，Ansible根据这个文件来获知往哪些主机执行才做。</li><li>MODULES：执行Task中用到的功能模块，多数为内置的核心模块，也有扩展模块，Github上也有很多大牛开源的第三方模块，应有尽有。</li><li>PLUGINS：模块功能的补充，如连接类型插件、循环插件、变量插件等。</li><li>API：第三方程序调用的应用程序编程接口。</li></ul><p>好了，还有不明白的可以自行谷歌，接下来把工作中用到Ansible的地方，以一例一一篇方式分享。</p>]]></content>
     
     <summary type="html">
     
+      &lt;p&gt;使用Ansible也有一段时间了，最近不是很忙，所以有时间来总结一下开车经验，温故而知新。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2018/09/12/ansible-story/car.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;为什么要自动化？&quot;&gt;&lt;a href=&quot;#为什么要自动化？&quot; class=&quot;headerlink&quot; title=&quot;为什么要自动化？  &quot;&gt;&lt;/a&gt;为什么要自动化？&lt;/h3&gt;
+    
     </summary>
     
+    
+      <category term="Ansible" scheme="https://zhusas.github.io/tags/Ansible/"/>
     
   </entry>
   
