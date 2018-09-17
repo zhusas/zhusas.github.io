@@ -265,6 +265,75 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-nginx-rewrite" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/17/nginx-rewrite/" class="article-date">
+      <time datetime="2018-09-17T05:10:00.000Z" itemprop="datePublished">2018-09-17</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/17/nginx-rewrite/">nginx的rewrite模块之差点翻车</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>引用自官网</p>
+<blockquote>
+<p>The ngx_http_rewrite_module module is used to change request URI using PCRE regular expressions, return redirects, and conditionally select configurations. </p>
+</blockquote>
+<p>意思是ngx_http_rewrite_module模块用于使用PCRE正则表达式更改请求URI，返回重定向和配置条件判断后执行相应操作。</p>
+<p><strong>场景之一</strong><br>今天要把一个网站的一个url重定向至首页，避免被百度（liu mang）爬虫（wei suo），于是就在生产环境的nginx配置里面添加了如下配置：</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2018/09/17/nginx-rewrite/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-ansible-story" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -838,78 +907,6 @@
       
         <p class="article-more-link">
           <a href="/2018/08/06/Linux防火墙的随笔/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-vsftp文件共享服务" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/08/06/vsftp文件共享服务/" class="article-date">
-      <time datetime="2018-08-06T06:15:00.000Z" itemprop="datePublished">2018-08-06</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/06/vsftp文件共享服务/">vsftp文件共享服务</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>1)基于虚拟用户的访问形式</p>
-<p>2)匿名用户只允许下载，不允许上传</p>
-<p>3)禁锢所有的用户于其家目录当中</p>
-<p>4)限制最大并发连接数为200</p>
-<p>5)匿名用户的最大传输速率512KB/s</p>
-<p>6)虚拟用户的账号存储在mysql数据库当中</p>
-<p>7)数据库通过NFS进行共享</p>
-<p><strong>先科(zhuang)普(bi)</strong></p>
-<p>我们登录FTP有三种方式，匿名登录、本地用户登录和虚拟用户登录。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vsftp/">vsftp</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/08/06/vsftp文件共享服务/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

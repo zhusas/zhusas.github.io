@@ -16,18 +16,21 @@
 
 
 
-<meta name="description" content="接上回，自从搭建起副本集之后，很嗨，再也不担心单机挂了之后数据丢失了。应用往MongoDB副本集写也做了相应配置。 在做nginx读取MongoDB副本集数据测试中，发现了新问题">
-<meta name="keywords" content="haproxy,replica set,mongodb,nginx">
+<meta name="description" content="引用自官网  The ngx_http_rewrite_module module is used to change request URI using PCRE regular expressions, return redirects, and conditionally select configurations.   意思是ngx_http_rewrite_module模块用于使用PCR">
+<meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题">
-<meta property="og:url" content="https://zhusas.github.io/2018/08/08/haproxy-replica-set/index.html">
+<meta property="og:title" content="nginx的rewrite模块之差点翻车">
+<meta property="og:url" content="https://zhusas.github.io/2018/09/17/nginx-rewrite/index.html">
 <meta property="og:site_name" content="Jerry&#39;s Blog">
-<meta property="og:description" content="接上回，自从搭建起副本集之后，很嗨，再也不担心单机挂了之后数据丢失了。应用往MongoDB副本集写也做了相应配置。 在做nginx读取MongoDB副本集数据测试中，发现了新问题">
+<meta property="og:description" content="引用自官网  The ngx_http_rewrite_module module is used to change request URI using PCRE regular expressions, return redirects, and conditionally select configurations.   意思是ngx_http_rewrite_module模块用于使用PCR">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-12T01:25:21.900Z">
+<meta property="og:image" content="https://zhusas.github.io/2018/09/17/nginx-rewrite/huangdeyipi.jpeg">
+<meta property="og:image" content="https://zhusas.github.io/2018/09/17/nginx-rewrite/buhuangle.jpg">
+<meta property="og:updated_time" content="2018-09-17T06:31:59.986Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题">
-<meta name="twitter:description" content="接上回，自从搭建起副本集之后，很嗨，再也不担心单机挂了之后数据丢失了。应用往MongoDB副本集写也做了相应配置。 在做nginx读取MongoDB副本集数据测试中，发现了新问题">
+<meta name="twitter:title" content="nginx的rewrite模块之差点翻车">
+<meta name="twitter:description" content="引用自官网  The ngx_http_rewrite_module module is used to change request URI using PCRE regular expressions, return redirects, and conditionally select configurations.   意思是ngx_http_rewrite_module模块用于使用PCR">
+<meta name="twitter:image" content="https://zhusas.github.io/2018/09/17/nginx-rewrite/huangdeyipi.jpeg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +62,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题 | Jerry&#39;s Blog</title>
+<title>nginx的rewrite模块之差点翻车 | Jerry&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -262,11 +265,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-haproxy-replica-set" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-nginx-rewrite" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/08/08/haproxy-replica-set/" class="article-date">
-      <time datetime="2018-08-08T05:47:00.000Z" itemprop="datePublished">2018-08-08</time>
+      <a href="/2018/09/17/nginx-rewrite/" class="article-date">
+      <time datetime="2018-09-17T05:10:00.000Z" itemprop="datePublished">2018-09-17</time>
 </a>
 
 
@@ -281,7 +284,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题
+      nginx的rewrite模块之差点翻车
     </h1>
   
 
@@ -292,7 +295,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/haproxy/">haproxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/replica-set/">replica set</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -302,25 +305,21 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>接上回，自从搭建起副本集之后，很嗨，再也不担心单机挂了之后数据丢失了。应用往MongoDB副本集写也做了相应配置。</p>
-<p>在做nginx读取MongoDB副本集数据测试中，发现了新问题  <a id="more"></a></p>
-<p>按照 <a href="https://github.com/mdirolf/nginx-gridfs" target="_blank" rel="noopener">https://github.com/mdirolf/nginx-gridfs</a> 中连接副本集的配置例子，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location /gridfs/ &#123;</span><br><span class="line">    gridfs my_app field=filename type=string;</span><br><span class="line">    mongo &quot;foo&quot;</span><br><span class="line">          10.7.2.27:27017</span><br><span class="line">          10.7.2.28:27017;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>在主节点关闭后，其设置的第二个节点是不起作用的（我设置了五个，均不起作用，nginx读取MongoDB节点中的文件报错）</strong></p>
-<p>由此可见nginx-gridfs插件这里是有问题的，但是我们的web服务器已经在使用了这个插件，不能轻易更换，只能另寻他法。</p>
-<p><strong>经过测试，发现副本集在原主节点挂掉后，余下节点（包括新选举的主节点和从节点）都可以使用直连模式来读取文件。</strong></p>
-<p>于是一个大胆的想法浮现了，何不在nginx和副本集之间加个负载均衡器？ <strong>嗯，我选了HAproxy。</strong></p>
-<p>HAproxy的介绍百度一大堆，我就不重复了，直接上配置文件（部分以变量代替）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">global</span><br><span class="line">    maxconn 50000 <span class="comment">#默认最大连接数,需考虑ulimit-n限制</span></span><br><span class="line">    <span class="built_in">log</span> 127.0.0.1 local0</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    mode tcp <span class="comment">#四层反向代理，不受套接字文件数量限制</span></span><br><span class="line">    timeout connect 20s <span class="comment">#haproxy将客户端请求转发至后端服务器所等待的超时时长</span></span><br><span class="line">    timeout client 30s <span class="comment">#客户端非活动状态的超时时长</span></span><br><span class="line">    timeout server 30s <span class="comment">#客户端与服务器端建立连接后，等待服务器端的超时时长</span></span><br><span class="line">    timeout check 10s <span class="comment">#健康状态监测时的超时时间，过短会误判，过长资源消耗\</span></span><br><span class="line">    timeout http-keep-alive 60s  <span class="comment">#长连接超时</span></span><br><span class="line">    <span class="comment">#option redispatch #当使用了cookie时，haproxy将会将其请求的后端服务器的serverID插入到cookie中，以保证会话的SESSION持久性</span></span><br><span class="line">    <span class="comment">#retries 3 #后端服务器的失败重连次数，链接失败次数超过此处值会将对应后端服务器标记不可用</span></span><br><span class="line"></span><br><span class="line">frontend mongo-in</span><br><span class="line">        <span class="built_in">bind</span> *:29000</span><br><span class="line">        <span class="built_in">log</span> global <span class="comment">#使用全局日志配置</span></span><br><span class="line">        <span class="comment">#option tcplog</span></span><br><span class="line">        <span class="comment">#option dontlognull </span></span><br><span class="line">        default_backend mongo  <span class="comment">#定义默认转发的后端服务器</span></span><br><span class="line"></span><br><span class="line">backend mongo <span class="comment">#定义后端服务群default_servers</span></span><br><span class="line">    balance roundrobin <span class="comment">#分发策略,这里是轮询模式</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#check启用健康监测，监测MongoDB的服务端口，每个2秒监测一次，失败3次标记为不可用，成功2次恢复为可用</span></span><br><span class="line">    server mongo_rs1 <span class="variable">$MONGODB_RS1_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3  </span><br><span class="line">    server mongo_rs2 <span class="variable">$MONGODB_RS2_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br><span class="line">    server mongo_rs3 <span class="variable">$MONGODB_RS3_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br><span class="line">    server mongo_rs4 <span class="variable">$MONGODB_RS4_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br><span class="line">    server mongo_rs5 <span class="variable">$MONGODB_RS5_IP</span>:<span class="variable">$MONGODB_PORT</span> check port <span class="variable">$MONGODB_PORT</span> inter 2s rise 2 fall 3</span><br></pre></td></tr></table></figure>
-<p>上了之后，问题解决，哈哈哈哈哈。。。。。。。。。。。。。。。。。</p>
-<p><strong>总结</strong></p>
-<hr>
-<ol>
-<li>如果用HAproxy转发HTTP连接，须考虑Linux的open files限制，如果是tcp的代理，可以忽略，其在内核就完成转发了。</li>
-<li>多看官方文档。</li>
-<li>任何解决方案都要考虑业务场景的真实需求。</li>
-<li>这里因为对从节点的数据实时性要求不是即时同步，首要需求是数据的多份拷贝的完整性和服务的高可用。</li>
-</ol>
+        <p>引用自官网</p>
+<blockquote>
+<p>The ngx_http_rewrite_module module is used to change request URI using PCRE regular expressions, return redirects, and conditionally select configurations. </p>
+</blockquote>
+<p>意思是ngx_http_rewrite_module模块用于使用PCRE正则表达式更改请求URI，返回重定向和配置条件判断后执行相应操作。</p>
+<p><strong>场景之一</strong><br>今天要把一个网站的一个url重定向至首页，避免被百度（liu mang）爬虫（wei suo），于是就在生产环境的nginx配置里面添加了如下配置： <a id="more"></a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ($uri ~* <span class="string">"order_creat"</span>)&#123;</span><br><span class="line">	rewrite ^(.*)$  https:<span class="comment">//$server_name permanent;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好咧，nginx reload之后，所有访问 <a href="http://www.xxx.com/order_creat" target="_blank" rel="noopener">www.xxx.com/order_creat</a> 的请求都跳转到首页去了,包括 <a href="http://www.xxx.com/order_creat/alc" target="_blank" rel="noopener">www.xxx.com/order_creat/alc</a>  <a href="http://www.xxx.com/order_creat/pub?id=n" target="_blank" rel="noopener">www.xxx.com/order_creat/pub?id=n</a>  等诸如此类的URL都跳转的首页去了，这尼玛玩大发了~~</p>
+<p><img src="/2018/09/17/nginx-rewrite/huangdeyipi.jpeg" alt=""></p>
+<p>思考了一下，应该是没错匹配收尾，结果所有order_creat开头的URL，只要匹配上，全部被rewrite。</p>
+<p>于是就有了下面的的改良配方~~</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rewrite ^\/order_creat$ https:<span class="comment">//$server_name permanent;</span></span><br></pre></td></tr></table></figure>
+<p>用正则表达式的整段匹配，^锚定行首，$锚定行尾，爽歪歪。</p>
+<p>再测试就没问题了。不影响叮当创建，要求跳转的URL也实现了。</p>
+<p><img src="/2018/09/17/nginx-rewrite/buhuangle.jpg" alt=""></p>
 
       
     </div>
@@ -329,13 +328,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/08/08/haproxy-replica-set/">HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题</a></p>
+        <p><span>本文标题:</span><a href="/2018/09/17/nginx-rewrite/">nginx的rewrite模块之差点翻车</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
-        <p><span>发布时间:</span>2018-08-08, 13:47:00</p>
-        <p><span>最后更新:</span>2018-09-12, 09:25:21</p>
+        <p><span>发布时间:</span>2018-09-17, 13:10:00</p>
+        <p><span>最后更新:</span>2018-09-17, 14:31:59</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/08/08/haproxy-replica-set/" title="HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题">https://zhusas.github.io/2018/08/08/haproxy-replica-set/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/08/haproxy-replica-set/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/17/nginx-rewrite/" title="nginx的rewrite模块之差点翻车">https://zhusas.github.io/2018/09/17/nginx-rewrite/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/09/17/nginx-rewrite/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -347,16 +346,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/09/05/memecached-LB-swarm/">
-                    memcached在docker swarm中的负载均衡
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/08/07/nsible和Docker-Swarm还有MongoDB-Replica-Set/">
-                    Ansible和Docker Swarm还有MongoDB Replica Set
+                <a href="/2018/09/12/ansible-story/">
+                    Ansible开车之路（一）
                 </a>
             </div>
         
@@ -404,7 +397,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"HAproxy解决nginx-gridfs在MongoDB副本集选举后的读取问题　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"nginx的rewrite模块之差点翻车　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -424,15 +417,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/09/05/memecached-LB-swarm/" title="上一篇: memcached在docker swarm中的负载均衡">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/08/07/nsible和Docker-Swarm还有MongoDB-Replica-Set/" title="下一篇: Ansible和Docker Swarm还有MongoDB Replica Set">
+            <a href="/2018/09/12/ansible-story/" title="下一篇: Ansible开车之路（一）">
                 <i class="fa fa-angle-right"></i>
             </a>
         

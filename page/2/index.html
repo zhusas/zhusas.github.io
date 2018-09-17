@@ -265,6 +265,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-vsftp文件共享服务" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/06/vsftp文件共享服务/" class="article-date">
+      <time datetime="2018-08-06T06:15:00.000Z" itemprop="datePublished">2018-08-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/06/vsftp文件共享服务/">vsftp文件共享服务</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>1)基于虚拟用户的访问形式</p>
+<p>2)匿名用户只允许下载，不允许上传</p>
+<p>3)禁锢所有的用户于其家目录当中</p>
+<p>4)限制最大并发连接数为200</p>
+<p>5)匿名用户的最大传输速率512KB/s</p>
+<p>6)虚拟用户的账号存储在mysql数据库当中</p>
+<p>7)数据库通过NFS进行共享</p>
+<p><strong>先科(zhuang)普(bi)</strong></p>
+<p>我们登录FTP有三种方式，匿名登录、本地用户登录和虚拟用户登录。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vsftp/">vsftp</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2018/08/06/vsftp文件共享服务/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-建立samba共享" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -835,67 +907,6 @@
       
         <p class="article-more-link">
           <a href="/2018/08/05/CentOS系统的启动流程/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-脚本小练" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/08/05/脚本小练/" class="article-date">
-      <time datetime="2018-08-05T02:49:00.000Z" itemprop="datePublished">2018-08-05</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/05/脚本小练/">脚本小练</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>1、判断当前系统上所有用户的shell是否为可登录shell（即用户的shell不是/sbin/nologin）；分别这两类用户的个数；通过字符串比较来实现；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#脚本内容</span></span><br><span class="line">[root@centos script]<span class="comment"># cat week9_title1.sh </span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#Author Jerry</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Display shell is nologin user's shell count </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"The shell is  nologin user count is <span class="variable">$(grep -o "nologin" /etc/passwd |wc -l)</span>"</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#Display shell not's nologin user's shell count </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"The shell not's nologin user count is <span class="variable">$(grep -v "nologin" /etc/passwd |wc -l)</span>"</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#测试脚本</span></span><br><span class="line">[root@centos script]<span class="comment"># bash week9_title1.sh </span></span><br><span class="line">The shell is  nologin user count is 25</span><br><span class="line">The shell not<span class="string">'s nologin user count is 7</span></span><br><span class="line"><span class="string">[root@centos script]#</span></span><br></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2018/08/05/脚本小练/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
