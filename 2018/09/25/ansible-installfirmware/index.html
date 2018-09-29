@@ -25,7 +25,7 @@
 <meta property="og:description" content="今天我们来使用Ansible批量升级DELL的固件。 先编辑好位于/etc/ansible/hosts文件，把每台戴尔服务器的iDRAC IP填进去。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://zhusas.github.io/2018/09/25/ansible-installfirmware/job.png">
-<meta property="og:updated_time" content="2018-09-25T08:11:46.867Z">
+<meta property="og:updated_time" content="2018-09-29T02:36:48.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible升级DELL服务器的固件">
 <meta name="twitter:description" content="今天我们来使用Ansible批量升级DELL的固件。 先编辑好位于/etc/ansible/hosts文件，把每台戴尔服务器的iDRAC IP填进去。">
@@ -331,6 +331,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -vv dell_server.yml</span><br></pre></td></tr></table></figure>
 <p>会自动生产作业队列任务</p>
 <p>不出意外的话，就等着服务器自动重启，升级固件就好。</p>
+<p>PS：一台机器写一个task</p>
 <p><img src="/2018/09/25/ansible-installfirmware/job.png" alt=""></p>
 
       
@@ -343,7 +344,7 @@
         <p><span>本文标题:</span><a href="/2018/09/25/ansible-installfirmware/">Ansible升级DELL服务器的固件</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
         <p><span>发布时间:</span>2018-09-25, 16:05:00</p>
-        <p><span>最后更新:</span>2018-09-25, 16:11:46</p>
+        <p><span>最后更新:</span>2018-09-29, 10:36:48</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/09/25/ansible-installfirmware/" title="Ansible升级DELL服务器的固件">https://zhusas.github.io/2018/09/25/ansible-installfirmware/</a>
             <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/09/25/ansible-installfirmware/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
