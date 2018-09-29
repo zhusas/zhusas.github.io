@@ -16,20 +16,21 @@
 
 
 
-<meta name="description" content="MySQL启用的SSL连接的思考与实践 由于工作上的业务发展和等保三级合规的要求，需要考虑为MySQL启用SSL连接，那么今天就来说说这个怎么玩。其实一个月前已经在实现了用docker跑MySQL SSL了，只不过后到今天才有时间静下心来总结一下。 有必要使用为MySQL启用SSL吗？先来了解一下SSL吧： SSL（Secure Socket Layer：安全套接字层）利用数据加密、身份验证和消息">
-<meta name="keywords" content="MySQL">
+<meta name="description" content="土豪公司到了一批服务器嘛，新的旧的都有，百八十台吧，也不算多。  固件已经刷了，接下来得安装系统，想用个高效的方案，于是乎再次祭出Ansible。">
+<meta name="keywords" content="Ansible">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL启用的SSL连接的思考与实践">
-<meta property="og:url" content="https://zhusas.github.io/2018/08/01/mysql-ssl/index.html">
+<meta property="og:title" content="Ansible批量给戴尔服务器安装系统">
+<meta property="og:url" content="https://zhusas.github.io/2018/09/29/ansible-deployos/index.html">
 <meta property="og:site_name" content="Jerry&#39;s Blog">
-<meta property="og:description" content="MySQL启用的SSL连接的思考与实践 由于工作上的业务发展和等保三级合规的要求，需要考虑为MySQL启用SSL连接，那么今天就来说说这个怎么玩。其实一个月前已经在实现了用docker跑MySQL SSL了，只不过后到今天才有时间静下心来总结一下。 有必要使用为MySQL启用SSL吗？先来了解一下SSL吧： SSL（Secure Socket Layer：安全套接字层）利用数据加密、身份验证和消息">
+<meta property="og:description" content="土豪公司到了一批服务器嘛，新的旧的都有，百八十台吧，也不算多。  固件已经刷了，接下来得安装系统，想用个高效的方案，于是乎再次祭出Ansible。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://zhusas.github.io/2018/08/01/mysql-ssl/bodyguard.jpg">
-<meta property="og:updated_time" content="2018-09-12T08:59:08.292Z">
+<meta property="og:image" content="https://zhusas.github.io/2018/09/29/ansible-deployos/R720.jpg">
+<meta property="og:image" content="https://zhusas.github.io/2018/09/29/ansible-deployos/job.png">
+<meta property="og:updated_time" content="2018-09-29T07:11:46.382Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL启用的SSL连接的思考与实践">
-<meta name="twitter:description" content="MySQL启用的SSL连接的思考与实践 由于工作上的业务发展和等保三级合规的要求，需要考虑为MySQL启用SSL连接，那么今天就来说说这个怎么玩。其实一个月前已经在实现了用docker跑MySQL SSL了，只不过后到今天才有时间静下心来总结一下。 有必要使用为MySQL启用SSL吗？先来了解一下SSL吧： SSL（Secure Socket Layer：安全套接字层）利用数据加密、身份验证和消息">
-<meta name="twitter:image" content="https://zhusas.github.io/2018/08/01/mysql-ssl/bodyguard.jpg">
+<meta name="twitter:title" content="Ansible批量给戴尔服务器安装系统">
+<meta name="twitter:description" content="土豪公司到了一批服务器嘛，新的旧的都有，百八十台吧，也不算多。  固件已经刷了，接下来得安装系统，想用个高效的方案，于是乎再次祭出Ansible。">
+<meta name="twitter:image" content="https://zhusas.github.io/2018/09/29/ansible-deployos/R720.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +62,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>MySQL启用的SSL连接的思考与实践 | Jerry&#39;s Blog</title>
+<title>Ansible批量给戴尔服务器安装系统 | Jerry&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -264,11 +265,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-mysql-ssl" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-ansible-deployos" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/08/01/mysql-ssl/" class="article-date">
-      <time datetime="2018-08-01T10:21:00.000Z" itemprop="datePublished">2018-08-01</time>
+      <a href="/2018/09/29/ansible-deployos/" class="article-date">
+      <time datetime="2018-09-29T07:04:00.000Z" itemprop="datePublished">2018-09-29</time>
 </a>
 
 
@@ -283,7 +284,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      MySQL启用的SSL连接的思考与实践
+      Ansible批量给戴尔服务器安装系统
     </h1>
   
 
@@ -294,7 +295,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -304,62 +305,30 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="MySQL启用的SSL连接的思考与实践"><a href="#MySQL启用的SSL连接的思考与实践" class="headerlink" title="MySQL启用的SSL连接的思考与实践"></a>MySQL启用的SSL连接的思考与实践</h2><p><img src="/2018/08/01/mysql-ssl/bodyguard.jpg" alt="SSL"></p>
-<p>由于工作上的业务发展和等保三级合规的要求，需要考虑为MySQL启用SSL连接，那么今天就来说说这个怎么玩。其实一个月前已经在实现了用docker跑MySQL SSL了，只不过后到今天才有时间静下心来总结一下。</p>
-<h3 id="有必要使用为MySQL启用SSL吗？"><a href="#有必要使用为MySQL启用SSL吗？" class="headerlink" title="有必要使用为MySQL启用SSL吗？"></a>有必要使用为MySQL启用SSL吗？</h3><p>先来了解一下SSL吧：</p>
-<p><strong>SSL</strong>（Secure Socket Layer：安全套接字层）利用数据加密、身份验证和消息完整性验证机制，为基于TCP等可靠连接的应用层协议提供安全性保证。<a id="more"></a></p>
-<p>SSL协议提供的功能主要有：</p>
-<p>​    1、 数据传输的机密性：利用对称密钥算法对传输的数据进行加密。<br>    2.、身份验证机制：基于证书利用数字签名方法对服务器和客户端进行身份验证，其中客户端的身份验证是可选的。<br>    3、 消息完整性验证：消息传输过程中使用MAC算法来检验消息的完整性。</p>
-<p>如果用户的传输不是通过SSL的方式，那么其在网络中数据都是以明文进行传输的，而这给别有用心的人带来了可乘之机。所以，现在很多大型网站都开启了SSL功能。同样地，在我们数据库方面，如果客户端连接服务器获取数据不是使用SSL连接，那么在传输过程中，数据就有可能被窃取。</p>
-<p>所以，我认为启用SSL是一个不错的选择。</p>
-<h3 id="那么SSL如何工作在MySQL中的"><a href="#那么SSL如何工作在MySQL中的" class="headerlink" title="那么SSL如何工作在MySQL中的"></a>那么SSL如何工作在MySQL中的</h3><p>这里分两说，因为工作中我涉及到MySQL5.6和MySQL 5.7两个版本，它们在SSL连接的实现上也有少许区别。</p>
-<p><strong>MySQL5.6的SSL</strong></p>
-<p>MySQL  5.6中的SSL文档非常详细，它解释了SSL的工作原理。但首先让我们说清楚一点：MySQL支持使用TLS（传输层安全性）协议在客户端和服务器之间建立安全（加密）连接。 TLS有时被称为SSL（安全套接字层），但MySQL实际上并不使用SSL协议进行安全连接，因为它提供弱加密。 </p>
-<p>因此，当我们有人说MySQL正在使用SSL时，它实际上意味着它正在使用TLS。您可以使用以下命令检查您使用的协议： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">show status like &apos;Ssl_version&apos;;</span><br><span class="line">+---------------+---------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+---------+</span><br><span class="line">| Ssl_version | TLSv1.2 |</span><br><span class="line">+---------------+---------+</span><br></pre></td></tr></table></figure>
-<p>TLS使用加密算法来确保可以信任通过公共网络接收的数据。它具有检测数据更改，丢失或重放的机制。 TLS还包含使用X509标准提供身份验证的算法。  X509可以识别互联网上的某个人。在基本术语中，应该有一些称为“证书颁发机构”（或CA）的实体，它将电子证书分配给需要它们的任何人。证书依赖于具有两个加密密钥（公钥和密钥）的非对称加密算法。证书所有者可以将证书提供给另一方作为身份证明。证书由其所有者的公钥组成。使用该公钥加密的任何数据只能使用由证书所有者持有的相应密钥解密。</p>
-<p>MySQL5.6只支持TLSv1，MySQL5.7则支持TLSv1, TLSv1.1, and TLSv1.2 。</p>
-<p>MySQL支持使用TLS协议的加密连接：<br>    使用OpenSSL 1.0.1或更高版本编译时，MySQL支持TLSv1，TLSv1.1和TLSv1.2协议。<br>    当使用捆绑版本的yaSSL进行编译时，MySQL支持TLSv1和TLSv1.1协议。 </p>
-<p>使用SSL配置服务器时，客户端必须具有客户端证书。获得后，它可以使用SSL连接到服务器。MySQL5.6的客户端必须指定密钥和证书。否则，我们无法使用SSL连接到服务器。 如下：</p>
-<p>my.cnf配置文件如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">skip-host-cache</span><br><span class="line">skip-name-resolve</span><br><span class="line">pid-file	= /var/run/mysqld/mysqld.pid</span><br><span class="line">socket		= /var/run/mysqld/mysqld.sock</span><br><span class="line">datadir		= /var/lib/mysql</span><br><span class="line">#log-error	= /var/log/mysql/error.log</span><br><span class="line"># Disabling symbolic-links is recommended to prevent assorted security risks</span><br><span class="line">symbolic-links=0</span><br><span class="line">ssl-ca=/etc/mysql/certs/ca.pem</span><br><span class="line">ssl-cert=/etc/mysql/certs/MySQL1-cert.pem</span><br><span class="line">ssl-key=/etc/mysql/certs/MySQL1-key.pem</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line">ssl-ca=/etc/mysql/certs/ca.pem</span><br><span class="line">ssl-cert=/etc/mysql/certs/MySQL-client-cert.pem</span><br><span class="line">ssl-key=/etc/mysql/certs/MySQL-client-key.pem</span><br></pre></td></tr></table></figure>
-<p>客户端连接：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql --ssl-ca=/etc/mysql/certs/ca.pem  --ssl-cert=/etc/mysql/certs/MySQL-client-cert.pem --ssl-key=/etc/mysql/certs/MySQL-client-key.pem</span><br></pre></td></tr></table></figure>
-<p><strong>MySQL5.7的SSL</strong></p>
-<p>默认情况下，如果服务器支持加密连接，MySQL程序将尝试使用加密进行连接，如果无法建立加密连接，则会回退到未加密的连接。有关影响加密连接使用的选项的信息 。<br>MySQL基于每个连接执行加密，并且对给定用户使用加密可以是可选的或强制的。可以根据各个应用程序的要求选择加密或未加密的连接。在CREATE USER的时候，有SSL相关的参数可以选择，这个创建用户参数取决于其用户连接时，是否必须使用密钥文件连接MySQL。</p>
-<p>这些在官方文档里面都有说明，可以去详细了解下。这里就不铺开了。</p>
-<p><strong>MySQL 5.7中的加密连接支持进行了一些改进。以下时间表总结了这些变化：</strong>        </p>
-<p>5.7.3：在客户端，明确的–ssl选项不再是建议性的，而是规定性的。如果服务器支持加密连接，则客户端程序可以通过仅指定–ssl选项来要求加密连接。 （以前，客户端必须指定–ssl-ca选项，或者所有三个–ssl-ca， –ssl-key和–ssl-cert选项。）连接尝试失败如果无法建立加密连接。客户端的其他–ssl-xxx选项在没有–ssl的情况下是建议性的：客户端尝试使用加密进行连接，但如果无法建立加密连接，则会回退到未加密的连接。        </p>
-<p>5.7.5：默认情况下启用服务器端–ssl选项值。        对于使用OpenSSL编译的服务器，auto_generate_certs和sha256_password_auto_generate_rsa_keys系统变量可用于在启动时启用SSL /  RSA证书和密钥文件的自动生成和自动发现。对于证书和密钥自动发现，如果启用了–ssl并且未给出其他–ssl-xxx选项以明确配置加密连接，则服务器会在启动时尝试自动启用对加密连接的支持，如果它发现必需的证书和密钥文件在数据目录中。        </p>
-<p>5.7.6：mysql_ssl_rsa_setup实用程序可用于手动生成SSL / RSA证书和密钥文件。启动时自动发现SSL / RSA文件将扩展为适用于所有服务器，无论是使用OpenSSL还是使用yaSSL编译。  （这意味着无需启用auto_generate_certs即可进行自动发现。）        如果服务器在启动时发现CA证书是自签名的，则会向错误日志写入警告。 （如果服务器自动创建证书，则证书是自签名的，或者使用mysql_ssl_rsa_setup手动创建证书。）        </p>
-<p>5.7.7：如果服务器支持加密连接，则C客户端库会默认尝试建立加密连接。这会影响客户程序，如下所示：            </p>
-<ul>
-<li>如果没有–ssl选项，客户端将尝试使用加密进行连接，如果无法建立加密连接，则会回退到未加密的连接。            </li>
-<li>显式–ssl选项或同义词（–ssl = 1， -  enable-ssl）的存在是规定性的：客户端需要加密连接，如果无法建立，则会失败。</li>
-<li>使用–ssl = 0选项或同义词（–skip-ssl， -  disable-ssl），客户端使用未加密的连接.此更改还会影响基于C客户端库的MySQL连接器的后续版本：Connector / C，Connector / C ++和Connector / ODBC。        </li>
+        <p>土豪公司到了一批服务器嘛，新的旧的都有，百八十台吧，也不算多。</p>
+<p><img src="/2018/09/29/ansible-deployos/R720.jpg" alt=""></p>
+<p>固件已经刷了，接下来得安装系统，想用个高效的方案，于是乎再次祭出Ansible。<a id="more"></a></p>
+<p>先用一台来测试，成功了再铺开大面积使用。</p>
+<h4 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a><strong>前提条件</strong></h4><ul>
+<li>新的戴尔服务器的iDRAC的IP得提前改好，不然出厂时默认都一样，都接到网络中时会冲突。</li>
+<li>自动安装的系统镜像提前要制作好，Ubuntu的preseed，CentOS的KickStart，自己参照操作系统官网文档做好功课。</li>
+<li>iDRAC的用户名和密码建议统一设置，写playbook的时候，你就知道好处了。密码复杂度得符合安全要求。</li>
+<li>其他的可以参考 Dell-EMC-Ansible-Modules-for-iDRAC的文档，Github上有。</li>
 </ul>
-<p>5.7.8：require_secure_transport系统变量可用于控制与服务器的客户端连接是否必须使用某种形式的安全传输。        </p>
-<p>5.7.10：TLS协议支持从TLSv1扩展到TLSv1.1和TLSv1.2。服务器端的tls_version系统变量和客户端的–tls-version选项可以选择支持级别。   </p>
-<p>5.7.11：MySQL客户端程序支持–ssl-mode选项，使您可以指定与服务器的连接的安全状态。  –ssl-mode选项包括客户端–ssl和–ssl-verify-server-cert选项的功能。因此，不推荐使用–ssl和–ssl-verify-server-cert，MySQL 8.0中已经删除它们。 </p>
-<p>好，上边说了这么多，各位都看明白了吗？不明白也没关系，我下面用docker来演示</p>
-<p><strong>坑点：我用许多客户端应用程序对它进行了测试，无论是MySQL5.6或5.7，MySQL客户端连接服务端时必须指定客户端密钥。没有密钥，无法连接到服务器。某些较旧的应用程序可能不支持此功能。 所以啊，官档说的也不一定全对。</strong></p>
-<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><p>这里以MySQL5.6为例</p>
-<p>1、建立目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mkdir -pv mysql_ssl_&#123;data,config,cert&#125;</span></span><br><span class="line">mkdir: created directory <span class="string">'mysql_ssl_data'</span></span><br><span class="line">mkdir: created directory <span class="string">'mysql_ssl_config'</span></span><br><span class="line">mkdir: created directory <span class="string">'mysql_ssl_cert'</span></span><br></pre></td></tr></table></figure>
-<p>准备好数据、证书、配置等文件</p>
-<p>2、启动容器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql5.6_ssl_test -v /data/mysql_ssl_data/:/var/lib/mysql -v /data/mysql_ssl_config/my.cnf:/etc/my.cnf -v /data/mysql_ssl_cert/:/etc/mysql/certs -p 3306:3306 mysql:5.6.40</span><br></pre></td></tr></table></figure>
-<p>3、因为MySQL5.6默认用户是不开启SSL认证的，需要进行如下操作：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改已存在用户 </span></span><br><span class="line">GRANT USAGE ON *.* TO `user`@`%` REQUIRE X509;</span><br><span class="line"><span class="comment">#新建必须使用SSL用户</span></span><br><span class="line">grant all privileges on *.* to <span class="string">'user'</span>@<span class="string">'%'</span> identified by <span class="string">'111111'</span> with grant option;</span><br><span class="line">GRANT USAGE ON *.* TO `user`@`%` REQUIRE X509;</span><br></pre></td></tr></table></figure>
-<p>对于具有REQUIRE  X509的帐户，客户端必须指定要连接的–ssl-key和–ssl-cert选项。  （建议但不要求也指定–ssl-ca，以便验证服务器提供的公共证书。）对于ISSUER和SUBJECT也是如此，因为这些REQUIRE选项意味着X509的要求。 </p>
-<p>好，现在无论是用图形化工具还是使用命令行客户端，都必须指定客户端的证书及密钥文件，加上账户密码，才能连接登录MySQL了。</p>
-<p><strong>参考资料：</strong></p>
-<p><a href="https://www.cnblogs.com/mysql-dba/p/7061300.html" target="_blank" rel="noopener">https://www.cnblogs.com/mysql-dba/p/7061300.html</a></p>
-<p><a href="https://dev.mysql.com/doc/refman/5.7/en/encrypted-connection-protocols-ciphers.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/encrypted-connection-protocols-ciphers.html</a></p>
-<p><a href="https://dev.mysql.com/doc/refman/5.6/en/encrypted-connection-protocols-ciphers.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.6/en/encrypted-connection-protocols-ciphers.html</a></p>
-<p><a href="https://dev.mysql.com/doc/refman/5.6/en/encrypted-connections.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.6/en/encrypted-connections.html</a></p>
-<p><a href="https://dev.mysql.com/doc/refman/5.7/en/encrypted-connections.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/encrypted-connections.html</a></p>
-<p>​</p>
+<h4 id="操作系统镜像"><a href="#操作系统镜像" class="headerlink" title="操作系统镜像"></a><strong>操作系统镜像</strong></h4><p>我这里用的是Ubuntu16.04 定制可以参考 官方的安装指南，定制自己seed文件，替换光盘中的preseed目录下的ubuntu-server.seed文件，文件名可以在内核参数中给定，如下面我是用默认的。</p>
+<p>文档：<br><a href="https://help.ubuntu.com/16.04/installation-guide/amd64/apb.html" target="_blank" rel="noopener">Automating the installation using preseeding</a></p>
+<p> 光盘中的isolinux.cfg文件也要编辑一下，位于光盘中的isolinux目录下。参考谷歌上的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">default autoinstall</span><br><span class="line">prompt 0</span><br><span class="line">timeout 100</span><br><span class="line"> </span><br><span class="line">menu title Custom Live CD</span><br><span class="line">menu background splash.png</span><br><span class="line">menu color title 1;37;44 #c0ffffff #00000000 std</span><br><span class="line"> </span><br><span class="line">label autoinstall</span><br><span class="line">menu label autoinstall - auto install ubuntu</span><br><span class="line">kernel /install/vmlinuz</span><br><span class="line">append initrd=/install/initrd.gz file=/cdrom/preseed/ubuntu-server.seed boot=install debian-installer/locale=en_US console-setup/ask_detect=false keyboard-configuration/layoutcode=us automatic-ubiquity splash --</span><br></pre></td></tr></table></figure>
+<p>最后用UltraISO这两个文件放到对应位置替换原文件即可。</p>
+<h4 id="系统安装光盘的网络共享"><a href="#系统安装光盘的网络共享" class="headerlink" title="系统安装光盘的网络共享"></a><strong>系统安装光盘的网络共享</strong></h4><p>用windows共享文件夹或者linux搭建一个NFS都可以，不过经测试，windows共享文件夹稳定些。</p>
+<p>Ansible操作主机挂载用 下面命令挂载共享</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t cifs //<span class="variable">$IP</span>/iso /mnt -o username=<span class="variable">$USER</span>,password=<span class="variable">$PASSWORD</span>,vers=2.0</span><br></pre></td></tr></table></figure>
+<h4 id="然后操作执行填好的playbook即可"><a href="#然后操作执行填好的playbook即可" class="headerlink" title="然后操作执行填好的playbook即可"></a><strong>然后操作执行填好的playbook即可</strong></h4><p>ansible-playbook -vvv yourplaybook.yaml</p>
+<p>playbook</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- hosts:</span> <span class="string">dell</span></span><br><span class="line"><span class="attr">  connection:</span> <span class="string">local</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">Update</span> <span class="string">Firmware</span> <span class="string">Inventory</span></span><br><span class="line"><span class="attr">  gather_facts:</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Update</span> <span class="string">firmware</span> <span class="string">from</span> <span class="string">a</span> <span class="string">repository</span> <span class="string">on</span> <span class="string">a</span> <span class="string">Network</span> <span class="string">Share</span></span><br><span class="line"><span class="attr">    dellemc_install_firmware:</span></span><br><span class="line"><span class="attr">       idrac_ip:</span> <span class="string">"$iDRACIP"</span></span><br><span class="line"><span class="attr">       idrac_user:</span> <span class="string">"xxxxx"</span> </span><br><span class="line"><span class="attr">       idrac_pwd:</span> <span class="string">"xxxxxxxxx"</span> </span><br><span class="line"><span class="attr">       share_name:</span> <span class="string">"$NFSIP:/fwtest"</span></span><br><span class="line"><span class="attr">       share_user:</span> <span class="string">"xxxx"</span></span><br><span class="line"><span class="attr">       share_pwd:</span> <span class="string">"xxxxx"</span></span><br><span class="line"><span class="attr">       share_mnt:</span> <span class="string">"/mnt"</span></span><br><span class="line"><span class="attr">       job_wait:</span> <span class="literal">True</span></span><br><span class="line"><span class="attr">       reboot:</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>多台机器写多个task，这里是例子。</p>
+<h4 id="执行效果"><a href="#执行效果" class="headerlink" title="执行效果"></a><strong>执行效果</strong></h4><p><img src="/2018/09/29/ansible-deployos/job.png" alt=""></p>
+<p>是不是很酷？</p>
 
       
     </div>
@@ -368,13 +337,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/08/01/mysql-ssl/">MySQL启用的SSL连接的思考与实践</a></p>
+        <p><span>本文标题:</span><a href="/2018/09/29/ansible-deployos/">Ansible批量给戴尔服务器安装系统</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
-        <p><span>发布时间:</span>2018-08-01, 18:21:00</p>
-        <p><span>最后更新:</span>2018-09-12, 16:59:08</p>
+        <p><span>发布时间:</span>2018-09-29, 15:04:00</p>
+        <p><span>最后更新:</span>2018-09-29, 15:11:46</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/08/01/mysql-ssl/" title="MySQL启用的SSL连接的思考与实践">https://zhusas.github.io/2018/08/01/mysql-ssl/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/01/mysql-ssl/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/29/ansible-deployos/" title="Ansible批量给戴尔服务器安装系统">https://zhusas.github.io/2018/09/29/ansible-deployos/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/09/29/ansible-deployos/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -386,16 +355,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/08/02/Linux的基础知识/">
-                    Linux的基础知识
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/07/09/mongodb/">
-                    MongoDB备份数据引擎升级
+                <a href="/2018/09/25/ansible-installfirmware/">
+                    Ansible升级DELL服务器的固件
                 </a>
             </div>
         
@@ -407,7 +370,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL启用的SSL连接的思考与实践"><span class="toc-number">1.</span> <span class="toc-text">MySQL启用的SSL连接的思考与实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#有必要使用为MySQL启用SSL吗？"><span class="toc-number">1.1.</span> <span class="toc-text">有必要使用为MySQL启用SSL吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#那么SSL如何工作在MySQL中的"><span class="toc-number">1.2.</span> <span class="toc-text">那么SSL如何工作在MySQL中的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实践"><span class="toc-number">1.3.</span> <span class="toc-text">实践</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前提条件"><span class="toc-number">1.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#操作系统镜像"><span class="toc-number">2.</span> <span class="toc-text">操作系统镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#系统安装光盘的网络共享"><span class="toc-number">3.</span> <span class="toc-text">系统安装光盘的网络共享</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#然后操作执行填好的playbook即可"><span class="toc-number">4.</span> <span class="toc-text">然后操作执行填好的playbook即可</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行效果"><span class="toc-number">5.</span> <span class="toc-text">执行效果</span></a></li></ol>
         
     </div>
     <style>
@@ -443,7 +406,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"MySQL启用的SSL连接的思考与实践　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Ansible批量给戴尔服务器安装系统　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -463,15 +426,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/08/02/Linux的基础知识/" title="上一篇: Linux的基础知识">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/07/09/mongodb/" title="下一篇: MongoDB备份数据引擎升级">
+            <a href="/2018/09/25/ansible-installfirmware/" title="下一篇: Ansible升级DELL服务器的固件">
                 <i class="fa fa-angle-right"></i>
             </a>
         
