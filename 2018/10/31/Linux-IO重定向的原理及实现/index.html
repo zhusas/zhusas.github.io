@@ -16,20 +16,22 @@
 
 
 
-<meta name="description" content="数据目录为 /data      1）共享名为shared，工作组为whmall vim /etc/samba/smb.conf">
-<meta name="keywords" content="linux,samba">
+<meta name="description" content="Linux I/O重定向的原理及实现 在Linux系统中，每个进程都有STDIN、STDOUT、STDERR这三种标准I/O。用过shell的同学们都知道，我们可以方便地对shell命令进行I/O重定向。 对Linux进程来讲，每个打开的文件都是通过文件描述符(File Descriptor)来标识的，内核为每个进程维护了一个File Descriptor Table（文件描述符表），这个表以FD">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="建立samba共享">
-<meta property="og:url" content="https://zhusas.github.io/2018/08/06/建立samba共享/index.html">
+<meta property="og:title" content="Linux IO重定向的原理及实现">
+<meta property="og:url" content="https://zhusas.github.io/2018/10/31/Linux-IO重定向的原理及实现/index.html">
 <meta property="og:site_name" content="Jerry&#39;s Blog">
-<meta property="og:description" content="数据目录为 /data      1）共享名为shared，工作组为whmall vim /etc/samba/smb.conf">
+<meta property="og:description" content="Linux I/O重定向的原理及实现 在Linux系统中，每个进程都有STDIN、STDOUT、STDERR这三种标准I/O。用过shell的同学们都知道，我们可以方便地对shell命令进行I/O重定向。 对Linux进程来讲，每个打开的文件都是通过文件描述符(File Descriptor)来标识的，内核为每个进程维护了一个File Descriptor Table（文件描述符表），这个表以FD">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://i.imgur.com/F4LHTsz.png">
-<meta property="og:updated_time" content="2018-08-06T06:07:34.810Z">
+<meta property="og:image" content="http://web.cs.ucla.edu/classes/fall08/cs111/scribe/4/FDT_diagram.JPG">
+<meta property="og:image" content="http://academic.udayton.edu/SaverioPerugini/courses/cps346/lecture_notes/images/beforeredir.png">
+<meta property="og:image" content="http://academic.udayton.edu/SaverioPerugini/courses/cps346/lecture_notes/images/afterredir.png">
+<meta property="og:updated_time" content="2018-10-31T08:23:19.918Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="建立samba共享">
-<meta name="twitter:description" content="数据目录为 /data      1）共享名为shared，工作组为whmall vim /etc/samba/smb.conf">
-<meta name="twitter:image" content="http://i.imgur.com/F4LHTsz.png">
+<meta name="twitter:title" content="Linux IO重定向的原理及实现">
+<meta name="twitter:description" content="Linux I/O重定向的原理及实现 在Linux系统中，每个进程都有STDIN、STDOUT、STDERR这三种标准I/O。用过shell的同学们都知道，我们可以方便地对shell命令进行I/O重定向。 对Linux进程来讲，每个打开的文件都是通过文件描述符(File Descriptor)来标识的，内核为每个进程维护了一个File Descriptor Table（文件描述符表），这个表以FD">
+<meta name="twitter:image" content="http://web.cs.ucla.edu/classes/fall08/cs111/scribe/4/FDT_diagram.JPG">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +63,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>建立samba共享 | Jerry&#39;s Blog</title>
+<title>Linux IO重定向的原理及实现 | Jerry&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -264,11 +266,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-建立samba共享" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Linux-IO重定向的原理及实现" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/08/06/建立samba共享/" class="article-date">
-      <time datetime="2018-08-06T06:06:00.000Z" itemprop="datePublished">2018-08-06</time>
+      <a href="/2018/10/31/Linux-IO重定向的原理及实现/" class="article-date">
+      <time datetime="2018-10-31T08:20:00.000Z" itemprop="datePublished">2018-10-31</time>
 </a>
 
 
@@ -283,7 +285,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      建立samba共享
+      Linux IO重定向的原理及实现
     </h1>
   
 
@@ -294,7 +296,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/samba/">samba</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -304,30 +306,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>数据目录为 /data     </p>
-<p><strong>1）共享名为shared，工作组为whmall</strong></p>
-<p>vim /etc/samba/smb.conf <a id="more"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">修改</span><br><span class="line">workgroup = MYGROUP</span><br><span class="line">为</span><br><span class="line">workgroup = whmall</span><br><span class="line"></span><br><span class="line">修改</span><br><span class="line">passdb backend = tdbsam</span><br><span class="line">为</span><br><span class="line">    passdb backend = smbpasswd</span><br><span class="line">    smb passwd file = /etc/samba/smbpasswd</span><br></pre></td></tr></table></figure>
-<p><strong>2)添加组develop，添加用户gentoo,centos和ubuntu，其中gentoo和centos以develop为附加组，ubuntu不属于develop组；密码均为用户名</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 samba]<span class="comment"># groupadd develop</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment"># useradd -G develop gentoo</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment"># useradd -G develop centos</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment"># useradd ubuntu</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment">#  echo "gentoo"|  passwd --stdin gentoo</span></span><br><span class="line">更改用户 gentoo 的密码 。</span><br><span class="line">passwd：所有的身份验证令牌已经成功更新。</span><br><span class="line">[root@CentOS7 samba]<span class="comment"># echo "centos"|  passwd --stdin centos</span></span><br><span class="line">更改用户 centos 的密码 。</span><br><span class="line">passwd：所有的身份验证令牌已经成功更新。</span><br><span class="line">[root@CentOS7 samba]<span class="comment"># echo "ubuntu"|  passwd --stdin ubuntu</span></span><br></pre></td></tr></table></figure>
-<p><strong>3)添加samba用户gentoo,centos和ubuntu，密码均为“111111”</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 samba]<span class="comment">#  smbpasswd -a gentoo</span></span><br><span class="line">New SMB password:</span><br><span class="line">Retype new SMB password:</span><br><span class="line">startsmbfilepwent_internal: file /etc/samba/smbpasswd did not exist. File successfully created.</span><br><span class="line">Added user gentoo.</span><br><span class="line">[root@CentOS7 samba]<span class="comment">#  smbpasswd -a centos</span></span><br><span class="line">New SMB password:</span><br><span class="line">Retype new SMB password:</span><br><span class="line">Added user centos.</span><br><span class="line">[root@CentOS7 samba]<span class="comment">#  smbpasswd -a ubuntu</span></span><br><span class="line">New SMB password:</span><br><span class="line">Retype new SMB password:</span><br><span class="line">Added user ubuntu.</span><br><span class="line">[root@CentOS7 samba]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-<p><strong>4)此samba共享shared仅允许develop组具有写权限，其他用户只能以只读方式访问</strong></p>
-<p>vim smb.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">末尾添加</span><br><span class="line">[shared]</span><br><span class="line">comment = whmall.com</span><br><span class="line">path = /data</span><br><span class="line">guest = yes </span><br><span class="line">writable = no</span><br><span class="line">write list = +develop</span><br></pre></td></tr></table></figure>
-<p><strong>5)此samba共享服务仅允许来自于172.16.0.0/16网络的主机访问； </strong></p>
-<p>vim smb.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">添加 </span><br><span class="line">hosts allow = 172.16.0.0/16</span><br></pre></td></tr></table></figure>
-<p>启动samba服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 samba]<span class="comment"># systemctl start smb.service</span></span><br><span class="line">[root@CentOS7 samba]<span class="comment"># systemctl status smb.service</span></span><br><span class="line">● smb.service - Samba SMB Daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/smb.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 四 2017-03-23 14:39:18 CST; 5s ago</span><br><span class="line"> Main PID: 101560 (smbd)</span><br><span class="line">   Status: <span class="string">"smbd: ready to serve connections..."</span></span><br><span class="line">   CGroup: /system.slice/smb.service</span><br><span class="line">           ├─101560 /usr/sbin/smbd</span><br><span class="line">           ├─101561 /usr/sbin/smbd</span><br><span class="line">           ├─101562 /usr/sbin/smbd</span><br><span class="line">           └─101563 /usr/sbin/smbd</span><br><span class="line"></span><br><span class="line">3月 23 14:39:18 CentOS7 systemd[1]: Starting Samba SMB Daemon...</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101557]: [2017/03/23 14:39:18.773050,  0] .....)</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101557]:   Unknown parameter encountered: <span class="string">"g..."</span></span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101557]: [2017/03/23 14:39:18.773117,  0] .....)</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101557]:   Ignoring unknown parameter <span class="string">"guest"</span></span><br><span class="line">3月 23 14:39:18 CentOS7 systemd[1]: smb.service: Supervising process 101...s.</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101560]: [2017/03/23 14:39:18.787425,  0] .....)</span><br><span class="line">3月 23 14:39:18 CentOS7 smbd[101560]:   STATUS=daemon <span class="string">'smbd'</span> finished sta...s</span><br><span class="line">3月 23 14:39:18 CentOS7 systemd[1]: Started Samba SMB Daemon.</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show <span class="keyword">in</span> full.</span><br></pre></td></tr></table></figure>
-<p><strong>PS： CentOS7最好关闭防火墙，还有SELinux</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]<span class="comment"># systemctl list-unit-files |grep fire</span></span><br><span class="line">firewalld.service                             enabled </span><br><span class="line">[root@CentOS7 ~]<span class="comment"># systemctl stop firewalld.service </span></span><br><span class="line">[root@CentOS7 ~]<span class="comment"># systemctl disable firewalld.service </span></span><br><span class="line">Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.</span><br><span class="line">Removed symlink /etc/systemd/system/basic.target.wants/firewalld.service.</span><br></pre></td></tr></table></figure>
-<p><strong>亲测OK，有图有真相</strong></p>
-<p>PS:这里我把hosts allow = 172.16.0.0/16  改为了hosts allow = 192.168.0.0/24</p>
-<p>workgroup 改为WORKGROUP</p>
-<p>这样就看到了，欧耶~</p>
-<p><img src="http://i.imgur.com/F4LHTsz.png" alt=""></p>
-
+        <h3 id="Linux-I-O重定向的原理及实现"><a href="#Linux-I-O重定向的原理及实现" class="headerlink" title="Linux I/O重定向的原理及实现"></a>Linux I/O重定向的原理及实现</h3><hr>
+<p>在Linux系统中，每个进程都有STDIN、STDOUT、STDERR这三种标准I/O。用过shell的同学们都知道，我们可以方便地对shell命令进行I/O重定向。</p>
+<p>对Linux进程来讲，每个打开的文件都是通过文件描述符(File Descriptor)来标识的，内核为每个进程维护了一个File Descriptor Table（文件描述符表），这个表以FD为索引，再进一步指向文件的详细信息。在进程创建时，内核为进程默认创建了0、1、2三个特殊的FD，这就是STDIN、STDOUT和STDERR，如下图所示意：</p>
+<p><img src="http://web.cs.ucla.edu/classes/fall08/cs111/scribe/4/FDT_diagram.JPG" alt=""> </p>
+<a id="more"></a>
+<p>平常说的Linux中的bash I/O重定向也就是让已创建的FD指向其他文件。比如，下面是对STDOUT重定向到testfile.txt前后内核文件描述符表变化的示意图：</p>
+<p><img src="http://academic.udayton.edu/SaverioPerugini/courses/cps346/lecture_notes/images/beforeredir.png" alt=""></p>
+<p><img src="http://academic.udayton.edu/SaverioPerugini/courses/cps346/lecture_notes/images/afterredir.png" alt=""></p>
+<h3 id="Linux下I-O重定向例子"><a href="#Linux下I-O重定向例子" class="headerlink" title="Linux下I/O重定向例子"></a>Linux下I/O重定向例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">输出重定向：&gt;</span><br><span class="line">   # 将stdout重定向到一个文件.</span><br><span class="line">   # 如果这个文件不存在, 那就创建, 否则就覆盖.</span><br><span class="line">   </span><br><span class="line">   举例：ls /etc &gt; etc-tree.list</span><br><span class="line">   		#创建一个包含/etc目录树列表的文件.</span><br><span class="line"></span><br><span class="line">输出重定向：&gt;&gt;</span><br><span class="line"> # 将stdout重定向到一个文件.</span><br><span class="line"> # 如果文件不存在, 那么就创建它, 如果存在, 那么就追加到文件后边.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 单行重定向命令(只会影响它们所在的行)</span><br><span class="line">1&gt;filename</span><br><span class="line">   # 重定向stdout到文件&quot;filename&quot;.</span><br><span class="line">1&gt;&gt;filename</span><br><span class="line">   # 重定向并追加stdout到文件&quot;filename&quot;.</span><br><span class="line">2&gt;filename</span><br><span class="line">   # 重定向stderr到文件&quot;filename&quot;.</span><br><span class="line">2&gt;&gt;filename</span><br><span class="line">   # 重定向并追加stderr到文件&quot;filename&quot;.</span><br><span class="line">&amp;&gt;filename</span><br><span class="line">   # 将stdout和stderr都重定向到文件&quot;filename&quot;.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">错误输出流重定向：2&gt;, 2&gt;&gt;</span><br><span class="line"></span><br><span class="line">合并正常输出流和错误输出流：</span><br><span class="line">COMMAND &amp;&gt; /path/to/somefile # 标准输出重定向到文件</span><br><span class="line"></span><br><span class="line">COMMAND &amp;&gt;&gt; /path/to/somefile # 标准输出覆盖重定向到文件</span><br><span class="line"></span><br><span class="line">COMMAND &gt; /path/to/somefile 2&gt;&amp;1  #覆盖输出</span><br><span class="line"></span><br><span class="line">COMMAND &gt;&gt; /path/to/somefile 2&gt;&amp;1 #追加输出</span><br><span class="line"></span><br><span class="line">COMMAND &gt;&gt; /path/to/somefile  #追加输出</span><br><span class="line"></span><br><span class="line">COMMAND file1 &gt; access 2&gt; error  #成功输出覆盖到access，错误输出到error</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -335,13 +322,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/08/06/建立samba共享/">建立samba共享</a></p>
+        <p><span>本文标题:</span><a href="/2018/10/31/Linux-IO重定向的原理及实现/">Linux IO重定向的原理及实现</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jerry Zhu</a></p>
-        <p><span>发布时间:</span>2018-08-06, 14:06:00</p>
-        <p><span>最后更新:</span>2018-08-06, 14:07:34</p>
+        <p><span>发布时间:</span>2018-10-31, 16:20:00</p>
+        <p><span>最后更新:</span>2018-10-31, 16:23:19</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/08/06/建立samba共享/" title="建立samba共享">https://zhusas.github.io/2018/08/06/建立samba共享/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/08/06/建立samba共享/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/10/31/Linux-IO重定向的原理及实现/" title="Linux IO重定向的原理及实现">https://zhusas.github.io/2018/10/31/Linux-IO重定向的原理及实现/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zhusas.github.io/2018/10/31/Linux-IO重定向的原理及实现/　　作者: Jerry Zhu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -353,16 +340,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/08/06/vsftp文件共享服务/">
-                    vsftp文件共享服务
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/">
-                    php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程
+                <a href="/2018/09/29/ansible-deployos/">
+                    Ansible批量给戴尔服务器安装系统
                 </a>
             </div>
         
@@ -374,7 +355,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-I-O重定向的原理及实现"><span class="toc-number">1.</span> <span class="toc-text">Linux I/O重定向的原理及实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux下I-O重定向例子"><span class="toc-number">2.</span> <span class="toc-text">Linux下I/O重定向例子</span></a></li></ol>
         
     </div>
     <style>
@@ -410,7 +391,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"建立samba共享　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Linux IO重定向的原理及实现　| Jerry's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -430,15 +411,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/08/06/vsftp文件共享服务/" title="上一篇: vsftp文件共享服务">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/08/06/php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程/" title="下一篇: php编译成httpd模块形式和php以fpm工作为独立守护进程的方式来支持httpd详细过程">
+            <a href="/2018/09/29/ansible-deployos/" title="下一篇: Ansible批量给戴尔服务器安装系统">
                 <i class="fa fa-angle-right"></i>
             </a>
         

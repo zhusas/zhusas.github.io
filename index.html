@@ -265,6 +265,73 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Linux-IO重定向的原理及实现" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/31/Linux-IO重定向的原理及实现/" class="article-date">
+      <time datetime="2018-10-31T08:20:00.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/31/Linux-IO重定向的原理及实现/">Linux IO重定向的原理及实现</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="Linux-I-O重定向的原理及实现"><a href="#Linux-I-O重定向的原理及实现" class="headerlink" title="Linux I/O重定向的原理及实现"></a>Linux I/O重定向的原理及实现</h3><hr>
+<p>在Linux系统中，每个进程都有STDIN、STDOUT、STDERR这三种标准I/O。用过shell的同学们都知道，我们可以方便地对shell命令进行I/O重定向。</p>
+<p>对Linux进程来讲，每个打开的文件都是通过文件描述符(File Descriptor)来标识的，内核为每个进程维护了一个File Descriptor Table（文件描述符表），这个表以FD为索引，再进一步指向文件的详细信息。在进程创建时，内核为进程默认创建了0、1、2三个特殊的FD，这就是STDIN、STDOUT和STDERR，如下图所示意：</p>
+<p><img src="http://web.cs.ucla.edu/classes/fall08/cs111/scribe/4/FDT_diagram.JPG" alt=""> </p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2018/10/31/Linux-IO重定向的原理及实现/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-ansible-deployos" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -847,72 +914,6 @@
       
         <p class="article-more-link">
           <a href="/2018/08/07/nsible和Docker-Swarm还有MongoDB-Replica-Set/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-LVS实战" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/08/06/LVS实战/" class="article-date">
-      <time datetime="2018-08-06T06:55:00.000Z" itemprop="datePublished">2018-08-06</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/06/LVS实战/">LVS实战</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="LVS基本简介"><a href="#LVS基本简介" class="headerlink" title="LVS基本简介"></a><strong>LVS基本简介</strong></h3><p>LB集群的架构和原理很简单，就是当用户的请求过来时，会直接分发到Director Server上，然后它把用户的请求根据设置好的调度算法，智能均衡地分发到后端真正服务器(real server)上。为了避免不同机器上用户请求得到的数据不一样，需要用到了共享存储，这样保证所有用户请求的数据是一样的。</p>
-<p>LVS是 Linux Virtual Server 的简称，也就是Linux虚拟服务器。这是一个由章文嵩博士发起的一个开源项目，它的官方网站是 <a href="http://www.linuxvirtualserver.org" target="_blank" rel="noopener">http://www.linuxvirtualserver.org</a> 现在 LVS 已经是 Linux 内核标准的一部分。使用 LVS 可以达到的技术目标是：通过 LVS 达到的负载均衡技术和 Linux 操作系统实现一个高性能高可用的 Linux 服务器集群，它具有良好的可靠性、可扩展性和可操作性。从而以低廉的成本实现最优的性能。LVS 是一个实现负载均衡集群的开源软件项目，LVS架构从逻辑上可分为调度层、Server集群层和共享存储。</p>
-<p><img src="https://i.imgur.com/006WF89.jpg" alt=""></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lvs/">lvs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/08/06/LVS实战/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
